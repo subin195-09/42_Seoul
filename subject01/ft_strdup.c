@@ -1,10 +1,10 @@
-#include <stdlib.h>
+#include "libft.h"
 
-char    *ft_strdup(char *src)
+char    *ft_strdup(const char *src)
 {
-    unsigned int    size;
-    int             i;
-    char            *dest;
+    size_t  size;
+    int     i;
+    char    *dest;
 
     i = 0;
     size = 0;
