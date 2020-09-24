@@ -1,6 +1,6 @@
 #include "libft.h"
 
-int     tolower(int c)
+int     ft_tolower(int c)
 {
     int change;
 
