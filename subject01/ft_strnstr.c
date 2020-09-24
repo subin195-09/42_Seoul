@@ -1,18 +1,25 @@
-#include <string.h>
+#include "libft.h"
 
-char *strnstr(const char *big, const char *little, size_t len);
+char    *strnstr(const char *big, const char *little, size_t len)
+{
+    int i;
+    int j;
 
- 
-/*
-이 함수는 big 문자열에 len 길이 중에서 little 문자열을 찾는 것이다.
-
- 
-
-반환 값
-
-만약 little 값이 비어 있으면 big를 반환한다.
-
-big 문자열에서 little 문자열을 찾지 못하면 NULL을 반환한다.
-
-little 문자열을 찾으면 big에 little 문자열 시작 부분 위치 주소를 반환한다.
-*/
+    i = 0;
+    j = 0;
+    if(!*little)
+        return (big);
+    while (big[i] && i < len)
+    {
+        while (little[j] && big[i] == little[j] && i + j < len)
+        {
+            i++;
+            j++;
+        }
+        if (!little[j])
+            return (&big[i - j]);
+        i = i - j + 1;
+        j = 0;
+    }
+    return (0);
+}

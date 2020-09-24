@@ -1,13 +1,13 @@
 #include "libft.h"
 
-char    *ft_strchr(const char *str, char c)
+char    *ft_strchr(const char *str, int c)
 {
     int i;
 
     i = 0;
     while (str[i])
     {
-        if (str[i] == c)
+        if (str[i] == (unsigned char)c)
             return (&str[i]);
         i++;
     }

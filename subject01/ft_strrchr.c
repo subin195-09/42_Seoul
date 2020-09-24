@@ -1,6 +1,6 @@
 #include "libft.h"
 
-char    *ft_strrchr(const char *str, char c)
+char    *ft_strrchr(const char *str, int c)
 {
     int i;
 
@@ -10,7 +10,7 @@ char    *ft_strrchr(const char *str, char c)
     i--;
     while (i >= 0)
     {
-        if (str[i] == c)
+        if (str[i] == (unsigned char)c)
             return (&str[i]);
         i--;
     }
