@@ -7,10 +7,8 @@ char    *ft_strdup(const char *src)
     char    *dest;
 
     i = 0;
-    size = 0;
-    while (src[size])
-        size++;
-    if (!(dest = (char *)malloc(sizeof(char) * size)))
+    size = ft_strlen(src);
+    if (!(dest = malloc(size + 1)))
         return (0);
     while (src[i])
     {
