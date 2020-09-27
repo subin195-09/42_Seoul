@@ -1,0 +1,23 @@
+NAME = libft.a
+
+CFLAGS = -Wall -Werror -Wextra
+CC = gcc
+
+AR = ar rcs
+RM = rm -f
+
+// 보너스 파일, 일반 파일을 구분지을 방법 찾아보기
+// wildcard 찾아보기
+BSRCS = *lst*.c
+SRCS = *.c
+
+
+all : $(NAME)
+
+clean : $(RM) $(OBJS) $(OBJS_B)
+
+fclean : clean &(RM) $(NAME)
+
+re : clean all
+
+
