@@ -4,6 +4,12 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+typedef struct      s_list
+{
+    void            *content;
+    struct s_list   *next;
+}                   t_list;
+
 void    *ft_memset(void *p, int value, size_t size);
 void    ft_bzero(void *p, size_t size);
 void    *ft_memcpy(void *dest, const void *src, size_t size);
