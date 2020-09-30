@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 16:59:29 by skim              #+#    #+#             */
-/*   Updated: 2020/09/28 16:59:31 by skim             ###   ########.fr       */
+/*   Updated: 2020/09/30 19:39:44 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	*ft_memchr(const void *p, int value, size_t n)
 {
-	unsigned char *temp;
+	unsigned char *up;
 
-	temp = (unsigned char *)p;
+	up = (unsigned char *)p;
 	while (n--)
 	{
-		if (*temp == (unsigned char)value)
-			return (p);
-		temp++;
+		if (*up == (unsigned char)value)
+			return (up);
+		up++;
 	}
 	return (0);
 }
