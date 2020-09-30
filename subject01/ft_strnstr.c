@@ -1,25 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/30 17:16:41 by skim              #+#    #+#             */
+/*   Updated: 2020/09/30 17:27:33 by skim             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-char    *strnstr(const char *big, const char *little, size_t len)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-    int i;
-    int j;
+	size_t i;
+	size_t j;
 
-    i = 0;
-    j = 0;
-    if(!*little)
-        return (big);
-    while (big[i] && i < len)
-    {
-        while (little[j] && big[i] == little[j] && i + j < len)
-        {
-            i++;
-            j++;
-        }
-        if (!little[j])
-            return (&big[i - j]);
-        i = i - j + 1;
-        j = 0;
-    }
-    return (0);
+	i = 0;
+	if (!little[i])
+		return ((char *)big);
+	while (big[i] && i < len)
+	{
+		j = 0;
+		while (little[j] && big[i] == little[j] && i < len)
+		{
+			i++;
+			j++;
+		}
+		if (!little[j])
+			return ((char *)&big[i - j]);
+		i = i - j + 1;
+	}
+	return (0);
 }

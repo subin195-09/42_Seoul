@@ -1,14 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/30 18:13:21 by skim              #+#    #+#             */
+/*   Updated: 2020/09/30 18:13:25 by skim             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-int     ft_lstsize(t_list *lst)
+int		ft_lstsize(t_list *lst)
 {
-    int     count;
+	int	count;
 
-    count = 0;
-    while(lst)
-    {
-        lst = lst->next;
-        count++;
-    }
-    return (count);
+	count = 0;
+	while (lst)
+	{
+		lst = lst->next;
+		count++;
+	}
+	return (count);
 }

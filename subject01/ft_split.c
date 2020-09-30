@@ -1,39 +1,58 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/30 16:07:56 by skim              #+#    #+#             */
+/*   Updated: 2020/09/30 16:07:57 by skim             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-char    **ft_split(const char *s, char c)
+static int	check_word(const char *s, char c)
 {
-    char **result;
-    int start;
-    int i;
-    int j;
-    int row;
+	int i;
+	int row;
 
-    i = 0;
-    row = 0;
-    while (s[i])
-    {
-        if (s[i] == c)
-            row++;
-        i++;
-    }
-    if (!(result = (char **)malloc(sizeof(char *) * row + 2)))
-        return (0);
-    i = 0;
-    j = 0;
-    while (s[i])
-    {
-        if (s[i] == c)
-            i++;
-        else
-        {
-            start = i;
-            while (s[i] && s[i] != c)
-                i++;
-            if (!(result[j] = malloc(i - start + 2)))
-                return (0);
-            ft_strlcpy(result[j++], s + start, i - start + 1);
-        }
-    }
-    result[j] = '\0';
-    return (result);
+	i = 0;
+	row = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+			row++;
+		i++;
+	}
+	return (row);
+}
+
+char		**ft_split(const char *s, char c)
+{
+	char	**result;
+	int		start;
+	int		i;
+	int		row;
+
+	i = 0;
+	row = check_word(s, c);
+	if (!(result = (char **)malloc(sizeof(char *) * row + 2)))
+		return (0);
+	row = 0;
+	while (s[i])
+	{
+		if (s[i] != c)
+		{
+			start = i;
+			while (s[i] && s[i] != c)
+				i++;
+			if (!(result[row] = malloc(i - start + 2)))
+				return (0);
+			ft_strlcpy(result[row++], s + start, i - start + 1);
+		}
+		i++;
+	}
+	result[row] = '\0';
+	return (result);
 }
