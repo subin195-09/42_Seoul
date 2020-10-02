@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 16:23:41 by skim              #+#    #+#             */
-/*   Updated: 2020/10/02 16:31:59 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/02 16:37:03 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	int		s2_len;
 	char	*result;
 
-	if (!s1 && !s2)
+	if (!s1 || !s2)
 		return (0);
 	s1_len = ft_strlen(s1);
 	s2_len = ft_strlen(s2);
