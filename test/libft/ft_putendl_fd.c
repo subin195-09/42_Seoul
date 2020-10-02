@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 15:04:09 by skim              #+#    #+#             */
-/*   Updated: 2020/10/02 15:26:31 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/02 16:45:02 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_putendl_fd(char *s, int fd)
 {
-	if (!*s)
+	if (!s)
 		return ;
 	write(fd, s, ft_strlen(s));
 	write(fd, "\n", 1);
