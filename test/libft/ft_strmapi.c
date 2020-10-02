@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 16:42:30 by skim              #+#    #+#             */
-/*   Updated: 2020/10/02 15:25:46 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/02 16:39:51 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_strmapi(const char *s, char (*f)(unsigned int, char))
 	char			*result;
 	unsigned int	i;
 
-	if (!*s || *f)
+	if (!s || !f)
 		return (0);
 	if (!(result = malloc(ft_strlen(s) + 1)))
 		return (0);
