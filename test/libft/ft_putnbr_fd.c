@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 15:07:04 by skim              #+#    #+#             */
-/*   Updated: 2020/10/02 15:40:34 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/02 15:59:47 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	ft_putnbr_fd(int n, int fd)
 {
 	long long	temp;
-	char		sign;
 
 	temp = n;
 	temp = (temp >= 0) ? temp : -temp;
@@ -28,7 +27,8 @@ void	ft_putnbr_fd(int n, int fd)
 	}
 	while (temp > 0)
 	{
-		write(fd, (temp % 10) + '0', 1);
+		char temp_write = (temp % 10) + '0';
+		write(fd, &temp_write, 1);
 		temp /= 10;
 	}
 
