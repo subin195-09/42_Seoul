@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:34:34 by skim              #+#    #+#             */
-/*   Updated: 2020/10/02 15:04:14 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/02 16:30:50 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 	size_t	s_len;
 	char	*substr;
 
-	if (!*s || !len)
+	if (!s || !len)
 		return (0);
 	s_len = ft_strlen(s);
 	if (start + len > s_len)
