@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 18:10:06 by skim              #+#    #+#             */
-/*   Updated: 2020/10/03 00:46:27 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/03 00:49:07 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	t_list	*temp_curr;
 	t_list	*temp_next;
 
+	if (!lst || !f || !del)
+		return (0);
 	if (!(head = ft_lstnew(f(lst->content))))
 		return (0);
-	temp_curr = head;
+	temp_curr = lst;
 	temp_next = lst->next;
 	while (temp_next)
 	{
