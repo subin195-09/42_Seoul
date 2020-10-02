@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 15:07:54 by skim              #+#    #+#             */
-/*   Updated: 2020/09/29 15:08:02 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/02 15:26:16 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,7 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
+	if (!*s)
+		return ;
 	write(fd, s, ft_strlen(s));
 }

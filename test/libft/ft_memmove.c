@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 14:52:19 by skim              #+#    #+#             */
-/*   Updated: 2020/10/01 17:36:04 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/02 14:16:17 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	if (!dest && !src && !n)
-		return (0);
 	if (dest <= src)
 	{
 		while (n--)

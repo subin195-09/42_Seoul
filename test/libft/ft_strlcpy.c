@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 18:24:00 by skim              #+#    #+#             */
-/*   Updated: 2020/09/28 18:24:06 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/02 14:49:36 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 
 	i = 0;
 	src_len = 0;
+	if (!dest[i])
+		return (0);
 	while (src[src_len])
 		src_len++;
 	if (size > 0)
