@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:27:03 by skim              #+#    #+#             */
-/*   Updated: 2020/10/02 16:17:26 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/01 17:15:47 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@ void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
 	unsigned char *s;
 	unsigned char *d;
 
+	if (!dest && !src)
+		return (0);
 	s = (unsigned char *)src;
 	d = (unsigned char *)dest;
-	while (n)
+	while (n--)
 	{
-		if (*s == (unsigned char)c)
-			return ((void *)d + 1);
+		if (*s == c)
+			return (d + 1);
 		*d++ = *s++;
-		n--;
 	}
 	return (0);
 }

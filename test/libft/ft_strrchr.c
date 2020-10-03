@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:22:24 by skim              #+#    #+#             */
-/*   Updated: 2020/10/02 16:23:20 by skim             ###   ########.fr       */
+/*   Updated: 2020/09/30 17:22:25 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,14 @@
 
 char	*ft_strrchr(const char *str, int c)
 {
-	char	*str_p;
-	int		i;
+	int	i;
 
-	str_p = (char *)str;
-	i = ft_strlen(str);
-	if ((char)c == 0)
-		return (str_p + i);
-	while (i--)
+	i = ft_strlen(str) - 1;
+	while (i >= 0)
 	{
-		if (str_p[i] == (char)c)
-			return (&str_p[i]);
+		if (str[i] == (unsigned char)c)
+			return ((char *)&str[i]);
+		i--;
 	}
 	return (0);
 }
