@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 16:18:52 by skim              #+#    #+#             */
-/*   Updated: 2020/09/30 16:18:53 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/03 15:13:30 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 char	*ft_strchr(const char *str, int c)
 {
-	char *temp;
+	char *str_p;
 
-	temp = (char *)str;
-	while (*temp)
+	str_p = (char *)str;
+	while (*str_p != c)
 	{
-		if (*temp == (unsigned char)c)
-			return (temp);
-		temp++;
+		if (!*str_p)
+			return (0);
+		str_p++;
 	}
-	return (0);
+	return (str_p);
 }
