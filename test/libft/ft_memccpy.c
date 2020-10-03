@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:27:03 by skim              #+#    #+#             */
-/*   Updated: 2020/10/03 16:06:46 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/03 16:10:37 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
 	i = 0;
 	while (i < n)
 	{
+		d[i] = s[i];
 		if (s[i] == c)
 			return (&d[i] + 1);
-		d[i] = s[i];
 		i++;
 	}
 	return (0);
