@@ -6,13 +6,13 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 16:07:56 by skim              #+#    #+#             */
-/*   Updated: 2020/10/03 16:58:41 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/03 17:07:12 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	check_word(const char *s, char c)
+static int		check_word(const char *s, char c)
 {
 	int i;
 	int row;
@@ -28,21 +28,15 @@ static int	check_word(const char *s, char c)
 	return (row);
 }
 
-char		**ft_split(const char *s, char c)
+static void		make_split(char **result, const char *s, char c)
 {
-	char	**result;
-	int		start;
-	int		i;
-	int		row;
+	int	i;
+	int	row;
+	int	start;
 
-	if (!s)
-		return (0);
-	i = -1;
-	row = check_word(s, c);
-	if (!(result = (char **)malloc(sizeof(char *) * row + 2)))
-		return (0);
+	i = 0;
 	row = 0;
-	while (s[i++])
+	while (s[i])
 	{
 		if (s[i] != c)
 		{
@@ -55,5 +49,18 @@ char		**ft_split(const char *s, char c)
 		}
 	}
 	result[row] = 0;
+}
+
+char			**ft_split(const char *s, char c)
+{
+	char	**result;
+	int		row;
+
+	if (!s)
+		return (0);
+	row = check_word(s, c);
+	if (!(result = (char **)malloc(sizeof(char *) * row + 2)))
+		return (0);
+	make_split(result, s, c);
 	return (result);
 }

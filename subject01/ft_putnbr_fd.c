@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 15:07:04 by skim              #+#    #+#             */
-/*   Updated: 2020/10/03 16:52:05 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/03 17:00:01 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void		write_num(long long temp, int fd)
 	}
 }
 
-void		ft_putnbr_fd(int n, int fd)
+void			ft_putnbr_fd(int n, int fd)
 {
 	long long	temp;
 
