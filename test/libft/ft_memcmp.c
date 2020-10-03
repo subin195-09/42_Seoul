@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 16:31:26 by skim              #+#    #+#             */
-/*   Updated: 2020/09/28 16:52:31 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/03 14:50:45 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int		ft_memcmp(const void *s1, const void *s2, size_t n)
 	while (one && two && n--)
 	{
 		if (*one != *two)
-			return (*one - *two);
+			break;
 		one++;
 		two++;
 	}
-	return (0);
+	return (*one - *two);
 }
