@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 15:07:04 by skim              #+#    #+#             */
-/*   Updated: 2020/10/03 15:10:39 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/03 16:52:05 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,19 @@
 
 static void		write_num(long long temp, int fd)
 {
+	char	temp_write;
+
 	if (temp == 0)
 		return ;
 	else
 	{
 		write_num(temp / 10, fd);
-		char temp_write = (temp % 10) + '0';
+		temp_write = (temp % 10) + '0';
 		write(fd, &temp_write, 1);
 	}
 }
 
-void	ft_putnbr_fd(int n, int fd)
+void		ft_putnbr_fd(int n, int fd)
 {
 	long long	temp;
 
