@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 14:52:19 by skim              #+#    #+#             */
-/*   Updated: 2020/10/03 16:21:52 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/05 21:53:57 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,24 @@
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
+	unsigned char	*dp;
+	unsigned char	*sp;
+
 	if (!dest && !src)
 		return (0);
-	if (dest <= src)
+	dp = (unsigned char *)dest;
+	sp = (unsigned char *)src;
+	if (dp <= sp)
 	{
 		while (n--)
-			*(char *)dest++ = *(char *)src++;
+			*dp++ = *sp++;
 	}
 	else
 	{
-		dest += n;
-		src += n;
+		dp += n;
+		sp += n;
 		while (n--)
-			*(char *)--dest = *(char *)--src;
+			*--dp = *--sp;
 	}
 	return (dest);
 }
