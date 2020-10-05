@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 14:28:41 by skim              #+#    #+#             */
-/*   Updated: 2020/09/30 15:23:21 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/05 17:24:54 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,8 @@ char		*ft_itoa(int n)
 
 	if (n == 0)
 		return (ft_strdup("0"));
-	if (n == -2147483648)
-		return (ft_strdup("-2147483648"));
-	temp = (n >= 0) ? n : -n;
+	temp = n;
+	temp = (temp >= 0) ? temp : -temp;
 	sign = (n >= 0) ? 0 : 1;
 	count = count_num(n);
 	if (!(result = malloc(sign + count + 1)))
