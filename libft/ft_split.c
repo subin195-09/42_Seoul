@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 16:07:56 by skim              #+#    #+#             */
-/*   Updated: 2020/10/06 18:34:49 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/06 18:45:52 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ char			**ft_split(const char *s, char c)
 		return (0);
 	if (!(result = (char **)malloc(check_word(s, c) + 1)))
 		return (0);
-	result[row] = 0;
 	i = 0;
 	row = 0;
 	while (s[i])
@@ -59,5 +58,6 @@ char			**ft_split(const char *s, char c)
 		}
 		i++;
 	}
+	result[row] = 0;
 	return (result);
 }
