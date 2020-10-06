@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 16:07:56 by skim              #+#    #+#             */
-/*   Updated: 2020/10/06 23:10:29 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/06 23:15:08 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ char			**ft_split(const char *s, char c)
 	row = 0;
 	while (*s)
 	{
-		if (*s != c)
+		if (*s == c)
+			s++;
+		else
 		{
 			start = (char *)s;
 			while (*s && *s != c)
@@ -54,8 +56,6 @@ char			**ft_split(const char *s, char c)
 				return (0);
 			ft_strlcpy(result[row++], start, s - start + 1);
 		}
-		else
-			s++;
 	}
 	result[row] = 0;
 	return (result);
