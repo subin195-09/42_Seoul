@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 16:07:56 by skim              #+#    #+#             */
-/*   Updated: 2020/10/06 18:09:27 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/06 18:34:49 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,35 @@
 static int		check_word(const char *s, char c)
 {
 	int i;
-	int row;
+	int word;
 
 	i = 0;
-	row = 0;
+	word = 0;
 	while (s[i])
 	{
 		if (s[i] != c)
 		{
-			row++;
+			word++;
 			while (s[i] && s[i] != c)
 				i++;
 		}
 		i++;
 	}
-	return (row);
+	return (word);
 }
 
-static int		make_split(char **result, const char *s, char c)
+char			**ft_split(const char *s, char c)
 {
-	int	i;
-	int	row;
-	int	start;
+	char	**result;
+	int		row;
+	int 	i;
+	int		start;
 
+	if (!s)
+		return (0);
+	if (!(result = (char **)malloc(check_word(s, c) + 1)))
+		return (0);
+	result[row] = 0;
 	i = 0;
 	row = 0;
 	while (s[i])
@@ -53,21 +59,5 @@ static int		make_split(char **result, const char *s, char c)
 		}
 		i++;
 	}
-	result[row] = 0;
-	return (1);
-}
-
-char			**ft_split(const char *s, char c)
-{
-	char	**result;
-	int		row;
-
-	if (!s)
-		return (0);
-	row = check_word(s, c);
-	if (!(result = (char **)malloc(sizeof(char *) * row + 2)))
-		return (0);
-	if (!(make_split(result, s, c)))
-		return (0);
 	return (result);
 }
