@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 16:07:56 by skim              #+#    #+#             */
-/*   Updated: 2020/10/05 22:38:12 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/06 18:09:27 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ static int		check_word(const char *s, char c)
 
 	i = 0;
 	row = 0;
-	while (s[i] == c)
-		i++;
-	while (s[i] != c && s[i])
+	while (s[i])
 	{
-		row++;
-		while (s[i] != c && s[i])
-			i++;
-		while (s[i] == c && s[i])
-			i++;
+		if (s[i] != c)
+		{
+			row++;
+			while (s[i] && s[i] != c)
+				i++;
+		}
+		i++;
 	}
 	return (row);
 }
