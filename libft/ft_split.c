@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 16:07:56 by skim              #+#    #+#             */
-/*   Updated: 2020/10/09 12:47:41 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/09 12:49:09 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ static int		make_split(char **result, const char *s, char c)
 			ft_strlcpy(result[row], &s[start], i - start + 1);
 			row++;
 		}
-		else
-			i++;
+		i++;
 	}
 	result[row] = 0;
 	return (1);
