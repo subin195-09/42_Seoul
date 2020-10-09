@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 16:07:56 by skim              #+#    #+#             */
-/*   Updated: 2020/10/09 12:22:46 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/09 12:24:09 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char			**ft_split(const char *s, char c)
 	{
 		if (*s != c)
 		{
-			start = s;
+			start = (char *)s;
 			while (*s && *s != c)
 				s++;
 			if (!(result[row] = malloc(s - start + 1)))
