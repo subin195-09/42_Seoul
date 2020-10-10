@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 16:07:56 by skim              #+#    #+#             */
-/*   Updated: 2020/10/10 21:20:50 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/10 21:24:44 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int		count_size(const char *s, char c)
 	return (size);
 }
 
-static int		all_free(char **result, int row)
+static char**	all_free(char **result, int row)
 {
 	int i;
 
