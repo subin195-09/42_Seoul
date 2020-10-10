@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 16:07:56 by skim              #+#    #+#             */
-/*   Updated: 2020/10/10 05:15:00 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/10 21:20:50 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,17 @@ static int		count_size(const char *s, char c)
 	return (size);
 }
 
+static int		all_free(char **result, int row)
+{
+	int i;
+
+	i = 0;
+	while (i < row)
+		free(result[i++]);
+	free(result);
+	return (0);
+}
+
 char			**ft_split(const char *s, char c)
 {
 	char	**result;
@@ -63,7 +74,7 @@ char			**ft_split(const char *s, char c)
 		{
 			size = count_size(s, c);
 			if (!(result[row] = malloc(size + 1)))
-				return (0);
+				return (all_free(result, row));
 			ft_strlcpy(result[row++], s, size + 1);
 			while (*s && *s != c)
 				s++;
