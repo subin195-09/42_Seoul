@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:34:34 by skim              #+#    #+#             */
-/*   Updated: 2020/10/05 22:06:59 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/11 18:41:29 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 	if (!s)
 		return (0);
 	s_len = ft_strlen(s);
-	if (start + len > s_len)
+	if (start > s_len)
 		return (ft_strdup(""));
 	if (!(substr = malloc(len + 1)))
 		return (0);
