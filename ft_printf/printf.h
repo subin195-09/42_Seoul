@@ -6,11 +6,15 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:20:34 by skim              #+#    #+#             */
-/*   Updated: 2020/10/13 20:21:19 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/14 15:34:44 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PRINTF_H
 # define PRINTF_H
+
+# include <stdlib.h>
+# include <unistd.h>
+# include <stdarg.h>
 
 #endif
