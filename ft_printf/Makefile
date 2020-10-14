@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 18:09:00 by skim              #+#    #+#              #
-#    Updated: 2020/10/15 01:30:37 by skim             ###   ########.fr        #
+#    Updated: 2020/10/15 04:29:12 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,26 +62,26 @@ SRCS_LIB = ft_memset.c \
 
 OBJS_LIB = $(addprefix $(LIB_DIR)/, $(SRCS_LIB:.c=.o))
 OBJS = $(SRCS:.c=.o)
-OBJS_DIR = ./objects
 
 all : $(NAME)
 
 $(NAME) : $(OBJS) $(OBJS_LIB)
-	$(AR) $@ $(addprefix $(OBJS_DIR)/, $(notdir $^))
+	$(AR) $@ $^
 
-$(OBJS_DIR) :
-	mkdir $(OBJS_DIR)
-
-.c.o : $(OBJS_DIR) $(SRCS_LIB) $(HEADER_LIB) $(SRCS) $(HEADER)
+.c.o : $(SRCS_LIB) $(HEADER_LIB) $(SRCS) $(HEADER)
 	$(CC) $(CFLAGS) -I $(LIB_DIR) -c $< -o $@
-	mv $@ $(OBJS_DIR)
 
 clean :
-	$(RM) -r -d $(OBJS_DIR)
+	$(RM) $(OBJS_LIB) $(OBJS)
 
 fclean : clean
 	$(RM) $(NAME)
 
 re : fclean all
+
+test :
+	@($(CC) $(CFLAGS) -I $(LIB_DIR) test.c $(SRCS) $(addprefix $(LIB_DIR)/, $(SRCS_LIB)))
+	@(./a.out)
+	@(rm a.out)
 
 .PHONY : all clean fclean re
