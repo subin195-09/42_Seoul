@@ -1,29 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_check_flag.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/30 18:01:01 by skim              #+#    #+#             */
-/*   Updated: 2020/10/10 05:34:34 by skim             ###   ########.fr       */
+/*   Created: 2020/10/14 18:37:42 by skim              #+#    #+#             */
+/*   Updated: 2020/10/14 22:36:30 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "printf.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+int		check_flag(const char **format)
 {
-	t_list	*curr;
+	int count_bytes;
 
-	if (!lst)
-		return ;
-	while (*lst)
+	count_bytes = 0;
+	if (**format == 'L')
 	{
-		del((*lst)->content);
-		curr = *lst;
-		*lst = curr->next;
-		free(curr);
+
 	}
-	*lst = 0;
+	else if (**format == ' ')
+	{
+
+	}
+	else if (**format >= '0' && **format <= '9')
+	{
+
+	}
+	else if (**format == '+')
+	{
+
+	}
+	else if (**format == '.')
+	{
+
+	}
+	else if (**format == '#')
+	{
+
+	}
+	else
+	{
+
+	}
+	return (count_bytes);
 }
