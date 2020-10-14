@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:34:34 by skim              #+#    #+#             */
-/*   Updated: 2020/10/14 16:54:06 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/14 17:43:55 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,3 +26,4 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 		return (0);
 	ft_strlcpy(substr, s + start, len + 1);
 	return (substr);
+}
