@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 18:09:00 by skim              #+#    #+#              #
-#    Updated: 2020/10/15 00:08:43 by skim             ###   ########.fr        #
+#    Updated: 2020/10/15 01:30:37 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,17 +67,17 @@ OBJS_DIR = ./objects
 all : $(NAME)
 
 $(NAME) : $(OBJS) $(OBJS_LIB)
-	$(AR) $@ $^
-
-.c.o : $(SRCS_LIB) $(HEADER_LIB) $(SRCS) $(HEADER) $(OBJS_DIR)
-	$(CC) $(CFLAGS) -I $(LIB_DIR) -c $^ -o $@
-	mv $@ ./objects
+	$(AR) $@ $(addprefix $(OBJS_DIR)/, $(notdir $^))
 
 $(OBJS_DIR) :
 	mkdir $(OBJS_DIR)
 
+.c.o : $(OBJS_DIR) $(SRCS_LIB) $(HEADER_LIB) $(SRCS) $(HEADER)
+	$(CC) $(CFLAGS) -I $(LIB_DIR) -c $< -o $@
+	mv $@ $(OBJS_DIR)
+
 clean :
-	$(RM) -d objects
+	$(RM) -r -d $(OBJS_DIR)
 
 fclean : clean
 	$(RM) $(NAME)
