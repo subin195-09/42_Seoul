@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 18:09:00 by skim              #+#    #+#              #
-#    Updated: 2020/10/16 18:14:41 by skim             ###   ########.fr        #
+#    Updated: 2020/10/16 21:46:03 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ RM = rm -f
 
 LIB_DIR = ./libft
 
-SRCS = ft_check_format.c ft_printf.c
+SRCS = ft_check_format.c ft_printf.c 
 
 OBJS = $(SRCS:.c=.o)
 

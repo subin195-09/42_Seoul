@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 18:37:42 by skim              #+#    #+#             */
-/*   Updated: 2020/10/16 18:34:27 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/16 22:11:12 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,22 @@ void	init_info(s_info info)
 {
 	info.flag_in = '\0';
 	info.width = 0;
+	info.precision = 0;
 }
 
-int		check_width(const char **format)
+int		check_prewidth(const char **format)
 {
-	int width;
+	int prewidth;
 	int temp;
 
-	width = ft_atoi(*format);
-	temp = width;
+	prewidth = ft_atoi(*format);
+	temp = prewidth;
 	while (temp > 0)
 	{
 		temp /= 10;
-		*format++;
+		(*format)++;
 	}
-	return (width);
+	return (prewidth);
 }
 
 int		check_type(const char **format)
@@ -73,18 +74,30 @@ int		check_specifier(const char **format, va_list var)
 			return (0);
 		if (**format == ' ' || **format == '0')
 		{
-			info.flag_in = **format;
-			*format++;
+			info.flag_in = (char)**format;
+			(*format)++;
 		}
 		if (**format >= '1' && **format <= '9')
-			info.width = (check_type(**format));
+			info.width = check_prewidth(format);
 		if (**format == '+')
 			return (0);
 		if (**format == '.')
-			return (0);
+		{
+			(*format)++;
+			info.precision = check_prewidth(format);
+		}
 		if (**format == '#')
 			return (0);
 	}
-	format_write(format, var, info);
+	va_arg(var, int);
+	(*format)++;
+	write(1, "flag_in : ", ft_strlen("flag_in : "));
+	ft_putchar_fd(info.flag_in, 1);
+	write(1, "\nwidth : ", ft_strlen("\nwidth : "));
+	ft_putnbr_fd(info.width, 1);
+	write(1, "\nprecision : ", ft_strlen("\nprecision : "));
+	ft_putnbr_fd(info.precision, 1);
+	write(1, "\n", 1);
+	//format_write(format, var, info);
 	return (count_bytes);
 }

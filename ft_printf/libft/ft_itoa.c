@@ -6,13 +6,13 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 14:28:41 by skim              #+#    #+#             */
-/*   Updated: 2020/10/05 17:24:54 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/16 21:09:35 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	count_num(int n)
+int			count_num(int n)
 {
 	int count;
 
