@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.h                                           :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/13 20:20:34 by skim              #+#    #+#             */
-/*   Updated: 2020/10/16 15:29:01 by skim             ###   ########.fr       */
+/*   Created: 2020/09/30 18:03:32 by skim              #+#    #+#             */
+/*   Updated: 2020/10/10 05:16:50 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_H
-# define PRINTF_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdarg.h>
-# include "libft.h"
-
-int		ft_printf(const char *format, ...);
-int		write_format(const char **format, va_list var);
-int		check_flag(const char **format, va_list var);
-
-#endif
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
+{
+	if (!lst)
+		return ;
+	del(lst->content);
+	free(lst);
+}

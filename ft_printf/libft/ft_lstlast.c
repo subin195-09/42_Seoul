@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.h                                           :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/13 20:20:34 by skim              #+#    #+#             */
-/*   Updated: 2020/10/16 15:29:01 by skim             ###   ########.fr       */
+/*   Created: 2020/09/30 18:04:28 by skim              #+#    #+#             */
+/*   Updated: 2020/10/10 05:31:13 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_H
-# define PRINTF_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdarg.h>
-# include "libft.h"
-
-int		ft_printf(const char *format, ...);
-int		write_format(const char **format, va_list var);
-int		check_flag(const char **format, va_list var);
-
-#endif
+t_list	*ft_lstlast(t_list *lst)
+{
+	while (lst)
+	{
+		if (!(lst->next))
+			return (lst);
+		lst = lst->next;
+	}
+	return (0);
+}

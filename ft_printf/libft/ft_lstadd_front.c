@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.h                                           :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/13 20:20:34 by skim              #+#    #+#             */
-/*   Updated: 2020/10/16 15:29:01 by skim             ###   ########.fr       */
+/*   Created: 2020/09/30 17:42:50 by skim              #+#    #+#             */
+/*   Updated: 2020/10/10 05:20:39 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_H
-# define PRINTF_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdarg.h>
-# include "libft.h"
-
-int		ft_printf(const char *format, ...);
-int		write_format(const char **format, va_list var);
-int		check_flag(const char **format, va_list var);
-
-#endif
+void	ft_lstadd_front(t_list **lst, t_list *new)
+{
+	if (lst && new)
+	{
+		new->next = *lst;
+		*lst = new;
+	}
+}

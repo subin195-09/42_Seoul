@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.h                                           :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/13 20:20:34 by skim              #+#    #+#             */
-/*   Updated: 2020/10/16 15:29:01 by skim             ###   ########.fr       */
+/*   Created: 2020/09/30 17:42:09 by skim              #+#    #+#             */
+/*   Updated: 2020/10/10 05:23:49 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_H
-# define PRINTF_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdarg.h>
-# include "libft.h"
+void	ft_lstadd_back(t_list **lst, t_list *new)
+{
+	t_list	*tmp;
 
-int		ft_printf(const char *format, ...);
-int		write_format(const char **format, va_list var);
-int		check_flag(const char **format, va_list var);
-
-#endif
+	if (!lst || !new)
+		return ;
+	if (!(*lst))
+	{
+		(*lst) = new;
+		return ;
+	}
+	tmp = ft_lstlast(*lst);
+	new->next = tmp->next;
+	tmp->next = new;
+}
