@@ -3,9 +3,10 @@
 
 int main(void)
 {
+	char *test = "%-010d %10D\n";
 	printf("*result of  printf*\n");
-	printf("hello world%d %d\n", 42, 10);
+	printf(test, 42, 42);
 	printf("=======================\n");
 	printf("*result of fr_printf*\n");
-	ft_printf("hello world%d\n", 42, 10);
+	//ft_printf(test, 42);
 }

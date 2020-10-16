@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.h                                           :+:      :+:    :+:   */
+/*   ft_format_write.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/13 20:20:34 by skim              #+#    #+#             */
-/*   Updated: 2020/10/16 18:25:34 by skim             ###   ########.fr       */
+/*   Created: 2020/10/16 18:15:35 by skim              #+#    #+#             */
+/*   Updated: 2020/10/16 18:36:50 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_H
-# define PRINTF_H
+#include "printf.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdarg.h>
-# include "libft.h"
-
-typedef struct	t_info
+int		format_write(const char **format, va_list var, s_info info)
 {
-	char		flag_in;
-	int			width;
-}				s_info;
-
-int		ft_printf(const char *format, ...);
-int		check_specifier(const char **format, va_list var);
-
-#endif
+	if (**format == 'd' || **format == 'i')
+	{
+		ft_putnbr_fd(va_arg(var, int), 1);
+		(*format)++;
+	}
+	return (0);
+}

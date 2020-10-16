@@ -6,15 +6,12 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 18:09:00 by skim              #+#    #+#              #
-#    Updated: 2020/10/16 15:21:46 by skim             ###   ########.fr        #
+#    Updated: 2020/10/16 18:14:41 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 LIBFT = libft.a
-
-HEADER = printf.h
-HEADER_LIB =$(LIB_DIR)/libft.h
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
@@ -24,7 +21,7 @@ RM = rm -f
 
 LIB_DIR = ./libft
 
-SRCS = ft_check_flag.c ft_printf.c
+SRCS = ft_check_format.c ft_printf.c
 
 OBJS = $(SRCS:.c=.o)
 
