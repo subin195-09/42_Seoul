@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:20:34 by skim              #+#    #+#             */
-/*   Updated: 2020/10/16 22:06:45 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/17 13:45:04 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ typedef struct	t_info
 	char		flag_in;
 	int			width;
 	int			precision;
+	int			count_h;
+	int			count_l;
+	int			sign;
+	int			left;
 }				s_info;
 
 int		ft_printf(const char *format, ...);

@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 18:37:42 by skim              #+#    #+#             */
-/*   Updated: 2020/10/16 22:11:12 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/17 17:37:46 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ void	init_info(s_info info)
 	info.flag_in = '\0';
 	info.width = 0;
 	info.precision = 0;
+	info.count_h = 0;
+	info.count_l = 0;
+	info.sign = 0;
+	info.left = 0;
 }
 
 int		check_prewidth(const char **format)
@@ -71,23 +75,38 @@ int		check_specifier(const char **format, va_list var)
 	while (**format && !check_type(format))
 	{
 		if (**format == 'l')
-			return (0);
+		{
+			info.count_l++;
+			(*format)++;
+		}
+		if (**format == 'h')
+		{
+			info.count_h++;
+			(*format)++;
+		}
 		if (**format == ' ' || **format == '0')
 		{
-			info.flag_in = (char)**format;
+			if (!info.flag_in || info.flag_in == ' ')
+				info.flag_in = (char)**format;
 			(*format)++;
 		}
 		if (**format >= '1' && **format <= '9')
 			info.width = check_prewidth(format);
-		if (**format == '+')
-			return (0);
 		if (**format == '.')
 		{
 			(*format)++;
 			info.precision = check_prewidth(format);
 		}
-		if (**format == '#')
-			return (0);
+		if (**format == '+')
+		{
+			info.sign++;
+			(*format)++;
+		}
+		if (**format == '-')
+		{
+			info.left++;
+			(*format)++;
+		}
 	}
 	va_arg(var, int);
 	(*format)++;

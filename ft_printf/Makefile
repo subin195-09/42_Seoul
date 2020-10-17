@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 18:09:00 by skim              #+#    #+#              #
-#    Updated: 2020/10/16 21:46:03 by skim             ###   ########.fr        #
+#    Updated: 2020/10/17 16:42:02 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ RM = rm -f
 
 LIB_DIR = ./libft
 
-SRCS = ft_check_format.c ft_printf.c 
+SRCS = ft_check_format.c ft_printf.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -48,6 +48,7 @@ re : fclean all
 
 test :
 	@($(CC) $(CFLAGS) -I $(LIB_DIR) test.c $(SRCS) $(LIB_DIR)/*.c)
+	@echo "\033[38;5;214m"
 	@(./a.out)
 	@(rm a.out)
 
