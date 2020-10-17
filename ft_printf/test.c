@@ -3,7 +3,7 @@
 
 int main(void)
 {
-	char *test = "%0 10dhello\n";
+	char *test = "%%%Qhello\n";
 	printf("*result of  printf*\n");
 	printf(test, -1);
 	printf("=======================\n");
