@@ -6,15 +6,15 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 18:37:42 by skim              #+#    #+#             */
-/*   Updated: 2020/10/18 17:49:57 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/18 20:36:08 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void print_info(s_info info);
+void print_info(t_info info);
 
-void	init_info(s_info *info)
+void	init_info(t_info *info)
 {
 	info->padding = '\0';
 	info->width = 0;
@@ -43,7 +43,7 @@ int		check_prewidth(const char **format)
 	return (prewidth);
 }
 
-void	check_padding(const char **format, s_info *info)
+void	check_padding(const char **format, t_info *info)
 {
 	if (!info->padding || info->padding == ' ')
 		info->padding = **format;
@@ -72,7 +72,7 @@ int		check_type(const char **format)
 int		check_specifier(const char **format, va_list var)
 {
 	int		count_bytes;
-	s_info	info[1];
+	t_info	info[1];
 
 	init_info(info);
 	while (**format && !check_type(format))
@@ -100,7 +100,7 @@ int		check_specifier(const char **format, va_list var)
 
 #include <stdio.h>
 
-void print_info(s_info info)
+void print_info(t_info info)
 {
 	printf("padding : %c\n", info.padding);
 	printf("width : %d\n", info.width);

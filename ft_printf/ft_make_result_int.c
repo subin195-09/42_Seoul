@@ -6,13 +6,13 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 15:28:51 by skim              #+#    #+#             */
-/*   Updated: 2020/10/18 17:59:08 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/18 21:45:33 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-char	*make_result_int_precision(s_info info, int num, int sign)
+char	*make_result_int_precision(t_info info, int num, int sign)
 {
 	char		*char_num;
 	char		*result;
@@ -41,61 +41,50 @@ char	*make_result_int_precision(s_info info, int num, int sign)
 	return (result);
 }
 
-char	*make_result_int_width(s_info info, int num, int sign)
+void	cut_and_paste(char **result, char *char_num, t_info info)
+{
+	int size;
+	int i;
+
+	i = -1;
+	while (info.left && char_num[++i])
+		(*result)[i] = char_num[i];
+	size = ft_strlen(char_num) - 1;
+	i = info.width - 1;
+	while (!info.left && size >= 0)
+		(*result)[i--] = char_num[size--];
+}
+
+char	*make_result_int_width(t_info info, int num, int sign)
 {
 	char		*char_num;
 	char		*result;
-	long long	temp;
-	int			size;
-	int			i;
 
 	if (!(result = malloc(sizeof(char) * info.width + 1)))
 		return (0);
 	result[info.width] = '\0';
 	ft_memset(result, ' ', info.width);
-	i = -1;
-	if (info.precision)
+	char_num = count_num(num) > info.precision + sign ? \
+		ft_itoa(num) : make_result_int_precision(info, num, sign);
+	if (info.padding == '0' && !info.left)
 	{
-		char_num = make_result_int_precision(info, num, sign);
-		while (info.left && char_num[++i])
-			result[i] = char_num[i];
-		size = ft_strlen(char_num) - 1;
-		i = info.width - 1;
-		while (!info.left && size >= 0)
-			result[i--] = char_num[size--];
+		ft_memset(result, '0', info.width);
+		if (sign)
+		{
+			write(1, "*\n", 2);
+			result[0] = '-';
+			result++;
+		}
+		cut_and_paste(&result, char_num, info);
 	}
 	else
-	{
-		temp = num;
-		if (sign)
-			temp = -temp;
-		char_num = ft_itoa(num);
-		if (info.padding == '0' && !info.left)
-		{
-			ft_memset(result, '0', info.width);
-			if (sign)
-				result[++i] = '-';
-			size = ft_strlen(char_num) - 1;
-			i = info.width - 1;
-			while (size >= 0)
-				result[i--] = char_num[size--];
-		}
-		else
-		{
-			while (info.left && char_num[++i])
-				result[i] = char_num[i];
-			size = ft_strlen(char_num) - 1;
-			i = info.width - 1;
-			while (!info.left && size >= 0)
-				result[i--] = char_num[size--];
-		}
-	}
+		cut_and_paste(&result, char_num, info);
 	free(char_num);
 	char_num = 0;
 	return (result);
 }
 
-int		make_result_int(s_info info, va_list var)
+int		make_result_int(t_info info, va_list var)
 {
 	char	*result;
 	int		num;

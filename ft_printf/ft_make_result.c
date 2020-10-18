@@ -6,13 +6,13 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 14:03:52 by skim              #+#    #+#             */
-/*   Updated: 2020/10/18 16:18:04 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/18 21:11:19 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int		make_result(const char **format, s_info info, va_list var)
+int		make_result(const char **format, t_info info, va_list var)
 {
 	int count_bytes;
 
