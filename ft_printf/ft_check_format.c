@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 18:37:42 by skim              #+#    #+#             */
-/*   Updated: 2020/10/18 16:32:03 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/18 17:49:57 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ int		check_prewidth(const char **format)
 	return (prewidth);
 }
 
-void	check_padding(const char **format, s_info info)
+void	check_padding(const char **format, s_info *info)
 {
-	if (!info.padding || info.padding == ' ')
-		info.padding = **format;
+	if (!info->padding || info->padding == ' ')
+		info->padding = **format;
 }
 
 int		check_type(const char **format)
@@ -82,7 +82,7 @@ int		check_specifier(const char **format, va_list var)
 		else if (**format == 'h')
 			info->count_h++;
 		else if (**format == ' ' || **format == '0')
-			check_padding(format, *info);
+			check_padding(format, info);
 		else if (**format >= '1' && **format <= '9')
 			info->width = check_prewidth(format);
 		else if (**format == '.')

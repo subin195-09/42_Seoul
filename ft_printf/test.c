@@ -3,11 +3,11 @@
 
 int main(void)
 {
-	char *test = "%.5dhello\n";
+	char *test = "%10.5dhello\n";
 	printf("%s\n", test);
 	printf("*result of  printf*\n");
-	printf(test, 1);
+	printf(test, -1);
 	printf("=======================\n");
 	printf("*result of fr_printf*\n");
-	ft_printf(test, 1);
+	ft_printf(test, -1);
 }
