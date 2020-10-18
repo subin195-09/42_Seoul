@@ -6,15 +6,17 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 18:37:42 by skim              #+#    #+#             */
-/*   Updated: 2020/10/17 18:05:06 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/18 16:21:27 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
+void print_info(s_info info);
+
 void	init_info(s_info info)
 {
-	info.flag_in = '\0';
+	info.padding = '\0';
 	info.width = 0;
 	info.precision = 0;
 	info.count_h = 0;
@@ -28,6 +30,8 @@ int		check_prewidth(const char **format)
 	int prewidth;
 	int temp;
 
+	if (**format == '.')
+		(*format)++;
 	prewidth = ft_atoi(*format);
 	temp = prewidth;
 	while (temp > 0)
@@ -35,33 +39,32 @@ int		check_prewidth(const char **format)
 		temp /= 10;
 		(*format)++;
 	}
+	(*format)--;
 	return (prewidth);
+}
+
+void	check_padding(const char **format, s_info info)
+{
+	if (!info.padding || info.padding == ' ')
+		info.padding = **format;
 }
 
 int		check_type(const char **format)
 {
 	if (**format == 'c' || **format == 'C')
 		return (1);
-	if (**format == 's' || **format == 'S')
+	else if (**format == 's' || **format == 'S')
 		return (1);
-	if (**format == 'p' || **format == 'P')
+	else if (**format == 'p' || **format == 'P')
 		return (1);
-	if (**format == 'd' || **format == 'i' ||
+	else if (**format == 'd' || **format == 'i' ||
 	**format == 'D' || **format == 'I')
 		return (1);
-	if (**format == 'u' || **format == 'U')
+	else if (**format == 'u' || **format == 'U')
 		return (1);
-	if (**format == 'x' || **format == 'X')
+	else if (**format == 'x' || **format == 'X')
 		return (1);
-	if (**format == 'n' || **format == 'N')
-		return (1);
-	if (**format == 'f' || **format == 'F')
-		return (1);
-	if (**format == 'g' || **format == 'G')
-		return (1);
-	if (**format == 'e' || **format == 'E')
-		return (1);
-	if (**format == 'o' || **format == 'O')
+	else if (**format == 'n' || **format == 'N')
 		return (1);
 	return (0);
 }
@@ -71,54 +74,38 @@ int		check_specifier(const char **format, va_list var)
 	int		count_bytes;
 	s_info	info;
 
-	count_bytes = 0;
+	info.padding = '\0';
+	init_info(info);
 	while (**format && !check_type(format))
 	{
 		if (**format == 'l')
-		{
 			info.count_l++;
-			(*format)++;
-		}
-		if (**format == 'h')
-		{
+		else if (**format == 'h')
 			info.count_h++;
-			(*format)++;
-		}
-		if (**format == ' ' || **format == '0')
-		{
-			if (!info.flag_in || info.flag_in == ' ')
-				info.flag_in = (char)**format;
-			(*format)++;
-		}
-		if (**format >= '1' && **format <= '9')
+		else if (**format == ' ' || **format == '0')
+			check_padding(format, info);
+		else if (**format >= '1' && **format <= '9')
 			info.width = check_prewidth(format);
-		if (**format == '.')
-		{
-			(*format)++;
+		else if (**format == '.')
 			info.precision = check_prewidth(format);
-		}
-		if (**format == '+')
-		{
+		else if (**format == '+')
 			info.sign++;
-			(*format)++;
-		}
-		if (**format == '-')
-		{
+		else if (**format == '-')
 			info.left++;
-			(*format)++;
-		}
-		else
-			(*format)++;
+		(*format)++;
 	}
-	va_arg(var, int);
-	(*format)++;
-	write(1, "flag_in : ", ft_strlen("flag_in : "));
-	ft_putchar_fd(info.flag_in, 1);
-	write(1, "\nwidth : ", ft_strlen("\nwidth : "));
-	ft_putnbr_fd(info.width, 1);
-	write(1, "\nprecision : ", ft_strlen("\nprecision : "));
-	ft_putnbr_fd(info.precision, 1);
-	write(1, "\n", 1);
-	//format_write(format, var, info);
+	print_info(info);
+	count_bytes = make_result(format, info, var);
 	return (count_bytes);
+}
+
+#include <stdio.h>
+
+void print_info(s_info info)
+{
+	printf("padding : %c\n", info.padding);
+	printf("width : %d\n", info.width);
+	printf("precision : %d\n", info.precision);
+	printf("sign : %d\n", info.sign);
+	printf("left : %d\n", info.left);
 }
