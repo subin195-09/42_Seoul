@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 18:09:00 by skim              #+#    #+#              #
-#    Updated: 2020/10/18 21:46:25 by skim             ###   ########.fr        #
+#    Updated: 2020/10/18 21:49:28 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ fclean : clean
 re : fclean all
 
 test :
-	@($(CC) $(CFLAGS) -g -I $(LIB_DIR) test.c $(SRCS) $(LIB_DIR)/*.c)
+	@($(CC) $(CFLAGS) -I $(LIB_DIR) test.c $(SRCS) $(LIB_DIR)/*.c)
 	@echo "\033[38;5;214m"
 	@(./a.out)
 	@(rm a.out)
