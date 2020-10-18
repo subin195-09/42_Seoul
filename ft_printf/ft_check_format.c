@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 18:37:42 by skim              #+#    #+#             */
-/*   Updated: 2020/10/18 16:21:27 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/18 16:32:03 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void print_info(s_info info);
 
-void	init_info(s_info info)
+void	init_info(s_info *info)
 {
-	info.padding = '\0';
-	info.width = 0;
-	info.precision = 0;
-	info.count_h = 0;
-	info.count_l = 0;
-	info.sign = 0;
-	info.left = 0;
+	info->padding = '\0';
+	info->width = 0;
+	info->precision = 0;
+	info->count_h = 0;
+	info->count_l = 0;
+	info->sign = 0;
+	info->left = 0;
 }
 
 int		check_prewidth(const char **format)
@@ -72,30 +72,29 @@ int		check_type(const char **format)
 int		check_specifier(const char **format, va_list var)
 {
 	int		count_bytes;
-	s_info	info;
+	s_info	info[1];
 
-	info.padding = '\0';
 	init_info(info);
 	while (**format && !check_type(format))
 	{
 		if (**format == 'l')
-			info.count_l++;
+			info->count_l++;
 		else if (**format == 'h')
-			info.count_h++;
+			info->count_h++;
 		else if (**format == ' ' || **format == '0')
-			check_padding(format, info);
+			check_padding(format, *info);
 		else if (**format >= '1' && **format <= '9')
-			info.width = check_prewidth(format);
+			info->width = check_prewidth(format);
 		else if (**format == '.')
-			info.precision = check_prewidth(format);
+			info->precision = check_prewidth(format);
 		else if (**format == '+')
-			info.sign++;
+			info->sign++;
 		else if (**format == '-')
-			info.left++;
+			info->left++;
 		(*format)++;
 	}
-	print_info(info);
-	count_bytes = make_result(format, info, var);
+	print_info(*info);
+	count_bytes = make_result(format, *info, var);
 	return (count_bytes);
 }
 
