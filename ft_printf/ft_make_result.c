@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 14:03:52 by skim              #+#    #+#             */
-/*   Updated: 2020/10/19 22:05:59 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/19 23:59:15 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		make_result(const char **format, t_info *info, va_list var)
 	if (**format == 'u')
 	{
 		info->check_sign = 0;
-		count_bytes = make_result_int(*info, var);
+		count_bytes = make_result_uint(*info, var);
 	}
 	(*format)++;
 	return (count_bytes);
