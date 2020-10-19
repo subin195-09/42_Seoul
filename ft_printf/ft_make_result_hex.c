@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 22:08:48 by skim              #+#    #+#             */
-/*   Updated: 2020/10/20 00:12:29 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/20 00:13:55 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,11 @@ char	*change_hex(int num, int add)
 	i = 0;
 	while (num > 0)
 	{
-		result[i++]
+		result[i++] = hex_table[num % 16];
+		num /= 16;
 	}
+	result[i] = '\0';
+	return (result);
 }
 
 int		make_result_uint(t_info info, va_list var, char type)
@@ -64,4 +67,5 @@ int		make_result_uint(t_info info, va_list var, char type)
 		result = change_hex(num, add_x);
 		// string 으로 result, info 보내기
 	}
+	return (count_bytes);
 }
