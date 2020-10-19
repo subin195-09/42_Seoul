@@ -3,14 +3,14 @@
 
 int main(void)
 {
-	char	*test = "%010shello\n";
+	char	*test = "%010s%c%-05dhello\n";
 	int		byte;
 	printf("%s\n", test);
 	printf("*result of  printf*\n");
-	byte = printf(test, "a");
+	byte = printf(test, "abc", '1', 10);
 	printf("bytes : %d\n", byte);
 	printf("=======================\n");
 	printf("*result of fr_printf*\n");
-	byte = ft_printf(test, "a");
+	byte = ft_printf(test, "abc", '1', 10);
 	printf("bytes : %d\n", byte);
 }

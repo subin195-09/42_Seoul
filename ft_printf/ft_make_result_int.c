@@ -6,13 +6,27 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 15:28:51 by skim              #+#    #+#             */
-/*   Updated: 2020/10/19 18:25:36 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/19 19:34:47 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-char	*make_result_int_precision(t_info info, int num, int sign)
+static void		cut_and_paste_int(char **result, char *char_num, t_info info)
+{
+	int size;
+	int i;
+
+	i = -1;
+	while (info.left && char_num[++i])
+		(*result)[i] = char_num[i];
+	size = ft_strlen(char_num) - 1;
+	i = info.width - 1;
+	while (!info.left && size >= 0)
+		(*result)[i--] = char_num[size--];
+}
+
+static char		*make_result_int_precision(t_info info, int num, int sign)
 {
 	char		*char_num;
 	char		*result;
@@ -41,21 +55,7 @@ char	*make_result_int_precision(t_info info, int num, int sign)
 	return (result);
 }
 
-void	cut_and_paste_int(char **result, char *char_num, t_info info)
-{
-	int size;
-	int i;
-
-	i = -1;
-	while (info.left && char_num[++i])
-		(*result)[i] = char_num[i];
-	size = ft_strlen(char_num) - 1;
-	i = info.width - 1;
-	while (!info.left && size >= 0)
-		(*result)[i--] = char_num[size--];
-}
-
-char	*make_result_int_width(t_info info, int num, int sign)
+static char		*make_result_int_width(t_info info, int num, int sign)
 {
 	char		*char_num;
 	char		*result;

@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:20:34 by skim              #+#    #+#             */
-/*   Updated: 2020/10/19 18:58:06 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/19 19:39:07 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@
 # include <stdarg.h>
 # include "libft.h"
 
+typedef struct	s_result
+{
+	char		*sign;
+	char		*temp_value;
+	char		*result;
+}				t_result;
+
+
 typedef struct	s_info
 {
 	char		padding;
@@ -25,7 +33,7 @@ typedef struct	s_info
 	int			precision;
 	int			count_h;
 	int			count_l;
-	int			sign;
+	int			check_sign;
 	int			left;
 }				t_info;
 

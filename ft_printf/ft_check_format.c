@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 18:37:42 by skim              #+#    #+#             */
-/*   Updated: 2020/10/19 19:10:10 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/19 19:49:25 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_info(t_info *info)
 	info->precision = 0;
 	info->count_h = 0;
 	info->count_l = 0;
-	info->sign = 0;
+	info->check_sign = 0;
 	info->left = 0;
 }
 
@@ -88,12 +88,13 @@ int		check_specifier(const char **format, va_list var)
 		else if (**format == '.')
 			info->precision = check_prewidth(format);
 		else if (**format == '+')
-			info->sign++;
+			info->check_sign++;
 		else if (**format == '-')
 			info->left++;
 		(*format)++;
 	}
-	print_info(*info);
+	//print_info(*info);
+	//info free 추가하기!!!!!!!!!!
 	count_bytes = make_result(format, *info, var);
 	return (count_bytes);
 }
@@ -105,6 +106,6 @@ void print_info(t_info info)
 	printf("padding : %c\n", info.padding);
 	printf("width : %d\n", info.width);
 	printf("precision : %d\n", info.precision);
-	printf("sign : %d\n", info.sign);
+	printf("sign : %d\n", info.check_sign);
 	printf("left : %d\n", info.left);
 }
