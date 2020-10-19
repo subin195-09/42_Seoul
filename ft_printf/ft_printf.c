@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:16:36 by skim              #+#    #+#             */
-/*   Updated: 2020/10/19 19:31:03 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/19 22:08:02 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,13 @@ static int	write_format(const char **format, va_list var)
 	// %부분 넘기기
 	(*format)++;
 	// flag의 글자수 만큼 format 위치를
-	count_bytes = check_specifier(format, var);
+	if (**format == '%')
+	{
+		count_bytes = write(1, "%", 1);
+		(*format)++;
+	}
+	else
+		count_bytes = check_specifier(format, var);
 	return (count_bytes);
 }
 

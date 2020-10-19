@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:20:34 by skim              #+#    #+#             */
-/*   Updated: 2020/10/19 21:15:08 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/19 22:03:54 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct	s_info
 
 int				ft_printf(const char *format, ...);
 int				check_specifier(const char **format, va_list var);
-int				make_result(const char **format, t_info info, va_list var);
+int		make_result(const char **format, t_info *info, va_list var);
 
 int				make_result_int(t_info info, va_list var);
 void			cut_and_paste_int(char **result, char *char_num, t_info info);
