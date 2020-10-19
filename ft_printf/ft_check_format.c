@@ -6,13 +6,13 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 18:37:42 by skim              #+#    #+#             */
-/*   Updated: 2020/10/18 20:36:08 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/19 17:19:58 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void print_info(t_info info);
+void 	print_info(t_info info);
 
 void	init_info(t_info *info)
 {
@@ -93,7 +93,7 @@ int		check_specifier(const char **format, va_list var)
 			info->left++;
 		(*format)++;
 	}
-	print_info(*info);
+	//print_info(*info);
 	count_bytes = make_result(format, *info, var);
 	return (count_bytes);
 }
