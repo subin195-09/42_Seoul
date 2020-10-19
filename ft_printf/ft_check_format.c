@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 18:37:42 by skim              #+#    #+#             */
-/*   Updated: 2020/10/19 19:49:25 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/19 20:47:47 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int		check_specifier(const char **format, va_list var)
 		else if (**format == '.')
 			info->precision = check_prewidth(format);
 		else if (**format == '+')
-			info->check_sign++;
+			info->check_sign = 1;
 		else if (**format == '-')
 			info->left++;
 		(*format)++;
@@ -103,9 +103,10 @@ int		check_specifier(const char **format, va_list var)
 
 void print_info(t_info info)
 {
+	printf("\n");
 	printf("padding : %c\n", info.padding);
 	printf("width : %d\n", info.width);
 	printf("precision : %d\n", info.precision);
-	printf("sign : %d\n", info.check_sign);
+	printf("check_sign : %d\n", info.check_sign);
 	printf("left : %d\n", info.left);
 }
