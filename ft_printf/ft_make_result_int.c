@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 15:28:51 by skim              #+#    #+#             */
-/*   Updated: 2020/10/18 21:45:33 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/19 18:25:36 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*make_result_int_precision(t_info info, int num, int sign)
 	return (result);
 }
 
-void	cut_and_paste(char **result, char *char_num, t_info info)
+void	cut_and_paste_int(char **result, char *char_num, t_info info)
 {
 	int size;
 	int i;
@@ -75,10 +75,10 @@ char	*make_result_int_width(t_info info, int num, int sign)
 			result[0] = '-';
 			result++;
 		}
-		cut_and_paste(&result, char_num, info);
+		cut_and_paste_int(&result, char_num, info);
 	}
 	else
-		cut_and_paste(&result, char_num, info);
+		cut_and_paste_int(&result, char_num, info);
 	free(char_num);
 	char_num = 0;
 	return (result);

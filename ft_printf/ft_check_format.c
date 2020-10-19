@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 18:37:42 by skim              #+#    #+#             */
-/*   Updated: 2020/10/19 17:28:41 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/19 19:10:10 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int		check_specifier(const char **format, va_list var)
 			info->left++;
 		(*format)++;
 	}
-	//print_info(*info);
+	print_info(*info);
 	count_bytes = make_result(format, *info, var);
 	return (count_bytes);
 }
