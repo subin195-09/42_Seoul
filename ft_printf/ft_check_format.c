@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 18:37:42 by skim              #+#    #+#             */
-/*   Updated: 2020/10/19 22:10:19 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/19 22:26:10 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int		check_specifier(const char **format, va_list var)
 	int		count_bytes;
 	t_info	info[1];
 
+	count_bytes = 0;
 	init_info(info);
 	while (**format && !check_type(format))
 	{
@@ -101,7 +102,8 @@ int		check_specifier(const char **format, va_list var)
 	}
 	//print_info(*info);
 	//info free 추가하기!!!!!!!!!!
-	count_bytes = make_result(format, info, var);
+	if (**format)
+		count_bytes = make_result(format, info, var);
 	return (count_bytes);
 }
 
