@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 15:28:51 by skim              #+#    #+#             */
-/*   Updated: 2020/10/22 20:13:35 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/22 20:58:55 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,9 @@ static char		*make_result_int_width(t_info info, int num, int sign)
 		return (0);
 	result[info.width] = '\0';
 	ft_memset(result, ' ', info.width);
-	if (count_num(num) < info.precision + sign)
-		char_num = make_result_int_precision(info, num, sign);
-	else
-		char_num = info.padding == '0' && num < 0 ? \
-			ft_itoa(-(long)num) : itoa_with_sign(num, sign);
-	if (info.padding == '0' && !info.left)
+	char_num = count_num(num) < info.precision + sign ? \
+		make_result_int_precision(info, num, sign) : itoa_with_sign(num, sign);
+	if (info.padding == '0' && !info.left && !info.precision)
 	{
 		ft_memset(result, '0', info.width);
 		if (sign)
@@ -65,6 +62,21 @@ static char		*make_result_int_width(t_info info, int num, int sign)
 	free(char_num);
 	char_num = 0;
 	return (result);
+}
+
+int				zero_check(t_info info)
+{
+	int count_bytes;
+	int i;
+
+	count_bytes = 0;
+	if (info.width)
+	{
+		i = 0;
+		while (i++ < info.width)
+			count_bytes += write(1, " ", 1);
+	}
+	return (count_bytes);
 }
 
 int				make_result_int(t_info info, va_list var)
@@ -81,6 +93,8 @@ int				make_result_int(t_info info, va_list var)
 	len = info.width > info.precision + sign ? \
 		info.width : info.precision + sign;
 	len = len > count ? len : count;
+	if (num == 0 && !info.precision && info.width)
+		return (zero_check(info));
 	if (len == count)
 		result = itoa_with_sign(num, sign);
 	else if (info.precision + sign == len)
@@ -88,7 +102,7 @@ int				make_result_int(t_info info, va_list var)
 	else
 		result = make_result_int_width(info, num, sign);
 	num = write(1, result, ft_strlen(result));
-	//free(result);
-	//result = 0;
+	free(result);
+	result = 0;
 	return (num);
 }

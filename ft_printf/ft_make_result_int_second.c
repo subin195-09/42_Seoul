@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 21:05:55 by skim              #+#    #+#             */
-/*   Updated: 2020/10/22 20:12:38 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/22 20:40:35 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,22 @@
 
 void	cut_and_paste_int(char **result, char *char_num, t_info info)
 {
+	int stop;
 	int size;
 	int i;
 
-	i = (*result)[0] == '0' ? -1 : 0;
-	i = (*result)[0] == ' ' ? -1 : 0;
+	i = -1;
+	stop = 0;
+	if ((*result)[0] == '+' || (*result)[0] == '-')
+	{
+		i++;
+		stop++;
+	}
 	while (info.left && char_num[++i])
 		(*result)[i] = char_num[i];
 	size = ft_strlen(char_num) - 1;
 	i = ft_strlen(*result) - 1;
-	while (!info.left && size >= 0)
+	while (!info.left && size >= stop)
 		(*result)[i--] = char_num[size--];
 }
 
