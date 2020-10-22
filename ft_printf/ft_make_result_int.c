@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 15:28:51 by skim              #+#    #+#             */
-/*   Updated: 2020/10/19 23:58:40 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/22 20:13:35 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,20 @@ static char		*make_result_int_width(t_info info, int num, int sign)
 	char		*char_num;
 	char		*result;
 
-	if (!(result = malloc(sizeof(char) * info.width + 1)))
+	if (!(result = malloc(sizeof(char) * (info.width + 1))))
 		return (0);
 	result[info.width] = '\0';
 	ft_memset(result, ' ', info.width);
-	char_num = count_num(num) > info.precision + sign ? \
-		itoa_with_sign(num, sign) : make_result_int_precision(info, num, sign);
+	if (count_num(num) < info.precision + sign)
+		char_num = make_result_int_precision(info, num, sign);
+	else
+		char_num = info.padding == '0' && num < 0 ? \
+			ft_itoa(-(long)num) : itoa_with_sign(num, sign);
 	if (info.padding == '0' && !info.left)
 	{
 		ft_memset(result, '0', info.width);
 		if (sign)
-		{
-			result[0] = num >= 0 ? '+' : '-';
-			result++;
-		}
+			*result = num >= 0 ? '+' : '-';
 		cut_and_paste_int(&result, char_num, info);
 	}
 	else
@@ -88,7 +88,7 @@ int				make_result_int(t_info info, va_list var)
 	else
 		result = make_result_int_width(info, num, sign);
 	num = write(1, result, ft_strlen(result));
-	free(result);
-	result = 0;
+	//free(result);
+	//result = 0;
 	return (num);
 }
