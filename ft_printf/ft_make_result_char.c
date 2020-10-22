@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 17:32:33 by skim              #+#    #+#             */
-/*   Updated: 2020/10/22 16:30:48 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/22 21:45:06 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,26 @@ char	*cut_and_paste_char(char *var_char, t_info info)
 int		make_result_string(t_info info, va_list var)
 {
 	char	*result;
+	char	*var_pre;
 	char	*var_char;
 	int		count_bytes;
+	int		len;
 
 	var_char = va_arg(var, char*);
-	if (info.width > (int)ft_strlen(var_char))
+	len = info.precision >= 0 ? info.precision : (int)ft_strlen(var_char);
+	if (!(var_pre = malloc(len + 1)))
+		return (0);
+	var_pre[len] = '\0';
+	ft_strlcpy(var_pre, var_char, len + 1);
+	if (info.width > len)
 		result = cut_and_paste_char(var_char, info);
 	else
-		result = var_char;
+		result = ft_strdup(var_pre);
 	count_bytes = write(1, result, ft_strlen(result));
-	if (info.width > (int)ft_strlen(var_char))
-	{
-		free(result);
-		result = 0;
-	}
+	free(var_pre);
+	var_pre = 0;
+	free(result);
+	result = 0;
 	return (count_bytes);
 }
 
