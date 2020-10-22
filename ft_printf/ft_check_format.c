@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 18:37:42 by skim              #+#    #+#             */
-/*   Updated: 2020/10/19 22:26:10 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/22 16:33:51 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void 	print_info(t_info info);
 
 static void	init_info(t_info *info)
 {
-	info->padding = '\0';
+	info->padding = ' ';
 	info->width = 0;
 	info->precision = 0;
 	info->count_h = 0;
@@ -52,15 +52,9 @@ static int	check_prewidth(const char **format, va_list var)
 	return (prewidth);
 }
 
-static void	check_padding(const char **format, t_info *info)
-{
-	if (!info->padding || info->padding == ' ')
-		info->padding = **format;
-}
-
 static int	check_type(const char **format)
 {
-	if (**format == 'c' )
+	if (**format == 'c')
 		return (1);
 	else if (**format == 's')
 		return (1);
@@ -89,11 +83,10 @@ int		check_specifier(const char **format, va_list var)
 		else if (**format == 'h')
 			info->count_h++;
 		else if (**format == ' ' || **format == '0')
-			check_padding(format, info);
-		else if ((**format >= '1' && **format <= '9') || **format == '*')
+			info->padding = info->padding == ' ' ? **format : info->padding;
+		else if ((**format >= '1' && **format <= '9')  \
+			|| **format == '*' || **format == '.')
 			info->width = check_prewidth(format, var);
-		else if (**format == '.')
-			info->precision = check_prewidth(format, var);
 		else if (**format == '+')
 			info->check_sign = 1;
 		else if (**format == '-')
@@ -101,7 +94,6 @@ int		check_specifier(const char **format, va_list var)
 		(*format)++;
 	}
 	//print_info(*info);
-	//info free 추가하기!!!!!!!!!!
 	if (**format)
 		count_bytes = make_result(format, info, var);
 	return (count_bytes);

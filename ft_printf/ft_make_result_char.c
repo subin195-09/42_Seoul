@@ -6,13 +6,13 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 17:32:33 by skim              #+#    #+#             */
-/*   Updated: 2020/10/19 19:52:59 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/22 16:30:48 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-static char		*cut_and_paste_char(char *var_char, t_info info)
+char	*cut_and_paste_char(char *var_char, t_info info)
 {
 	char	*result;
 	char	padding;
@@ -36,7 +36,7 @@ static char		*cut_and_paste_char(char *var_char, t_info info)
 	return (result);
 }
 
-int				make_result_string(t_info info, va_list var)
+int		make_result_string(t_info info, va_list var)
 {
 	char	*result;
 	char	*var_char;
@@ -56,7 +56,7 @@ int				make_result_string(t_info info, va_list var)
 	return (count_bytes);
 }
 
-int				make_result_char(t_info info, va_list var)
+int		make_result_char(t_info info, va_list var)
 {
 	char	*result;
 	char	*var_char;

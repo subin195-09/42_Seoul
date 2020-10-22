@@ -1,36 +1,47 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   hex.c                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/16 18:15:35 by skim              #+#    #+#             */
-/*   Updated: 2020/10/18 20:04:22 by skim             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include <stdio.h>
+#include <stdlib.h>
 
-#include "printf.h"
-
-void	change_hex(const char **format, char *hex, int temp)
+int		count_num_hex(int num)
 {
+	int count;
+
+	count = 0;
+	while (num > 0)
+	{
+		num /= 16;
+		count++;
+	}
+	return (count);
+}
+
+char	*change_hex(int num, int add)
+{
+	char	*result;
 	char	hex_table[16];
-	int		add;
+	char	temp;
 	int		i;
 
 	i = 0;
-	if (**format == 'x')
-		add = 'A' - 'a';
-	else
-		add = 0;
+	temp = '0';
 	while (i < 10)
-	{
-		hex_table[i] = (i + 1) + '0';
-		i++;
-	}
+		hex_table[i++] = temp++;
+	temp = 'a' + add;
 	while (i < 16)
+		hex_table[i++] = temp++;
+	i = count_num_hex(num);
+	if (!(result = malloc(i + 1)))
+		return (0);
+	result[i--] = '\0';
+	while (num > 0)
 	{
-		hex_table[i] = 'a' + add + (i - 10);
-		i++;
+		result[i--] = hex_table[num % 16];
+		num /= 16;
 	}
+	return (result);
+}
+
+int main(void)
+{
+	printf("%s\n", change_hex(15, 0));
+	printf("%s\n", change_hex(15, 'A' - 'a'));
 }
