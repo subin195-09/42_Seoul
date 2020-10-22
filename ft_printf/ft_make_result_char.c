@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 17:32:33 by skim              #+#    #+#             */
-/*   Updated: 2020/10/22 22:55:27 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/22 22:58:50 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,20 @@ char	*cut_and_paste_char(char *var_char, t_info info)
 
 int		check_null(t_info info)
 {
+	int count_bytes;
+
+	count_bytes = 0;
 	if (info.precision == 0)
 	{
 		if (info.width >= 0 && info.width < 6)
-			return (write(1, "(null)", info.width));
+			count_bytes = write(1, "(null)", info.width);
 		else if (info.width >= 6)
-			return (write(1, "(null)", 6));
-		else
-			return (0);
+			count_bytes = write(1, "(null)", 6);
 	}
 	else
-		return (write(1, "(null)", 6));
+	{
+		
+	}
 }
 
 int		make_result_string(t_info info, va_list var)
@@ -61,7 +64,7 @@ int		make_result_string(t_info info, va_list var)
 
 	var_char = va_arg(var, char*);
 	if (!var_char)
-		var_char = "(null)";
+		return (check_null(info));
 	len = (int)ft_strlen(var_char);
 	if (info.precision >= 0)
 		len = info.precision < len ? info.precision : len;
