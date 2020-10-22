@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 18:37:42 by skim              #+#    #+#             */
-/*   Updated: 2020/10/22 19:18:51 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/22 21:04:13 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void 	print_info(t_info info);
 static void	init_info(t_info *info)
 {
 	info->padding = ' ';
-	info->width = 0;
-	info->precision = 0;
+	info->width = -1;
+	info->precision = -1;
 	info->count_h = 0;
 	info->count_l = 0;
 	info->check_sign = 0;

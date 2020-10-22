@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 15:28:51 by skim              #+#    #+#             */
-/*   Updated: 2020/10/22 20:58:55 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/22 21:07:15 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static char		*make_result_int_width(t_info info, int num, int sign)
 	ft_memset(result, ' ', info.width);
 	char_num = count_num(num) < info.precision + sign ? \
 		make_result_int_precision(info, num, sign) : itoa_with_sign(num, sign);
-	if (info.padding == '0' && !info.left && !info.precision)
+	if (info.padding == '0' && !info.left && info.precision < 0)
 	{
 		ft_memset(result, '0', info.width);
 		if (sign)
@@ -70,7 +70,7 @@ int				zero_check(t_info info)
 	int i;
 
 	count_bytes = 0;
-	if (info.width)
+	if (info.width > 0)
 	{
 		i = 0;
 		while (i++ < info.width)
@@ -93,7 +93,7 @@ int				make_result_int(t_info info, va_list var)
 	len = info.width > info.precision + sign ? \
 		info.width : info.precision + sign;
 	len = len > count ? len : count;
-	if (num == 0 && !info.precision && info.width)
+	if (num == 0 && info.precision == 0)
 		return (zero_check(info));
 	if (len == count)
 		result = itoa_with_sign(num, sign);
