@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 18:37:42 by skim              #+#    #+#             */
-/*   Updated: 2020/10/22 16:33:51 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/22 18:15:25 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,10 @@ int		check_specifier(const char **format, va_list var)
 			info->count_h++;
 		else if (**format == ' ' || **format == '0')
 			info->padding = info->padding == ' ' ? **format : info->padding;
-		else if ((**format >= '1' && **format <= '9')  \
-			|| **format == '*' || **format == '.')
+		else if ((**format >= '1' && **format <= '9') || **format == '*')
 			info->width = check_prewidth(format, var);
+		else if (**format == '.')
+			info->precision = check_prewidth(format, var);
 		else if (**format == '+')
 			info->check_sign = 1;
 		else if (**format == '-')
