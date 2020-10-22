@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 17:32:33 by skim              #+#    #+#             */
-/*   Updated: 2020/10/22 21:45:06 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/22 22:55:27 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,21 @@ char	*cut_and_paste_char(char *var_char, t_info info)
 	return (result);
 }
 
+int		check_null(t_info info)
+{
+	if (info.precision == 0)
+	{
+		if (info.width >= 0 && info.width < 6)
+			return (write(1, "(null)", info.width));
+		else if (info.width >= 6)
+			return (write(1, "(null)", 6));
+		else
+			return (0);
+	}
+	else
+		return (write(1, "(null)", 6));
+}
+
 int		make_result_string(t_info info, va_list var)
 {
 	char	*result;
@@ -45,15 +60,16 @@ int		make_result_string(t_info info, va_list var)
 	int		len;
 
 	var_char = va_arg(var, char*);
-	len = info.precision >= 0 ? info.precision : (int)ft_strlen(var_char);
+	if (!var_char)
+		var_char = "(null)";
+	len = (int)ft_strlen(var_char);
+	if (info.precision >= 0)
+		len = info.precision < len ? info.precision : len;
 	if (!(var_pre = malloc(len + 1)))
 		return (0);
-	var_pre[len] = '\0';
 	ft_strlcpy(var_pre, var_char, len + 1);
-	if (info.width > len)
-		result = cut_and_paste_char(var_char, info);
-	else
-		result = ft_strdup(var_pre);
+	result = info.width > len ? \
+		cut_and_paste_char(var_pre, info) : ft_strdup(var_pre);
 	count_bytes = write(1, result, ft_strlen(result));
 	free(var_pre);
 	var_pre = 0;
