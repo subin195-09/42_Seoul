@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 14:03:52 by skim              #+#    #+#             */
-/*   Updated: 2020/10/23 17:40:24 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/23 21:30:44 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ int		make_result(const char **format, t_info *info, va_list var)
 		count_bytes = make_result_string(*info, var);
 	if (**format == 'd' || **format == 'i')
 		count_bytes = make_result_int(*info, var);
-	if (**format == 'u' || **format == 'x' || **format == 'X')
+	if (**format == 'u')
 	{
 		info->check_sign = 0;
-		count_bytes = make_result_uint(*info, var, **format);
+		count_bytes = make_result_uint(*info, var);
 	}
+	if (**format == 'x' || **format == 'X')
+		count_bytes = make_result_x(*info, var, **format);
 	(*format)++;
 	return (count_bytes);
 }

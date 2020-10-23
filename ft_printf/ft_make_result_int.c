@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 15:28:51 by skim              #+#    #+#             */
-/*   Updated: 2020/10/22 21:07:15 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/23 21:49:25 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,31 @@ int				make_result_int(t_info info, va_list var)
 		result = make_result_int_precision(info, num, sign);
 	else
 		result = make_result_int_width(info, num, sign);
+	num = write(1, result, ft_strlen(result));
+	free(result);
+	result = 0;
+	return (num);
+}
+
+int			make_result_uint(t_info info, va_list var)
+{
+	char			*result;
+	int				count;
+	int				len;
+	unsigned int	num;
+
+	num = va_arg(var, unsigned int);
+	count = count_num_unit(num);
+	len = info.width > info.precision ? info.width : info.precision;
+	len = len > count ? len : count;
+	if (num == 0 && info.precision == 0)
+		return (zero_check(info));
+	if (len == count)
+		result = ft_ltoa(num);
+	else if (info.precision == len)
+		result = make_result_int_precision(info, num, 0);
+	else
+		result = make_result_int_width(info, num, 0);
 	num = write(1, result, ft_strlen(result));
 	free(result);
 	result = 0;

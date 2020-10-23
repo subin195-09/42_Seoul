@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 18:09:00 by skim              #+#    #+#              #
-#    Updated: 2020/10/23 18:02:00 by skim             ###   ########.fr        #
+#    Updated: 2020/10/23 21:29:55 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ LIB_DIR = ./libft
 
 SRCS = ft_printf.c ft_check_format.c ft_make_result.c \
 	ft_make_result_int.c ft_make_result_int_second.c \
-	ft_make_result_char.c ft_make_result_hex.c ft_make_result_hex_second.c
+	ft_make_result_char.c ft_make_result_hex.c ft_make_result_hex_second.c \
+	ft_make_result_uint.c
 
 OBJS = $(SRCS:.c=.o)
 

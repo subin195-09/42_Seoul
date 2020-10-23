@@ -6,16 +6,23 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 19:27:51 by skim              #+#    #+#             */
-/*   Updated: 2020/10/23 19:36:22 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/23 21:29:13 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int			make_result_uint(t_info info, va_list var)
+int			count_num_unit(unsigned int num)
 {
-	char			*result;
-	unsigned int	num;
+	int	count;
 
-	num = va_arg(var, unsigned int);
+	count = 0;
+	if (num == 0)
+		return (count);
+	while (num > 0)
+	{
+		count++;
+		num /= 10;
+	}
+	return (count);
 }
