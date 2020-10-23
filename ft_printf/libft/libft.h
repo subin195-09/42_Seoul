@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 18:14:25 by skim              #+#    #+#             */
-/*   Updated: 2020/10/16 21:10:48 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/23 21:48:11 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,7 @@ void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst,
 								void *(*f)(void *),
 								void (*del)(void *));
+
+char				*ft_ltoa(long long n);
 
 #endif
