@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:20:34 by skim              #+#    #+#             */
-/*   Updated: 2020/10/22 15:59:43 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/23 18:07:36 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ int				make_result_string(t_info info, va_list var);
 char			*cut_and_paste_char(char *var_char, t_info info);
 
 int				make_result_uint(t_info info, va_list var, char type);
-
+char			*change_hex(unsigned int num, int add);
 
 #endif
