@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 22:08:48 by skim              #+#    #+#             */
-/*   Updated: 2020/10/23 18:07:03 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/23 19:31:14 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	*make_result_hex(char *temp_num, t_info info)
 	return (result);
 }
 
-int		make_result_uint(t_info info, va_list var, char type)
+int		make_result_x(t_info info, va_list var, char type)
 {
 	char			*result;
 	char			*temp_num;
@@ -90,25 +90,20 @@ int		make_result_uint(t_info info, va_list var, char type)
 
 	num = va_arg(var, unsigned int);
 	count_bytes = 0;
-	if (type == 'u')
-		count_bytes = make_result_int(info, var); // int를 넘겨주기
-	else
+	if (!num && !info.precision)
 	{
-		if (!num && !info.precision)
+		if (info.width == -1)
+			return (count_bytes);
+		else
 		{
-			if (info.width == -1)
-				return (count_bytes);
-			else
-			{
-				while (count_bytes < info.width)
-					count_bytes += write(1, " ", 1);
-				return (count_bytes);
-			}
+			while (count_bytes < info.width)
+				count_bytes += write(1, " ", 1);
+			return (count_bytes);
 		}
-		add_x = type == 'x' ? 0 : 'A' - 'a';
-		temp_num = change_hex(num, add_x);
-		result = make_result_hex(temp_num, info);
-		count_bytes = write(1, result, ft_strlen(result));
 	}
+	add_x = type == 'x' ? 0 : 'A' - 'a';
+	temp_num = change_hex(num, add_x);
+	result = make_result_hex(temp_num, info);
+	count_bytes = write(1, result, ft_strlen(result));
 	return (count_bytes);
 }
