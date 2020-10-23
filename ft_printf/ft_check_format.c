@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 18:37:42 by skim              #+#    #+#             */
-/*   Updated: 2020/10/22 21:04:13 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/23 16:32:23 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,8 @@ static int	check_prewidth(const char **format, va_list var)
 	{
 		prewidth = ft_atoi(*format);
 		temp = prewidth;
-		while (temp > 0)
-		{
-			temp /= 10;
+		while (**format >= '0' && **format <= '9')
 			(*format)++;
-		}
 	}
 	(*format)--;
 	return (prewidth);
