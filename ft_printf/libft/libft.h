@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 18:14:25 by skim              #+#    #+#             */
-/*   Updated: 2020/10/23 21:48:11 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/23 22:31:34 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ char				*ft_strtrim(const char *s1, const char *set);
 char				**ft_split(const char *s, char c);
 char				*ft_itoa(int n);
 int					count_num(int n);
+
 char				*ft_strmapi(const char *s, char (*f)(unsigned int, char));
 void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char *s, int fd);
@@ -74,5 +75,6 @@ t_list				*ft_lstmap(t_list *lst,
 								void (*del)(void *));
 
 char				*ft_ltoa(long long n);
+int					count_num_long(long long n);
 
 #endif

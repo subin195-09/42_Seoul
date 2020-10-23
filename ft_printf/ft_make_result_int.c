@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 15:28:51 by skim              #+#    #+#             */
-/*   Updated: 2020/10/23 21:49:25 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/23 22:30:45 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int			make_result_uint(t_info info, va_list var)
 	unsigned int	num;
 
 	num = va_arg(var, unsigned int);
-	count = count_num_unit(num);
+	count = count_num_long(num);
 	len = info.width > info.precision ? info.width : info.precision;
 	len = len > count ? len : count;
 	if (num == 0 && info.precision == 0)
