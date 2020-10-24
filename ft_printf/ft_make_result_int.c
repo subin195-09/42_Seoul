@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 15:28:51 by skim              #+#    #+#             */
-/*   Updated: 2020/10/23 22:30:45 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/24 21:47:22 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,10 @@ int				make_result_int(t_info info, va_list var)
 		result = make_result_int_precision(info, num, sign);
 	else
 		result = make_result_int_width(info, num, sign);
-	num = write(1, result, ft_strlen(result));
+	num = 0;
+	if ((len == count || len == info.precision + sign) && info.space)
+		num += write(1, " ", 1);
+	num += write(1, result, ft_strlen(result));
 	free(result);
 	result = 0;
 	return (num);

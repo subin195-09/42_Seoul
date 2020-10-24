@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:20:34 by skim              #+#    #+#             */
-/*   Updated: 2020/10/24 17:37:04 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/24 21:38:13 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct	s_result
 typedef struct	s_info
 {
 	char		padding;
+	int			space;
 	int			width;
 	int			precision;
 	int			count_h;
