@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 18:37:42 by skim              #+#    #+#             */
-/*   Updated: 2020/10/23 16:32:23 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/24 17:24:56 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ static int	check_type(const char **format)
 	else if (**format == 'u')
 		return (1);
 	else if (**format == 'x' || **format == 'X')
+		return (1);
+	else if (**format == '%')
 		return (1);
 	return (0);
 }
