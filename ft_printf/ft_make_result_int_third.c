@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 21:24:50 by skim              #+#    #+#             */
-/*   Updated: 2020/10/26 21:33:59 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/26 22:15:54 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		get_max(int a, int b, int c)
 
 int		check_space(int len, int count, int sign, t_info info)
 {
-	if ((len == count || len == info.precision + sign) && info.space)
+	if ((len == count || len == info.precision + sign) && info.space && !sign)
 		return (write(1, " ", 1));
 	else
 		return (0);

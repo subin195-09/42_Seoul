@@ -1,16 +1,19 @@
 #include "printf.h"
 #include <stdio.h>
+#include <locale.h>
+#include <wchar.h>
 
 int main(void)
 {
-	char	*test = "%p\n";
+	setlocale(LC_ALL, "");
+	char	*test = "% +lld\n";
 	int		byte = 0;
 	printf("%s\n", test);
 	printf("*result of  printf*\n");
-	byte = printf(test, test);
+	byte = printf(test, 32);
 	printf("bytes : %d\n", byte);
 	printf("=======================\n");
 	printf("*result of ft_printf*\n");
-	byte = ft_printf(test, test);
+	byte = ft_printf(test, 32);
 	printf("bytes : %d\n", byte);
 }
