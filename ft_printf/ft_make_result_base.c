@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 22:08:48 by skim              #+#    #+#             */
-/*   Updated: 2020/10/27 02:55:21 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/27 03:32:55 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,29 @@
 int		check_base(t_info info, char type, int size, char **result)
 {
 	int count_bytes;
+	int max;
 	int i;
 
 	if (!info.base)
 		return (0);
 	i = 0;
-	count_bytes = 0;
-	if (size > info.width && size > info.precision)
+	max = get_max(size, info.width, info.precision);
+	if (max == size || max == info.precision)
 	{
-		count_bytes += write(1, "0", 1);
+		count_bytes = write(1, "0", 1);
 		if (type != 'o')
 			count_bytes += write(1, &type, 1);
 		return (count_bytes);
 	}
 	while ((*result)[i] == ' ')
 		i++;
-	(*result)[i++] = '0';
+	i = (info.precision > -1 && i >= 1) ? i - 1 : i;
 	if (type != 'o')
-		(*result)[i++] = type;
+		(*result)[i--] = type;
+	if (i >= 0)
+		(*result)[i] = '0';
+	else
+		count_bytes = write(1, "0", 1);
 	return (count_bytes);
 }
 
