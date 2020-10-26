@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 21:45:55 by skim              #+#    #+#             */
-/*   Updated: 2020/10/23 22:29:06 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/27 02:05:43 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ char		*ft_ltoa(long long n)
 
 	if (n == 0)
 		return (ft_strdup("0"));
-	temp = n;
-	temp = temp >= 0 ? temp : -temp;
+	temp = n >= 0 ? n : -n;
 	sign = n >= 0 ? 0 : 1;
 	count = count_num_long(n);
 	if (!(result = malloc(sign + count + 1)))

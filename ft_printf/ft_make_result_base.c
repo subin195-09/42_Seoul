@@ -6,11 +6,29 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 22:08:48 by skim              #+#    #+#             */
-/*   Updated: 2020/10/26 23:00:15 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/27 02:32:20 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
+
+void	check_base(t_info info, char type, char **result)
+{
+	int i;
+
+	i = 0;
+	if (!info.base)
+		return ;
+	while ((*result)[i] == ' ')
+		i++;
+	if (type == 'o')
+		(*result)[i] = '0';
+	else
+	{
+		(*result)[i++] = '0';
+		(*result)[i++] = type;
+	}
+}
 
 char	*cut_and_paste_base(char *var_char, t_info info)
 {
@@ -51,7 +69,7 @@ char	*base_precision(char *temp_num, int precision)
 	return (result);
 }
 
-int		write_result(char *temp_num, t_info info)
+int		write_result(char *temp_num, t_info info, char type)
 {
 	char	*result;
 	char	*temp_char;
@@ -73,15 +91,11 @@ int		write_result(char *temp_num, t_info info)
 	else
 		result = info.precision > size ? \
 			base_precision(temp_num, info.precision) : ft_strdup(temp_num);
+	check_base(info, type, &result);
 	size = write(1, result, ft_strlen(result));
 	free(result);
 	result = 0;
 	return (size);
-}
-
-int		check_base(t_info info, char type)
-{
-
 }
 
 int		make_result_base(t_info info, unsigned long long num, char type)
@@ -98,8 +112,7 @@ int		make_result_base(t_info info, unsigned long long num, char type)
 		temp_num = change_base(num, "0123456789ABCDEF");
 	else
 		temp_num = change_base(num, "01234567");
-	count_bytes = check_base(info, type);
-	count_bytes = write_result(temp_num, info);
+	count_bytes = write_result(temp_num, info, type);
 	free(temp_num);
 	temp_num = 0;
 	return (count_bytes);
