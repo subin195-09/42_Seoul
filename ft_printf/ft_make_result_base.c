@@ -6,28 +6,34 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 22:08:48 by skim              #+#    #+#             */
-/*   Updated: 2020/10/27 02:32:20 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/27 02:55:21 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void	check_base(t_info info, char type, char **result)
+int		check_base(t_info info, char type, int size, char **result)
 {
+	int count_bytes;
 	int i;
 
-	i = 0;
 	if (!info.base)
-		return ;
+		return (0);
+	i = 0;
+	count_bytes = 0;
+	if (size > info.width && size > info.precision)
+	{
+		count_bytes += write(1, "0", 1);
+		if (type != 'o')
+			count_bytes += write(1, &type, 1);
+		return (count_bytes);
+	}
 	while ((*result)[i] == ' ')
 		i++;
-	if (type == 'o')
-		(*result)[i] = '0';
-	else
-	{
-		(*result)[i++] = '0';
+	(*result)[i++] = '0';
+	if (type != 'o')
 		(*result)[i++] = type;
-	}
+	return (count_bytes);
 }
 
 char	*cut_and_paste_base(char *var_char, t_info info)
@@ -91,8 +97,8 @@ int		write_result(char *temp_num, t_info info, char type)
 	else
 		result = info.precision > size ? \
 			base_precision(temp_num, info.precision) : ft_strdup(temp_num);
-	check_base(info, type, &result);
-	size = write(1, result, ft_strlen(result));
+	size = check_base(info, type, size, &result);
+	size += write(1, result, ft_strlen(result));
 	free(result);
 	result = 0;
 	return (size);
