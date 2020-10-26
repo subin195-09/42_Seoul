@@ -6,14 +6,14 @@
 int main(void)
 {
 	setlocale(LC_ALL, "");
-	char	*test = "%#014llx\n";
+	char	*test = "%#037lx\n";
 	int		byte = 0;
 	printf("%s\n", test);
 	printf("*result of  printf*\n");
-	byte = printf(test, 522337203685470ull);
+	byte = printf(test, 22337203685477ul);
 	printf("bytes : %d\n", byte);
 	printf("=======================\n");
 	printf("*result of ft_printf*\n");
-	byte = ft_printf(test, 522337203685470ull);
+	byte = ft_printf(test, 22337203685477ul);
 	printf("bytes : %d\n", byte);
 }

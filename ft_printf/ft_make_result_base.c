@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 22:08:48 by skim              #+#    #+#             */
-/*   Updated: 2020/10/27 03:36:13 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/27 03:49:28 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ int		check_base(t_info info, char type, int size, char **result)
 	}
 	while ((*result)[i] == ' ')
 		i++;
-	i = (info.precision > -1 && i >= 1) ? i - 1 : i;
+	i = (info.precision == -1) ? 0 : i - 2;
 	if (type != 'o')
-		(*result)[i--] = type;
-	if (i >= 0)
+		(*result)[i + 1] = type;
+	if (i >= 0 || info.precision == -1)
 		(*result)[i] = '0';
 	else
 		count_bytes = write(1, "0", 1);
