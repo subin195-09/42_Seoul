@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/19 21:05:55 by skim              #+#    #+#             */
-/*   Updated: 2020/10/24 15:52:28 by skim             ###   ########.fr       */
+/*   Created: 2020/10/26 19:42:57 by skim              #+#    #+#             */
+/*   Updated: 2020/10/26 21:39:29 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void	cut_and_paste_int(char **result, char *char_num, t_info info)
+static void	cut_and_paste_int(char **result, char *char_num, t_info info)
 {
 	int stop;
 	int size;
@@ -33,16 +33,55 @@ void	cut_and_paste_int(char **result, char *char_num, t_info info)
 		(*result)[i--] = char_num[size--];
 }
 
-char	*itoa_with_sign(int num, int sign)
+char		*int_width(t_info info, char *char_num, int sign, long long num)
 {
 	char		*result;
-	char		*char_num;
-	long long	temp;
-	int			i;
-	int			j;
 
-	temp = num;
-	temp = temp > 0 ? temp : -temp;
+	if (!(result = malloc(sizeof(char) * (info.width + 1))))
+		return (0);
+	result[info.width] = '\0';
+	ft_memset(result, ' ', info.width);
+	if (info.padding == '0' && !info.left && info.precision < 0)
+	{
+		ft_memset(result, '0', info.width);
+		if (sign)
+			*result = num >= 0 ? '+' : '-';
+		cut_and_paste_int(&result, char_num, info);
+	}
+	else
+		cut_and_paste_int(&result, char_num, info);
+	return (result);
+}
+
+char		*int_pre(t_info info, char *char_num, int sign, long long num)
+{
+	char		*result;
+	int			size;
+	int			i;
+
+	if (!(result = malloc(sizeof(char) * (info.precision + sign + 1))))
+		return (0);
+	result[info.precision + sign] = '\0';
+	i = 0;
+	if (sign)
+		result[i++] = num >= 0 ? '+' : '-';
+	ft_memset(&result[i], '0', info.precision);
+	size = ft_strlen(char_num) - 1;
+	i = info.precision + sign - 1;
+	while (size >= 0)
+		result[i--] = char_num[size--];
+	return (result);
+}
+
+char		*ltoa_sign(long long num, int sign)
+{
+	char				*result;
+	char				*char_num;
+	unsigned long long	temp;
+	int					i;
+	int					j;
+
+	temp = num > 0 ? num : -num;
 	char_num = ft_ltoa(temp);
 	if (!(result = malloc(ft_strlen(char_num) + sign + 1)))
 		return (0);

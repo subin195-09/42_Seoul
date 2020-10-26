@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/30 19:36:22 by skim              #+#    #+#              #
-#    Updated: 2020/10/23 21:48:55 by skim             ###   ########.fr        #
+#    Updated: 2020/10/26 19:49:35 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,8 @@ SRCS = ft_memset.c \
 		ft_putstr_fd.c \
 		ft_putendl_fd.c \
 		ft_putnbr_fd.c \
-		ft_ltoa.c
+		ft_ltoa.c \
+		ft_ultoa.c
 
 BSRCS = ft_lstnew.c \
 		ft_lstadd_front.c \
