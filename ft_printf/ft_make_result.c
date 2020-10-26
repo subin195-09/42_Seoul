@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 14:03:52 by skim              #+#    #+#             */
-/*   Updated: 2020/10/24 17:26:03 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/26 15:51:22 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int		make_result(const char **format, t_info *info, va_list var)
 		info->check_sign = 0;
 		count_bytes = make_result_uint(*info, var);
 	}
-	if (**format == 'x' || **format == 'X')
-		count_bytes = make_result_x(*info, var, **format);
+	if (**format == 'x' || **format == 'X' || **format == 'o')
+		count_bytes = make_result_base(*info, var, **format);
 	if (**format == 'p')
 	{
 		info->padding = ' ';

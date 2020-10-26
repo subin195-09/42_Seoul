@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 15:28:51 by skim              #+#    #+#             */
-/*   Updated: 2020/10/24 21:47:22 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/26 15:58:08 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static char		*make_result_int_width(t_info info, int num, int sign)
 	return (result);
 }
 
-int				zero_check(t_info info)
+int				zero_check_int(t_info info)
 {
 	int count_bytes;
 	int i;
@@ -94,7 +94,7 @@ int				make_result_int(t_info info, va_list var)
 		info.width : info.precision + sign;
 	len = len > count ? len : count;
 	if (num == 0 && info.precision == 0)
-		return (zero_check(info));
+		return (zero_check_int(info));
 	if (len == count)
 		result = itoa_with_sign(num, sign);
 	else if (info.precision + sign == len)
@@ -122,7 +122,7 @@ int			make_result_uint(t_info info, va_list var)
 	len = info.width > info.precision ? info.width : info.precision;
 	len = len > count ? len : count;
 	if (num == 0 && info.precision == 0)
-		return (zero_check(info));
+		return (zero_check_int(info));
 	if (len == count)
 		result = ft_ltoa(num);
 	else if (info.precision == len)

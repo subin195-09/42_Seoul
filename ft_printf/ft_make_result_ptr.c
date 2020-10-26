@@ -6,54 +6,11 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 15:40:04 by skim              #+#    #+#             */
-/*   Updated: 2020/10/24 17:23:10 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/26 16:11:42 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
-
-int		count_num_p(long long num)
-{
-	int count;
-
-	count = 0;
-	if (num == 0)
-		return (1);
-	while (num > 0)
-	{
-		num /= 16;
-		count++;
-	}
-	return (count);
-}
-
-char	*change_hex_p(long long num)
-{
-	char	*result;
-	char	hex_table[16];
-	char	temp;
-	int		i;
-
-	i = 0;
-	temp = '0';
-	while (i < 10)
-		hex_table[i++] = temp++;
-	temp = 'a';
-	while (i < 16)
-		hex_table[i++] = temp++;
-	i = count_num_p(num);
-	if (!(result = malloc(i + 1)))
-		return (0);
-	result[i--] = '\0';
-	if (num == 0)
-		result[i--] = '0';
-	while (num > 0 && i >= 0)
-	{
-		result[i--] = hex_table[num % 16];
-		num /= 16;
-	}
-	return (result);
-}
 
 char	*cut_and_paste_p(t_info info, long long num)
 {
@@ -62,10 +19,10 @@ char	*cut_and_paste_p(t_info info, long long num)
 	char	*with_pre;
 	char	*temp;
 
-	hex_num = change_hex_p(num);
+	hex_num = change_base(num, "0123456789abcdef");
 	if (info.precision > -1 && info.precision > (int)ft_strlen(hex_num))
 	{
-		with_pre = hex_precision(hex_num, info.precision);
+		with_pre = base_precision(hex_num, info.precision);
 		temp = ft_strjoin("0x", with_pre);
 		free(with_pre);
 		with_pre = 0;
@@ -73,7 +30,7 @@ char	*cut_and_paste_p(t_info info, long long num)
 	else
 		temp = ft_strjoin("0x", hex_num);
 	if (info.width > (int)ft_strlen(temp))
-		result = cut_and_paste_hex(temp, info);
+		result = cut_and_paste_base(temp, info);
 	else
 		result = temp;
 	free(hex_num);

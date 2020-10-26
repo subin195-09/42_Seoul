@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:20:34 by skim              #+#    #+#             */
-/*   Updated: 2020/10/24 21:38:13 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/26 16:10:33 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,12 @@ int				make_result_char(t_info info, va_list var);
 int				make_result_string(t_info info, va_list var);
 char			*cut_and_paste_char(char *var_char, t_info info);
 
-int				make_result_x(t_info info, va_list var, char type);
-char			*cut_and_paste_hex(char *var_char, t_info info);
-char			*hex_precision(char *temp_num, int precision);
-char			*change_hex(unsigned int num, int add);
+int				make_result_base(t_info info, va_list var, char type);
+char			*base_precision(char *temp_num, int precision);
+char			*cut_and_paste_base(char *var_char, t_info info);
+char			*change_base(long long num, char *base);
+int				zero_check_base(t_info info);
+
 
 int				make_result_uint(t_info info, va_list var);
 int				count_num_unit(unsigned int num);
