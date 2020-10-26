@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 22:08:48 by skim              #+#    #+#             */
-/*   Updated: 2020/10/27 03:32:55 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/27 03:36:13 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@ int		check_base(t_info info, char type, int size, char **result)
 	int max;
 	int i;
 
-	if (!info.base)
-		return (0);
 	i = 0;
+	count_bytes = 0;
 	max = get_max(size, info.width, info.precision);
 	if (max == size || max == info.precision)
 	{
@@ -102,7 +101,7 @@ int		write_result(char *temp_num, t_info info, char type)
 	else
 		result = info.precision > size ? \
 			base_precision(temp_num, info.precision) : ft_strdup(temp_num);
-	size = check_base(info, type, size, &result);
+	size = info.base > 0 ? check_base(info, type, size, &result) : 0;
 	size += write(1, result, ft_strlen(result));
 	free(result);
 	result = 0;
