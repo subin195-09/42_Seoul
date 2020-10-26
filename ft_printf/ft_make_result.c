@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 14:03:52 by skim              #+#    #+#             */
-/*   Updated: 2020/10/26 21:38:26 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/26 22:44:03 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		divide_int(t_info info, va_list var)
 	return (make_result_int(info, ll_int));
 }
 
-int		divide_uint(t_info *info, va_list var)
+int		divide_uint(t_info *info, va_list var, char type)
 {
 	unsigned long long	ull_int;
 
@@ -57,12 +57,12 @@ int		divide_uint(t_info *info, va_list var)
 		if (info->count_l == 1)
 			ull_int = (long unsigned)va_arg(var, long unsigned);
 		else if (info->count_l >= 2)
-		{
 			ull_int = (long long)va_arg(var, long long);
-			return (make_result_uint(*info, ull_int));
-		}
 	}
-	return (make_result_int(*info, ull_int));
+	if (type == 'u')
+		return (make_result_uint(*info, ull_int));
+	else
+		return (make_result_base(*info, ull_int, type));
 }
 
 int		make_result(const char **format, t_info *info, va_list var)
@@ -76,10 +76,9 @@ int		make_result(const char **format, t_info *info, va_list var)
 		count_bytes = make_result_string(*info, var);
 	if (**format == 'd' || **format == 'i')
 		count_bytes = divide_int(*info, var);
-	if (**format == 'u')
-		count_bytes = divide_uint(info, var);
-	if (**format == 'x' || **format == 'X' || **format == 'o')
-		count_bytes = make_result_base(*info, var, **format);
+	if (**format == 'u' || \
+		**format == 'x' || **format == 'X' || **format == 'o')
+		count_bytes = divide_uint(info, var, **format);
 	if (**format == 'p')
 	{
 		info->padding = ' ';

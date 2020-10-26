@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 18:37:42 by skim              #+#    #+#             */
-/*   Updated: 2020/10/26 20:20:11 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/26 22:45:24 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	init_info(t_info *info)
 	info->count_l = 0;
 	info->check_sign = 0;
 	info->left = 0;
+	info->base = 0;
 }
 
 static int	check_prewidth(const char **format, va_list var, t_info *info)
@@ -112,6 +113,8 @@ int		check_specifier(const char **format, va_list var)
 			info->check_sign = 1;
 		else if (**format == '-')
 			info->left++;
+		else if (**format == '#')
+			info->base++;
 		(*format)++;
 	}
 	//print_info(*info);

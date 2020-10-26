@@ -6,7 +6,7 @@
 int main(void)
 {
 	setlocale(LC_ALL, "");
-	char	*test = "% +lld\n";
+	char	*test = "%#5x\n";
 	int		byte = 0;
 	printf("%s\n", test);
 	printf("*result of  printf*\n");

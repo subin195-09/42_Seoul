@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 15:36:55 by skim              #+#    #+#             */
-/*   Updated: 2020/10/26 16:13:16 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/26 22:38:18 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		count_num_base(long long num, int base_len)
 	return (count);
 }
 
-char	*change_base(long long num, char *base)
+char	*change_base(unsigned long long num, char *base)
 {
 	char	*result;
 	int		base_len;

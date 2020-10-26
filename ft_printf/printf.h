@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:20:34 by skim              #+#    #+#             */
-/*   Updated: 2020/10/26 21:34:15 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/26 22:44:56 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct	s_info
 	int			count_l;
 	int			check_sign;
 	int			left;
+	int			base;
 }				t_info;
 
 int				ft_printf(const char *format, ...);
@@ -55,10 +56,10 @@ int				make_result_char(t_info info, va_list var);
 int				make_result_string(t_info info, va_list var);
 char			*cut_and_paste_char(char *var_char, t_info info);
 
-int				make_result_base(t_info info, va_list var, char type);
+int				make_result_base(t_info info, unsigned long long num, char type);
 char			*base_precision(char *temp_num, int precision);
 char			*cut_and_paste_base(char *var_char, t_info info);
-char			*change_base(long long num, char *base);
+char			*change_base(unsigned long long num, char *base);
 int				zero_check_base(t_info info);
 
 int				make_result_p(t_info info, va_list var);

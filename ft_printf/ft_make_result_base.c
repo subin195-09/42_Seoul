@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 22:08:48 by skim              #+#    #+#             */
-/*   Updated: 2020/10/26 15:59:37 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/26 23:00:15 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,16 @@ int		write_result(char *temp_num, t_info info)
 	return (size);
 }
 
-int		make_result_base(t_info info, va_list var, char type)
+int		check_base(t_info info, char type)
+{
+
+}
+
+int		make_result_base(t_info info, unsigned long long num, char type)
 {
 	char			*temp_num;
-	unsigned int	num;
 	int				count_bytes;
 
-	num = va_arg(var, unsigned int);
 	count_bytes = 0;
 	if (!num && !info.precision)
 		return (zero_check_base(info));
@@ -95,6 +98,7 @@ int		make_result_base(t_info info, va_list var, char type)
 		temp_num = change_base(num, "0123456789ABCDEF");
 	else
 		temp_num = change_base(num, "01234567");
+	count_bytes = check_base(info, type);
 	count_bytes = write_result(temp_num, info);
 	free(temp_num);
 	temp_num = 0;
