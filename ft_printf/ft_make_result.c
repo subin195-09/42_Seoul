@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 14:03:52 by skim              #+#    #+#             */
-/*   Updated: 2020/10/27 15:50:40 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/28 00:01:23 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,30 +65,15 @@ int		divide_uint(t_info *info, va_list var, char type)
 		return (make_result_base(*info, ull_int, type));
 }
 
-int		divide_char(t_info info, va_list var, char type)
-{
-	int	count_bytes;
-
-	count_bytes = 0;
-	if (type == 'c')
-	{
-		if (info.count_l == 1)
-			count_bytes = make_result_char_extend(info, var);
-		else
-			count_bytes = make_result_char(info, var);
-	}
-	else
-		count_bytes = make_result_string(info, var);
-	return (count_bytes);
-}
-
 int		make_result(const char **format, t_info *info, va_list var)
 {
 	int count_bytes;
 
 	count_bytes = 0;
-	if (**format == 'c' || **format == 's')
-		count_bytes = divide_char(*info, var, **format);
+	if (**format == 'c')
+		count_bytes = make_result_char(*info, var);
+	if (**format == 's')
+		count_bytes = make_result_string(*info, var);
 	if (**format == 'd' || **format == 'i')
 		count_bytes = divide_int(*info, var);
 	if (**format == 'u' || \

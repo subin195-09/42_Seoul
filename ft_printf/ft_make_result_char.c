@@ -6,13 +6,13 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 17:32:33 by skim              #+#    #+#             */
-/*   Updated: 2020/10/23 17:57:28 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/28 00:17:30 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-char	*cut_and_paste_char(char *var_char, t_info info)
+static char	*cut_and_paste_char(char *var_char, t_info info)
 {
 	char	*result;
 	char	padding;
@@ -36,7 +36,7 @@ char	*cut_and_paste_char(char *var_char, t_info info)
 	return (result);
 }
 
-int		make_result_string(t_info info, va_list var)
+int			make_result_string(t_info info, va_list var)
 {
 	char	*result;
 	char	*var_pre;
@@ -63,18 +63,15 @@ int		make_result_string(t_info info, va_list var)
 	return (count_bytes);
 }
 
-int		make_result_char(t_info info, va_list var)
+int			make_result_char(t_info info, va_list var)
 {
 	char	*result;
 	char	*var_char;
-	char	temp_char;
+	int		num;
 	int		count_bytes;
 
-	temp_char = va_arg(var, int);
-	if (!(var_char = malloc(2)))
-		return (0);
-	var_char[0] = temp_char;
-	var_char[1] = '\0';
+	num = va_arg(var, wint_t);
+	var_char = uni_encoder(num, info.count_l);
 	if (info.width > 1)
 	{
 		result = cut_and_paste_char(var_char, info);

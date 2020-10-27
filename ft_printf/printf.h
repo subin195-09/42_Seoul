@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:20:34 by skim              #+#    #+#             */
-/*   Updated: 2020/10/27 20:56:18 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/28 00:18:07 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,7 @@ int				zero_check_int(t_info info);
 
 int				make_result_char(t_info info, va_list var);
 int				make_result_string(t_info info, va_list var);
-char			*cut_and_paste_char(char *var_char, t_info info);
-
-int				make_result_char_extend(t_info info, va_list var);
-int				write_result_ext(int num);
+char			*uni_encoder(int num, int count_l) ;
 
 
 int				make_result_base(t_info info, unsigned long long num, char type);
