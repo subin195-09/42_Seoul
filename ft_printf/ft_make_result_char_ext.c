@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 17:25:01 by skim              #+#    #+#             */
-/*   Updated: 2020/10/27 17:37:09 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/27 22:16:46 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int		make_result_char_extend(t_info info, va_list var)
 	int count_bytes;
 
 	count_bytes = 0;
-	num = va_arg(var, int);
+	num = va_arg(var, wint_t);
+	
 	if (info.width > 1)
 	{
 		if (info.left)

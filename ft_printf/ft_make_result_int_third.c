@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 21:24:50 by skim              #+#    #+#             */
-/*   Updated: 2020/10/26 22:15:54 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/27 21:23:21 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,29 @@ int		check_space(int len, int count, int sign, t_info info)
 
 int		zero_check_int(t_info info)
 {
-	int count_bytes;
-	int i;
+	char	*result;
+	int		count_bytes;
+	int		size;
 
-	count_bytes = 0;
-	if (info.width > 0)
+	size = info.width > 1 ? info.width : 0;
+	if (info.width <= 1)
 	{
-		i = 0;
-		while (i++ < info.width)
-			count_bytes += write(1, " ", 1);
+		if (info.check_sign)
+			size++;
+		else if (!info.check_sign && info.space)
+			size++;
 	}
+	if (!(result = malloc(size + 1)))
+		return (0);
+	result[size] = '\0';
+	ft_memset(result, ' ', size);
+	if (info.check_sign)
+	{
+		size = info.left ? 0 : size - 1;
+		result[size] = '+';
+	}
+	count_bytes = write(1, result, ft_strlen(result));
+	free(result);
+	result = 0;
 	return (count_bytes);
 }

@@ -6,14 +6,14 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 14:15:49 by skim              #+#    #+#             */
-/*   Updated: 2020/10/27 17:35:23 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/27 22:44:34 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 #include <stdio.h>
 
-int		result_char_four(int num)
+char	*result_char_four(int num)
 {
 	unsigned char	*result;
 	int				i;
@@ -34,14 +34,10 @@ int		result_char_four(int num)
 	i--;
 	num = num >> 6;
 	result[i] = 240 | num;
-	i--;
-	i = write(1, result, 4);
-	free(result);
-	result = 0;
-	return (i);
+	return (result);
 }
 
-int		result_char_three(int num)
+char	*result_char_three(int num)
 {
 	char	*result;
 	int		i;
@@ -58,14 +54,10 @@ int		result_char_three(int num)
 	i--;
 	num = num >> 6;
 	result[i] = 224 | num;
-	i--;
-	i = write(1, result, 3);
-	free(result);
-	result = 0;
-	return (i);
+	return (result);
 }
 
-int		result_char_two(int num)
+char	*result_char_two(int num)
 {
 	char	*result;
 	int		i;
@@ -78,26 +70,29 @@ int		result_char_two(int num)
 	i--;
 	num = num >> 6;
 	result[i] = 192 | num;
-	i--;
-	i = write(1, result, 2);
-	free(result);
-	result = 0;
-	return (i);
+	return (result);
 }
 
-int		write_result_ext(int num)
+// num 으로 받아볼까?
+int		make_result_char_extend(t_info info, va_list var)
 {
-	int	count_bytes;
+	char	*result;
+	int		num;
 
-	count_bytes = 0;
-
+	num = va_arg(var, wint_t);
 	if (num < 128)
-		count_bytes = write(1, &num, 1);
+	{
+		if (!(result = malloc(2)))
+			return (0);
+		result[1] = '\0';
+		result[0] = num;
+	}
 	else if (num >= 128 && num <= 2047)
-		count_bytes = result_char_two(num);
+		result = result_char_two(num);
 	else if (num >= 2048 && num <= 65535)
-		count_bytes = result_char_three(num);
+		result = result_char_three(num);
 	else if (num >= 65536 && num <= 2097151)
-		count_bytes = result_char_four(num);
-	return (count_bytes);
+		result = result_char_four(num);
+	// num = 출력
+	return (num);
 }
