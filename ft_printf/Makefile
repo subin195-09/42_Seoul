@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 18:09:00 by skim              #+#    #+#              #
-#    Updated: 2020/10/28 00:08:47 by skim             ###   ########.fr        #
+#    Updated: 2020/10/28 04:45:55 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ SRCS = ft_printf.c ft_check_format.c ft_make_result.c \
 	ft_make_result_int.c ft_make_result_int_second.c ft_make_result_int_third.c \
 	ft_make_result_char.c ft_make_result_char_encoder.c \
 	ft_make_result_base.c ft_make_result_base_second.c \
-	ft_make_result_ptr.c ft_make_result_per.c
+	ft_make_result_ptr.c ft_make_result_per.c \
+	ft_zero_check.c
 
 OBJS = $(SRCS:.c=.o)
 

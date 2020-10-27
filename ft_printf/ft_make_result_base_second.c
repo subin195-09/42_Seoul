@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 15:36:55 by skim              #+#    #+#             */
-/*   Updated: 2020/10/26 22:38:18 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/28 04:39:57 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,4 @@ char	*change_base(unsigned long long num, char *base)
 		num /= base_len;
 	}
 	return (result);
-}
-
-int		zero_check_base(t_info info)
-{
-	int count_bytes;
-
-	count_bytes = 0;
-	if (info.width == -1)
-		return (count_bytes);
-	else
-	{
-		while (count_bytes < info.width)
-			count_bytes += write(1, " ", 1);
-		return (count_bytes);
-	}
 }
