@@ -6,12 +6,53 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 22:08:48 by skim              #+#    #+#             */
-/*   Updated: 2020/10/29 00:40:27 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/29 01:40:13 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
+int		check_base_o(char **result, int i)
+{
+	if ((*result)[i] == '0')
+		return (0);
+	if (i > 0)
+	{
+		(*result)[i - 1] = '0';
+		return (0);
+	}
+	else
+		return (write(1, "0", 1));
+}
+
+int		check_base(char type, char **result)
+{
+	int i;
+
+	i = 0;
+	while (ft_isdigit((*result)[i]))
+		i++;
+	if (type == 'o')
+		return (check_base_o(result, i));
+	if (i > 1)
+	{
+		(*result)[i - 1] = type;
+		(*result)[i - 2] = '0';
+	}
+	else if (i == 1)
+	{
+		(*result)[i - 1] = type;
+		return (write(1, "0", 1));
+	}
+	else
+	{
+		i = write(1, "0", 1);
+		i += write(1, &type, 1);
+		return (i);
+	}
+	return (0);
+}
+/*
 int		check_base(t_info info, char type, int size, char **result)
 {
 	int count_bytes;
@@ -38,7 +79,7 @@ int		check_base(t_info info, char type, int size, char **result)
 	else
 		count_bytes = write(1, "0", 1);
 	return (count_bytes);
-}
+} */
 
 char	*cut_and_paste_base(char *var_char, t_info info)
 {
@@ -101,7 +142,7 @@ int		write_result(char *temp_num, t_info info, char type)
 	else
 		result = info.precision > size ? \
 			base_precision(temp_num, info.precision) : ft_strdup(temp_num);
-	size = info.base > 0 ? check_base(info, type, size, &result) : 0;
+	size = info.base > 0 ? check_base(type, &result) : 0;
 	size += write(1, result, ft_strlen(result));
 	free(result);
 	result = 0;
