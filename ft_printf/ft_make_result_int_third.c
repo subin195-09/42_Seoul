@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 21:24:50 by skim              #+#    #+#             */
-/*   Updated: 2020/10/29 01:18:56 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/29 01:48:44 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ int		check_space(char **result, int len, int sign, t_info info)
 		return (write(1, " ", 1));
 	else if (len == info.width && info.space && ft_isdigit((*result)[0]))
 	{
+		if (info.padding == '0' && !info.left && (*result)[0] == '0')
+		{
+			(*result)[0] = ' ';
+			return (0);
+		}
 		if ((*result)[len - 1] == ' ')
 			(*result)[len - 1] = '\0';
 		return (write(1, " ", 1));

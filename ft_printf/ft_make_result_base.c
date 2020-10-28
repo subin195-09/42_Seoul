@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 22:08:48 by skim              #+#    #+#             */
-/*   Updated: 2020/10/29 01:40:13 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/29 01:51:37 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ int		check_base(char type, char **result)
 		i++;
 	if (type == 'o')
 		return (check_base_o(result, i));
-	if (i > 1)
+	if (i > 2)
 	{
 		(*result)[i - 1] = type;
 		(*result)[i - 2] = '0';
 	}
-	else if (i == 1)
+	else if (i == 2)
 	{
 		(*result)[i - 1] = type;
 		return (write(1, "0", 1));
