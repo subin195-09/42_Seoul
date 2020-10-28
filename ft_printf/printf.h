@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:20:34 by skim              #+#    #+#             */
-/*   Updated: 2020/10/28 04:41:08 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/29 00:40:50 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ typedef struct	s_result
 	char		*temp_value;
 	char		*result;
 }				t_result;
-
 
 typedef struct	s_info
 {
@@ -50,14 +49,13 @@ char			*int_width(t_info info, char *char_num, int sign, long long num);
 char			*int_pre(t_info info, char *char_num, int sign, long long num);
 char			*ltoa_sign(long long num, int sign);
 int				get_max(int a, int b, int c);
-int				check_space(int len, int count, int sign, t_info info);
+int				check_space(char **result, int len, int sign, t_info info);
 
 int				make_result_char(t_info info, va_list var);
 int				make_result_string(t_info info, va_list var);
-char			*uni_encoder(wint_t num, int count_l, int *precision) ;
+char			*uni_encoder(wint_t num, int count_l, int *precision);
 
-
-int				make_result_base(t_info info, unsigned long long num, char type);
+int				make_result_base(t_info *info, unsigned long long num, char type);
 char			*base_precision(char *temp_num, int precision);
 char			*cut_and_paste_base(char *var_char, t_info info);
 char			*change_base(unsigned long long num, char *base);

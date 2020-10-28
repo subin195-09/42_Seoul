@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 04:33:34 by skim              #+#    #+#             */
-/*   Updated: 2020/10/28 04:40:10 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/29 00:38:35 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int		zero_check_char(t_info info)
 
 int		zero_check_base(t_info info)
 {
-	int count_bytes;
+	int		count_bytes;
 
 	count_bytes = 0;
 	if (info.width == -1)

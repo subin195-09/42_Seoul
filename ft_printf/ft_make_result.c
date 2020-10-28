@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 14:03:52 by skim              #+#    #+#             */
-/*   Updated: 2020/10/28 00:01:23 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/29 00:44:36 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,27 +42,26 @@ int		divide_uint(t_info *info, va_list var, char type)
 
 	info->check_sign = 0;
 	info->space = 0;
-	ull_int = 0;
 	if (!info->count_l)
 	{
 		if (info->count_h == 1)
 			ull_int = (unsigned short int)va_arg(var, int);
 		else if (info->count_h >= 2)
 			ull_int = (unsigned char)va_arg(var, int);
-		else if (info->count_h == 0)
+		else
 			ull_int = (unsigned int)va_arg(var, unsigned int);
 	}
 	else
 	{
 		if (info->count_l == 1)
 			ull_int = (long unsigned)va_arg(var, long unsigned);
-		else if (info->count_l >= 2)
+		else
 			ull_int = (long long)va_arg(var, long long);
 	}
 	if (type == 'u')
 		return (make_result_uint(*info, ull_int));
 	else
-		return (make_result_base(*info, ull_int, type));
+		return (make_result_base(info, ull_int, type));
 }
 
 int		make_result(const char **format, t_info *info, va_list var)
@@ -86,6 +85,8 @@ int		make_result(const char **format, t_info *info, va_list var)
 	}
 	if (**format == '%')
 		count_bytes = make_result_per(*info);
+	if (**format == 'n')
+		count_bytes = -1;
 	(*format)++;
 	return (count_bytes);
 }

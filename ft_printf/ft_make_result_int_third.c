@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 21:24:50 by skim              #+#    #+#             */
-/*   Updated: 2020/10/28 04:39:17 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/28 23:55:10 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,16 @@ int		get_max(int a, int b, int c)
 	return (max);
 }
 
-int		check_space(int len, int count, int sign, t_info info)
+int		check_space(char **result, int len, int sign, t_info info)
 {
-	if ((len == count || len == info.precision + sign) && info.space && !sign)
+	if (len != info.width && info.space && !sign)
 		return (write(1, " ", 1));
+	else if (len == info.width && info.space && \
+		ft_isdigit((*result)[0]) && (*result)[len - 2] == ' ')
+	{
+		(*result)[len - 2] = '\0';
+		return (write(1, " ", 1));
+	}
 	else
 		return (0);
 }

@@ -6,11 +6,19 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:16:36 by skim              #+#    #+#             */
-/*   Updated: 2020/10/24 17:27:55 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/29 00:54:03 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
+
+static void make_result_n(va_list var, int bytes)
+{
+	int *store_bytes;
+
+	store_bytes = va_arg(var, int *);
+	*store_bytes = bytes;
+}
 
 static int	write_format(const char **format, va_list var)
 {
@@ -18,7 +26,6 @@ static int	write_format(const char **format, va_list var)
 
 	// %부분 넘기기
 	(*format)++;
-	// flag의 글자수 만큼 format 위치를
 	count_bytes = check_specifier(format, var);
 	return (count_bytes);
 }
@@ -27,6 +34,7 @@ int			ft_printf(const char *format, ...)
 {
 	va_list	var;
 	int		count_bytes;
+	int		rt_bytes;
 
 	count_bytes = 0;
 	va_start(var, format);
@@ -38,7 +46,13 @@ int			ft_printf(const char *format, ...)
 			format++;
 		}
 		else
-			count_bytes += write_format(&format, var);
+		{
+			rt_bytes = write_format(&format, var);
+			if (rt_bytes == -1)
+				make_result_n(var, count_bytes);
+			else
+				count_bytes += rt_bytes;
+		}
 	}
 	va_end(var);
 	return (count_bytes);

@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 22:08:48 by skim              #+#    #+#             */
-/*   Updated: 2020/10/27 03:52:53 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/29 00:40:27 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,21 +108,25 @@ int		write_result(char *temp_num, t_info info, char type)
 	return (size);
 }
 
-int		make_result_base(t_info info, unsigned long long num, char type)
+int		make_result_base(t_info *info, unsigned long long num, char type)
 {
 	char			*temp_num;
 	int				count_bytes;
 
 	count_bytes = 0;
-	if (!num && !info.precision)
-		return (zero_check_base(info));
+	if (!num)
+	{
+		if (!info->precision)
+			return (zero_check_base(*info));
+		info->base = 0;
+	}
 	if (type == 'x')
 		temp_num = change_base(num, "0123456789abcdef");
 	else if (type == 'X')
 		temp_num = change_base(num, "0123456789ABCDEF");
 	else
 		temp_num = change_base(num, "01234567");
-	count_bytes = write_result(temp_num, info, type);
+	count_bytes = write_result(temp_num, *info, type);
 	free(temp_num);
 	temp_num = 0;
 	return (count_bytes);
