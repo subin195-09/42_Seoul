@@ -6,13 +6,13 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:16:36 by skim              #+#    #+#             */
-/*   Updated: 2020/10/29 00:54:03 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/29 00:56:33 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-static void make_result_n(va_list var, int bytes)
+static void	make_result_n(va_list var, int bytes)
 {
 	int *store_bytes;
 
@@ -24,7 +24,6 @@ static int	write_format(const char **format, va_list var)
 {
 	int		count_bytes;
 
-	// %부분 넘기기
 	(*format)++;
 	count_bytes = check_specifier(format, var);
 	return (count_bytes);
