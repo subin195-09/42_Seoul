@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:20:34 by skim              #+#    #+#             */
-/*   Updated: 2020/10/29 01:07:16 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/29 01:12:06 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char			*int_width(t_info info, char *char_num, int sign, long long num);
 char			*int_pre(t_info info, char *char_num, int sign, long long num);
 char			*ltoa_sign(long long num, int sign);
 int				get_max(int a, int b, int c);
-int				check_space(char *result, int len, int sign, t_info info);
+int				check_space(char **result, int len, int sign, t_info info);
 
 int				make_result_char(t_info info, va_list var);
 int				make_result_string(t_info info, va_list var);

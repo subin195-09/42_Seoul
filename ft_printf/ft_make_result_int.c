@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 19:27:51 by skim              #+#    #+#             */
-/*   Updated: 2020/10/29 01:07:02 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/29 01:12:23 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int			make_result_int(t_info info, long long num)
 		result = ltoa_sign(num, sign);
 	else
 		result = result_int_div(info, num, sign, len);
-	num = check_space(result, len, sign, info);
+	num = check_space(&result, len, sign, info);
 	num += write(1, result, ft_strlen(result));
 	free(result);
 	result = 0;
