@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 22:08:48 by skim              #+#    #+#             */
-/*   Updated: 2020/10/29 02:00:13 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/29 02:04:49 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		check_base(char type, char **result)
 	int i;
 
 	i = 0;
-	while (!ft_isdigit((*result)[i]))
+	while (!ft_isalnum((*result)[i]))
 		i++;
 	if (type == 'o')
 		return (check_base_o(result, i));
