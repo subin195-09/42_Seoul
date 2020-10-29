@@ -6,11 +6,29 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 22:08:48 by skim              #+#    #+#             */
-/*   Updated: 2020/10/29 20:46:18 by skim             ###   ########.fr       */
+/*   Updated: 2020/10/29 21:50:13 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
+
+char	*base_join(char type, char *temp_num, t_info info)
+{
+	char *result;
+
+	if (info.base > 0)
+	{
+		if (type == 'x')
+			result = ft_strjoin("0x", temp_num);
+		else if (type == 'X')
+			result = ft_strjoin("0X", temp_num);
+		else
+			result = ft_strjoin("0", temp_num);
+	}
+	else
+		result = ft_strdup(temp_num);
+	return (result);
+}
 
 char	*cut_and_paste_base(char *var_char, t_info info, char type)
 {
@@ -18,24 +36,22 @@ char	*cut_and_paste_base(char *var_char, t_info info, char type)
 	char	padding;
 	int		size;
 	int		i;
-	int		j;
 
-	if (!(result = malloc(sizeof(char) * (info.width + 1))))
+	if (!(result = calloc(sizeof(char), info.width + 1)))
 		return (0);
-	result[info.width] = '\0';
 	padding = (info.precision > -1 || info.left) ? ' ' : info.padding;
 	i = -1;
-	j = -1;
+	size = -1;
 	ft_memset(result, padding, info.width);
 	if (info.base && type != 'p')
 	{
-		i = (info.left || padding == '0') ? -1 : info.width - ft_strlen(var_char) - 3;
+		i = (info.left || padding == '0') ? \
+			-1 : info.width - ft_strlen(var_char) - 3;
 		result[++i] = '0';
-		if (type != 'o')
-			result[++i] = type;
+		result[++i] = type;
 	}
-	while (info.left && var_char[++j])
-		result[++i] = var_char[j];
+	while (info.left && var_char[++size])
+		result[++i] = var_char[size];
 	size = ft_strlen(var_char) - 1;
 	i = info.width - 1;
 	while (!info.left && size >= 0)
@@ -87,27 +103,10 @@ int		write_result(char *temp_num, t_info info, char type)
 			result = cut_and_paste_base(temp_num, info, type);
 	}
 	else
-	{
-		if (info.precision > size)
-			result = base_precision(temp_num, info, type);
-		else
-		{
-			if (info.base > 0)
-			{
-				if (type == 'x')
-					result = ft_strjoin("0x", temp_num);
-				else if (type == 'X')
-					result = ft_strjoin("0X", temp_num);
-				else
-					result = ft_strjoin("0", temp_num);
-			}
-			else
-				result = ft_strdup(temp_num);
-		}
-	}
+		result = info.precision > size ? base_precision(temp_num, info, type) \
+			: base_join(type, temp_num, info);
 	size += write(1, result, ft_strlen(result));
 	free(result);
-	result = 0;
 	return (size);
 }
 
