@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 18:14:25 by skim              #+#    #+#             */
-/*   Updated: 2020/10/26 19:49:19 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/01 16:23:56 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,7 @@ char				*ft_ltoa(long long n);
 int					count_num_long(long long n);
 char				*ft_ultoa(unsigned long long n);
 int					count_num_ulong(unsigned long long n);
+
+char				*ft_dtoa(double num, int size);
 
 #endif
