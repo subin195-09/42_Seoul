@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 18:14:25 by skim              #+#    #+#             */
-/*   Updated: 2020/11/02 21:05:00 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/02 21:22:54 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ typedef struct		s_double
 			unsigned long	exp		:11;
 			unsigned long	sign	:1;
 		};
-
 	};
-
 }					t_double;
 
 typedef struct		s_list
