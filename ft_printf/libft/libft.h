@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 18:14:25 by skim              #+#    #+#             */
-/*   Updated: 2020/11/02 21:22:54 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/03 12:00:44 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
-typedef unsigned long long ull;
+typedef unsigned long long t_ull;
 
 void				*ft_memset(void *p, int value, size_t size);
 void				ft_bzero(void *p, size_t size);
@@ -96,6 +96,6 @@ char				*ft_ultoa(unsigned long long n);
 int					count_num_ulong(unsigned long long n);
 
 char				*ft_dtoa(double num, int precision);
-ull					ft_pow(unsigned long long num, int exp);
+t_ull				ft_pow(unsigned long long num, int exp);
 
 #endif

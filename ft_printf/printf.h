@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:20:34 by skim              #+#    #+#             */
-/*   Updated: 2020/11/01 21:46:16 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/03 11:14:09 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ char			*change_base(unsigned long long num, char *base);
 int				make_result_p(t_info info, va_list var);
 
 int				make_result_per(t_info info);
+
+int				make_result_float(t_info info, va_list var);
+
 
 int				zero_check_int(t_info info);
 int				zero_check_char(t_info info);
