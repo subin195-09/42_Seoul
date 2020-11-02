@@ -5,63 +5,69 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/01 14:21:58 by skim              #+#    #+#             */
-/*   Updated: 2020/11/01 21:09:48 by skim             ###   ########.fr       */
+/*   Created: 2020/11/02 16:40:08 by skim              #+#    #+#             */
+/*   Updated: 2020/11/02 18:18:33 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-int		round_double(int num2)
+char	*make_string(double num, int precision)
 {
-	int	temp;
 
-	temp = num2 % 10;
-	if (temp > 5)
-		num2 += 10;
-	return (num2 / 10);
 }
 
-int		change_int(double num2, int size)
+unsigned long long	standard_round(double num, int precision)
 {
-	int		count;
 
-	count = 0;
-	while (count < size + 1)
+}
+
+unsigned long long	banker_round(unsigned long long pre_num, unsigned long long ten, int precision)
+{
+	if (pre_num % 10 != 5)
+		standard_round(pre_num, precision);
+	else
 	{
-		num2 *= (double)10;
-		count++;
+		ten = pre_num / 10;
+		if (pre_num % 2)
+			pre_num += 5;
+		else
+			pre_num -= 5;
 	}
-	return (round_double((int)num2));
+
+}
+unsigned long long	round_checker(double num, int precision)
+{
+	unsigned long long	pre_num;
+	unsigned long long	ten;
+	t_double			t_num;
+
+	ten = ft_pow(10, precision + 1);
+	pre_num = num * ten;
+	if ((t_num.mass << (precision + 13)) == 0)
+		return (banker_round(pre_num, precision));
+	else
+		return (standard_round(pre_num, precision));
 }
 
-char	*ft_dtoa(double num, int size)
+char				*ft_dtoa(double num, int precision)
 {
-	char	*result;
-	char	*num1_char;
-	char	*num2_char;
-	int		num1;
-	int		num2;
+	char		*result;
+	char		*r_char;
+	char		*pre_char;
+	long		r_num;
+	long long	pre_num;
 
-	num1 = num;
-	num2 = change_int(num - num1, size + 1);
-	num2 = round_double(num2);
-	num1_char = ft_itoa(num1);
-	num2_char = ft_strjoin(".", ft_itoa(num2));
-	result = ft_strjoin(num1_char, num2_char);
-	free(num1_char);
-	free(num2_char);
-	num1_char = 0;
-	num2_char = 0;
+	r_num = num;
+	num -= num < 0 ? -r_num : r_num;
+	pre_num = round_checker(num, precision) ? \
+		banker_round(num, precision) : standard_round(num, precision);
+	r_char = ft_ltoa(r_num);
+	pre_char = make_string(num, precision);
+	result = ft_strjoin(r_char, pre_char);
+	free(r_char);
+	free(pre_char);
+	r_char = 0;
+	pre_char = 0;
 	return (result);
-}
-
-int main(void)
-{
-	double d = 10.135;
-	int size = 2;
-
-	printf("%.*f\n", size, d);
-	printf("%s\n", ft_dtoa(d, size));
 }

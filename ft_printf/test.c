@@ -6,7 +6,7 @@
 int main(void)
 {
 	setlocale(LC_ALL, "");
-	char	*test = "*%#05x*\n";
+	char	*test = "%i, %d, %d, %d, %d, %s, %c, %d, %u, %x, %X"\n";
 	int		byte = 0;
 	printf("%s\n", test);
 	printf("*result of  printf*\n");

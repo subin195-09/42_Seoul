@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 18:14:25 by skim              #+#    #+#             */
-/*   Updated: 2020/11/01 16:23:56 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/02 17:07:44 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,23 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+
+typedef struct		s_double
+{
+	union
+	{
+		double		num;
+		struct
+		{
+			unsigned long	mass	:52;
+			unsigned long	exp		:11;
+			unsigned long	sign	:1;
+		};
+
+	};
+
+}					t_double;
+
 
 typedef struct		s_list
 {

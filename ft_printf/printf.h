@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:20:34 by skim              #+#    #+#             */
-/*   Updated: 2020/10/29 19:54:15 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/01 21:46:16 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,6 @@
 # include <stdarg.h>
 # include <wchar.h>
 # include "libft.h"
-
-typedef struct	s_result
-{
-	char		*sign;
-	char		*temp_value;
-	char		*result;
-}				t_result;
 
 typedef struct	s_info
 {
