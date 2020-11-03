@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 15:00:31 by skim              #+#    #+#             */
-/*   Updated: 2020/11/03 17:29:19 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/03 17:45:43 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*cut_and_paste_float(char *char_num, t_info info, int sign)
 		result[0] = char_num[0];
 		stop++;
 	}
-	while (info.left && char_num[i++])
+	while (info.left && char_num[++i])
 		result[i] = char_num[i];
 	size = ft_strlen(char_num);
 	i = info.width;
@@ -90,7 +90,8 @@ int		make_result_float(t_info info, va_list var)
 		result = ft_strdup(char_num);
 	else
 		result = cut_and_paste_float(char_num, info, sign);
-	len = write(1, result, ft_strlen(result));
+	len = check_space(&result, len, sign, info);
+	len += write(1, result, ft_strlen(result));
 	free(result);
 	free(char_num);
 	result = 0;
