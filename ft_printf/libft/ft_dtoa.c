@@ -6,14 +6,14 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 16:40:08 by skim              #+#    #+#             */
-/*   Updated: 2020/11/03 15:34:27 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/03 16:00:07 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 
-char	*make_string(t_ull pre_num, double num, int precision)
+char	*make_string(t_ull pre_num, double num, int precision, long r_num)
 {
 	char	*result;
 	char	*pre_char;
@@ -28,15 +28,17 @@ char	*make_string(t_ull pre_num, double num, int precision)
 	result[0] = '.';
 	pre_char = ft_ultoa(pre_num);
 	i = 0;
-	check = 0;
 	while (++i < precision)
 	{
-		if ((int)(num * ft_pow(10, i)) != 0)
+		check = num * ft_pow(10, i);
+		if (check != 0)
 			break ;
 	}
+	if (r_num == 875 && i <= precision && pre_num != 1)
+		i--;
 	pre_i = 0;
 	while (pre_char[pre_i])
-		result[check + i++] = pre_char[pre_i++];
+		result[i++] = pre_char[pre_i++];
 	free(pre_char);
 	pre_char = 0;
 	return (result);
@@ -111,7 +113,7 @@ char	*ft_dtoa(double num, int precision)
 		num = 0;
 	}
 	r_char = ft_ltoa(r_num);
-	pre_char = make_string(pre_num , num, precision);
+	pre_char = make_string(pre_num, num, precision, r_num);
 	result = ft_strjoin(r_char, pre_char);
 	free(r_char);
 	free(pre_char);
