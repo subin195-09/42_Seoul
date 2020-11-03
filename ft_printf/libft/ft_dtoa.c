@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 16:40:08 by skim              #+#    #+#             */
-/*   Updated: 2020/11/03 17:19:15 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/03 21:48:35 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_ull	round_checker(double num, int precision)
 	t_num.num = num;
 	ten = ft_pow(10, precision + 1);
 	pre_num = num * ten;
-	if ((t_num.mass << (precision + 13)) == 0)
+	if ((t_num.man << (precision + 13)) == 0)
 		return (banker_round(pre_num, ten));
 	else
 		return ((pre_num + 5) / 10);

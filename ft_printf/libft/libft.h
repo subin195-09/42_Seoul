@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 18:14:25 by skim              #+#    #+#             */
-/*   Updated: 2020/11/03 17:07:47 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/03 21:13:46 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct		s_double
 		double		num;
 		struct
 		{
-			unsigned long	mass	:52;
+			unsigned long	man	:52;
 			unsigned long	exp		:11;
 			unsigned long	sign	:1;
 		};
