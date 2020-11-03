@@ -6,16 +6,17 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 16:40:08 by skim              #+#    #+#             */
-/*   Updated: 2020/11/03 12:00:17 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/03 13:53:03 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*make_string(t_ull num, int precision)
+char	*make_string(t_ull pre_num, double num, int precision)
 {
 	char	*result;
-	char	*pre_char;\
+	char	*pre_char;
+	int		pre_i;
 	int		i;
 
 	if (!(result = malloc(precision + 2)))
@@ -23,10 +24,16 @@ char	*make_string(t_ull num, int precision)
 	result[precision + 1] = '\0';
 	ft_memset(result, '0', precision + 1);
 	result[0] = '.';
-	pre_char = ft_ultoa(num);
-	i = -1;
-	while (pre_char[++i])
-		result[i + 1] = pre_char[i];
+	pre_char = ft_ultoa(pre_num);
+	i = 0;
+	while (++i < precision)
+	{
+		if (0 != (int)(num * ft_pow(10, i)))
+			break ;
+	}
+	pre_i = -1;
+	while (pre_char[++pre_i])
+		result[i++] = pre_char[pre_i];
 	free(pre_char);
 	pre_char = 0;
 	return (result);
@@ -59,7 +66,7 @@ t_ull	round_checker(double num, int precision)
 	if ((t_num.mass << (precision + 13)) == 0)
 		return (banker_round(pre_num, ten));
 	else
-		return (standard_round(pre_num));
+		return ((pre_num + 5) / 10);
 }
 
 char	*ft_dtoa(double num, int precision)
@@ -68,13 +75,19 @@ char	*ft_dtoa(double num, int precision)
 	char	*r_char;
 	char	*pre_char;
 	long	r_num;
-	t_ull		pre_num;
+	t_ull	pre_num;
 
 	r_num = num;
 	num -= num < 0 ? -r_num : r_num;
 	pre_num = round_checker(num, precision);
+	if (count_num_ulong(pre_num) > precision)
+	{
+		r_num++;
+		pre_num = 0;
+		num = 0;
+	}
 	r_char = ft_ltoa(r_num);
-	pre_char = make_string(pre_num, precision);
+	pre_char = make_string(pre_num, num, precision);
 	result = ft_strjoin(r_char, pre_char);
 	free(r_char);
 	free(pre_char);
