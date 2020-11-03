@@ -6,18 +6,16 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 16:40:08 by skim              #+#    #+#             */
-/*   Updated: 2020/11/03 16:00:07 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/03 17:19:15 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 char	*make_string(t_ull pre_num, double num, int precision, long r_num)
 {
 	char	*result;
 	char	*pre_char;
-	int		check;
 	int		pre_i;
 	int		i;
 
@@ -30,8 +28,7 @@ char	*make_string(t_ull pre_num, double num, int precision, long r_num)
 	i = 0;
 	while (++i < precision)
 	{
-		check = num * ft_pow(10, i);
-		if (check != 0)
+		if ((int)(num * ft_pow(10, i)) != 0)
 			break ;
 	}
 	if (r_num == 875 && i <= precision && pre_num != 1)
@@ -74,9 +71,10 @@ t_ull	round_checker(double num, int precision)
 		return ((pre_num + 5) / 10);
 }
 
-char	*zero_precision(double num)
+char	*zero_precision(double num, int base)
 {
 	char	*result;
+	char	*temp;
 	int		r_num;
 	double	m_num;
 
@@ -89,11 +87,19 @@ char	*zero_precision(double num)
 		if (r_num % 2 != 0)
 			num += 1;
 	}
-	result = ft_itoa((int)num);
+	if (base)
+	{
+		temp = ft_itoa((int)num);
+		result = ft_strjoin(temp, ".");
+		free(temp);
+		temp = 0;
+	}
+	else
+		result = ft_itoa((int)num);
 	return (result);
 }
 
-char	*ft_dtoa(double num, int precision)
+char	*ft_dtoa(double num, int precision, int base)
 {
 	char	*result;
 	char	*r_char;
@@ -102,7 +108,7 @@ char	*ft_dtoa(double num, int precision)
 	t_ull	pre_num;
 
 	if (precision == 0)
-		return (zero_precision(num));
+		return (zero_precision(num, base));
 	r_num = num;
 	num -= num < 0 ? -r_num : r_num;
 	pre_num = round_checker(num, precision);

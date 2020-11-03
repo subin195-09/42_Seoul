@@ -6,24 +6,34 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 15:00:31 by skim              #+#    #+#             */
-/*   Updated: 2020/11/03 16:01:18 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/03 17:29:19 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-char	*check_sign(t_info info, double num)
+int		what_is_sign(double num, t_info info)
+{
+	t_double	d_num;
+
+	d_num.num = num;
+	if (d_num.sign == 0 && !info.check_sign)
+		return (0);
+	if (d_num.sign == 1)
+		return (1);
+	else
+		return (2);
+}
+
+char	*check_sign(t_info info, double num, int sign)
 {
 	char		*result;
 	char		*char_num;
-	t_double	d_num;
-	int			sign;
 	int			len;
 
-	d_num.num = num;
-	sign = d_num.sign == 1 ? 1 : 2;
 	len = info.precision > -1 ? info.precision : 6;
-	char_num = num < 0 ? ft_dtoa(-num, len) : ft_dtoa(num, len);
+	char_num = num < 0 ? \
+		ft_dtoa(-num, len, info.base) : ft_dtoa(num, len, info.base);
 	if (sign == 1 || info.check_sign)
 		result = sign == 1 ? \
 			ft_strjoin("-", char_num) : ft_strjoin("+", char_num);
@@ -72,10 +82,10 @@ int		make_result_float(t_info info, va_list var)
 	int		sign;
 
 	num = va_arg(var, double);
-	char_num = check_sign(info, num);
+	sign = what_is_sign(num, info);
+	char_num = check_sign(info, num, sign);
 	len = ft_strlen(char_num);
 	len = len > info.width ? len : info.width;
-	sign = (num < 0 || info.check_sign) ? 1 : 0;
 	if (len != info.width)
 		result = ft_strdup(char_num);
 	else
