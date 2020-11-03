@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 15:00:31 by skim              #+#    #+#             */
-/*   Updated: 2020/11/03 11:49:55 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/03 14:48:29 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 char	*check_sign(t_info info, double num)
 {
-	char	*result;
-	char	*char_num;
-	int		sign;
-	int		len;
+	char		*result;
+	char		*char_num;
+	t_double	d_num;
+	int			sign;
+	int			len;
 
-	sign = num < 0 ? 1 : 2;
+	d_num.num = num;
+	sign = d_num.sign == 1 ? 1 : 2;
 	len = info.precision > -1 ? info.precision : 6;
 	char_num = num < 0 ? ft_dtoa(-num, len) : ft_dtoa(num, len);
 	if (sign == 1 || info.check_sign)

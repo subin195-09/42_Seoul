@@ -6,16 +6,18 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 16:40:08 by skim              #+#    #+#             */
-/*   Updated: 2020/11/03 13:53:03 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/03 15:34:27 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 char	*make_string(t_ull pre_num, double num, int precision)
 {
 	char	*result;
 	char	*pre_char;
+	int		check;
 	int		pre_i;
 	int		i;
 
@@ -26,14 +28,15 @@ char	*make_string(t_ull pre_num, double num, int precision)
 	result[0] = '.';
 	pre_char = ft_ultoa(pre_num);
 	i = 0;
+	check = 0;
 	while (++i < precision)
 	{
-		if (0 != (int)(num * ft_pow(10, i)))
+		if ((int)(num * ft_pow(10, i)) != 0)
 			break ;
 	}
-	pre_i = -1;
-	while (pre_char[++pre_i])
-		result[i++] = pre_char[pre_i];
+	pre_i = 0;
+	while (pre_char[pre_i])
+		result[check + i++] = pre_char[pre_i++];
 	free(pre_char);
 	pre_char = 0;
 	return (result);
@@ -69,6 +72,25 @@ t_ull	round_checker(double num, int precision)
 		return ((pre_num + 5) / 10);
 }
 
+char	*zero_precision(double num)
+{
+	char	*result;
+	int		r_num;
+	double	m_num;
+
+	r_num = num;
+	m_num = num - r_num;
+	if ((int)(m_num * 10) != 5)
+		num += 0.5;
+	else
+	{
+		if (r_num % 2 != 0)
+			num += 1;
+	}
+	result = ft_itoa((int)num);
+	return (result);
+}
+
 char	*ft_dtoa(double num, int precision)
 {
 	char	*result;
@@ -77,6 +99,8 @@ char	*ft_dtoa(double num, int precision)
 	long	r_num;
 	t_ull	pre_num;
 
+	if (precision == 0)
+		return (zero_precision(num));
 	r_num = num;
 	num -= num < 0 ? -r_num : r_num;
 	pre_num = round_checker(num, precision);
@@ -87,7 +111,7 @@ char	*ft_dtoa(double num, int precision)
 		num = 0;
 	}
 	r_char = ft_ltoa(r_num);
-	pre_char = make_string(pre_num, num, precision);
+	pre_char = make_string(pre_num , num, precision);
 	result = ft_strjoin(r_char, pre_char);
 	free(r_char);
 	free(pre_char);

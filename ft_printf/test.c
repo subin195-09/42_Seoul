@@ -6,15 +6,15 @@
 int main(void)
 {
 	setlocale(LC_ALL, "");
-	char	*test = "%f\n";
+	char	*test = "%.7f\n";
 	int		byte = 0;
 	printf("%s\n", test);
 	printf("*result of  printf*\n");
-	byte = printf(test, 3.9999999);
+	byte = printf(test, -875.000001);
 	printf("bytes : %d\n", byte);
 	printf("=======================\n");
 	printf("*result of ft_printf*\n");
-	byte = ft_printf(test, 3.9999999);
+	byte = ft_printf(test, -875.000001);
 	printf("bytes : %d\n", byte);
 }
 //wchar_t*
