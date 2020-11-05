@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 19:11:11 by skim              #+#    #+#             */
-/*   Updated: 2020/11/05 21:17:30 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/05 22:00:43 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ int		count_exp(double num)
 	int r_num;
 	int i;
 
-	exp = 1;
+	num = num > 0 ? num : -num;
 	r_num = num;
+	exp = r_num == 0 ? 1 : 0;
 	i = 1;
 	if (r_num == 0)
 	{
@@ -36,7 +37,6 @@ int		count_exp(double num)
 			r_num /= 10;
 			exp++;
 		}
-		exp--;
 	}
 	return (exp);
 }
