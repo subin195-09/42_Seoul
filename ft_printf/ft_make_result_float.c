@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 15:00:31 by skim              #+#    #+#             */
-/*   Updated: 2020/11/03 17:45:43 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/05 15:50:09 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,11 @@ char	*cut_and_paste_float(char *char_num, t_info info, int sign)
 	return (result);
 }
 
-int		make_result_float(t_info info, va_list var)
+int		float_factory(t_info info, char *char_num, int sign)
 {
 	char	*result;
-	char	*char_num;
-	double	num;
 	int		len;
-	int		sign;
 
-	num = va_arg(var, double);
-	sign = what_is_sign(num, info);
-	char_num = check_sign(info, num, sign);
 	len = ft_strlen(char_num);
 	len = len > info.width ? len : info.width;
 	if (len != info.width)
@@ -93,8 +87,21 @@ int		make_result_float(t_info info, va_list var)
 	len = check_space(&result, len, sign, info);
 	len += write(1, result, ft_strlen(result));
 	free(result);
-	free(char_num);
 	result = 0;
-	result = char_num;
 	return (len);
+}
+
+int		make_result_double(t_info info, va_list var)
+{
+	char	*char_num;
+	double	num;
+	int		sign;
+
+	num = va_arg(var, double);
+	sign = what_is_sign(num, info);
+	char_num = check_sign(info, num, sign);
+	sign = float_factory(info, char_num, sign);
+	free(char_num);
+	char_num = 0;
+	return (sign);
 }

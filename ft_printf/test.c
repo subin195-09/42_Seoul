@@ -14,7 +14,7 @@ int main(void)
 	printf("bytes : %d\n", byte);
 	printf("=======================\n");
 	printf("*result of ft_printf*\n");
-	byte = ft_printf(test, 0.321);
+	byte = ft_printf(test, 0.3211);
 	printf("bytes : %d\n", byte);
 }
 //wchar_t*
