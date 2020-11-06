@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dtoa.c                                          :+:      :+:    :+:   */
+/*   ft_dtoa_e.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/02 16:40:08 by skim              #+#    #+#             */
-/*   Updated: 2020/11/06 20:41:57 by skim             ###   ########.fr       */
+/*   Created: 2020/11/06 20:10:03 by skim              #+#    #+#             */
+/*   Updated: 2020/11/06 20:36:36 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*make_string(t_ull pre_num, double num, int precision, long r_num)
 	int		pre_i;
 	int		i;
 
+	if (precision <= 0)
+		return (ft_strdup("\0"));
 	if (!(result = malloc(precision + 2)))
 		return (0);
 	result[precision + 1] = '\0';
@@ -71,7 +73,7 @@ t_ull	round_checker(double num, int precision)
 		return ((pre_num + 5) / 10);
 }
 
-char	*zero_precision(double num, int base)
+char	*zero_precision(double num, int base, int exp)
 {
 	char	*result;
 	char	*temp;
@@ -80,10 +82,15 @@ char	*zero_precision(double num, int base)
 
 	r_num = num;
 	m_num = num - r_num;
-	if ((int)(m_num * 10) != 5)
-		num += 0.5;
+	if (exp)
+		num = (num + 5 * ft_pow(10, exp - 1)) / ft_pow(10, exp);
 	else
-		num += r_num % 2 ? 1 : 0;
+	{
+		if ((int)(m_num * 10) != 5)
+			num += 0.5;
+		else
+			num += r_num % 2 ? 1 : 0;
+	}
 	if (base)
 	{
 		temp = ft_itoa((int)num);
@@ -95,7 +102,36 @@ char	*zero_precision(double num, int base)
 	return (result);
 }
 
-char	*ft_dtoa(double num, int precision, int base)
+char	*ft_makejoin(char *r_char, char *pre_char, int stop)
+{
+	char	*result;
+	char	*temp;
+	int		size;
+	int		i;
+
+	if (!(result = malloc(stop + 2)))
+		return (0);
+	result[stop + 1] = 0;
+	ft_memset(result, '0', stop + 1);
+	temp = ft_strjoin(r_char, ++pre_char);
+	i = 0;
+	size = 0;
+	while (temp[i] == '0')
+		i++;
+	result[1] = temp[i] ? '0' : '.';
+	if (temp[i])
+	{
+		result[size++] = temp[i++];
+		result[size++] = '.';
+		while (temp[i] && size < stop + 2)
+			result[size++] = temp[i++];
+	}
+	free(temp);
+	temp = 0;
+	return (result);
+}
+
+char	*ft_dtoa(double num, int precision, int base, int exp)
 {
 	char	*result;
 	char	*r_char;
@@ -103,8 +139,8 @@ char	*ft_dtoa(double num, int precision, int base)
 	long	r_num;
 	t_ull	pre_num;
 
-	if (precision == 0)
-		return (zero_precision(num, base));
+	if (precision + exp == 0)
+		return (zero_precision(num, base, exp));
 	r_num = num;
 	num -= num < 0 ? -r_num : r_num;
 	pre_num = round_checker(num, precision);
@@ -116,7 +152,8 @@ char	*ft_dtoa(double num, int precision, int base)
 	}
 	r_char = ft_ltoa(r_num);
 	pre_char = make_string(pre_num, num, precision, r_num);
-	result = ft_strjoin(r_char, pre_char);
+	result = exp == 0 ? ft_strjoin(r_char, pre_char) \
+		: ft_makejoin(r_char, pre_char, precision + exp);
 	ft_frees(2, r_char, pre_char);
 	r_char = 0;
 	pre_char = 0;

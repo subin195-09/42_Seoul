@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 18:14:25 by skim              #+#    #+#             */
-/*   Updated: 2020/11/06 16:37:37 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/06 20:38:49 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int					count_num_long(long long n);
 char				*ft_ultoa(unsigned long long n);
 int					count_num_ulong(unsigned long long n);
 
-char				*ft_dtoa(double num, int precision, int base, int exp);
+char				*ft_dtoa(double num, int precision, int base);
 t_ull				round_checker(double num, int precision);
 t_ull				ft_pow(unsigned long long num, int exp);
 
