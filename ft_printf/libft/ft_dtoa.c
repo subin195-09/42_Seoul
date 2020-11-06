@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 16:40:08 by skim              #+#    #+#             */
-/*   Updated: 2020/11/06 15:00:20 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/06 17:58:07 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*make_string(t_ull pre_num, double num, int precision, long r_num)
 	int		pre_i;
 	int		i;
 
+	if (precision <= 0)
+		return (ft_strdup("\0"));
 	if (!(result = malloc(precision + 2)))
 		return (0);
 	result[precision + 1] = '\0';
@@ -71,7 +73,7 @@ t_ull	round_checker(double num, int precision)
 		return ((pre_num + 5) / 10);
 }
 
-char	*zero_precision(double num, int base)
+char	*zero_precision(double num, int base, int exp)
 {
 	char	*result;
 	char	*temp;
@@ -80,12 +82,19 @@ char	*zero_precision(double num, int base)
 
 	r_num = num;
 	m_num = num - r_num;
-	if ((int)(m_num * 10) != 5)
-		num += 0.5;
+	if (exp)
+	{
+		
+	}
 	else
 	{
-		if (r_num % 2 != 0)
-			num += 1;
+		if ((int)(m_num * 10) != 5)
+			num += 0.5;
+		else
+		{
+			if (r_num % 2 != 0)
+				num += 1;
+		}
 	}
 	if (base)
 	{
@@ -106,10 +115,10 @@ char	*ft_makejoin(char *r_char, char *pre_char, int stop)
 	int		size;
 	int		i;
 
-	if (!(result = malloc(stop + 3)))
+	if (!(result = malloc(stop + 2)))
 		return (0);
-	result[stop + 2] = 0;
-	ft_memset(result, '0', stop + 2);
+	result[stop + 1] = 0;
+	ft_memset(result, '0', stop + 1);
 	temp = ft_strjoin(r_char, ++pre_char);
 	i = 0;
 	size = 0;
@@ -136,8 +145,8 @@ char	*ft_dtoa(double num, int precision, int base, int exp)
 	long	r_num;
 	t_ull	pre_num;
 
-	if (precision == 0)
-		return (zero_precision(num, base));
+	if (precision + exp == 0)
+		return (zero_precision(num, base, exp));
 	r_num = num;
 	num -= num < 0 ? -r_num : r_num;
 	pre_num = round_checker(num, precision);
