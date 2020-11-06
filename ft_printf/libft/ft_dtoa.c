@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 16:40:08 by skim              #+#    #+#             */
-/*   Updated: 2020/11/03 21:48:35 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/06 15:00:20 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,36 @@ char	*zero_precision(double num, int base)
 	return (result);
 }
 
-char	*ft_dtoa(double num, int precision, int base)
+char	*ft_makejoin(char *r_char, char *pre_char, int stop)
+{
+	char	*result;
+	char	*temp;
+	int		size;
+	int		i;
+
+	if (!(result = malloc(stop + 3)))
+		return (0);
+	result[stop + 2] = 0;
+	ft_memset(result, '0', stop + 2);
+	temp = ft_strjoin(r_char, ++pre_char);
+	i = 0;
+	size = 0;
+	while (temp[i] == '0')
+		i++;
+	result[1] = temp[i] ? '0' : '.';
+	if (temp[i])
+	{
+		result[size++] = temp[i++];
+		result[size++] = '.';
+		while (temp[i] && size < stop + 2)
+			result[size++] = temp[i++];
+	}
+	free(temp);
+	temp = 0;
+	return (result);
+}
+
+char	*ft_dtoa(double num, int precision, int base, int exp)
 {
 	char	*result;
 	char	*r_char;
@@ -120,9 +149,9 @@ char	*ft_dtoa(double num, int precision, int base)
 	}
 	r_char = ft_ltoa(r_num);
 	pre_char = make_string(pre_num, num, precision, r_num);
-	result = ft_strjoin(r_char, pre_char);
-	free(r_char);
-	free(pre_char);
+	result = exp == 0 ? ft_strjoin(r_char, pre_char) \
+		: ft_makejoin(r_char, pre_char, precision + exp);
+	ft_frees(2, r_char, pre_char);
 	r_char = 0;
 	pre_char = 0;
 	return (result);

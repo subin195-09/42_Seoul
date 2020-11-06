@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 15:00:31 by skim              #+#    #+#             */
-/*   Updated: 2020/11/05 15:50:09 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/06 16:29:24 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@ int		what_is_sign(double num, t_info info)
 		return (2);
 }
 
-char	*check_sign(t_info info, double num, int sign)
+char	*check_sign(t_info info, double num, int sign, int exp)
 {
 	char		*result;
 	char		*char_num;
 	int			len;
 
-	len = info.precision > -1 ? info.precision : 6;
+	len = info.precision > -1 ? info.precision - exp : 6 - exp;
 	char_num = num < 0 ? \
-		ft_dtoa(-num, len, info.base) : ft_dtoa(num, len, info.base);
+		ft_dtoa(-num, len, info.base, exp) : ft_dtoa(num, len, info.base, exp);
 	if (sign == 1 || info.check_sign)
 		result = sign == 1 ? \
 			ft_strjoin("-", char_num) : ft_strjoin("+", char_num);
@@ -99,7 +99,7 @@ int		make_result_double(t_info info, va_list var)
 
 	num = va_arg(var, double);
 	sign = what_is_sign(num, info);
-	char_num = check_sign(info, num, sign);
+	char_num = check_sign(info, num, sign, 0);
 	sign = float_factory(info, char_num, sign);
 	free(char_num);
 	char_num = 0;

@@ -10,11 +10,11 @@ int main(void)
 	int		byte = 0;
 	printf("%s\n", test);
 	printf("*result of  printf*\n");
-	byte = printf(test, -0.00032);
+	byte = printf(test,  999.999999);
 	printf("bytes : %d\n", byte);
 	printf("=======================\n");
 	printf("*result of ft_printf*\n");
-	byte = ft_printf(test, -0.00032);
+	byte = ft_printf(test,  999.999999);
 	printf("bytes : %d\n", byte);
 }
 //wchar_t*

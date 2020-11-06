@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:20:34 by skim              #+#    #+#             */
-/*   Updated: 2020/11/05 16:06:51 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/06 13:23:58 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int				make_result_per(t_info info);
 int				make_result_double(t_info info, va_list var);
 int				make_result_e(t_info info, va_list var, char type);
 int				float_factory(t_info info, char *char_num, int sign);
-char			*check_sign(t_info info, double num, int sign);
+char			*check_sign(t_info info, double num, int sign, int exp);
 int				what_is_sign(double num, t_info info);
 
 int				zero_check_int(t_info info);

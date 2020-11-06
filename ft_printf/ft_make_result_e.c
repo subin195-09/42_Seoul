@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 19:11:11 by skim              #+#    #+#             */
-/*   Updated: 2020/11/05 22:00:43 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/06 15:00:44 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int		count_exp(double num)
 {
-	int exp;
-	int r_num;
-	int i;
+	int	exp;
+	int	r_num;
+	int	i;
 
 	num = num > 0 ? num : -num;
 	r_num = num;
@@ -78,10 +78,9 @@ int		make_result_e(t_info info, va_list var, char type)
 	int		exp;
 
 	num = va_arg(var, double);
-	exp = count_exp(num);
 	sign = what_is_sign(num, info);
-	num = exp < 0 ? num * ft_pow(10, -exp) : num / ft_pow(10, exp);
-	char_no_exp = check_sign(info, num, sign);
+	exp = num == 0 ? 0 : count_exp(num);
+	char_no_exp = check_sign(info, num, sign, exp);
 	char_num = join_exp(char_no_exp, exp, type);
 	sign = float_factory(info, char_num, sign);
 	free(char_no_exp);
