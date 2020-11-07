@@ -6,74 +6,14 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 20:10:03 by skim              #+#    #+#             */
-/*   Updated: 2020/11/06 20:36:36 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/07 17:20:41 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
-char	*make_string(t_ull pre_num, double num, int precision, long r_num)
-{
-	char	*result;
-	char	*pre_char;
-	int		pre_i;
-	int		i;
-
-	if (precision <= 0)
-		return (ft_strdup("\0"));
-	if (!(result = malloc(precision + 2)))
-		return (0);
-	result[precision + 1] = '\0';
-	ft_memset(result, '0', precision + 1);
-	result[0] = '.';
-	pre_char = ft_ultoa(pre_num);
-	i = 0;
-	while (++i < precision)
-	{
-		if ((int)(num * ft_pow(10, i)) != 0)
-			break ;
-	}
-	if (r_num == 875 && i <= precision && pre_num != 1)
-		i--;
-	pre_i = 0;
-	while (pre_char[pre_i])
-		result[i++] = pre_char[pre_i++];
-	free(pre_char);
-	pre_char = 0;
-	return (result);
-}
-
-t_ull	banker_round(t_ull pre_num, t_ull ten)
-{
-	if (pre_num % 10 != 5)
-		pre_num += 5;
-	else
-	{
-		ten = pre_num / 10;
-		if (ten % 2)
-			pre_num += 5;
-		else
-			pre_num -= 5;
-	}
-	return (pre_num / 10);
-}
-
-t_ull	round_checker(double num, int precision)
-{
-	unsigned long long	pre_num;
-	unsigned long long	ten;
-	t_double			t_num;
-
-	t_num.num = num;
-	ten = ft_pow(10, precision + 1);
-	pre_num = num * ten;
-	if ((t_num.man << (precision + 13)) == 0)
-		return (banker_round(pre_num, ten));
-	else
-		return ((pre_num + 5) / 10);
-}
-
-char	*zero_precision(double num, int base, int exp)
+char	*zero_precision_e(double num, int base, int exp)
 {
 	char	*result;
 	char	*temp;
@@ -82,14 +22,14 @@ char	*zero_precision(double num, int base, int exp)
 
 	r_num = num;
 	m_num = num - r_num;
-	if (exp)
+	if (exp > 0)
 		num = (num + 5 * ft_pow(10, exp - 1)) / ft_pow(10, exp);
+	else if (exp == 0)
+		num += 0.5;
 	else
 	{
-		if ((int)(m_num * 10) != 5)
-			num += 0.5;
-		else
-			num += r_num % 2 ? 1 : 0;
+		r_num = m_num * ft_pow(10, -exp + 1);
+		num = (r_num + 5) / 10;
 	}
 	if (base)
 	{
@@ -131,7 +71,7 @@ char	*ft_makejoin(char *r_char, char *pre_char, int stop)
 	return (result);
 }
 
-char	*ft_dtoa(double num, int precision, int base, int exp)
+char	*ft_dtoa_e(double num, int precision, int base, int exp)
 {
 	char	*result;
 	char	*r_char;
@@ -139,8 +79,8 @@ char	*ft_dtoa(double num, int precision, int base, int exp)
 	long	r_num;
 	t_ull	pre_num;
 
-	if (precision + exp == 0)
-		return (zero_precision(num, base, exp));
+	if (precision + exp <= 0)
+		return (zero_precision_e(num, base, exp));
 	r_num = num;
 	num -= num < 0 ? -r_num : r_num;
 	pre_num = round_checker(num, precision);
