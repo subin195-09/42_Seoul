@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:20:34 by skim              #+#    #+#             */
-/*   Updated: 2020/11/07 15:36:56 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/07 22:04:46 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char			*uni_encoder(wint_t num, int count_l, int *precision);
 
 int				make_result_base(t_info *info, unsigned long long num, char type);
 char			*base_precision(char *temp_num, t_info info, char type);
-char			*cut_and_paste_base(char *var_char, t_info info, char type);
+char			*cut_and_paste_base(char *var_char, t_info info, char type, int size);
 char			*change_base(unsigned long long num, char *base);
 
 int				make_result_p(t_info info, va_list var);

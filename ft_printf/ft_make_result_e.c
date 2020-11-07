@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 19:11:11 by skim              #+#    #+#             */
-/*   Updated: 2020/11/07 17:07:52 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/07 18:21:45 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,21 @@ int		exp_round_check(double num, t_info info, int exp)
 
 	num = num > 0 ? num : -num;
 	precision = info.precision > -1 ? info.precision - exp : 6 - exp;
-	round_num = ft_dtoa_e(num, precision, 0, 0);
 	if (precision >= 0)
 	{
 		i = 0;
+		round_num = ft_dtoa_e(num, precision, 0, 0);
 		while (round_num[i] != '.' && round_num[i])
 			i++;
+		free(round_num);
+		round_num = 0;
 	}
 	else
-		i = count_num((int)num + (5 * ft_pow(10, exp - 1)));
+		i = count_num((int)num + (5 * ft_pow(10, -precision - 1)));
 	if (i != count_num((int)num))
 		ret = 1;
 	else
 		ret = 0;
-	free(round_num);
-	round_num = 0;
 	return (ret);
 }
 

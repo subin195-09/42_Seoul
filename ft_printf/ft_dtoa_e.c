@@ -6,12 +6,11 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 20:10:03 by skim              #+#    #+#             */
-/*   Updated: 2020/11/07 17:20:41 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/07 18:41:33 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 char	*zero_precision_e(double num, int base, int exp)
 {
@@ -79,12 +78,13 @@ char	*ft_dtoa_e(double num, int precision, int base, int exp)
 	long	r_num;
 	t_ull	pre_num;
 
-	if (precision + exp <= 0)
+	if (precision + exp == 0)
 		return (zero_precision_e(num, base, exp));
-	r_num = num;
+	r_num = (precision < 0 && exp > 0) ? \
+		((int)num + (5 * ft_pow(10, exp - 2))) : num;
 	num -= num < 0 ? -r_num : r_num;
 	pre_num = round_checker(num, precision);
-	if (count_num_ulong(pre_num) > precision)
+	if (count_num_ulong(pre_num) > precision && precision > 0)
 	{
 		r_num++;
 		pre_num = 0;

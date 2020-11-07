@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 15:40:04 by skim              #+#    #+#             */
-/*   Updated: 2020/10/29 19:55:14 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/07 22:10:30 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ char	*cut_and_paste_p(t_info info, long long num)
 	else
 		temp = ft_strjoin("0x", hex_num);
 	if (info.width > (int)ft_strlen(temp))
-		result = cut_and_paste_base(temp, info, 'p');
+		result = cut_and_paste_base(temp, info, 'p', info.precision);
 	else
-		result = temp;
+		result = ft_strdup(temp);
 	free(hex_num);
 	free(temp);
 	hex_num = 0;
@@ -51,5 +51,7 @@ int		make_result_p(t_info info, va_list var)
 	temp = (unsigned char*)ptr;
 	result = cut_and_paste_p(info, (long long)temp);
 	count_bytes = write(1, result, ft_strlen(result));
+	free(result);
+	result = 0;
 	return (count_bytes);
 }

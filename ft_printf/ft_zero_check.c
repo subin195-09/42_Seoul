@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 04:33:34 by skim              #+#    #+#             */
-/*   Updated: 2020/10/29 00:38:35 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/07 21:09:45 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		zero_check_int(t_info info)
 	int		count_bytes;
 	int		size;
 
-	size = info.width > 1 ? info.width : 0;
+	size = info.width >= 1 ? info.width : 0;
 	if (info.width <= 1)
 	{
 		if (info.check_sign)

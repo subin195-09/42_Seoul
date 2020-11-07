@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 22:08:48 by skim              #+#    #+#             */
-/*   Updated: 2020/10/29 21:50:13 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/07 22:06:24 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*base_join(char type, char *temp_num, t_info info)
 	return (result);
 }
 
-char	*cut_and_paste_base(char *var_char, t_info info, char type)
+char	*cut_and_paste_base(char *var_char, t_info info, char type, int s)
 {
 	char	*result;
 	char	padding;
@@ -43,7 +43,7 @@ char	*cut_and_paste_base(char *var_char, t_info info, char type)
 	i = -1;
 	size = -1;
 	ft_memset(result, padding, info.width);
-	if (info.base && type != 'p')
+	if (info.base && type != 'p' && info.precision <= s)
 	{
 		i = (info.left || padding == '0') ? \
 			-1 : info.width - ft_strlen(var_char) - 3;
@@ -90,22 +90,22 @@ int		write_result(char *temp_num, t_info info, char type)
 
 	size = ft_strlen(temp_num);
 	base = info.base > 0 ? 2 : 0;
-	if (info.width > size + base)
+	if (info.width > size + base && info.width > info.precision)
 	{
 		if (info.precision > size)
 		{
 			temp_char = base_precision(temp_num, info, type);
-			result = cut_and_paste_base(temp_char, info, 'p');
+			result = cut_and_paste_base(temp_char, info, type, size);
 			free(temp_char);
 			temp_char = 0;
 		}
 		else
-			result = cut_and_paste_base(temp_num, info, type);
+			result = cut_and_paste_base(temp_num, info, type, size);
 	}
 	else
 		result = info.precision > size ? base_precision(temp_num, info, type) \
 			: base_join(type, temp_num, info);
-	size += write(1, result, ft_strlen(result));
+	size = write(1, result, ft_strlen(result));
 	free(result);
 	return (size);
 }
