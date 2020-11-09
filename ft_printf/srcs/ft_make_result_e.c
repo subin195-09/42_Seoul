@@ -6,13 +6,13 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 19:11:11 by skim              #+#    #+#             */
-/*   Updated: 2020/11/07 18:21:45 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/09 17:42:18 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int		count_exp(double num)
+static int	count_exp(double num)
 {
 	int	exp;
 	int	r_num;
@@ -41,7 +41,7 @@ int		count_exp(double num)
 	return (exp);
 }
 
-int		exp_round_check(double num, t_info info, int exp)
+static int	exp_round_check(double num, t_info info, int exp)
 {
 	int		precision;
 	char	*round_num;
@@ -68,7 +68,7 @@ int		exp_round_check(double num, t_info info, int exp)
 	return (ret);
 }
 
-char	*join_exp(char *char_no_exp, int exp, char type)
+static char	*join_exp(char *char_no_exp, int exp, char type)
 {
 	char	*result;
 	char	*char_exp;
@@ -96,7 +96,7 @@ char	*join_exp(char *char_no_exp, int exp, char type)
 	return (result);
 }
 
-int		make_result_e(t_info info, va_list var, char type)
+int			make_result_e(t_info info, va_list var, char type)
 {
 	char	*char_num;
 	char	*char_no_exp;

@@ -6,31 +6,13 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 22:08:48 by skim              #+#    #+#             */
-/*   Updated: 2020/11/07 22:06:24 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/09 17:46:57 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-char	*base_join(char type, char *temp_num, t_info info)
-{
-	char *result;
-
-	if (info.base > 0)
-	{
-		if (type == 'x')
-			result = ft_strjoin("0x", temp_num);
-		else if (type == 'X')
-			result = ft_strjoin("0X", temp_num);
-		else
-			result = ft_strjoin("0", temp_num);
-	}
-	else
-		result = ft_strdup(temp_num);
-	return (result);
-}
-
-char	*cut_and_paste_base(char *var_char, t_info info, char type, int s)
+char		*cut_and_paste_base(char *var_char, t_info info, char type, int s)
 {
 	char	*result;
 	char	padding;
@@ -59,7 +41,7 @@ char	*cut_and_paste_base(char *var_char, t_info info, char type, int s)
 	return (result);
 }
 
-char	*base_precision(char *temp_num, t_info info, char type)
+char		*base_precision(char *temp_num, t_info info, char type)
 {
 	char	*result;
 	int		base;
@@ -81,7 +63,25 @@ char	*base_precision(char *temp_num, t_info info, char type)
 	return (result);
 }
 
-int		write_result(char *temp_num, t_info info, char type)
+static char	*base_join(char type, char *temp_num, t_info info)
+{
+	char *result;
+
+	if (info.base > 0)
+	{
+		if (type == 'x')
+			result = ft_strjoin("0x", temp_num);
+		else if (type == 'X')
+			result = ft_strjoin("0X", temp_num);
+		else
+			result = ft_strjoin("0", temp_num);
+	}
+	else
+		result = ft_strdup(temp_num);
+	return (result);
+}
+
+static int	write_result(char *temp_num, t_info info, char type)
 {
 	char	*result;
 	char	*temp_char;
@@ -110,7 +110,7 @@ int		write_result(char *temp_num, t_info info, char type)
 	return (size);
 }
 
-int		make_result_base(t_info *info, unsigned long long num, char type)
+int			make_result_base(t_info *info, unsigned long long num, char type)
 {
 	char			*temp_num;
 	int				count_bytes;

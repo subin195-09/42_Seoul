@@ -6,13 +6,13 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 15:40:04 by skim              #+#    #+#             */
-/*   Updated: 2020/11/07 22:10:30 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/09 17:50:09 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-char	*cut_and_paste_p(t_info info, long long num)
+static char	*cut_and_paste_p(t_info info, long long num)
 {
 	char	*result;
 	char	*hex_num;
@@ -40,7 +40,7 @@ char	*cut_and_paste_p(t_info info, long long num)
 	return (result);
 }
 
-int		make_result_p(t_info info, va_list var)
+int			make_result_p(t_info info, va_list var)
 {
 	char			*result;
 	unsigned char	*temp;

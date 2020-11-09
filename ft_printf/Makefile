@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 18:09:00 by skim              #+#    #+#              #
-#    Updated: 2020/11/09 17:18:48 by skim             ###   ########.fr        #
+#    Updated: 2020/11/09 17:52:48 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRCS = $(addprefix $(SRCS_DIR)/, \
 	ft_make_result_char.c ft_make_result_char_encoder.c \
 	ft_make_result_base.c ft_make_result_base_second.c \
 	ft_make_result_ptr.c ft_make_result_per.c \
-	ft_make_result_float.c ft_make_result_e.c ft_dtoa_e.c \
+	ft_make_result_float.c ft_make_result_e.c ft_make_result_e_dtoa.c \
 	ft_zero_check.c )
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))

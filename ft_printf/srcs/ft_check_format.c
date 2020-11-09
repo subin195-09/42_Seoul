@@ -6,14 +6,11 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 18:37:42 by skim              #+#    #+#             */
-/*   Updated: 2020/11/05 16:07:42 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/09 17:57:55 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
-
-//지우기 지우기 지우기
-void 	print_info(t_info info);
 
 static void	init_info(t_info *info)
 {
@@ -39,10 +36,10 @@ static int	check_prewidth(const char **format, va_list var, t_info *info)
 		(*format)++;
 		flag = 0;
 	}
+	prewidth = **format == '*' ? va_arg(var, int) : ft_atoi(*format);
 	if (**format == '*')
 	{
 		(*format)++;
-		prewidth = va_arg(var, int);
 		if (prewidth < 0 && flag == 1)
 		{
 			info->left = 1;
@@ -50,11 +47,8 @@ static int	check_prewidth(const char **format, va_list var, t_info *info)
 		}
 	}
 	else
-	{
-		prewidth = ft_atoi(*format);
 		while (**format >= '0' && **format <= '9')
 			(*format)++;
-	}
 	(*format)--;
 	return (prewidth);
 }
@@ -86,7 +80,7 @@ static int	check_type(const char **format)
 	return (0);
 }
 
-void	check_padding(const char **format, t_info *info)
+static void	check_padding(const char **format, t_info *info)
 {
 	if (**format == ' ')
 		info->space++;
@@ -94,7 +88,7 @@ void	check_padding(const char **format, t_info *info)
 		info->padding = **format;
 }
 
-int		check_specifier(const char **format, va_list var)
+int			check_specifier(const char **format, va_list var)
 {
 	int		count_bytes;
 	t_info	info[1];
@@ -103,10 +97,8 @@ int		check_specifier(const char **format, va_list var)
 	init_info(info);
 	while (**format && !check_type(format))
 	{
-		if (**format == 'l')
-			info->count_l++;
-		else if (**format == 'h')
-			info->count_h++;
+		if (**format == 'l' || **format == 'h')
+			**format == 'l' ? info->count_l++ : info->count_h++;
 		else if (**format == ' ' || **format == '0')
 			check_padding(format, info);
 		else if ((**format >= '1' && **format <= '9') || **format == '*')
@@ -115,27 +107,11 @@ int		check_specifier(const char **format, va_list var)
 			info->precision = check_prewidth(format, var, info);
 		else if (**format == '+')
 			info->check_sign = 1;
-		else if (**format == '-')
-			info->left++;
-		else if (**format == '#')
-			info->base++;
+		else if (**format == '-' || **format == '#')
+			**format == '-' ? info->left++ : info->base++;
 		(*format)++;
 	}
-	//print_info(*info);
 	if (**format)
 		count_bytes = make_result(format, info, var);
 	return (count_bytes);
-}
-
-#include <stdio.h>
-
-void print_info(t_info info)
-{
-	printf("\n");
-	printf("padding : %c\n", info.padding);
-	printf("width : %d\n", info.width);
-	printf("precision : %d\n", info.precision);
-	printf("space : %d \n", info.space);
-	printf("check_sign : %d\n", info.check_sign);
-	printf("left : %d\n", info.left);
 }

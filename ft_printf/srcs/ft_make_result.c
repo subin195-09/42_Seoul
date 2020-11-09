@@ -6,13 +6,13 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 14:03:52 by skim              #+#    #+#             */
-/*   Updated: 2020/11/05 16:05:51 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/09 17:32:54 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int		divide_int(t_info info, va_list var)
+static int	divide_int(t_info info, va_list var)
 {
 	long long			ll_int;
 
@@ -36,7 +36,7 @@ int		divide_int(t_info info, va_list var)
 	return (make_result_int(info, ll_int));
 }
 
-int		divide_uint(t_info *info, va_list var, char type)
+static int	divide_uint(t_info *info, va_list var, char type)
 {
 	unsigned long long	ull_int;
 
@@ -64,33 +64,44 @@ int		divide_uint(t_info *info, va_list var, char type)
 		return (make_result_base(info, ull_int, type));
 }
 
-int		make_result(const char **format, t_info *info, va_list var)
+static int	make_result_two(const char **format, t_info *info, va_list var)
 {
 	int count_bytes;
 
 	count_bytes = 0;
 	if (**format == 'c')
 		count_bytes = make_result_char(*info, var);
-	if (**format == 's')
+	else if (**format == 's')
 		count_bytes = make_result_string(*info, var);
-	if (**format == 'd' || **format == 'i')
-		count_bytes = divide_int(*info, var);
-	if (**format == 'u' || \
-		**format == 'x' || **format == 'X' || **format == 'o')
-		count_bytes = divide_uint(info, var, **format);
-	if (**format == 'p')
+	else if (**format == 'p')
 	{
 		info->padding = ' ';
 		count_bytes = make_result_p(*info, var);
 	}
-	if (**format == '%')
+	else if (**format == '%')
 		count_bytes = make_result_per(*info);
-	if (**format == 'n')
+	return (count_bytes);
+}
+
+int			make_result(const char **format, t_info *info, va_list var)
+{
+	int count_bytes;
+
+	count_bytes = 0;
+	if (**format == 'd' || **format == 'i')
+		count_bytes = divide_int(*info, var);
+	else if (**format == 'u' || \
+		**format == 'x' || **format == 'X' || **format == 'o')
+		count_bytes = divide_uint(info, var, **format);
+	else if (**format == 'n')
 		count_bytes = -1;
-	if (**format == 'f')
+	else if (**format == 'f')
 		count_bytes = make_result_double(*info, var);
-	if (**format == 'e' || **format == 'E')
+	else if (**format == 'e' || **format == 'E')
 		count_bytes = make_result_e(*info, var, **format);
+	else if (**format == 'c' || **format == 's' || **format == 'p' || \
+		**format == ' ' || **format == '%')
+		count_bytes = make_result_two(format, info, var);
 	(*format)++;
 	return (count_bytes);
 }

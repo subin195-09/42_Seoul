@@ -6,13 +6,13 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 15:36:55 by skim              #+#    #+#             */
-/*   Updated: 2020/10/29 00:25:51 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/09 17:49:07 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int		count_num_base(long long num, int base_len)
+static int	count_num_base(long long num, int base_len)
 {
 	int count;
 
@@ -27,7 +27,7 @@ int		count_num_base(long long num, int base_len)
 	return (count);
 }
 
-char	*change_base(unsigned long long num, char *base)
+char		*change_base(unsigned long long num, char *base)
 {
 	char	*result;
 	int		base_len;

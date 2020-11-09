@@ -6,49 +6,13 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 15:00:31 by skim              #+#    #+#             */
-/*   Updated: 2020/11/07 15:58:20 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/09 17:41:10 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int		what_is_sign(double num, t_info info)
-{
-	t_double	d_num;
-
-	d_num.num = num;
-	if (d_num.sign == 0 && !info.check_sign)
-		return (0);
-	if (d_num.sign == 1)
-		return (1);
-	else
-		return (2);
-}
-
-char	*check_sign(t_info info, double num, int sign, int exp)
-{
-	char		*result;
-	char		*char_num;
-	int			len;
-
-	len = info.precision > -1 ? info.precision - exp : 6 - exp;
-	if (!exp)
-		char_num = num < 0 ? \
-			ft_dtoa(-num, len, info.base) : ft_dtoa(num, len, info.base);
-	else
-		char_num = num < 0 ? ft_dtoa_e(-num, len, info.base, exp) \
-			: ft_dtoa_e(num, len, info.base, exp);
-	if (sign == 1 || info.check_sign)
-		result = sign == 1 ? \
-			ft_strjoin("-", char_num) : ft_strjoin("+", char_num);
-	else
-		result = ft_strdup(char_num);
-	free(char_num);
-	char_num = 0;
-	return (result);
-}
-
-char	*cut_and_paste_float(char *char_num, t_info info, int sign)
+static char	*cut_and_paste_float(char *char_num, t_info info, int sign)
 {
 	char	*result;
 	char	padding;
@@ -93,6 +57,42 @@ int		float_factory(t_info info, char *char_num, int sign)
 	free(result);
 	result = 0;
 	return (len);
+}
+
+int			what_is_sign(double num, t_info info)
+{
+	t_double	d_num;
+
+	d_num.num = num;
+	if (d_num.sign == 0 && !info.check_sign)
+		return (0);
+	if (d_num.sign == 1)
+		return (1);
+	else
+		return (2);
+}
+
+char		*check_sign(t_info info, double num, int sign, int exp)
+{
+	char		*result;
+	char		*char_num;
+	int			len;
+
+	len = info.precision > -1 ? info.precision - exp : 6 - exp;
+	if (!exp)
+		char_num = num < 0 ? \
+			ft_dtoa(-num, len, info.base) : ft_dtoa(num, len, info.base);
+	else
+		char_num = num < 0 ? ft_dtoa_e(-num, len, info.base, exp) \
+			: ft_dtoa_e(num, len, info.base, exp);
+	if (sign == 1 || info.check_sign)
+		result = sign == 1 ? \
+			ft_strjoin("-", char_num) : ft_strjoin("+", char_num);
+	else
+		result = ft_strdup(char_num);
+	free(char_num);
+	char_num = 0;
+	return (result);
 }
 
 int		make_result_double(t_info info, va_list var)

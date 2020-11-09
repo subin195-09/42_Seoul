@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dtoa_e.c                                        :+:      :+:    :+:   */
+/*   ft_make_result_e_dtoa.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 20:10:03 by skim              #+#    #+#             */
-/*   Updated: 2020/11/07 18:41:33 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/09 17:43:22 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*zero_precision_e(double num, int base, int exp)
+static char	*zero_precision_e(double num, int base, int exp)
 {
 	char	*result;
 	char	*temp;
@@ -41,7 +41,7 @@ char	*zero_precision_e(double num, int base, int exp)
 	return (result);
 }
 
-char	*ft_makejoin(char *r_char, char *pre_char, int stop)
+static char	*ft_makejoin(char *r_char, char *pre_char, int stop)
 {
 	char	*result;
 	char	*temp;
@@ -70,7 +70,7 @@ char	*ft_makejoin(char *r_char, char *pre_char, int stop)
 	return (result);
 }
 
-char	*ft_dtoa_e(double num, int precision, int base, int exp)
+char		*ft_dtoa_e(double num, int precision, int base, int exp)
 {
 	char	*result;
 	char	*r_char;
