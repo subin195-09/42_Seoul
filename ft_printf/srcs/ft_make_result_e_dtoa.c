@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 20:10:03 by skim              #+#    #+#             */
-/*   Updated: 2020/11/09 17:43:22 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/09 18:06:12 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,5 @@ char		*ft_dtoa_e(double num, int precision, int base, int exp)
 	result = exp == 0 ? ft_strjoin(r_char, pre_char) \
 		: ft_makejoin(r_char, pre_char, precision + exp);
 	ft_frees(2, r_char, pre_char);
-	r_char = 0;
-	pre_char = 0;
 	return (result);
 }

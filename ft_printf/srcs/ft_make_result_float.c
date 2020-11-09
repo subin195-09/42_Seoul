@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 15:00:31 by skim              #+#    #+#             */
-/*   Updated: 2020/11/09 17:41:10 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/09 18:05:50 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	*cut_and_paste_float(char *char_num, t_info info, int sign)
 	return (result);
 }
 
-int		float_factory(t_info info, char *char_num, int sign)
+int			float_factory(t_info info, char *char_num, int sign)
 {
 	char	*result;
 	int		len;
@@ -95,7 +95,7 @@ char		*check_sign(t_info info, double num, int sign, int exp)
 	return (result);
 }
 
-int		make_result_double(t_info info, va_list var)
+int			make_result_double(t_info info, va_list var)
 {
 	char	*char_num;
 	double	num;
