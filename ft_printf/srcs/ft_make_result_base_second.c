@@ -1,47 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ultoa.c                                         :+:      :+:    :+:   */
+/*   ft_make_result_base_second.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/26 19:46:49 by skim              #+#    #+#             */
-/*   Updated: 2020/10/26 19:49:25 by skim             ###   ########.fr       */
+/*   Created: 2020/10/26 15:36:55 by skim              #+#    #+#             */
+/*   Updated: 2020/10/29 00:25:51 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "printf.h"
 
-int			count_num_ulong(unsigned long long n)
+int		count_num_base(long long num, int base_len)
 {
 	int count;
 
 	count = 0;
-	if (n == 0)
+	if (num == 0)
 		return (1);
-	while (n != 0)
+	while (num > 0)
 	{
-		n /= 10;
+		num /= base_len;
 		count++;
 	}
 	return (count);
 }
 
-char		*ft_ultoa(unsigned long long n)
+char	*change_base(unsigned long long num, char *base)
 {
-	char				*result;
-	int					count;
+	char	*result;
+	int		base_len;
+	int		size;
 
-	if (n == 0)
-		return (ft_strdup("0"));
-	count = count_num_long(n);
-	if (!(result = malloc(count + 1)))
+	base_len = ft_strlen(base);
+	size = count_num_base(num, base_len);
+	if (!(result = malloc(size + 1)))
 		return (0);
-	result[count--] = '\0';
-	while (n > 0)
+	result[size--] = '\0';
+	if (num == 0)
+		result[size--] = '0';
+	while (num > 0 && size >= 0)
 	{
-		result[count--] = n % 10 + '0';
-		n /= 10;
+		result[size--] = base[num % base_len];
+		num /= base_len;
 	}
 	return (result);
 }
