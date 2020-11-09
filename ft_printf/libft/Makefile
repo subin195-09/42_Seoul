@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/30 19:36:22 by skim              #+#    #+#              #
-#    Updated: 2020/11/06 14:56:59 by skim             ###   ########.fr        #
+#    Updated: 2020/11/09 16:50:58 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ CFLAGS = -Wall -Werror -Wextra
 AR = ar rc
 RM = rm -f
 
-SRCS = ft_memset.c \
+SRCS = $(addprefix $(SRCS_DIR)/, \
+		ft_memset.c \
 		ft_bzero.c \
 		ft_memcpy.c \
 		ft_memccpy.c\
@@ -58,34 +59,26 @@ SRCS = ft_memset.c \
 		ft_ultoa.c \
 		ft_dtoa.c \
 		ft_pow.c \
-		ft_frees.c
+		ft_frees.c)
 
-BSRCS = ft_lstnew.c \
-		ft_lstadd_front.c \
-		ft_lstsize.c \
-		ft_lstlast.c \
-		ft_lstadd_back.c \
-		ft_lstdelone.c \
-		ft_lstclear.c \
-		ft_lstiter.c \
-		ft_lstmap.c
-
-OBJS = $(SRCS:.c=.o)
-BOBJS = $(BSRCS:.c=.o)
+OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
+OBJS_DIR = ./objs
+SRCS_DIR = ./srcs
+HEADER_DIR = ./includes
 
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-			$(AR) $@ $^
+	$(AR) $@ $^
 
-bonus : $(BOBJS) $(OBJS)
-		$(AR) $(NAME) $^
+$(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c $(OBJS_DIR)
+	$(CC) $(CFLAGS) -I $(HEADER_DIR) -c $< -o $@
 
-.c.o : $(SRCS) $(HEADER)
-	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJS_DIR) :
+	mkdir -p $(OBJS_DIR)
 
 clean :
-	$(RM) $(OBJS) $(BOBJS)
+	$(RM) -rd $(OBJS_DIR)
 
 fclean : clean
 	$(RM) $(NAME)
