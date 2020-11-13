@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 15:16:20 by skim              #+#    #+#             */
-/*   Updated: 2020/11/13 22:19:43 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/13 22:37:56 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	add_arr(char *five, char **man_de)
 		tmp = (five[i] - '0') + ((*man_de)[i] - '0');
 		check = carry + tmp % 10;
 		(*man_de)[i] = check % 10 + '0';
-		carry = check >= 10 ? tmp / 10 + 1 : tmp / 10;
+		carry = check >= 10 ? (tmp / 10) + 1 : (tmp / 10);
 		i--;
 	}
 }
@@ -96,7 +96,6 @@ void	ft_bigint(double num)
 	j = exp >= 0 ? 51 - exp : 51;
 	while (j >= 0)
 		manti[i++] = uni_num.s_bit.man >> j-- & 1 ? '1' : '0';
-	printf("%s\n", manti);
 	result = change_demical(i + j, manti);
 	printf("%s\n", result);
 }
