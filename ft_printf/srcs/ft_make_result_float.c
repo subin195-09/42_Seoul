@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 15:00:31 by skim              #+#    #+#             */
-/*   Updated: 2020/11/09 18:05:50 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/13 19:07:16 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ int			float_factory(t_info info, char *char_num, int sign)
 
 int			what_is_sign(double num, t_info info)
 {
-	t_double	d_num;
+	t_uni	d_num;
 
 	d_num.num = num;
-	if (d_num.sign == 0 && !info.check_sign)
+	if (d_num.s_bit.sign == 0 && !info.check_sign)
 		return (0);
-	if (d_num.sign == 1)
+	if (d_num.s_bit.sign == 1)
 		return (1);
 	else
 		return (2);

@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 18:09:00 by skim              #+#    #+#              #
-#    Updated: 2020/11/09 17:52:48 by skim             ###   ########.fr        #
+#    Updated: 2020/11/13 19:30:07 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ SRCS = $(addprefix $(SRCS_DIR)/, \
 	ft_make_result_base.c ft_make_result_base_second.c \
 	ft_make_result_ptr.c ft_make_result_per.c \
 	ft_make_result_float.c ft_make_result_e.c ft_make_result_e_dtoa.c \
-	ft_zero_check.c )
+	ft_zero_check.c \
+	ft_bigint.c)
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
 
@@ -44,7 +45,7 @@ $(NAME) : $(OBJS)
 	@$(AR) $(NAME) $(OBJS)
 
 $(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c $(OBJS_DIR)
-	@$(CC) $(CFLAGS) -I $(HEADER_DIR) -I $(LIB_DIR)/$(HEADER_DIR) -c $< -o $@
+	@$(CC) $(DEBUG) $(CFLAGS) -I $(HEADER_DIR) -I $(LIB_DIR)/$(HEADER_DIR) -c $< -o $@
 
 $(OBJS_DIR) :
 	@mkdir -p $(OBJS_DIR)
@@ -59,14 +60,14 @@ fclean : clean
 
 re : fclean all
 
-test :
-	@(make)
-	@($(CC) $(CFLAGS) -o test.o -c test.c -I $(HEADER_DIR) -I $(LIB_DIR)/$(HEADER_DIR))
-	@($(CC) $(CFLAGS) -o a.out test.o -L ./ -l ftprintf)
+test : $(NAME)
+	@$(CC) $(CFLAGS) -I $(HEADER_DIR) -I $(LIB_DIR)/$(HEADER_DIR) -o test.out test.c -L ./ -l ftprintf
 	@echo "\033[38;5;214m"
-	@(./a.out)
+	@(./test.out)
 	@(make fclean)
-	@(rm a.out)
-	@(rm test.o)
+	@(rm test.out)
 
-.PHONY : all clean fclean re
+skim_bug : $(NAME)
+	$(CC) $(CFLAGS) -g -I $(HEADER_DIR) -I $(LIB_DIR)/$(HEADER_DIR) -o test.out test.c -L. -l ftprintf
+
+.PHONY : all clean fclean re skim_bug

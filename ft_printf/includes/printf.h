@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:20:34 by skim              #+#    #+#             */
-/*   Updated: 2020/11/09 18:04:20 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/13 19:30:32 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,7 @@ char			*ft_dtoa_e(double num, int precision, int base, int exp);
 int				zero_check_int(t_info info);
 int				zero_check_char(t_info info);
 int				zero_check_base(t_info info);
+
+void			ft_bigint(double num);
 
 #endif
