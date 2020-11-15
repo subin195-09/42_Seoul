@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 15:16:20 by skim              #+#    #+#             */
-/*   Updated: 2020/11/15 17:49:59 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/15 18:16:40 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,32 @@ char	*join_double(char *r_man, long r_num)
 	return (result);
 }
 
+void	round_double(char **result, int pre)
+{
+	int check;
+	int carry;
+	int temp;
+	int i;
+	int j;
+
+	i = 0;
+	while ((*result)[i] != '.')
+		i++;
+	j = i + pre;
+	carry = 0;
+	while (j >= 0)
+	{
+		if ((*result)[j] != '.')
+		{
+			check = (*result)[j + 1] == '.' ? 1 : 0;
+			carry = (*result)[j + 1 + check] - '0' + 5 >= 10 ? 1 : 0;
+			temp = (*result)[j] - '0' + carry;
+			(*result)[j] = temp % 10 + '0';
+		}
+		j--;
+	}
+}
+
 void	ft_bigint(double num)
 {
 	char	*result;
@@ -123,6 +149,8 @@ void	ft_bigint(double num)
 	uni_num.num = d_num;
 	r_man = make_manti(uni_num);
 	result = join_double(r_man, r_num);
-	
+	write(1, result, ft_strlen(result));
+	write(1, "\n", 1);
+	round_double(&result, 5);
 	write(1, result, ft_strlen(result));
 }
