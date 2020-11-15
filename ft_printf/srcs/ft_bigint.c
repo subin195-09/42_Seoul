@@ -6,11 +6,12 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 15:16:20 by skim              #+#    #+#             */
-/*   Updated: 2020/11/15 18:16:40 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/15 22:18:53 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
+#include <stdio.h>
 
 void	mul_five(char **five)
 {
@@ -110,30 +111,29 @@ char	*join_double(char *r_man, long r_num)
 	return (result);
 }
 
-void	round_double(char **result, int pre)
+int		round_double(char **result, int pre)
 {
-	int check;
 	int carry;
 	int temp;
 	int i;
 	int j;
 
-	i = 0;
-	while ((*result)[i] != '.')
+	j = pre - 1;
+	i = j + 1;
+	while ((*result)[j + 1] == '5' && (*result)[i])
 		i++;
-	j = i + pre;
-	carry = 0;
+	if (!(*result)[i])
+		carry = ((*result)[j] - '0') % 2 ? 5 : -5;
+	else
+		carry = (*result)[j + 1] - '0' + 5 >= 10 ? 1 : 0;
 	while (j >= 0)
 	{
-		if ((*result)[j] != '.')
-		{
-			check = (*result)[j + 1] == '.' ? 1 : 0;
-			carry = (*result)[j + 1 + check] - '0' + 5 >= 10 ? 1 : 0;
-			temp = (*result)[j] - '0' + carry;
-			(*result)[j] = temp % 10 + '0';
-		}
-		j--;
+		temp = (*result)[j] - '0' + carry;
+		(*result)[j--] = temp % 10 + '0';
+		carry = temp >= 10 ? 1 : 0;
 	}
+	(*result)[pre] = '\0';
+	return (carry);
 }
 
 void	ft_bigint(double num)
@@ -148,9 +148,8 @@ void	ft_bigint(double num)
 	d_num = num - r_num;
 	uni_num.num = d_num;
 	r_man = make_manti(uni_num);
+	r_num += round_double(&r_man, 5);
 	result = join_double(r_man, r_num);
 	write(1, result, ft_strlen(result));
 	write(1, "\n", 1);
-	round_double(&result, 5);
-	write(1, result, ft_strlen(result));
 }
