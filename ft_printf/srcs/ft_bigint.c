@@ -6,12 +6,11 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 15:16:20 by skim              #+#    #+#             */
-/*   Updated: 2020/11/13 22:37:56 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/15 17:49:59 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
-#include <stdio.h>
 
 void	mul_five(char **five)
 {
@@ -62,7 +61,7 @@ char	*change_demical(int size, char *man_bi)
 	ft_memset(man_de, '0', 1074);
 	five[0] = '5';
 	i = 0;
-	while (i < size)
+	while (i <= size)
 	{
 		if (man_bi[i++] == '1')
 			add_arr(five, &man_de);
@@ -71,23 +70,20 @@ char	*change_demical(int size, char *man_bi)
 	return (man_de);
 }
 
-void	ft_bigint(double num)
+char	*make_manti(t_uni uni_num)
 {
-	t_uni	uni_num;
 	int		exp;
 	char	*manti;
 	char	*result;
 	int		i;
 	int		j;
 
-	uni_num.num = num;
 	exp = uni_num.s_bit.exp - 1023;
 	if (!(manti = malloc(1075)))
-		return ;
+		return (0);
 	ft_memset(manti, '0', 1074);
 	manti[1074] = 0;
 	i = 0;
-	printf("%d\n", exp);
 	if (exp < 0)
 	{
 		i = -exp;
@@ -97,5 +93,36 @@ void	ft_bigint(double num)
 	while (j >= 0)
 		manti[i++] = uni_num.s_bit.man >> j-- & 1 ? '1' : '0';
 	result = change_demical(i + j, manti);
-	printf("%s\n", result);
+	ft_frees(1, manti);
+	return (result);
+}
+
+char	*join_double(char *r_man, long r_num)
+{
+	char	*result;
+	char	*temp_int;
+	char	*add_point;
+
+	temp_int = ft_ltoa(r_num);
+	add_point = ft_strjoin(temp_int, ".");
+	result = ft_strjoin(add_point, r_man);
+	ft_frees(2, temp_int, add_point);
+	return (result);
+}
+
+void	ft_bigint(double num)
+{
+	char	*result;
+	char	*r_man;
+	t_uni	uni_num;
+	long	r_num;
+	double	d_num;
+
+	r_num = num;
+	d_num = num - r_num;
+	uni_num.num = d_num;
+	r_man = make_manti(uni_num);
+	result = join_double(r_man, r_num);
+	
+	write(1, result, ft_strlen(result));
 }
