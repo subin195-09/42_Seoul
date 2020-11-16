@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 16:04:53 by skim              #+#    #+#             */
-/*   Updated: 2020/11/16 17:45:35 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/16 20:36:15 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,20 @@ int	check_temp(char *str, int size)
 
 int	gnl_test(int fd, char **line)
 {
-	char	*temp;
-	char	*temp_one;
-	char	*temp_two;
-	int		buf_size;
-	int		ret;
+	static char	*temp;
+	char		*temp_one;
+	char		*temp_two;
+	int			buf_size;
+	int			ret;
+	int			i;
+	int			j;
 
 	buf_size = 3;
+	temp = 0;
 	temp_two = 0;
-	if (!(temp = calloc(1, sizeof(char))))
+	i = 0;
+	// temp ㄱㅏ null이 아닐 시 join
+	if (!(*line = calloc(1, sizeof(char))))
 		return (-1);
 	while ((ret = check_temp(temp_two, buf_size)) < 0)
 	{
@@ -70,14 +75,26 @@ int	gnl_test(int fd, char **line)
 			return (-1);
 		if ((ret = read(fd, temp_two, buf_size)) < 0)
 			return (-1);
-		temp_one = strdup(temp);
-		free(temp);
-		temp = ft_strjoin(temp_one, temp_two);
+		temp_one = strdup(*line);
+		free(*line);
+		(*line) = ft_strjoin(temp_one, temp_two);
 		free(temp_one);
 		free(temp_two);
 	}
-	*line = strdup(temp);
-	free(temp);
+	// new line이 있을경우 static 변수에 나머지를 저장
+	if (ret == 1)
+	{
+		while (i < buf_size)
+		{
+			if ((*line)[i++] == '\n')
+				break;
+		}
+		while (i < buf_size)
+		{
+			temp[j++] = (*line)[i];
+			(*line)[i++] = 0;
+		}
+	}
 	return (ret);
 }
 
@@ -85,7 +102,7 @@ int	main(void)
 {
 	int		fd;
 	int		n;
-	char 	*line;
+	char	*line;
 
 	fd = open("file.txt", O_RDONLY);
 	if (fd < 0)

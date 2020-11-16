@@ -1,0 +1,27 @@
+{
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "skim's_ft_printf",
+            "command": "/usr/bin/make",
+            "args": [
+                "-C",
+                "${workspaceFolder}",
+                "fclean",
+                "skim_bug"
+            ],
+            "options": {
+                "cwd": "/usr/bin",
+                "env": {
+                    "DEBUG" : "-g"
+                }
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Generated task by Debugger"
+        }
+    ],
+    "version": "2.0.0"
+}
