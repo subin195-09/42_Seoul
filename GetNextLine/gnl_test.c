@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 16:04:53 by skim              #+#    #+#             */
-/*   Updated: 2020/11/16 20:36:15 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/18 23:05:30 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <string.h>
+#include <limits.h>
+OPEN_MAX
 
 char	*ft_strjoin(const char *s1, const char *s2)
 {
@@ -63,12 +65,9 @@ int	gnl_test(int fd, char **line)
 	int			j;
 
 	buf_size = 3;
-	temp = 0;
-	temp_two = 0;
-	i = 0;
-	// temp ㄱㅏ null이 아닐 시 join
-	if (!(*line = calloc(1, sizeof(char))))
+	if (!(temp_one = malloc(buf_size)))
 		return (-1);
+	ret = check_temp(temp_one, buf_size);
 	while ((ret = check_temp(temp_two, buf_size)) < 0)
 	{
 		if (!(temp_two = calloc(buf_size, sizeof(char))))
