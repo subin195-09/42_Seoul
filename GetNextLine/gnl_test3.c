@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 23:37:37 by skim              #+#    #+#             */
-/*   Updated: 2020/11/18 23:39:36 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/19 02:08:40 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*check_new_line(char *temp_one)
 	return (result);
 }
 
-int		restore_temp(char **temp, char *temp_one)
+int		restore_temp(char **temp, char **line)
 {
 	int		i;
 	int		j;
@@ -70,7 +70,7 @@ int		restore_temp(char **temp, char *temp_one)
 			return (-1);
 		j = 0;
 		while (++i < BUF_SIZE)
-			(*temp)[j++] = temp_one[i];
+			(*temp)[j++] = (*line)[i];
 	}
 	return (1);
 }
@@ -78,19 +78,27 @@ int		restore_temp(char **temp, char *temp_one)
 int		gnl_test3(int fd, char **line)
 {
 	static char	*temp[OPEN_MAX];
-	static int	test;
 	char		*temp_one;
 	char		*temp_two;
 	int			ret;
 
-	if (!(temp_one = malloc(BUF_SIZE * sizeof(char))))
+	if (!(temp_one = malloc(1)))
 		return (-1);
-	if ((ret = read(fd, temp_one, BUF_SIZE)) <= 0)
-		return (ret);
-	if (!(temp_two = check_new_line(temp_one)))
-		return (-1);
-	*line = temp == 0 ? strdup(temp_two) : ft_strjoin(temp, temp_two);
-	ret = restore_temp(&temp, temp_one);
-	printf("temp : %s\n", temp);
+	temp_one[0] = '\n';
+	if (temp[fd])
+		*line = strdup(temp[fd]);
+	while (!(strchr(*line, '\n')))
+	{
+		if (!(temp_two = malloc(BUF_SIZE)))
+			return (-1);
+		if ((ret = read(fd, temp_two, BUF_SIZE)) < 0)
+			return (-1);
+		temp_one = strdup(*line);
+		free(*line);
+		(*line) = ft_strjoin(temp_one, temp_two);
+		free(temp_one);
+		free(temp_two);
+	}
+	ret = restore_temp(&temp[fd], line);
 	return (ret);
 }
