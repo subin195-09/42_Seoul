@@ -6,40 +6,61 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 18:57:10 by skim              #+#    #+#             */
-/*   Updated: 2020/10/12 22:24:22 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/20 01:55:36 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+char	*ft_restore(char **store, int ret)
+{
+	char	*result;
+	char	*temp;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = -1;
+	while ((*store)[i] && ((*store)[i] != '\n'))
+		i++;
+	if (!(result = malloc(i + 1)))
+		return (0);
+	if (!(temp = malloc(strlen((*store) - i))))
+		return (0);
+	result[i] = 0;
+	while(++j < i)
+		result[j] = (*store)[j];
+	i = 0;
+	while ((*store)[++j])
+		temp[i++] = (*store)[j];
+	free(*store);
+	(*store) = strdup(temp);
+	free(temp);
+	return (result);
+}
+
 int		get_next_line(int fd, char **line)
 {
-	static char		*result[OPEN_MAX];
-	char			buffer[BUFFER_SIZE + 1];
-	ssize_t			size;
-	int				nl_index;
+	static char	*store[OPEN_MAX];
+	char		*temp_one;
+	char		*temp_two;
+	int			flag;
+	int			ret;
 
-	// if (실패한 경우)
-	// return (-1);
-	while ((size = read(fd, buffer, BUFFER_SIZE) >= 0))
+	flag = 0;
+	while (!flag || (!(ft_strchr(store[fd], '\n')) && ret > 0))
 	{
-		buffer[size] = '\0';
-		result[fd] = ft_strjoin(result[fd], buffer);
-		nl_index = check_nl(result[fd]);
-		// 개행 문자가 있는 경우
-		if (nl_index != 0)
-		{
-			split_nl(&result[fd], line);
-			return (1);
-		}
+		flag = 1;
+		if (!(temp_two = malloc(BUFFER_SIZE)))
+			return (-1);
+		ret = read(fd, temp_two, BUFFER_SIZE);
+		temp_one = store[fd] ? ft_strdup(store[fd]) : ft_strdup("");
+		free(store[fd]);
+		store[fd] = flag == 0 ? ft_strjoin(temp_two, temp_one) : ft_strjoin(temp_one, temp_two);
+		free(temp_one);
+		free(temp_two);
+		flag = 1;
 	}
-	// 개행 문자가 없는 경우
-	if (size >= 0)
-	{
-		line = &result[fd];
-		return (0);
-	}
-	// 파일 읽기를 실패했을 경우
-	else
-		return (-1);
+	*line = ft_restore(&store[fd], ret);
+	return (ret > 0 ? 1 : 0);
 }

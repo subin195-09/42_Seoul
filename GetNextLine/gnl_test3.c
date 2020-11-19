@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 23:37:37 by skim              #+#    #+#             */
-/*   Updated: 2020/11/19 02:08:40 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/19 19:18:59 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,68 +37,74 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	return (result);
 }
 
-char	*check_new_line(char *temp_one)
+char	*ft_restore(char **store, int ret)
 {
 	char	*result;
+	char	*temp;
 	int		i;
 	int		j;
 
 	i = 0;
-	while (i < BUF_SIZE && temp_one[i] != '\n')
-		i++;
-	if (!(result = malloc(i)))
-		return (0);
 	j = -1;
-	while (++j < i)
-		result[j] = temp_one[j];
-	return (result);
-}
-
-int		restore_temp(char **temp, char **line)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	while (i < BUF_SIZE && temp_one[i] != '\n')
+	while ((*store)[i] && ((*store)[i] != '\n'))
 		i++;
-	free(*temp);
-	*temp = 0;
-	if (i < BUF_SIZE)
-	{
-		if (!(*temp = malloc(BUF_SIZE - i)))
-			return (-1);
-		j = 0;
-		while (++i < BUF_SIZE)
-			(*temp)[j++] = (*line)[i];
-	}
-	return (1);
+	if (!(result = malloc(i + 1)))
+		return (0);
+	if (!(temp = malloc(strlen((*store) - i))))
+		return (0);
+	result[i] = 0;
+	while(++j < i)
+		result[j] = (*store)[j];
+	i = 0;
+	while ((*store)[++j])
+		temp[i++] = (*store)[j];
+	free(*store);
+	(*store) = strdup(temp);
+	free(temp);
+	return (result);
 }
 
 int		gnl_test3(int fd, char **line)
 {
-	static char	*temp[OPEN_MAX];
+	static char	*store[OPEN_MAX];
 	char		*temp_one;
 	char		*temp_two;
+	int			flag;
 	int			ret;
 
-	if (!(temp_one = malloc(1)))
-		return (-1);
-	temp_one[0] = '\n';
-	if (temp[fd])
-		*line = strdup(temp[fd]);
-	while (!(strchr(*line, '\n')))
+	flag = 0;
+	while (!flag || (!(strchr(store[fd], '\n')) && ret > 0))
 	{
+		flag = 1;
 		if (!(temp_two = malloc(BUF_SIZE)))
 			return (-1);
-		if ((ret = read(fd, temp_two, BUF_SIZE)) < 0)
-			return (-1);
-		temp_one = strdup(*line);
-		free(*line);
-		(*line) = ft_strjoin(temp_one, temp_two);
+		ret = read(fd, temp_two, BUF_SIZE);
+		temp_one = store[fd] ? strdup(store[fd]) : strdup("");
+		free(store[fd]);
+		store[fd] = flag == 0 ? ft_strjoin(temp_two, temp_one) : ft_strjoin(temp_one, temp_two);
 		free(temp_one);
 		free(temp_two);
+		flag = 1;
 	}
-	ret = restore_temp(&temp[fd], line);
-	return (ret);
+	*line = ft_restore(&store[fd], ret);
+	return (ret > 0 ? 1 : 0);
+}
+
+int		main(void)
+{
+	int		fd;
+	int		n;
+	char	*line;
+
+	fd = open("file.txt", O_RDONLY);
+	if (fd < 0)
+		write(1, "error\n", 6);
+	// gnl_test3(fd, &line);
+	// printf("%s\n", line);
+	while ((n = gnl_test3(fd, &line)) > 0)
+	{
+		printf("result : %s\n", line);
+		printf("return : %d\n", n);
+	}
+	printf("return : %d\n", n);
 }
