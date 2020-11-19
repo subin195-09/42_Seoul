@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 18:57:10 by skim              #+#    #+#             */
-/*   Updated: 2020/11/20 01:55:36 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/20 02:09:19 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_restore(char **store, int ret)
 		i++;
 	if (!(result = malloc(i + 1)))
 		return (0);
-	if (!(temp = malloc(strlen((*store) - i))))
+	if (!(temp = malloc(ft_strlen((*store) - i))))
 		return (0);
 	result[i] = 0;
 	while(++j < i)
@@ -34,7 +34,7 @@ char	*ft_restore(char **store, int ret)
 	while ((*store)[++j])
 		temp[i++] = (*store)[j];
 	free(*store);
-	(*store) = strdup(temp);
+	(*store) = ft_strdup(temp);
 	free(temp);
 	return (result);
 }
