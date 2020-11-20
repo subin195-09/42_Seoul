@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 01:59:05 by skim              #+#    #+#             */
-/*   Updated: 2020/11/20 02:10:02 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/20 20:01:54 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,23 @@ char	*ft_strdup(const char *src)
 	if (!(dest = malloc(size + 1)))
 		return (0);
 	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
+char	*ft_strndup(const char *src, int n)
+{
+	int		i;
+	char	*dest;
+
+	i = 0;
+	if (!(dest = malloc(n + 1)))
+		return (0);
+	while (i < n)
 	{
 		dest[i] = src[i];
 		i++;
