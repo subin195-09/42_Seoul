@@ -6,12 +6,11 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 18:57:10 by skim              #+#    #+#             */
-/*   Updated: 2020/11/22 15:57:23 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/22 17:42:15 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 char	*ft_restore(char **store, int *ret)
 {
