@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 18:57:10 by skim              #+#    #+#             */
-/*   Updated: 2020/11/20 21:09:21 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/22 15:55:51 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,17 @@ char	*ft_restore(char **store, int *ret)
 
 int		get_next_line(int fd, char **line)
 {
-	static char	*store[OPEN_MAX];
+	static char	*store[OPEN_MAX + 1];
 	char		*temp;
 	char		buf[BUFFER_SIZE + 1];
 	int			ret;
 
-	if (fd >= OPEN_MAX || fd < 0 || BUFFER_SIZE <= 0 || !(line))
+	if (fd > OPEN_MAX || fd < 0 || BUFFER_SIZE <= 0 || !(line))
 		return (-1);
 	while (((ret = read(fd, buf, BUFFER_SIZE)) >= 0))
 	{
 		buf[ret] = 0;
-		temp = store[fd] ? ft_strdup(store[fd]) : ft_strdup("");
-		if (!temp)
+		if (!(temp = store[fd] ? ft_strdup(store[fd]) : ft_strdup("")))
 			return (-1);
 		if (store[fd])
 			free(store[fd]);
