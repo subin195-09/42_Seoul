@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 02:05:13 by skim              #+#    #+#             */
-/*   Updated: 2020/11/20 19:32:32 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/22 18:05:01 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ int main(void)
 	{
 		printf("line : %s\n", line);
 		printf("n : %d\n", n);
+		free(line);
 	}
+	printf("line : %s\n", line);
 	printf("n : %d\n", n);
+	free(line);
 }
