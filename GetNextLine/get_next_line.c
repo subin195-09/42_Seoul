@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 18:57:10 by skim              #+#    #+#             */
-/*   Updated: 2020/11/22 18:02:27 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/22 18:53:03 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ char	*ft_restore(char **store, int *ret)
 		if (!(temp = ft_strdup(*store + i + 1)))
 			return (0);
 		free(*store);
-		*store = ft_strdup(temp);
-		free(temp);
+		*store = temp;
 		*ret = 1;
 	}
 	else
 	{
 		result = ft_strdup(*store);
 		free(*store);
+		*store = 0;
 		*ret = 0;
 	}
 	return (result);
