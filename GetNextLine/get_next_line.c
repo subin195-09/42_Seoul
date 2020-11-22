@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 18:57:10 by skim              #+#    #+#             */
-/*   Updated: 2020/11/22 15:55:51 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/22 15:57:23 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,5 @@ int		get_next_line(int fd, char **line)
 		return (-1);
 	if (!(*line = ft_restore(&store[fd], &ret)))
 		return (-1);
-	return (ret > 0 ? 1 : ret);
+	return (ret);
 }
