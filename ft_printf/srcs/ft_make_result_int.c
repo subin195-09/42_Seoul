@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 19:27:51 by skim              #+#    #+#             */
-/*   Updated: 2020/11/07 21:09:19 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/30 20:40:09 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static char	*result_uint_div(t_info info, unsigned long long num, int len)
 	char	*char_width;
 	int		count;
 
-	count = count_num_long(num);
-	char_num = ft_ltoa(num);
+	count = count_num_ulong(num);
+	char_num = ft_ultoa(num);
 	if (info.precision == len)
 		result = int_pre(info, char_num, 0, num);
 	else
@@ -53,7 +53,7 @@ static char	*result_uint_div(t_info info, unsigned long long num, int len)
 		if (count < info.precision)
 			char_width = int_pre(info, char_num, 0, num);
 		else
-			char_width = ft_ltoa(num);
+			char_width = ft_ultoa(num);
 		result = int_width(info, char_width, 0, num);
 		free(char_width);
 	}

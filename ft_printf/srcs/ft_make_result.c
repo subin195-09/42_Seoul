@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 14:03:52 by skim              #+#    #+#             */
-/*   Updated: 2020/11/09 17:32:54 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/30 19:11:22 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	divide_uint(t_info *info, va_list var, char type)
 	if (!info->count_l)
 	{
 		if (info->count_h == 1)
-			ull_int = (unsigned short int)va_arg(var, int);
+			ull_int = (unsigned short int)va_arg(var, unsigned int);
 		else if (info->count_h >= 2)
 			ull_int = (unsigned char)va_arg(var, int);
 		else
@@ -54,14 +54,34 @@ static int	divide_uint(t_info *info, va_list var, char type)
 	else
 	{
 		if (info->count_l == 1)
-			ull_int = (long unsigned)va_arg(var, long unsigned);
+			ull_int = (unsigned long)va_arg(var, unsigned long);
 		else
-			ull_int = (long long)va_arg(var, long long);
+			ull_int = (unsigned long long)va_arg(var, unsigned long long);
 	}
 	if (type == 'u')
 		return (make_result_uint(*info, ull_int));
 	else
 		return (make_result_base(info, ull_int, type));
+}
+
+static int	check_type_n(t_info *info)
+{
+	if (!info->count_l)
+	{
+		if (info->count_h == 1)
+			return (-2);
+		else if (info->count_h >= 2)
+			return (-3);
+		else
+			return (-1);
+	}
+	else
+	{
+		if (info->count_l == 1)
+			return (-4);
+		else
+			return (-5);
+	}
 }
 
 static int	make_result_two(const char **format, t_info *info, va_list var)
@@ -80,6 +100,8 @@ static int	make_result_two(const char **format, t_info *info, va_list var)
 	}
 	else if (**format == '%')
 		count_bytes = make_result_per(*info);
+	else if (**format == 'e' || **format == 'g')
+		return (0);
 	return (count_bytes);
 }
 
@@ -94,11 +116,9 @@ int			make_result(const char **format, t_info *info, va_list var)
 		**format == 'x' || **format == 'X' || **format == 'o')
 		count_bytes = divide_uint(info, var, **format);
 	else if (**format == 'n')
-		count_bytes = -1;
+		count_bytes = check_type_n(info);
 	else if (**format == 'f')
 		count_bytes = make_result_double(*info, var);
-	else if (**format == 'e' || **format == 'E')
-		count_bytes = make_result_e(*info, var, **format);
 	else if (**format == 'c' || **format == 's' || **format == 'p' || \
 		**format == ' ' || **format == '%')
 		count_bytes = make_result_two(format, info, var);

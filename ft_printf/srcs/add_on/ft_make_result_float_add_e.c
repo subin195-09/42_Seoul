@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 15:00:31 by skim              #+#    #+#             */
-/*   Updated: 2020/11/27 15:22:33 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/13 19:07:16 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,19 @@ int			what_is_sign(double num, t_info info)
 		return (2);
 }
 
-char		*check_sign(t_info info, double num, int sign)
+char		*check_sign(t_info info, double num, int sign, int exp)
 {
 	char		*result;
 	char		*char_num;
 	int			len;
 
-	len = info.precision > -1 ? info.precision : 6;
-	char_num = num < 0 ? \
-		ft_dtoa(-num, len, info.base) : ft_dtoa(num, len, info.base);
+	len = info.precision > -1 ? info.precision - exp : 6 - exp;
+	if (!exp)
+		char_num = num < 0 ? \
+			ft_dtoa(-num, len, info.base) : ft_dtoa(num, len, info.base);
+	else
+		char_num = num < 0 ? ft_dtoa_e(-num, len, info.base, exp) \
+			: ft_dtoa_e(num, len, info.base, exp);
 	if (sign == 1 || info.check_sign)
 		result = sign == 1 ? \
 			ft_strjoin("-", char_num) : ft_strjoin("+", char_num);
@@ -99,7 +103,7 @@ int			make_result_double(t_info info, va_list var)
 
 	num = va_arg(var, double);
 	sign = what_is_sign(num, info);
-	char_num = check_sign(info, num, sign);
+	char_num = check_sign(info, num, sign, 0);
 	sign = float_factory(info, char_num, sign);
 	free(char_num);
 	char_num = 0;

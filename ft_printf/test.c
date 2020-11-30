@@ -14,9 +14,6 @@ int main(void)
 	printf("bytes : %d\n", byte);
 	printf("=======================\n");
 	printf("*result of ft_printf*\n");
-	//byte = ft_printf(test, -4, -3, 8);
-	double num = 11.999999;
-	ft_bigint(num);
-	//printf("bytes : %d\n", byte);
+	byte = ft_printf(test, -4, -3, 8);
+	printf("bytes : %d\n", byte);
 }
-//wchar_t*

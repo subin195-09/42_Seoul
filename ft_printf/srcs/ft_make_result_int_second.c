@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 19:42:57 by skim              #+#    #+#             */
-/*   Updated: 2020/11/07 21:07:26 by skim             ###   ########.fr       */
+/*   Updated: 2020/11/30 20:06:52 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char		*ltoa_sign(long long num, int sign)
 	int					j;
 
 	temp = num > 0 ? num : -num;
-	char_num = ft_ltoa(temp);
+	char_num = ft_ultoa(temp);
 	if (!(result = malloc(ft_strlen(char_num) + sign + 1)))
 		return (0);
 	i = 0;
