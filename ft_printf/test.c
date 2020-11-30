@@ -6,14 +6,15 @@
 int main(void)
 {
 	setlocale(LC_ALL, "");
-	char	*test = "%*.*d\n";
+	char	*test = "-->|% 01li|<--\n";
 	int		byte = 0;
+
 	printf("%s\n", test);
 	printf("*result of  printf*\n");
-	byte = printf(test, -4, -3, 8);
+	byte = printf(test, 0);
 	printf("bytes : %d\n", byte);
 	printf("=======================\n");
 	printf("*result of ft_printf*\n");
-	byte = ft_printf(test, -4, -3, 8);
+	byte = ft_printf(test, 0);
 	printf("bytes : %d\n", byte);
 }
