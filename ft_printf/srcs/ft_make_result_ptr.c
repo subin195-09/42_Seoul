@@ -6,11 +6,12 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 15:40:04 by skim              #+#    #+#             */
-/*   Updated: 2020/11/27 15:11:26 by skim             ###   ########.fr       */
+/*   Updated: 2020/12/01 23:52:05 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
+#include <stdio.h>
 
 static char	*cut_and_paste_p(t_info info, long long num)
 {
@@ -19,10 +20,10 @@ static char	*cut_and_paste_p(t_info info, long long num)
 	char	*with_pre;
 	char	*temp;
 
-	hex_num = change_base(num, "0123456789abcdef");
+	hex_num = (info.precision == 0 && num == 0) ? ft_strdup("") : change_base(num, "0123456789abcdef");
 	if (info.precision > -1 && info.precision > (int)ft_strlen(hex_num))
 	{
-		with_pre = base_precision(hex_num, info, 'p');
+		with_pre = base_precision(hex_num, info);
 		temp = ft_strjoin("0x", with_pre);
 		free(with_pre);
 		with_pre = 0;
@@ -30,7 +31,7 @@ static char	*cut_and_paste_p(t_info info, long long num)
 	else
 		temp = ft_strjoin("0x", hex_num);
 	if (info.width > (int)ft_strlen(temp))
-		result = cut_and_paste_base(temp, info, 'p', info.precision);
+		result = cut_and_paste_base(temp, info, 'p');
 	else
 		result = ft_strdup(temp);
 	free(hex_num);

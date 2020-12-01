@@ -5,68 +5,40 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/01 17:48:47 by skim              #+#    #+#             */
-/*   Updated: 2020/12/01 23:33:06 by skim             ###   ########.fr       */
+/*   Created: 2020/10/19 22:08:48 by skim              #+#    #+#             */
+/*   Updated: 2020/12/01 18:01:42 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-static char	*base_join(char type, char *temp_num, t_info info)
+char		*cut_and_paste_base(char *var_char, t_info info)
 {
 	char	*result;
-	char	*temp;
-	int		i;
-
-	i = 0;
-	if (info.base > 0 && type != 'p')
-	{
-		while (temp_num[i] == ' ')
-			i++;
-		if (!(temp = calloc(sizeof(char), i + 2 + 1)))
-			return (0);
-		ft_memset(temp, ' ', i + 2);
-		temp[i] = '0';
-		temp[i + 1] = type == 'o' ? temp[i + 1] : type;
-		if (type == 'x')
-			result = ft_strjoin(temp, temp_num + i);
-		else if (type == 'X')
-			result = ft_strjoin(temp, temp_num + i);
-		else
-			result = ft_strjoin(temp, temp_num + i);
-		free(temp);
-		temp = 0;
-	}
-	else
-		result = ft_strdup(temp_num);
-	return (result);
-}
-
-char		*cut_and_paste_base(char *var_char, t_info info, char type)
-{
-	char	*result;
-	char	*result_base;
 	char	padding;
-	int		base;
+	int		size;
 	int		i;
 
-	base = info.base > 0 ? 2 : 0;
-	if (!(result = calloc(sizeof(char), info.width - base + 1)))
+	if (!(result = calloc(sizeof(char), info.width + 1)))
 		return (0);
 	padding = (info.precision > -1 || info.left) ? ' ' : info.padding;
-	ft_memset(result, padding, info.width - base);
 	i = -1;
-	base = -1;
-	while (info.left && var_char[++base])
-		result[++i] = var_char[base];
-	base = ft_strlen(var_char) - 1;
-	i = info.base > 0 ? info.width - 2 : info.width;
-	while (!info.left && base >= 0)
-		result[--i] = var_char[base--];
-	result_base = base_join(type, result, info);
-	free(result);
-	result = 0;
-	return (result_base);
+	size = -1;
+	ft_memset(result, padding, info.width);
+	// if (info.base && type != 'p' && info.precision <= s)
+	// {
+	// 	i = (info.left || padding == '0') ? \
+	// 		-1 : info.width - ft_strlen(var_char) - 3;
+	// 	result[++i] = '0';
+	// 	result[++i] = type;
+	// }
+	while (info.left && var_char[++size])
+		result[++i] = var_char[size];
+	size = ft_strlen(var_char) - 1;
+	i = info.width - 1;
+	while (!info.left && size >= 0)
+		result[i--] = var_char[size--];
+	return (result);
 }
 
 char		*base_precision(char *temp_num, t_info info)
@@ -81,34 +53,65 @@ char		*base_precision(char *temp_num, t_info info)
 	i = ft_strlen(temp_num) - 1;
 	while (i >= 0)
 		result[--info.precision] = temp_num[i--];
+	// if (info.base > 0)
+	// {
+	// 	result[1] = type != 'o' ? type : result[i];
+	// 	result[0] = '0';
+	// }
 	return (result);
+}
+
+static void	base_join(char type, char **temp_num, t_info info)
+{
+	char *result;
+
+	if (info.base > 0)
+	{
+		if (type == 'x')
+			result = ft_strjoin("0x", *temp_num);
+		else if (type == 'X')
+			result = ft_strjoin("0X", *temp_num);
+		else
+			result = ft_strjoin("0", *temp_num);
+	}
+	else
+		result = ft_strdup(*temp_num);
+	free(*temp_num);
+	*temp_num = ft_strdup(result);
+	free(result);
+	result = 0;
 }
 
 static int	write_result(char *temp_num, t_info info, char type)
 {
 	char	*result;
 	char	*temp_char;
-	int		len;
 	int		size;
 	int		base;
 
-	len = ft_strlen(temp_num);
+	size = ft_strlen(temp_num);
 	base = info.base > 0 ? 2 : 0;
-	size = get_max(len + base, info.precision + base, info.width);
-	if (size == len + base)
-		temp_char = ft_strdup(temp_num);
-	else if (size == info.precision + base)
-		temp_char = base_precision(temp_num, info);
+	if (info.width > size + base && info.width > info.precision)
+	{
+		if (info.precision > size)
+		{
+			temp_char = base_precision(temp_num, info);
+			result = cut_and_paste_base(temp_char, info);
+			free(temp_char);
+			temp_char = 0;
+		}
+		else
+			result = cut_and_paste_base(temp_num, info);
+	}
 	else
-		temp_char = info.precision > len ?\
-		base_precision(temp_num, info) : ft_strdup(temp_num);
-	result = (size == len + base || size == info.precision + base) ?\
-	base_join(type, temp_char, info) : cut_and_paste_base(temp_char, info, type);
+		result = info.precision > size ? base_precision(temp_num, info) \
+			: ft_strdup(temp_num);
+	// else
+	// 	result = info.precision > size ? base_precision(temp_num, info, type) \
+	// 		: base_join(type, temp_num, info);
+	base_join(type, &result, info);
 	size = write(1, result, ft_strlen(result));
 	free(result);
-	free(temp_char);
-	result = 0;
-	temp_char = 0;
 	return (size);
 }
 
