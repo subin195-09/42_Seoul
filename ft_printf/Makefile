@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 18:09:00 by skim              #+#    #+#              #
-#    Updated: 2020/11/30 20:50:11 by skim             ###   ########.fr        #
+#    Updated: 2020/12/02 00:01:21 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,8 @@ SRCS = $(addprefix $(SRCS_DIR)/, \
 OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
 
 all : $(NAME)
+
+bonus : all
 
 $(NAME) : $(OBJS)
 	@make -C $(LIB_DIR)
