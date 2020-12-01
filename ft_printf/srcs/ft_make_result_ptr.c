@@ -6,12 +6,11 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 15:40:04 by skim              #+#    #+#             */
-/*   Updated: 2020/12/01 23:52:05 by skim             ###   ########.fr       */
+/*   Updated: 2020/12/01 23:59:24 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
-#include <stdio.h>
 
 static char	*cut_and_paste_p(t_info info, long long num)
 {
