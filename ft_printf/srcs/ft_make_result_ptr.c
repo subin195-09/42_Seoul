@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 15:40:04 by skim              #+#    #+#             */
-/*   Updated: 2020/12/01 23:59:24 by skim             ###   ########.fr       */
+/*   Updated: 2020/12/02 15:32:45 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static char	*cut_and_paste_p(t_info info, long long num)
 	char	*with_pre;
 	char	*temp;
 
-	hex_num = (info.precision == 0 && num == 0) ? ft_strdup("") : change_base(num, "0123456789abcdef");
+	hex_num = (info.precision == 0 && num == 0) ? \
+	ft_strdup("") : change_base(num, "0123456789abcdef");
 	if (info.precision > -1 && info.precision > (int)ft_strlen(hex_num))
 	{
 		with_pre = base_precision(hex_num, info);
