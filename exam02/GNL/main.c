@@ -6,9 +6,9 @@ int main(void)
 	int		r;
 	char	*line;
 
-	while (1)
-	{
-	}
+	//while (1)
+	//{
+	//}
 	line = NULL;
 	printf("===================================================\n");
 	while ((r = get_next_line(&line)) > 0)
@@ -16,9 +16,15 @@ int main(void)
 		printf("%s\n", line);
 		free(line);
 		line = NULL;
+		//while (1)
+		//{
+		//}
 	}
 	printf("%s", line);
 	free(line);
 	line = NULL;
 	printf("===================================================\n");
+	while (1)
+	{
+	}
 }
