@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 21:26:12 by skim              #+#    #+#             */
-/*   Updated: 2020/12/04 22:05:10 by skim             ###   ########.fr       */
+/*   Updated: 2020/12/08 00:00:17 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef	struct		s_info
 	int		precision;
 }					t_info;
 
-inf		ft_strlen(char *s)
+int		ft_strlen(char *s)
 {
 	int i = 0;
 	while (s[i])
@@ -42,6 +42,39 @@ char	*ft_strdup(char *s)
 	}
 	result[i] = 0;
 	return (result);
+}
+
+int		count_num(unsigned int num, int base_len)
+{
+	int i = 0;
+
+	if (num == 0)
+		return (1);
+	while (num)
+	{
+		num /= base_len;
+		i++;
+	}
+	return (i);
+}
+
+char	*base(char *base, unsigned int num)
+{
+	char	*ret;
+
+	int base_len = ft_strlen(base);
+	int i = count_num(num, base_len);
+	if (!(ret = malloc(i + 1)))
+		return (0);
+	base[i--] = 0;
+	if (num == 0)
+		ret[i] = base[0];
+	while (num)
+	{
+		base[i--] = base[num % base_len];
+		num /= base_len;
+	}
+	return (ret);
 }
 
 int		make_result_string(t_info info, va_list ap)
@@ -75,11 +108,11 @@ int		make_result_string(t_info info, va_list ap)
 	}
 	else
 		result = ft_strdup(body);
-	ret = write(1, result, ft_strlen(result));
+	i = write(1, result, ft_strlen(result));
 	free(result);
 	free(body);
 	return (ret);
-}	
+}
 
 int		make_result(char **format, t_info *info, va_list ap)
 {
@@ -142,7 +175,7 @@ int		ft_printf(const char *format, ... )
 {
 	va_list	ap;
 	int ret = 0;
-	
+
 	va_start(ap, format);
 	while (*format)
 	{
