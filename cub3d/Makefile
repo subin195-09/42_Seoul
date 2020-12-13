@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 00:33:36 by skim              #+#    #+#              #
-#    Updated: 2020/12/13 03:08:00 by skim             ###   ########.fr        #
+#    Updated: 2020/12/13 15:19:20 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,6 @@ re : fclean all
 bonus : all
 
 test : $(LMLX)
-	$(CC) $(CFLAGS) -I $(MMS_DIR) -I $(OPENGNL_DIR) $(MMS) $(OPENGNL) $(SRCS)
+	$(CC) $(CFLAGS) -I $(INC_DIR) -I $(MMS_DIR) -I $(OPENGNL_DIR) $(MMS) $(OPENGNL) $(SRCS)
 	./a.out
 	rm -rf ./a.out
