@@ -6,12 +6,17 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 15:17:31 by skim              #+#    #+#             */
-/*   Updated: 2020/12/14 00:59:50 by skim             ###   ########.fr       */
+/*   Updated: 2020/12/14 02:14:11 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
 # define KEY_ESC	53
 # define KEY_UP		126
@@ -26,10 +31,6 @@
 # define TILE_SIZE	32
 # define WIDTH		COL * TILE_SIZE
 # define HEIGHT		ROW * TILE_SIZE
-
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
 
 typedef struct	s_img
 {
