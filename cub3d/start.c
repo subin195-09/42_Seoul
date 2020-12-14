@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 00:28:38 by skim              #+#    #+#             */
-/*   Updated: 2020/12/14 02:18:08 by skim             ###   ########.fr       */
+/*   Updated: 2020/12/15 00:55:35 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	draw_rect(t_ptr *ptr, int x, int y)
 		j = 0;
 		while (j < TILE_SIZE)
 		{
-			ptr->img.data[(x + i) * WIDTH + y + j] = 0xFFFFFF;
+			ptr->img.data[(x + i) * WIDTH] = 0xFFFFFF;
 			j++;
 		}
 		i++;
@@ -108,6 +108,12 @@ void	map_init(t_ptr *ptr)
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 	};
 	memcpy(ptr->map, map, sizeof(int) * ROW * COL);
+	for(int i = 0; i < ROW; i++)
+	{
+		for(int j = 0; j < COL; j++)
+			printf("%d ", ptr->map[i][j]);
+		printf("\n");
+	}
 }
 
 void	window_init(t_ptr *ptr)
