@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 00:33:36 by skim              #+#    #+#              #
-#    Updated: 2020/12/15 00:26:53 by skim             ###   ########.fr        #
+#    Updated: 2020/12/23 14:55:18 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,6 @@ re : fclean all
 bonus : all
 
 test : $(LMLX)
-	$(CC) $(CFLAGS) -I $(INC_DIR) -I $(MMS_DIR) -I $(OPENGNL_DIR) $(MMS) $(OPENGNL) $(SRCS)
+	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit $(SRCS)
 	./a.out
 	rm -rf ./a.out
