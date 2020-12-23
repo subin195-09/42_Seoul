@@ -6,30 +6,57 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 00:28:38 by skim              #+#    #+#             */
-/*   Updated: 2020/12/23 14:54:52 by skim             ###   ########.fr       */
+/*   Updated: 2020/12/23 19:25:13 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx.h"
 #include "cub3d.h"
 
+//DDA 알고리즘 방식
+void	draw_line(t_ptr *ptr, double x1, double y1, double x2, double y2)
+{
+	// x 증가량
+	double delta_x = x2 - x1;
+	// y 증가량
+	double delta_y = y2 - y1;
 
+	// x의 증가량, y의 증가량 중 큰 것을 기준으로 잡는다.
+	double step = fabs(delta_x) > fabs(delta_y) ? fabs(delta_x) : fabs(delta_y);
 
-// void	draw_line(t_ptr *ptr, double x1, double y1, double x2, double y2)
-// {
-// 	double delta_x;
-// 	double delta_y;
-// 	double step;
-// }
+	// x의 증가량이 크다면 x는 1씩 증가하고, Y는 기울기만큼만 증가한다.
+	// 반대로 y의 증가량이 크마녀 y는 1씩 증가하고, x는 1/기울기 만큼만 증가한다.
+	delta_x /= step;
+	delta_y /= step;
+	while (x2 > x1 || y2 > y1)
+	{
+		ptr->img.data[(int)floor(y1) * WIDTH + (int)floor(x1)] = 0xb3b3b3;
+		x1 += delta_x;
+		y1 += delta_y;
+	}
+}
 
-// void	draw_all_line(t_ptr *ptr)
-// {
-// 	int	i;
-// 	int	j;
+void	draw_all_line(t_ptr *ptr)
+{
+	int	i;
+	int	j;
 
-// 	i = 0;
-// 	while (i < )
-// }
+	// 세로 선 그리기
+	i = 0;
+	while (i < COL)
+	{
+		draw_line(ptr, i * TILE_SIZE, 0, i * TILE_SIZE, HEIGHT);
+		i++;
+	}
+
+	// 가로 선 그리기
+	j = 0;
+	while (j < ROW)
+	{
+		draw_line(ptr, 0, j * TILE_SIZE, WIDTH, j * TILE_SIZE);
+		j++;
+	}
+}
 
 void	draw_rect(t_ptr *ptr, int x, int y)
 {
@@ -73,7 +100,7 @@ void	draw_all_rect(t_ptr *ptr)
 int		main_loop(t_ptr *ptr)
 {
 	draw_all_rect(ptr);
-	//draw_all_line(ptr);
+	draw_all_line(ptr);
 	mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->img.img_ptr, 0, 0);
 	return (0);
 }

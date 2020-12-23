@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 15:17:31 by skim              #+#    #+#             */
-/*   Updated: 2020/12/22 17:03:54 by skim             ###   ########.fr       */
+/*   Updated: 2020/12/23 19:17:20 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 # define KEY_ESC	53
 # define KEY_UP		126
