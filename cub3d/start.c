@@ -6,35 +6,81 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 00:28:38 by skim              #+#    #+#             */
-/*   Updated: 2020/12/23 19:25:13 by skim             ###   ########.fr       */
+/*   Updated: 2020/12/24 23:16:32 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx.h"
 #include "cub3d.h"
 
-//DDA 알고리즘 방식
-void	draw_line(t_ptr *ptr, double x1, double y1, double x2, double y2)
+void	swap(int *x, int *y)
 {
-	// x 증가량
-	double delta_x = x2 - x1;
-	// y 증가량
-	double delta_y = y2 - y1;
+	int temp;
 
-	// x의 증가량, y의 증가량 중 큰 것을 기준으로 잡는다.
-	double step = fabs(delta_x) > fabs(delta_y) ? fabs(delta_x) : fabs(delta_y);
+	temp = *x;
+	*x = *y;
+	*y = temp;
+}
 
-	// x의 증가량이 크다면 x는 1씩 증가하고, Y는 기울기만큼만 증가한다.
-	// 반대로 y의 증가량이 크마녀 y는 1씩 증가하고, x는 1/기울기 만큼만 증가한다.
-	delta_x /= step;
-	delta_y /= step;
-	while (x2 > x1 || y2 > y1)
+//Bresenham 알고리즘 방식
+void	draw_line(t_ptr *ptr, int x1, int y1, int x2, int y2)
+{
+	int flag = 0;
+	if (x2 == x1)
 	{
-		ptr->img.data[(int)floor(y1) * WIDTH + (int)floor(x1)] = 0xb3b3b3;
-		x1 += delta_x;
-		y1 += delta_y;
+		swap(&x1, &y1);
+		swap(&x2, &y2);
+		flag = 1;
+	}
+	int x = x1;
+	int y = y2;
+
+	int w = x2 - x1;
+	int h = y2 - y1;
+
+	int f = 2 * h - w;
+
+	int delta_f1 = 2 * h;
+	int delta_f2 = 2 * (h - w);
+
+	for(x = x1; x < x2; x++)
+	{
+		if (flag)
+			ptr->img.data[x * WIDTH + y] = 0xb3b3b3;
+		else
+			ptr->img.data[y * WIDTH + x] = 0xb3b3b3;
+		if (f < 0)
+			f += delta_f1;
+		else
+		{
+			y++;
+			f += delta_f2;
+		}
 	}
 }
+
+//DDA 알고리즘 방식
+// void	draw_line(t_ptr *ptr, double x1, double y1, double x2, double y2)
+// {
+// 	// x 증가량
+// 	double delta_x = x2 - x1;
+// 	// y 증가량
+// 	double delta_y = y2 - y1;
+
+// 	// x의 증가량, y의 증가량 중 큰 것을 기준으로 잡는다.
+// 	double step = fabs(delta_x) > fabs(delta_y) ? fabs(delta_x) : fabs(delta_y);
+
+// 	// x의 증가량이 크다면 x는 1씩 증가하고, Y는 기울기만큼만 증가한다.
+// 	// 반대로 y의 증가량이 크마녀 y는 1씩 증가하고, x는 1/기울기 만큼만 증가한다.
+// 	delta_x /= step;
+// 	delta_y /= step;
+// 	while (x2 > x1 || y2 > y1)
+// 	{
+// 		ptr->img.data[(int)floor(y1) * WIDTH + (int)floor(x1)] = 0xb3b3b3;
+// 		x1 += delta_x;
+// 		y1 += delta_y;
+// 	}
+// }
 
 void	draw_all_line(t_ptr *ptr)
 {
