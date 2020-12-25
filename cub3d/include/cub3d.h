@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 15:17:31 by skim              #+#    #+#             */
-/*   Updated: 2020/12/23 19:17:20 by skim             ###   ########.fr       */
+/*   Updated: 2020/12/25 23:44:49 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,14 @@
 
 # define KEY_ESC	53
 # define KEY_UP		126
-# define key_DOWN	125
+# define KEY_DOWN	125
+# define KEY_LEFT	123
+# define KEY_RIGHT	124
 
 // mlx에 등록된 이벤트 번호
 #define X_EVENT_KEY_EXIT		17 //Exit program key code
+#define X_EVENT_KEY_PRESS		2
+#define X_EVENT_KEY_RELEASE		3
 
 # define ROW	11
 # define COL	15
@@ -51,7 +55,13 @@ typedef struct s_ptr
 	void	*win;
 	t_img	img;
 
-	int		map[ROW][COL];
+	int		x;
+	int		y;
+	int		up;
+	int		down;
+	int		left;
+	int		right;
+	//int		map[ROW][COL];
 }				t_ptr;
 
 #endif

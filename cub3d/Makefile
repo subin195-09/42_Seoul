@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 00:33:36 by skim              #+#    #+#              #
-#    Updated: 2020/12/23 17:26:56 by skim             ###   ########.fr        #
+#    Updated: 2020/12/26 00:10:07 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ LMLX = libmlx.dylib libmlx.a
 
 INC_DIR = ./include
 
-SRCS = start.c
+SRCS = move.c
 
 all : $(NAME)
 
