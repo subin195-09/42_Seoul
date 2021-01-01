@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 22:51:55 by skim              #+#    #+#             */
-/*   Updated: 2020/12/26 00:09:38 by skim             ###   ########.fr       */
+/*   Updated: 2021/01/01 17:22:34 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,34 @@
 
 int ft_move(t_ptr *ptr)
 {
-	if(ptr->left == 1 && ptr->x > 0)
-		ptr->x -= 1;
+	if(ptr->left == 1 && ptr->x >= 3)
+		ptr->x -= 3;
 	if (ptr-> right == 1 && ptr->x + TILE_SIZE < WIDTH)
-		ptr->x += 1;
-	if (ptr->up == 1 && ptr->y > 0)
-		ptr->y -= 1;
+		ptr->x += 3;
+	if (ptr->up == 1 && ptr->y >= 3)
+		ptr->y -= 3;
 	if (ptr->down == 1 && ptr->y + TILE_SIZE < HEIGHT)
-		ptr->y += 1;
+		ptr->y += 3;
 	return (0);
 }
 
 int ft_draw(t_ptr *ptr)
 {
-	for(int i = ptr->y; i < TILE_SIZE; i++)
+	for(int i = 0; i < HEIGHT; i++)
+		for(int j = 0; j < WIDTH; j++)
+			ptr->img.data[i * WIDTH + j] = 0;
+	for(int i = ptr->y; i < ptr->y + TILE_SIZE; i++)
 	{
-		for(int j = ptr->x; j < TILE_SIZE; j++)
-			ptr->img.data[(i * WIDTH + j) * TILE_SIZE] = 0xffffff;
+		for(int j = ptr->x; j < ptr->x + TILE_SIZE; j++)
+			ptr->img.data[(i * WIDTH + j)] = 0xffffff;
 	}
+	mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->img.img_ptr, 0, 0);
 	return (0);
 }
 
 int	main_loop(t_ptr *ptr)
 {
 	ft_draw(ptr);
-	mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->img.img_ptr, 0, 0);
 	ft_move(ptr);
 	return (0);
 }
@@ -53,7 +56,7 @@ int	press_event(int keycode, t_ptr *ptr)
 	}
 	if (keycode == KEY_LEFT)
 		ptr->left = 1;
-	else if (keycode == KEY_LEFT)
+	else if (keycode == KEY_RIGHT)
 		ptr->right = 1;
 	else if (keycode == KEY_UP)
 		ptr->up = 1;
@@ -65,13 +68,13 @@ int	press_event(int keycode, t_ptr *ptr)
 int release_event(int keycode, t_ptr *ptr)
 {
 	if (keycode == KEY_LEFT)
-		ptr->left = 1;
-	else if (keycode == KEY_LEFT)
-		ptr->right = 1;
+		ptr->left = 0;
+	else if (keycode == KEY_RIGHT)
+		ptr->right = 0;
 	else if (keycode == KEY_UP)
-		ptr->up = 1;
+		ptr->up = 0;
 	else if (keycode == KEY_DOWN)
-		ptr->down = 1;
+		ptr->down = 0;
 	return (0);
 }
 
@@ -81,13 +84,12 @@ int main(void)
 
 	ptr.mlx = mlx_init();
 	ptr.win = mlx_new_window(ptr.mlx, WIDTH, HEIGHT, "move");
-	ptr.img.img_ptr = mlx_new_image(ptr.mlx, WIDTH, HEIGHT);
-	ptr.img.data = mlx_get_data_addr(ptr.img.img_ptr, &ptr.img.bpp, &ptr.img.height, &ptr.img.endian);
 
-	mlx_put_image_to_window(ptr.mlx, ptr.win, ptr.img.img_ptr, 0, 0);
-	ptr.x = WIDTH / 2;
-	ptr.y = HEIGHT / 2;
+	ptr.img.img_ptr = mlx_new_image(ptr.mlx, WIDTH, HEIGHT);
+	ptr.img.data = (int *)mlx_get_data_addr(ptr.img.img_ptr, &ptr.img.bpp, &ptr.img.height, &ptr.img.endian);
+
 	mlx_hook(ptr.win, X_EVENT_KEY_PRESS, 0, press_event, &ptr);
+	//mlx_put_image_to_window(ptr.mlx, ptr.win, ptr.img.img_ptr, 0, 0);
 	mlx_hook(ptr.win, X_EVENT_KEY_RELEASE, 0, release_event, &ptr);
 	mlx_loop_hook(ptr.mlx, main_loop, &ptr);
 	mlx_loop(ptr.mlx);

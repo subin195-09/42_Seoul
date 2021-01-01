@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 00:28:38 by skim              #+#    #+#             */
-/*   Updated: 2020/12/24 23:22:53 by skim             ###   ########.fr       */
+/*   Updated: 2021/01/01 18:03:44 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,8 @@ int		main_loop(t_ptr *ptr)
 {
 	draw_all_rect(ptr);
 	draw_all_line(ptr);
+	draw_player(ptr);
+	move_player(ptr);
 	mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->img.img_ptr, 0, 0);
 	return (0);
 }
