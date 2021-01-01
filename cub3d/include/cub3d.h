@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 15:17:31 by skim              #+#    #+#             */
-/*   Updated: 2021/01/01 18:04:46 by skim             ###   ########.fr       */
+/*   Updated: 2021/01/01 18:23:56 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct s_ptr
 	int		down;
 	int		left;
 	int		right;
-	//int		map[ROW][COL];
+	int		map[ROW][COL];
 }				t_ptr;
 
 #endif

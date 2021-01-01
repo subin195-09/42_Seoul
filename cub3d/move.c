@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 22:51:55 by skim              #+#    #+#             */
-/*   Updated: 2021/01/01 17:22:34 by skim             ###   ########.fr       */
+/*   Updated: 2021/01/01 18:55:24 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,16 @@ int main(void)
 	ptr.mlx = mlx_init();
 	ptr.win = mlx_new_window(ptr.mlx, WIDTH, HEIGHT, "move");
 
+	ptr.x = 0;
+	ptr.y = 0;
+	ptr.up = 0;
+	ptr.down = 0;
+	ptr.right = 0;
+	ptr.left = 0;
+
 	ptr.img.img_ptr = mlx_new_image(ptr.mlx, WIDTH, HEIGHT);
 	ptr.img.data = (int *)mlx_get_data_addr(ptr.img.img_ptr, &ptr.img.bpp, &ptr.img.height, &ptr.img.endian);
+
 
 	mlx_hook(ptr.win, X_EVENT_KEY_PRESS, 0, press_event, &ptr);
 	//mlx_put_image_to_window(ptr.mlx, ptr.win, ptr.img.img_ptr, 0, 0);

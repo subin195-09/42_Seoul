@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 00:33:36 by skim              #+#    #+#              #
-#    Updated: 2020/12/26 00:10:07 by skim             ###   ########.fr        #
+#    Updated: 2021/01/01 18:27:27 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ LMLX = libmlx.dylib libmlx.a
 
 INC_DIR = ./include
 
-SRCS = move.c
+SRCS = start.c
 
 all : $(NAME)
 
@@ -52,5 +52,10 @@ bonus : all
 
 test : $(LMLX)
 	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit $(SRCS)
+	./a.out
+	rm -rf ./a.out
+
+move : $(LMLX)
+	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit move.c
 	./a.out
 	rm -rf ./a.out

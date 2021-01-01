@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 00:28:38 by skim              #+#    #+#             */
-/*   Updated: 2021/01/01 18:03:44 by skim             ###   ########.fr       */
+/*   Updated: 2021/01/01 18:55:54 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,20 +143,70 @@ void	draw_all_rect(t_ptr *ptr)
 	}
 }
 
+int		move_player(t_ptr *ptr)
+{
+	if(ptr->left == 1 && ptr->x >= 3)
+		ptr->x -= 3;
+	if (ptr-> right == 1 && ptr->x + TILE_SIZE < WIDTH)
+		ptr->x += 3;
+	if (ptr->up == 1 && ptr->y >= 3)
+		ptr->y -= 3;
+	if (ptr->down == 1 && ptr->y + TILE_SIZE < HEIGHT)
+		ptr->y += 3;
+	return (0);
+}
+
+int		draw_player(t_ptr *ptr)
+{
+	for(int i = 0; i < HEIGHT; i++)
+		for(int j = 0; j < WIDTH; j++)
+			ptr->img.data[i * WIDTH + j] = 0;
+	for(int i = ptr->y; i < ptr->y + TILE_SIZE; i++)
+	{
+		for(int j = ptr->x; j < ptr->x + TILE_SIZE; j++)
+			ptr->img.data[(i * WIDTH + j)] = 0xff0000;
+	}
+	return (0);
+}
+
 int		main_loop(t_ptr *ptr)
 {
-	draw_all_rect(ptr);
-	draw_all_line(ptr);
 	draw_player(ptr);
 	move_player(ptr);
+	draw_all_rect(ptr);
+	draw_all_line(ptr);
 	mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->img.img_ptr, 0, 0);
 	return (0);
 }
 
-int		press_esc_key(int key_code, t_ptr *ptr)
+int		event_key_press(int keycode, t_ptr *ptr)
 {
-	if (key_code == KEY_ESC && ptr)
+	if (keycode == KEY_ESC)
+	{
+		mlx_destroy_window(ptr->mlx, ptr->win);
 		exit(0);
+	}
+	if (keycode == KEY_LEFT)
+		ptr->left = 1;
+	else if (keycode == KEY_RIGHT)
+		ptr->right = 1;
+	else if (keycode == KEY_UP)
+		ptr->up = 1;
+	else if (keycode == KEY_DOWN)
+		ptr->down = 1;
+	return (0);
+}
+
+int		event_key_release(int keycode, t_ptr *ptr)
+{
+	if (keycode == KEY_LEFT)
+		ptr->left = 0;
+	else if (keycode == KEY_RIGHT)
+		ptr->right = 0;
+	else if (keycode == KEY_UP)
+		ptr->up = 0;
+	else if (keycode == KEY_DOWN)
+		ptr->down = 0;
 	return (0);
 }
 
@@ -205,11 +255,23 @@ int		main(void)
 	window_init(&ptr);
 	img_init(&ptr);
 
+	ptr.x = TILE_SIZE;
+	ptr.y = TILE_SIZE;
+	ptr.up = 0;
+	ptr.down = 0;
+	ptr.right = 0;
+	ptr.left = 0;
+
 	// key_hook : 키를 눌렀을때 발생
 	// mlx_hook 에서 두번째 인자를 2(키가 눌렸다는 신호)를 넣어주면 key_hook와 같은 동작을 하게 할 수 있다.
 	//mlx_hook(ptr.win, 2, 0, &press_esc_key, &ptr);
 	// mlx_hook : 종료 키코드가 들어왔을때 발생
-	mlx_key_hook(ptr.win, press_esc_key, &ptr);
+	//mlx_key_hook(ptr.win, press_esc_key, &ptr);
+
+	// player와 관련된 key event 추가하기
+	mlx_hook(ptr.win, X_EVENT_KEY_PRESS, 0, &event_key_press, &ptr);
+	mlx_hook(ptr.win, X_EVENT_KEY_RELEASE, 0, &event_key_release, &ptr);
+
 	mlx_hook(ptr.win, X_EVENT_KEY_EXIT, 0, &event_key_exit, &ptr);
 
 	// // 아무런 이벤트가 발생하지 않았을 때 인자로 받은 함수 (main_loop)를 호출한다.
