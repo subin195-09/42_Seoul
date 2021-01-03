@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 18:33:01 by skim              #+#    #+#             */
-/*   Updated: 2021/01/03 19:32:04 by skim             ###   ########.fr       */
+/*   Updated: 2021/01/03 20:00:58 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,25 @@ void	calc_ray(t_info *info)
 		{
 			stepY = 1;
 			sideDistY = (mapY + 1.0 - info->posY) * deltaDistY;
+		}
+
+		// DDA 알고리즘!!!!
+		while (!hit)
+		{
+			if (sideDistX < sideDistY)
+			{
+				sideDistX += deltaDistX;
+				mapX += stepX;
+				side = 0;
+			}
+			else
+			{
+				sideDistY += deltaDistY;
+				mapY += stepY;
+				side = 1;
+			}
+			if (worldMap[mapX][mapY] > 0)
+				hit = 1;
 		}
 	}
 }
