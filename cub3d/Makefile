@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 00:33:36 by skim              #+#    #+#              #
-#    Updated: 2021/01/01 18:27:27 by skim             ###   ########.fr        #
+#    Updated: 2021/01/03 18:48:12 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,5 +57,10 @@ test : $(LMLX)
 
 move : $(LMLX)
 	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit move.c
+	./a.out
+	rm -rf ./a.out
+
+fire : $(LMLX)
+	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit fire.c
 	./a.out
 	rm -rf ./a.out
