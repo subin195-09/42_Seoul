@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 18:35:25 by skim              #+#    #+#             */
-/*   Updated: 2021/01/03 18:47:14 by skim             ###   ########.fr       */
+/*   Updated: 2021/01/04 15:06:05 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@
 # define KEY_DOWN	125
 # define KEY_LEFT	123
 # define KEY_RIGHT	124
+
+# define RGB_Red	0xff0000;
+# define RGB_Green	0x00ff00;
+# define RGB_Blue	0x0000ff;
+# define RGB_White	0xffffff;
+# define RGB_Yellow	0xffff00;
 
 // mlx에 등록된 이벤트 번호
 #define X_EVENT_KEY_EXIT		17 //Exit program key code

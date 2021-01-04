@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 18:33:01 by skim              #+#    #+#             */
-/*   Updated: 2021/01/03 20:00:58 by skim             ###   ########.fr       */
+/*   Updated: 2021/01/04 15:10:07 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@ int worldMap[mapWidth][mapHeight]=
   {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
+
+void	verLine(int x, int drawStart, int drawEnd, color)
+{
+
+}
 
 void	calc_ray(t_info *info)
 {
@@ -105,21 +110,57 @@ void	calc_ray(t_info *info)
 		// DDA 알고리즘!!!!
 		while (!hit)
 		{
+			// 광선의 기울기가 1보다 작은 경우
 			if (sideDistX < sideDistY)
 			{
 				sideDistX += deltaDistX;
 				mapX += stepX;
+				// 세로 선과 먼저 닿았다
 				side = 0;
 			}
+			// 광선의 기울기가 1보다 큰 경우
 			else
 			{
 				sideDistY += deltaDistY;
 				mapY += stepY;
+				// 가로 선과 먼저 닿았다
 				side = 1;
 			}
 			if (worldMap[mapX][mapY] > 0)
 				hit = 1;
 		}
+
+		// 광선의 시작점 + 벽까지의 이동거리 계산 => 실제 거리가 아닌 직선 거리를 구해야함
+		// 어안렌즈 효과 때문에
+		if (side == 0)
+			perpWallDist = (mapX - info->posX + (1 - stepX) / 2) / rayDirX;
+		else
+			perpWallDist = (mapY -  info->posY + (1 - stepY) / 2) / rayDirY;
+
+		//벽의 높이 결정
+		int lineHeight = (int)(screenHeight / perpWallDist);
+		//벽을 그릴 시작점과 끝점
+		int drawStart = -lineHeight / 2 + screenHeight / 2;
+		drawStart = drawStart < 0 ? 0 : drawStart;
+		int drawEnd = lineHeight / 2 + screenHeight / 2;
+		drawEnd = drawEnd >= screenHeight ? screenHeight - 1 : drawEnd;
+
+		int color;
+		switch(worldMap[mapX][mapY])
+      {
+        case 1:  color = RGB_Red;  break; //red
+        case 2:  color = RGB_Green;  break; //green
+        case 3:  color = RGB_Blue;   break; //blue
+        case 4:  color = RGB_White;  break; //white
+        default: color = RGB_Yellow; break; //yellow
+      }
+
+	// 가로면 세로면의 명도를 다르게 설정
+	if (side == 1)
+		color /= 2;
+
+	// 기둥을 그리는 함수
+	verLine(x, drawStart, drawEnd, color);
 	}
 }
 
