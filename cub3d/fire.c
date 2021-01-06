@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 18:33:01 by skim              #+#    #+#             */
-/*   Updated: 2021/01/04 15:10:07 by skim             ###   ########.fr       */
+/*   Updated: 2021/01/06 22:55:34 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,13 @@ int worldMap[mapWidth][mapHeight]=
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
 
-void	verLine(int x, int drawStart, int drawEnd, color)
+void	verLine(t_ptr *ptr, int x, int drawStart, int drawEnd, int color)
 {
-
+	for(int i = drawStart; i <= drawEnd; i++)
+		mlx_pixel_put(ptr->mlx, ptr->win, x, i, color);
 }
 
-void	calc_ray(t_info *info)
+void	calc_ray(t_ptr *ptr)
 {
 	double w = screenWidth;
 	for(int x = 0; x < (int)w; x++)
@@ -56,12 +57,12 @@ void	calc_ray(t_info *info)
 		// 범위는 -1 부터 1까지이다 (나중에 더 찾아볼것!!!!)
 		double cameraX = 2 * x / w - 1;
 		// 내가 쏴야하는 광선
-		double rayDirX = info->dirX + info->planeX * cameraX;
-		double rayDirY = info->dirY + info->planeY * cameraX;
+		double rayDirX = ptr->info.dirX + ptr->info.planeX * cameraX;
+		double rayDirY = ptr->info.dirY + ptr->info.planeY * cameraX;
 
 		// pos의 단순 int값을 넣어준다
-		int mapX = (int)info->posX;
-		int mapY = (int)info->posY;
+		int mapX = (int)ptr->info.posX;
+		int mapY = (int)ptr->info.posY;
 
 		// 시작 점(pos)에서 처음 x면, y면을 만날때 까지의 값
 		double sideDistX;
@@ -69,8 +70,8 @@ void	calc_ray(t_info *info)
 
 		// x면, y면에서 다음 x면, y면을 만날때 까지의 값
 		// 공식유도 직접 계산해볼것!
-		double deltaDistX = abs(1 / rayDirX);
-		double deltaDistY = abs(1 / rayDirY);
+		double deltaDistX = fabs(1 / rayDirX);
+		double deltaDistY = fabs(1 / rayDirY);
 		// 나중에 광선의 거리 계산에 쓰일 변수
 		double perpWallDist;
 
@@ -86,25 +87,25 @@ void	calc_ray(t_info *info)
 		if (rayDirX < 0)
 		{
 			stepX = -1;
-			sideDistX = (info->posX - mapX) * deltaDistX;
+			sideDistX = (ptr->info.posX - mapX) * deltaDistX;
 		}
 		// 오른쪽 방향일 경우 👉
 		else
 		{
 			stepX = 1;
-			sideDistX = (mapX + 1.0 - info->posX) * deltaDistX;
+			sideDistX = (mapX + 1.0 - ptr->info.posX) * deltaDistX;
 		}
 		// 위쪽 방향일 경우 🖕
 		if (rayDirY < 0)
 		{
 			stepY = -1;
-			sideDistY = (info->posY - mapY) * deltaDistY;
+			sideDistY = (ptr->info.posY - mapY) * deltaDistY;
 		}
 		// 밑에 방향일 경우 👇
 		else
 		{
 			stepY = 1;
-			sideDistY = (mapY + 1.0 - info->posY) * deltaDistY;
+			sideDistY = (mapY + 1.0 - ptr->info.posY) * deltaDistY;
 		}
 
 		// DDA 알고리즘!!!!
@@ -133,9 +134,9 @@ void	calc_ray(t_info *info)
 		// 광선의 시작점 + 벽까지의 이동거리 계산 => 실제 거리가 아닌 직선 거리를 구해야함
 		// 어안렌즈 효과 때문에
 		if (side == 0)
-			perpWallDist = (mapX - info->posX + (1 - stepX) / 2) / rayDirX;
+			perpWallDist = (mapX - ptr->info.posX + (1 - stepX) / 2) / rayDirX;
 		else
-			perpWallDist = (mapY -  info->posY + (1 - stepY) / 2) / rayDirY;
+			perpWallDist = (mapY -  ptr->info.posY + (1 - stepY) / 2) / rayDirY;
 
 		//벽의 높이 결정
 		int lineHeight = (int)(screenHeight / perpWallDist);
@@ -160,17 +161,59 @@ void	calc_ray(t_info *info)
 		color /= 2;
 
 	// 기둥을 그리는 함수
-	verLine(x, drawStart, drawEnd, color);
+	verLine(ptr, x, drawStart, drawEnd, color);
 	}
 }
 
-int		main_loop(t_ptr *ptr, t_info *info)
+void	window_init(t_ptr *ptr)
 {
-	calc_ray(info);
+	for(int i = 0; i <= screenHeight; i++)
+		for(int j = 0; j <= screenHeight; j++)
+			mlx_pixel_put(ptr->mlx, ptr->win, j, i, 0);
+}
+
+int		main_loop(t_ptr *ptr)
+{
+	window_init(ptr);
+	calc_ray(ptr);
+
+	return (0);
 }
 
 int		event_key_press(int keycode, t_ptr *ptr)
 {
+	if (keycode == KEY_UP)
+	{
+		if (!worldMap[(int)(ptr->info.posX + ptr->info.dirX * ptr->info.moveSpeed)][(int)(ptr->info.posY)])
+			ptr->info.posX += ptr->info.dirX * ptr->info.moveSpeed;
+		if (!worldMap[(int)(ptr->info.posX)][(int)(ptr->info.posY + ptr->info.dirY * ptr->info.moveSpeed)])
+			ptr->info.posY += ptr->info.dirY * ptr->info.moveSpeed;
+	}
+	if (keycode == KEY_DOWN)
+	{
+		if (!worldMap[(int)(ptr->info.posX - ptr->info.dirX * ptr->info.moveSpeed)][(int)(ptr->info.posY)])
+			ptr->info.posX -= ptr->info.dirX * ptr->info.moveSpeed;
+		if (!worldMap[(int)(ptr->info.posX)][(int)(ptr->info.posY - ptr->info.dirY * ptr->info.moveSpeed)])
+			ptr->info.posY -= ptr->info.dirY * ptr->info.moveSpeed;
+	}
+	if (keycode == KEY_DOWN)
+	{
+		double oldDirX = ptr->info.dirX;
+		ptr->info.dirX = ptr->info.dirX * cos(-ptr->info.rotSpeed) - ptr->info.dirY * sin(-ptr->info.rotSpeed);
+		ptr->info.dirY = oldDirX * sin(-ptr->info.rotSpeed) + ptr->info.dirY * cos(-ptr->info.rotSpeed);
+		double oldPlaneX = ptr->info.planeX;
+		ptr->info.planeX = ptr->info.planeX * cos(-ptr->info.rotSpeed) - ptr->info.planeY * sin(-ptr->info.rotSpeed);
+		ptr->info.planeY = oldPlaneX * sin(-ptr->info.rotSpeed) + ptr->info.planeY * cos(-ptr->info.rotSpeed);
+	}
+	if (keycode == KEY_UP)
+	{
+		double oldDirX = ptr->info.dirX;
+		ptr->info.dirX = ptr->info.dirX * cos(ptr->info.rotSpeed) - ptr->info.dirY * sin(ptr->info.rotSpeed);
+		ptr->info.dirY = oldDirX * sin(ptr->info.rotSpeed) + ptr->info.dirY * cos(ptr->info.rotSpeed);
+		double oldPlaneX = ptr->info.planeX;
+		ptr->info.planeX = ptr->info.planeX * cos(ptr->info.rotSpeed) - ptr->info.planeY * sin(ptr->info.rotSpeed);
+		ptr->info.planeY = oldPlaneX * sin(ptr->info.rotSpeed) + ptr->info.planeY * cos(ptr->info.rotSpeed);
+	}
 	if (keycode == KEY_ESC)
 	{
 		mlx_destroy_window(ptr->mlx, ptr->win);
@@ -181,23 +224,25 @@ int		event_key_press(int keycode, t_ptr *ptr)
 
 int main(void)
 {
-	t_info	info;
 	t_ptr	ptr;
 
 	// player의 초기 위치 설정
-	info.posX = 22;
-	info.posY = 12;
+	ptr.info.posX = 12;
+	ptr.info.posY = 5;
 
 	//방향벡터와 plane벡터 설정 (서로 수직이어야함)
-	info.dirX = -1;
-	info.dirY = 0;
-	info.planeX = 0;
+	ptr.info.dirX = -1;
+	ptr.info.dirY = 0;
+	ptr.info.planeX = 0;
 	// 슈팅게임의 최적화된 값 (0.66)
-	info.planeY = 0.66;
+	ptr.info.planeY = 0.66;
+
+	ptr.info.moveSpeed = 0.05;
+	ptr.info.rotSpeed = 0.05;
 
 	ptr.mlx = mlx_init();
 	ptr.win = mlx_new_window(ptr.mlx, screenWidth, screenHeight, "raycaster");
 	mlx_hook(ptr.win, X_EVENT_KEY_PRESS, 0, &event_key_press, &ptr);
-
+	mlx_loop_hook(ptr.mlx, &main_loop, &ptr);
 	mlx_loop(ptr.mlx);
 }

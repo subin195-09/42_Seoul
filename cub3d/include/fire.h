@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 18:35:25 by skim              #+#    #+#             */
-/*   Updated: 2021/01/04 15:06:05 by skim             ###   ########.fr       */
+/*   Updated: 2021/01/05 14:27:12 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ typedef struct  s_info
 	// plane벡터
 	double	planeX;
 	double	planeY;
-	double	time;
-	double	oldTime;
+	double	moveSpeed;
+	double	rotSpeed;
 }				t_info;
 
 typedef struct	s_img
@@ -73,6 +73,7 @@ typedef struct s_ptr
 	void	*mlx;
 	void	*win;
 	t_img	img;
+	t_info	info;
 }				t_ptr;
 
 #endif
