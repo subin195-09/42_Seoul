@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 18:35:25 by skim              #+#    #+#             */
-/*   Updated: 2021/01/05 14:27:12 by skim             ###   ########.fr       */
+/*   Updated: 2021/01/10 15:37:47 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 #define mapHeight		24
 #define screenWidth		640
 #define screenHeight	480
+// textured에서 사용
+#define text			8
+#define textWidth		64
+#define textHeight		64
 
 # define KEY_ESC	53
 # define KEY_UP		126
@@ -54,6 +58,9 @@ typedef struct  s_info
 	double	planeY;
 	double	moveSpeed;
 	double	rotSpeed;
+	// textured 에서 사용
+	int		buf[screenWidth][screenHeight];
+	int		texture[text][textHeight * textWidth];
 }				t_info;
 
 typedef struct	s_img
