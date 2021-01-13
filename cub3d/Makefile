@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 00:33:36 by skim              #+#    #+#              #
-#    Updated: 2021/01/13 01:50:20 by skim             ###   ########.fr        #
+#    Updated: 2021/01/13 15:13:05 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,11 @@ bonus : all
 
 test : $(LMLX)
 	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit $(SRCS)
+	./a.out
+	rm -rf ./a.out
+
+2d : $(LMLX)
+	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit 2d_map.c
 	./a.out
 	rm -rf ./a.out
 
