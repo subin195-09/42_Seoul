@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:33:41 by skim              #+#    #+#             */
-/*   Updated: 2021/01/13 15:55:29 by skim             ###   ########.fr       */
+/*   Updated: 2021/01/15 01:02:57 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int worldMap[mapWidth][mapHeight]=
 void	ver_line(t_ptr *ptr, double x1, double y1, double x2, double y2)
 {
 	double delta_x = cos(ptr->info.posX) * ptr->info.dirX - sin(ptr->info.posY) * ptr->info.dirY;
-	// y 증가량
 	double delta_y = sin(ptr->info.posX) * ptr->info.dirX + cos(ptr->info.posY) * ptr->info.dirY;
 
 	// x의 증가량, y의 증가량 중 큰 것을 기준으로 잡는다.
@@ -66,9 +65,8 @@ void	ver_line(t_ptr *ptr, double x1, double y1, double x2, double y2)
 // DDA 알고리즘 방식
 void	draw_line(t_ptr *ptr, double x1, double y1, double x2, double y2)
 {
-	double delta_x = ptr->info.dirX;
-	// y 증가량
-	double delta_y = ptr->info.dirY;
+	double delta_x = x2 - x1;
+	double delta_y = y2 - y1;
 
 	// x의 증가량, y의 증가량 중 큰 것을 기준으로 잡는다.
 	double step = fabs(delta_x) > fabs(delta_y) ? fabs(delta_x) : fabs(delta_y);
@@ -79,7 +77,7 @@ void	draw_line(t_ptr *ptr, double x1, double y1, double x2, double y2)
 	delta_y /= step;
 	while (x2 > x1 || y2 > y1)
 	{
-		ptr->img.data[(int)floor(y1) * screenWidth + (int)floor(x1)] = 0xb3b3b3;
+		ptr->img.data[(int)floor(y1) * 200 + (int)floor(x1)] = 0xb3b3b3;
 		x1 += delta_x;
 		y1 += delta_y;
 	}
@@ -168,7 +166,7 @@ void	calc_ray(t_ptr *ptr)
 			if (worldMap[mapX][mapY] > 0)
 				hit = 1;
 		}
-		draw_line(ptr, ptr->info.posX, ptr->info.posY, sideDistX, sideDistY);
+		//draw_line(ptr, ptr->info.posX, ptr->info.posY, sideDistX, sideDistY);
 	}
 }
 
@@ -181,7 +179,7 @@ void	draw_all_line(t_ptr *ptr)
 	i = 0;
 	while (i < mapHeight)
 	{
-		draw_line(ptr, i * TILE_SIZE, 0, i * TILE_SIZE, screenHeight);
+		draw_line(ptr, i * TILE_SIZE, 0, i * TILE_SIZE, 200);
 		i++;
 	}
 
@@ -189,7 +187,7 @@ void	draw_all_line(t_ptr *ptr)
 	j = 0;
 	while (j < mapWidth)
 	{
-		draw_line(ptr, 0, j * TILE_SIZE, screenWidth, j * TILE_SIZE);
+		draw_line(ptr, 0, j * TILE_SIZE, 200, j * TILE_SIZE);
 		j++;
 	}
 }
@@ -207,7 +205,7 @@ void	draw_rect(t_ptr *ptr, int x, int y)
 		j = 0;
 		while (j < TILE_SIZE)
 		{
-			ptr->img.data[(y + i) * screenWidth + x + j] = 0xFFFFFF;
+			ptr->img.data[(y + i) * 200 + x + j] = 0xFFFFFF;
 			j++;
 		}
 		i++;
@@ -238,15 +236,15 @@ int		main_loop(t_ptr *ptr)
 	for(int a = 0; a < screenWidth * screenHeight; a++)
 		ptr->img.data[a] = 0;
 	draw_all_rect(ptr);
-	draw_all_line(ptr);
-	calc_ray(ptr);
-	int i = ptr->info.posX * TILE_SIZE;
-	int j = ptr->info.posY * TILE_SIZE;
-	for(int a = 0; a < 5; a++)
-	{
-		for(int b = 0; b < 5; b++)
-			ptr->img.data[(j + a) * screenWidth + (i + b)] = 0xff0000;
-	}
+	// draw_all_line(ptr);
+	// calc_ray(ptr);
+	// int i = ptr->info.posX * TILE_SIZE;
+	// int j = ptr->info.posY * TILE_SIZE;
+	// for(int a = 0; a < 5; a++)
+	// {
+	// 	for(int b = 0; b < 5; b++)
+	// 		ptr->img.data[(j + a) * 200 + (i + b)] = 0xff0000;
+	// }
 	mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->img.img_ptr, 0, 0);
 	return (0);
 }
@@ -313,7 +311,7 @@ int main(void)
 
 	ptr.mlx = mlx_init();
 	ptr.win = mlx_new_window(ptr.mlx, screenWidth, screenHeight, "2d_map");
-	ptr.img.img_ptr = mlx_new_image(ptr.mlx, screenWidth, screenHeight);
+	ptr.img.img_ptr = mlx_new_image(ptr.mlx, 200, 200);
 	ptr.img.data = (int *)mlx_get_data_addr(ptr.img.img_ptr, &ptr.img.bpp, &ptr.img.size_l, &ptr.img.endian);
 
 	mlx_hook(ptr.win, X_EVENT_KEY_PRESS, 0, &event_key_press, &ptr);
