@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 18:35:25 by skim              #+#    #+#             */
-/*   Updated: 2021/01/13 13:37:58 by skim             ###   ########.fr       */
+/*   Updated: 2021/01/15 14:05:59 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 #define TILE_SIZE		32
 #define screenWidth		mapWidth * TILE_SIZE
 #define screenHeight	mapHeight * TILE_SIZE
+
+#define	map_tile		10
+#define map_size		mapWidth * map_tile
+
 // textured에서 사용
 #define text			8
 #define textWidth		64
