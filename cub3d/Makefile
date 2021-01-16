@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 00:33:36 by skim              #+#    #+#              #
-#    Updated: 2021/01/13 15:13:05 by skim             ###   ########.fr        #
+#    Updated: 2021/01/16 18:29:48 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,37 +50,32 @@ re : fclean all
 
 bonus : all
 
-test : $(LMLX)
-	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit $(SRCS)
+start : $(LMLX)
+	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit 00.start.c
 	./a.out
 	rm -rf ./a.out
 
 2d : $(LMLX)
-	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit 2d_map.c
-	./a.out
-	rm -rf ./a.out
-
-move : $(LMLX)
-	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit move.c
+	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit 01-2.2d_map.c
 	./a.out
 	rm -rf ./a.out
 
 untex : $(LMLX)
-	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit untextured.c
+	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit 01.untextured.c
 	./a.out
 	rm -rf ./a.out
 
 tex : $(LMLX)
-	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit textured.c
+	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit 02.textured.c
 	./a.out
 	rm -rf ./a.out
 
 tex_img : $(LMLX)
-	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit img_textured.c
+	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit 03.img_textured.c
 	./a.out
 	rm -rf ./a.out
 
 floor : $(LMLX)
-	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit floor.c
+	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit 04.img_floor.c
 	./a.out
 	rm -rf ./a.out
