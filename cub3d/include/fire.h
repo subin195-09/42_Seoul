@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 18:35:25 by skim              #+#    #+#             */
-/*   Updated: 2021/01/15 14:05:59 by skim             ###   ########.fr       */
+/*   Updated: 2021/01/16 14:49:11 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,14 @@
 #include <string.h>
 #include <math.h>
 
+typedef struct	s_key
+{
+	int		key_up;
+	int		key_down;
+	int		key_right;
+	int		key_left;
+}				t_key;
+
 typedef struct  s_info
 {
 	// player의 위치
@@ -66,6 +74,7 @@ typedef struct  s_info
 	// textured 에서 사용
 	int		buf[screenWidth][screenHeight];
 	int		texture[text][textHeight * textWidth];
+	t_key	key;
 }				t_info;
 
 typedef struct	s_img

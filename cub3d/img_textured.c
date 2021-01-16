@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:26:16 by skim              #+#    #+#             */
-/*   Updated: 2021/01/15 14:11:55 by skim             ###   ########.fr       */
+/*   Updated: 2021/01/16 18:21:52 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,7 +262,7 @@ void	draw_all_rect(t_ptr *ptr)
 	}
 }
 
-void with_map(t_ptr *ptr)
+void	with_map(t_ptr *ptr)
 {
 	draw_all_rect(ptr);
 	draw_all_line(ptr);
@@ -272,6 +272,42 @@ void with_map(t_ptr *ptr)
 	{
 		for(int b = 0; b < 3; b++)
 			ptr->img.data[(j + a) * screenWidth + (i + b)] = 0xff0000;
+	}
+}
+
+void	key_event(t_ptr *ptr)
+{
+	if (ptr->info.key.key_up)
+	{
+		if (!worldMap[(int)(ptr->info.posX + ptr->info.dirX * ptr->info.moveSpeed)][(int)(ptr->info.posY)])
+			ptr->info.posX += ptr->info.dirX * ptr->info.moveSpeed;
+		if (!worldMap[(int)(ptr->info.posX)][(int)(ptr->info.posY + ptr->info.dirY * ptr->info.moveSpeed)])
+			ptr->info.posY += ptr->info.dirY * ptr->info.moveSpeed;
+	}
+	if (ptr->info.key.key_down)
+	{
+		if (!worldMap[(int)(ptr->info.posX - ptr->info.dirX * ptr->info.moveSpeed)][(int)(ptr->info.posY)])
+			ptr->info.posX -= ptr->info.dirX * ptr->info.moveSpeed;
+		if (!worldMap[(int)(ptr->info.posX)][(int)(ptr->info.posY - ptr->info.dirY * ptr->info.moveSpeed)])
+			ptr->info.posY -= ptr->info.dirY * ptr->info.moveSpeed;
+	}
+	if (ptr->info.key.key_right)
+	{
+		double oldDirX = ptr->info.dirX;
+		ptr->info.dirX = ptr->info.dirX * cos(-ptr->info.rotSpeed) - ptr->info.dirY * sin(-ptr->info.rotSpeed);
+		ptr->info.dirY = oldDirX * sin(-ptr->info.rotSpeed) + ptr->info.dirY * cos(-ptr->info.rotSpeed);
+		double oldPlaneX = ptr->info.planeX;
+		ptr->info.planeX = ptr->info.planeX * cos(-ptr->info.rotSpeed) - ptr->info.planeY * sin(-ptr->info.rotSpeed);
+		ptr->info.planeY = oldPlaneX * sin(-ptr->info.rotSpeed) + ptr->info.planeY * cos(-ptr->info.rotSpeed);
+	}
+	if (ptr->info.key.key_left)
+	{
+		double oldDirX = ptr->info.dirX;
+		ptr->info.dirX = ptr->info.dirX * cos(ptr->info.rotSpeed) - ptr->info.dirY * sin(ptr->info.rotSpeed);
+		ptr->info.dirY = oldDirX * sin(ptr->info.rotSpeed) + ptr->info.dirY * cos(ptr->info.rotSpeed);
+		double oldPlaneX = ptr->info.planeX;
+		ptr->info.planeX = ptr->info.planeX * cos(ptr->info.rotSpeed) - ptr->info.planeY * sin(ptr->info.rotSpeed);
+		ptr->info.planeY = oldPlaneX * sin(ptr->info.rotSpeed) + ptr->info.planeY * cos(ptr->info.rotSpeed);
 	}
 }
 
@@ -285,6 +321,7 @@ void	window_init(t_ptr *ptr)
 int		main_loop(t_ptr *ptr)
 {
 	window_init(ptr);
+	key_event(ptr);
 	calc_ray(ptr);
 	with_map(ptr);
 	mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->img.img_ptr, 0, 0);
@@ -294,42 +331,31 @@ int		main_loop(t_ptr *ptr)
 int		event_key_press(int keycode, t_ptr *ptr)
 {
 	if (keycode == KEY_UP)
-	{
-		if (!worldMap[(int)(ptr->info.posX + ptr->info.dirX * ptr->info.moveSpeed)][(int)(ptr->info.posY)])
-			ptr->info.posX += ptr->info.dirX * ptr->info.moveSpeed;
-		if (!worldMap[(int)(ptr->info.posX)][(int)(ptr->info.posY + ptr->info.dirY * ptr->info.moveSpeed)])
-			ptr->info.posY += ptr->info.dirY * ptr->info.moveSpeed;
-	}
+		ptr->info.key.key_up = 1;
 	if (keycode == KEY_DOWN)
-	{
-		if (!worldMap[(int)(ptr->info.posX - ptr->info.dirX * ptr->info.moveSpeed)][(int)(ptr->info.posY)])
-			ptr->info.posX -= ptr->info.dirX * ptr->info.moveSpeed;
-		if (!worldMap[(int)(ptr->info.posX)][(int)(ptr->info.posY - ptr->info.dirY * ptr->info.moveSpeed)])
-			ptr->info.posY -= ptr->info.dirY * ptr->info.moveSpeed;
-	}
+		ptr->info.key.key_down = 1;
 	if (keycode == KEY_RIGHT)
-	{
-		double oldDirX = ptr->info.dirX;
-		ptr->info.dirX = ptr->info.dirX * cos(-ptr->info.rotSpeed) - ptr->info.dirY * sin(-ptr->info.rotSpeed);
-		ptr->info.dirY = oldDirX * sin(-ptr->info.rotSpeed) + ptr->info.dirY * cos(-ptr->info.rotSpeed);
-		double oldPlaneX = ptr->info.planeX;
-		ptr->info.planeX = ptr->info.planeX * cos(-ptr->info.rotSpeed) - ptr->info.planeY * sin(-ptr->info.rotSpeed);
-		ptr->info.planeY = oldPlaneX * sin(-ptr->info.rotSpeed) + ptr->info.planeY * cos(-ptr->info.rotSpeed);
-	}
+		ptr->info.key.key_right = 1;
 	if (keycode == KEY_LEFT)
-	{
-		double oldDirX = ptr->info.dirX;
-		ptr->info.dirX = ptr->info.dirX * cos(ptr->info.rotSpeed) - ptr->info.dirY * sin(ptr->info.rotSpeed);
-		ptr->info.dirY = oldDirX * sin(ptr->info.rotSpeed) + ptr->info.dirY * cos(ptr->info.rotSpeed);
-		double oldPlaneX = ptr->info.planeX;
-		ptr->info.planeX = ptr->info.planeX * cos(ptr->info.rotSpeed) - ptr->info.planeY * sin(ptr->info.rotSpeed);
-		ptr->info.planeY = oldPlaneX * sin(ptr->info.rotSpeed) + ptr->info.planeY * cos(ptr->info.rotSpeed);
-	}
+		ptr->info.key.key_left = 1;
 	if (keycode == KEY_ESC)
 	{
 		mlx_destroy_window(ptr->mlx, ptr->win);
 		exit(0);
 	}
+	return (0);
+}
+
+int		event_key_release(int keycode, t_ptr *ptr)
+{
+	if (keycode == KEY_UP)
+		ptr->info.key.key_up = 0;
+	if (keycode == KEY_DOWN)
+		ptr->info.key.key_down = 0;
+	if (keycode == KEY_RIGHT)
+		ptr->info.key.key_right = 0;
+	if (keycode == KEY_LEFT)
+		ptr->info.key.key_left = 0;
 	return (0);
 }
 
@@ -374,8 +400,13 @@ int main(void)
 	// 슈팅게임의 최적화된 값 (0.66)
 	ptr.info.planeY = 0.66;
 
-	ptr.info.moveSpeed = 0.1;
-	ptr.info.rotSpeed = 0.05;
+	ptr.info.moveSpeed = 0.05;
+	ptr.info.rotSpeed = 0.03;
+
+	ptr.info.key.key_up = 0;
+	ptr.info.key.key_down = 0;
+	ptr.info.key.key_right = 0;
+	ptr.info.key.key_left = 0;
 
 	ptr.mlx = mlx_init();
 
@@ -386,6 +417,7 @@ int main(void)
 	ptr.img.data = (int *)mlx_get_data_addr(ptr.img.img_ptr, &ptr.img.bpp, &ptr.img.size_l, &ptr.img.endian);
 
 	mlx_hook(ptr.win, X_EVENT_KEY_PRESS, 0, &event_key_press, &ptr);
+	mlx_hook(ptr.win, X_EVENT_KEY_RELEASE, 0, &event_key_release, &ptr);
 	mlx_loop_hook(ptr.mlx, &main_loop, &ptr);
 	mlx_loop(ptr.mlx);
 }
