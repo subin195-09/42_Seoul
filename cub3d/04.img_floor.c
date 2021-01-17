@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 18:25:47 by skim              #+#    #+#             */
-/*   Updated: 2021/01/16 22:33:35 by skim             ###   ########.fr       */
+/*   Updated: 2021/01/18 00:57:55 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ void	floor_cast(t_ptr *ptr)
 		//double rowDistance = posZ / p;
 
 		// 제일 왼쪽의  광선이 바닥에 닫은 위치
-		double floorX = ptr->info.dirX + rowDistance * rayDirX0;
-		double floorY = ptr->info.dirY + rowDistance * rayDirY0;
+		double floorX = ptr->info.posX + rowDistance * rayDirX0;
+		double floorY = ptr->info.posY + rowDistance * rayDirY0;
 
 		double floorStepX = rowDistance * (rayDirX1 - rayDirX0) / screenWidth;
 		double floorStepY = rowDistance * (rayDirY1 - rayDirY0) / screenWidth;
@@ -71,8 +71,8 @@ void	floor_cast(t_ptr *ptr)
 		// texture를 가로로 입히는 과정
 		for(int x = 0; x < screenWidth; x++)
 		{
-			int cellX = (int)floorX;
-			int cellY = (int)floorY;
+			int cellX = (int)(floorX);
+			int cellY = (int)(floorY);
 
 			// texture 상에서의 x, y 의 위치
 			int tx = (int)(textWidth * (floorX - cellX)) & (textWidth - 1);
@@ -81,15 +81,14 @@ void	floor_cast(t_ptr *ptr)
 			floorX += floorStepX;
 			floorY += floorStepY;
 
-			// 천장 3번 texture, 바닥 6번 texture를 좀더 어둡게 하여 사용
-			int texNum = 6;
-			int color = ptr->info.texture[texNum][textWidth * ty + tx];
-			color = (color >> 1) & 8355711;;
+			int texNum = 3;
+			int color = ptr->info.texture[3][textWidth * ty + tx];
+			//color = (color >> 1) & 8355711;;
 			ptr->img.data[y * screenWidth + x] = color;
 
 			texNum = 3;
-			color = ptr->info.texture[texNum][textWidth * ty + tx];
-			color = (color >> 1) & 8355711;;
+			color = ptr->info.texture[6][textWidth * ty + tx];
+			//color = (color >> 1) & 8355711;;
 			ptr->img.data[(screenHeight - y - 1) * screenWidth + x] = color;
 		}
 	}
@@ -97,7 +96,7 @@ void	floor_cast(t_ptr *ptr)
 
 void	calc_ray(t_ptr *ptr)
 {
-	floor_cast(ptr);
+	//floor_cast(ptr);
 	for(int x = 0; x < screenWidth; x++)
 	{
 		// pos + dir + k * plane 값이 내가 쏴야할 광선인데,
@@ -230,6 +229,61 @@ void	calc_ray(t_ptr *ptr)
 			if (side == 1)
 				color = (color >> 1) & 8355711;;
 			ptr->img.data[y * screenWidth + x] = color;
+		}
+
+		// floor ceil
+		double floorXWall, floorYWall;
+		if(side == 0 && rayDirX > 0)
+		{
+			floorXWall = mapX;
+			floorYWall = mapY + wallX;
+		}
+		else if(side == 0 && rayDirX < 0)
+		{
+			floorXWall = mapX + 1.0;
+			floorYWall = mapY + wallX;
+		}
+		else if(side == 1 && rayDirY > 0)
+		{
+			floorXWall = mapX + wallX;
+			floorYWall = mapY;
+		}
+		else
+		{
+			floorXWall = mapX + wallX;
+			floorYWall = mapY + 1.0;
+		}
+
+		double distWall, distPlayer, currentDist;
+
+		distWall = perpWallDist;
+		distPlayer = 0.0;
+
+		if (drawEnd < 0) drawEnd = screenHeight; //becomes < 0 when the integer overflows
+
+		//draw the floor from drawEnd to the bottom of the screen
+		for(int y = drawEnd + 1; y < screenHeight; y++)
+		{
+			currentDist = screenHeight / (2.0 * y - screenHeight); //you could make a small lookup table for this instead
+
+			double weight = (currentDist - distPlayer) / (distWall - distPlayer);
+
+			double currentFloorX = weight * floorXWall + (1.0 - weight) * ptr->info.posX;
+			double currentFloorY = weight * floorYWall + (1.0 - weight) * ptr->info.posY;
+
+			int floorTexX, floorTexY;
+			floorTexX = (int)(currentFloorX * textWidth) % textWidth;
+			floorTexY = (int)(currentFloorY * textHeight) % textHeight;
+
+			int checkerBoardPattern = ((int)(currentFloorX) + (int)(currentFloorY)) % 2;
+			int floorTexture;
+			if(checkerBoardPattern == 0) floorTexture = 3;
+			else floorTexture = 4;
+
+			//floor
+			ptr->img.data[y * screenWidth + x] = (ptr->info.texture[floorTexture][textWidth * floorTexY + floorTexX] >> 1) & 8355711;
+			//ceiling (symmetrical!)
+			ptr->img.data[(screenHeight - y) * screenWidth + x] = ptr->info.texture[6][textWidth * floorTexY + floorTexX];
 		}
 	}
 }

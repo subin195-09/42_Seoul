@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 00:33:36 by skim              #+#    #+#              #
-#    Updated: 2021/01/16 18:29:48 by skim             ###   ########.fr        #
+#    Updated: 2021/01/17 23:05:38 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,5 +77,10 @@ tex_img : $(LMLX)
 
 floor : $(LMLX)
 	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit 04.img_floor.c
+	./a.out
+	rm -rf ./a.out
+
+f : $(LMLX)
+	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit floor.c
 	./a.out
 	rm -rf ./a.out
