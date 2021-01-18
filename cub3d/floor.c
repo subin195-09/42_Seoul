@@ -264,63 +264,6 @@ void	calc(t_info *info)
 
 			info->buf[y][x] = color;
 		}
-
-		//FLOOR CASTING (vertical version, directly after drawing the vertical wall stripe for the current x)
-		double floorXWall, floorYWall; //x, y position of the floor texel at the bottom of the wall
-
-		//4 different wall directions possible
-		if(side == 0 && rayDirX > 0)
-		{
-			floorXWall = mapX;
-			floorYWall = mapY + wallX;
-		}
-		else if(side == 0 && rayDirX < 0)
-		{
-			floorXWall = mapX + 1.0;
-			floorYWall = mapY + wallX;
-		}
-		else if(side == 1 && rayDirY > 0)
-		{
-			floorXWall = mapX + wallX;
-			floorYWall = mapY;
-		}
-		else
-		{
-			floorXWall = mapX + wallX;
-			floorYWall = mapY + 1.0;
-		}
-
-		double distWall, distPlayer, currentDist;
-
-		distWall = perpWallDist;
-		distPlayer = 0.0;
-
-		if (drawEnd < 0) drawEnd = height; //becomes < 0 when the integer overflows
-
-		//draw the floor from drawEnd to the bottom of the screen
-		for(int y = drawEnd + 1; y < height; y++)
-		{
-			currentDist = height / (2.0 * y - height); //you could make a small lookup table for this instead
-
-			double weight = (currentDist - distPlayer) / (distWall - distPlayer);
-
-			double currentFloorX = weight * floorXWall + (1.0 - weight) * info->posX;
-			double currentFloorY = weight * floorYWall + (1.0 - weight) * info->posY;
-
-			int floorTexX, floorTexY;
-			floorTexX = (int)(currentFloorX * texWidth) % texWidth;
-			floorTexY = (int)(currentFloorY * texHeight) % texHeight;
-
-			int checkerBoardPattern = ((int)(currentFloorX) + (int)(currentFloorY)) % 2;
-			int floorTexture;
-			if(checkerBoardPattern == 0) floorTexture = 3;
-			else floorTexture = 4;
-
-			//floor
-			info->buf[y][x] = (info->texture[floorTexture][texWidth * floorTexY + floorTexX] >> 1) & 8355711;
-			//ceiling (symmetrical!)
-			info->buf[height - y][x] = info->texture[6][texWidth * floorTexY + floorTexX];
-		}
 	}
 }
 

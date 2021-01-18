@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 18:35:25 by skim              #+#    #+#             */
-/*   Updated: 2021/01/16 14:49:11 by skim             ###   ########.fr       */
+/*   Updated: 2021/01/18 13:33:05 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 #define mapWidth		24
 #define mapHeight		24
 #define TILE_SIZE		32
-#define screenWidth		mapWidth * TILE_SIZE
-#define screenHeight	mapHeight * TILE_SIZE
+#define screenWidth		(TILE_SIZE * mapWidth)
+#define screenHeight	(TILE_SIZE * mapHeight)
 
 #define	map_tile		10
 #define map_size		mapWidth * map_tile
@@ -32,6 +32,7 @@
 # define KEY_DOWN	125
 # define KEY_LEFT	123
 # define KEY_RIGHT	124
+# define KEY_SP		49
 
 # define RGB_Red	0xff0000;
 # define RGB_Green	0x00ff00;
@@ -56,6 +57,7 @@ typedef struct	s_key
 	int		key_down;
 	int		key_right;
 	int		key_left;
+	int		key_sp;
 }				t_key;
 
 typedef struct  s_info

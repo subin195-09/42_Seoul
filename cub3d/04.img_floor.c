@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 18:25:47 by skim              #+#    #+#             */
-/*   Updated: 2021/01/18 00:57:55 by skim             ###   ########.fr       */
+/*   Updated: 2021/01/18 13:59:56 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	floor_cast(t_ptr *ptr)
 
 void	calc_ray(t_ptr *ptr)
 {
-	//floor_cast(ptr);
+	floor_cast(ptr);
 	for(int x = 0; x < screenWidth; x++)
 	{
 		// pos + dir + k * plane 값이 내가 쏴야할 광선인데,
@@ -230,61 +230,6 @@ void	calc_ray(t_ptr *ptr)
 				color = (color >> 1) & 8355711;;
 			ptr->img.data[y * screenWidth + x] = color;
 		}
-
-		// floor ceil
-		double floorXWall, floorYWall;
-		if(side == 0 && rayDirX > 0)
-		{
-			floorXWall = mapX;
-			floorYWall = mapY + wallX;
-		}
-		else if(side == 0 && rayDirX < 0)
-		{
-			floorXWall = mapX + 1.0;
-			floorYWall = mapY + wallX;
-		}
-		else if(side == 1 && rayDirY > 0)
-		{
-			floorXWall = mapX + wallX;
-			floorYWall = mapY;
-		}
-		else
-		{
-			floorXWall = mapX + wallX;
-			floorYWall = mapY + 1.0;
-		}
-
-		double distWall, distPlayer, currentDist;
-
-		distWall = perpWallDist;
-		distPlayer = 0.0;
-
-		if (drawEnd < 0) drawEnd = screenHeight; //becomes < 0 when the integer overflows
-
-		//draw the floor from drawEnd to the bottom of the screen
-		for(int y = drawEnd + 1; y < screenHeight; y++)
-		{
-			currentDist = screenHeight / (2.0 * y - screenHeight); //you could make a small lookup table for this instead
-
-			double weight = (currentDist - distPlayer) / (distWall - distPlayer);
-
-			double currentFloorX = weight * floorXWall + (1.0 - weight) * ptr->info.posX;
-			double currentFloorY = weight * floorYWall + (1.0 - weight) * ptr->info.posY;
-
-			int floorTexX, floorTexY;
-			floorTexX = (int)(currentFloorX * textWidth) % textWidth;
-			floorTexY = (int)(currentFloorY * textHeight) % textHeight;
-
-			int checkerBoardPattern = ((int)(currentFloorX) + (int)(currentFloorY)) % 2;
-			int floorTexture;
-			if(checkerBoardPattern == 0) floorTexture = 3;
-			else floorTexture = 4;
-
-			//floor
-			ptr->img.data[y * screenWidth + x] = (ptr->info.texture[floorTexture][textWidth * floorTexY + floorTexX] >> 1) & 8355711;
-			//ceiling (symmetrical!)
-			ptr->img.data[(screenHeight - y) * screenWidth + x] = ptr->info.texture[6][textWidth * floorTexY + floorTexX];
-		}
 	}
 }
 
@@ -372,6 +317,8 @@ void	draw_all_rect(t_ptr *ptr)
 
 void	with_map(t_ptr *ptr)
 {
+	if (!ptr->info.key.key_sp)
+		return ;
 	draw_all_rect(ptr);
 	draw_all_line(ptr);
 	int i = ptr->info.posX * map_tile;
@@ -419,16 +366,8 @@ void	key_event(t_ptr *ptr)
 	}
 }
 
-void	window_init(t_ptr *ptr)
-{
-	for(int i = 0; i <= screenHeight; i++)
-		for(int j = 0; j <= screenWidth; j++)
-			ptr->img.data[i * screenWidth + j] = 0;
-}
-
 int		main_loop(t_ptr *ptr)
 {
-	window_init(ptr);
 	key_event(ptr);
 	calc_ray(ptr);
 	with_map(ptr);
@@ -446,6 +385,8 @@ int		event_key_press(int keycode, t_ptr *ptr)
 		ptr->info.key.key_right = 1;
 	if (keycode == KEY_LEFT)
 		ptr->info.key.key_left = 1;
+	if (keycode == KEY_SP)
+		ptr->info.key.key_sp = ptr->info.key.key_sp == 0 ? 1 : 0;
 	if (keycode == KEY_ESC)
 	{
 		mlx_destroy_window(ptr->mlx, ptr->win);
@@ -515,6 +456,7 @@ int main(void)
 	ptr.info.key.key_down = 0;
 	ptr.info.key.key_right = 0;
 	ptr.info.key.key_left = 0;
+	ptr.info.key.key_sp = 0;
 
 	ptr.mlx = mlx_init();
 
