@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 00:33:36 by skim              #+#    #+#              #
-#    Updated: 2021/01/17 23:05:38 by skim             ###   ########.fr        #
+#    Updated: 2021/01/19 15:54:50 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,10 +33,6 @@ $(NAME) : $(LMLX)
 	$(CC) $(CFLAGS) -I $(MMS_DIR) -I $(OPENGNL_DIR) $(LMLX) $(SRCS) -o $(NAME)
 
 $(LMLX) :
-	@(make -C $(MMS_DIR))
-	@(make -C $(OPENGNL_DIR))
-	@(cp $(MMS_DIR)/libmlx.dylib ./)
-	@(cp $(OPENGNL_DIR)/libmlx.a ./)
 
 clean :
 	rm -rf $(NAME)
@@ -50,37 +46,37 @@ re : fclean all
 
 bonus : all
 
-start : $(LMLX)
+start :
 	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit 00.start.c
 	./a.out
 	rm -rf ./a.out
 
-2d : $(LMLX)
+2d :
 	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit 01-2.2d_map.c
 	./a.out
 	rm -rf ./a.out
 
-untex : $(LMLX)
+untex :
 	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit 01.untextured.c
 	./a.out
 	rm -rf ./a.out
 
-tex : $(LMLX)
+tex :
 	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit 02.textured.c
 	./a.out
 	rm -rf ./a.out
 
-tex_img : $(LMLX)
+tex_img : 
 	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit 03.img_textured.c
 	./a.out
 	rm -rf ./a.out
 
-floor : $(LMLX)
+floor :
 	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit 04.img_floor.c
 	./a.out
 	rm -rf ./a.out
 
-f : $(LMLX)
+f :
 	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit floor.c
 	./a.out
 	rm -rf ./a.out
