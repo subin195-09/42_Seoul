@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 00:33:36 by skim              #+#    #+#              #
-#    Updated: 2021/01/19 15:54:50 by skim             ###   ########.fr        #
+#    Updated: 2021/01/24 15:45:30 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,13 +66,18 @@ tex :
 	./a.out
 	rm -rf ./a.out
 
-tex_img : 
+tex_img :
 	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit 03.img_textured.c
 	./a.out
 	rm -rf ./a.out
 
 floor :
 	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit 04.img_floor.c
+	./a.out
+	rm -rf ./a.out
+
+sprite :
+	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit 05.sprite.c
 	./a.out
 	rm -rf ./a.out
 

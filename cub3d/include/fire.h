@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 18:35:25 by skim              #+#    #+#             */
-/*   Updated: 2021/01/18 13:33:05 by skim             ###   ########.fr       */
+/*   Updated: 2021/01/24 17:10:24 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,15 @@
 #define screenHeight	(TILE_SIZE * mapHeight)
 
 #define	map_tile		10
-#define map_size		mapWidth * map_tile
+#define map_size		(mapWidth * map_tile)
 
 // textured에서 사용
-#define text			8
+#define text			11
 #define textWidth		64
 #define textHeight		64
+
+// sprite에서 사용
+#define numSprite		19
 
 # define KEY_ESC	53
 # define KEY_UP		126
@@ -50,6 +53,14 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+
+typedef struct	s_sprite
+{
+	double	x;
+	double	y;
+	int		texture;
+}				t_sprite;
+
 
 typedef struct	s_key
 {
@@ -76,6 +87,9 @@ typedef struct  s_info
 	// textured 에서 사용
 	int		buf[screenWidth][screenHeight];
 	int		texture[text][textHeight * textWidth];
+
+	// sprite 에서 사용
+	double	zBuffer[screenWidth];
 	t_key	key;
 }				t_info;
 

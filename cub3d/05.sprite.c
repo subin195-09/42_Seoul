@@ -1,44 +1,77 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   04.img_floor.c                                     :+:      :+:    :+:   */
+/*   05.sprite.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/16 18:25:47 by skim              #+#    #+#             */
-/*   Updated: 2021/01/24 17:11:36 by skim             ###   ########.fr       */
+/*   Created: 2021/01/24 15:45:47 by skim              #+#    #+#             */
+/*   Updated: 2021/01/24 18:22:19 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "fire.h"
 #include "mlx.h"
 
+t_sprite	spr[numSprite] =
+{
+	{20.5, 11.5, 10}, //green light in front of playerstart
+	//green lights in every room
+	{18.5,4.5, 10},
+	{10.0,4.5, 10},
+	{10.0,12.5,10},
+	{3.5, 6.5, 10},
+	{3.5, 20.5,10},
+	{3.5, 14.5,10},
+	{14.5,20.5,10},
+
+	//row of pillars in front of wall: fisheye test
+	{18.5, 10.5, 9},
+	{18.5, 11.5, 9},
+	{18.5, 12.5, 9},
+
+	//some barrels around the map
+	{21.5, 1.5, 8},
+	{15.5, 1.5, 8},
+	{16.0, 1.8, 8},
+	{16.2, 1.2, 8},
+	{3.5,  2.5, 8},
+	{9.5, 15.5, 8},
+	{10.0, 15.1,8},
+	{10.5, 15.8,8},
+};
+
+// 거리순 sprite 정렬
+int		spriteOrder[numSprite];
+double	spriteDistance[numSprite];
+
 int worldMap[mapWidth][mapHeight]=
 {
-  {8,8,8,8,8,8,8,8,8,8,8,4,4,6,4,4,6,4,6,4,4,4,6,4},
-  {8,0,0,0,0,0,0,0,0,0,8,4,0,0,0,0,0,0,0,0,0,0,0,4},
-  {8,0,3,3,0,0,0,0,0,8,8,4,0,0,0,0,0,0,0,0,0,0,0,6},
-  {8,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6},
-  {8,0,3,3,0,0,0,0,0,8,8,4,0,0,0,0,0,0,0,0,0,0,0,4},
-  {8,0,0,0,0,0,0,0,0,0,8,4,0,0,0,0,0,6,6,6,0,6,4,6},
-  {8,8,8,8,0,8,8,8,8,8,8,4,4,4,4,4,4,6,0,0,0,0,0,6},
-  {7,7,7,7,0,7,7,7,7,0,8,0,8,0,8,0,8,4,0,4,0,6,0,6},
-  {7,7,0,0,0,0,0,0,7,8,0,8,0,8,0,8,8,6,0,0,0,0,0,6},
-  {7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,6,0,0,0,0,0,4},
-  {7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,6,0,6,0,6,0,6},
-  {7,7,0,0,0,0,0,0,7,8,0,8,0,8,0,8,8,6,4,6,0,6,6,6},
-  {7,7,7,7,0,7,7,7,7,8,8,4,0,6,8,4,8,3,3,3,0,3,3,3},
-  {2,2,2,2,0,2,2,2,2,4,6,4,0,0,6,0,6,3,0,0,0,0,0,3},
-  {2,2,0,0,0,0,0,2,2,4,0,0,0,0,0,0,4,3,0,0,0,0,0,3},
-  {2,0,0,0,0,0,0,0,2,4,0,0,0,0,0,0,4,3,0,0,0,0,0,3},
-  {1,0,0,0,0,0,0,0,1,4,4,4,4,4,6,0,6,3,3,0,0,0,3,3},
-  {2,0,0,0,0,0,0,0,2,2,2,1,2,2,2,6,6,0,0,5,0,5,0,5},
-  {2,2,0,0,0,0,0,2,2,2,0,0,0,2,2,0,5,0,5,0,0,0,5,5},
-  {2,0,0,0,0,0,0,0,2,0,0,0,0,0,2,5,0,5,0,5,0,5,0,5},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5},
-  {2,0,0,0,0,0,0,0,2,0,0,0,0,0,2,5,0,5,0,5,0,5,0,5},
-  {2,2,0,0,0,0,0,2,2,2,0,0,0,2,2,0,5,0,5,0,0,0,5,5},
-  {2,2,2,2,1,2,2,2,2,2,2,1,2,2,2,5,5,5,5,5,5,5,5,5}
+	{8,8,8,8,8,8,8,8,8,8,8,4,4,6,4,4,6,4,6,4,4,4,6,4},
+	{8,0,0,0,0,0,0,0,0,0,8,4,0,0,0,0,0,0,0,0,0,0,0,4},
+	{8,0,3,3,0,0,0,0,0,8,8,4,0,0,0,0,0,0,0,0,0,0,0,6},
+	{8,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6},
+	{8,0,3,3,0,0,0,0,0,8,8,4,0,0,0,0,0,0,0,0,0,0,0,4},
+	{8,0,0,0,0,0,0,0,0,0,8,4,0,0,0,0,0,6,6,6,0,6,4,6},
+	{8,8,8,8,0,8,8,8,8,8,8,4,4,4,4,4,4,6,0,0,0,0,0,6},
+	{7,7,7,7,0,7,7,7,7,0,8,0,8,0,8,0,8,4,0,4,0,6,0,6},
+	{7,7,0,0,0,0,0,0,7,8,0,8,0,8,0,8,8,6,0,0,0,0,0,6},
+	{7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,6,0,0,0,0,0,4},
+	{7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,6,0,6,0,6,0,6},
+	{7,7,0,0,0,0,0,0,7,8,0,8,0,8,0,8,8,6,4,6,0,6,6,6},
+	{7,7,7,7,0,7,7,7,7,8,8,4,0,6,8,4,8,3,3,3,0,3,3,3},
+	{2,2,2,2,0,2,2,2,2,4,6,4,0,0,6,0,6,3,0,0,0,0,0,3},
+	{2,2,0,0,0,0,0,2,2,4,0,0,0,0,0,0,4,3,0,0,0,0,0,3},
+	{2,0,0,0,0,0,0,0,2,4,0,0,0,0,0,0,4,3,0,0,0,0,0,3},
+	{1,0,0,0,0,0,0,0,1,4,4,4,4,4,6,0,6,3,3,0,0,0,3,3},
+	{2,0,0,0,0,0,0,0,2,2,2,1,2,2,2,6,6,0,0,5,0,5,0,5},
+	{2,2,0,0,0,0,0,2,2,2,0,0,0,2,2,0,5,0,5,0,0,0,5,5},
+	{2,0,0,0,0,0,0,0,2,0,0,0,0,0,2,5,0,5,0,5,0,5,0,5},
+	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5},
+	{2,0,0,0,0,0,0,0,2,0,0,0,0,0,2,5,0,5,0,5,0,5,0,5},
+	{2,2,0,0,0,0,0,2,2,2,0,0,0,2,2,0,5,0,5,0,0,0,5,5},
+	{2,2,2,2,1,2,2,2,2,2,2,1,2,2,2,5,5,5,5,5,5,5,5,5}
 };
 
 void	floor_cast(t_ptr *ptr)
@@ -94,9 +127,8 @@ void	floor_cast(t_ptr *ptr)
 	}
 }
 
-void	calc_ray(t_ptr *ptr)
+void	wall_cast(t_ptr *ptr)
 {
-	floor_cast(ptr);
 	for(int x = 0; x < screenWidth; x++)
 	{
 		// pos + dir + k * plane 값이 내가 쏴야할 광선인데,
@@ -230,7 +262,114 @@ void	calc_ray(t_ptr *ptr)
 				color = (color >> 1) & 8355711;;
 			ptr->img.data[y * screenWidth + x] = color;
 		}
+		// sprite casting시 사용
+		ptr->info.zBuffer[x] = perpWallDist;
 	}
+}
+
+void	sortSprite(void)
+{
+	int		tmp;
+	double	dis_tmp;
+	double	max = 0;
+
+	for(int i = 0; i < numSprite - 1; i++)
+	{
+		max = spriteDistance[i];
+		for(int j = i + 1; j < numSprite; j++)
+		{
+			if (max <= spriteDistance[j])
+			{
+				max = spriteDistance[j];
+
+				tmp = spriteOrder[i];
+				spriteOrder[i] = spriteOrder[j];
+				spriteOrder[j] = tmp;
+
+				dis_tmp = spriteDistance[i];
+				spriteDistance[i] = spriteDistance[j];
+				spriteDistance[j] = dis_tmp;
+			}
+		}
+	}
+}
+
+void	sprite_cast(t_ptr *ptr)
+{
+	for(int i = 0; i < numSprite; i++)
+	{
+		spriteOrder[i] = i;
+		spriteDistance[i] = ((ptr->info.posX - spr[i].x) *  (ptr->info.posX - spr[i].x) + (ptr->info.posY - spr[i].y) * (ptr->info.posY - spr[i].y));
+	}
+	// 거리가 먼 순으로 sprite를 정렬한다.
+	sortSprite();
+
+	// 정렬된 sprite로 screen에 그리기
+	for(int i = 0; i < numSprite; i++)
+	{
+		// 가장 거리가 먼 sprite부터 시작
+		double	spriteX = spr[spriteOrder[i]].x - ptr->info.posX;
+		double	spriteY = spr[spriteOrder[i]].y - ptr->info.posY;
+
+		//transform sprite with the inverse camera matrix
+		// [ planeX   dirX ] -1                                       [ dirY      -dirX ]
+		// [               ]       =  1/(planeX*dirY-dirX*planeY) *   [                 ]
+		// [ planeY   dirY ]                                          [ -planeY  planeX ]
+		double	invDet = 1.0 / (ptr->info.planeX * ptr->info.dirY - ptr->info.dirX * ptr->info.planeY);
+		double	transformX = invDet * (ptr->info.dirY * spriteX - ptr->info.dirX * spriteY);
+		double	transformY = invDet * (-ptr->info.planeY * spriteX + ptr->info.planeX * spriteY);
+
+		int	spriteScreenX = (int)((screenWidth / 2) * (1 + transformX / transformY));
+
+		// sprite 크기 조절을 해주는 변수
+		int		uDiv = 1;
+		int		vDiv = 1;
+		double	vMove = 0.0;
+		int		vMoveScreen = (int)(vMove / transformY);
+
+		// spriteHeight, spriteWidth 계산
+		// 어안렌즈를 방지하기위해 transfromY를 사용
+		int		spriteHeight = (int)fabs((screenHeight / transformY) / vDiv);
+		int		drawStartY = (screenHeight / 2 + vMoveScreen) - spriteHeight / 2;
+		int		drawEndY = (screenHeight / 2 + vMoveScreen) + spriteHeight / 2;
+		drawStartY = drawStartY < 0 ? 0 : drawStartY;
+		drawEndY = drawEndY >= screenHeight ? screenHeight - 1: drawEndY;
+
+		int		spriteWidth = (int)fabs((screenHeight / transformY) / uDiv);
+		int		drawStartX = spriteScreenX - spriteWidth / 2;
+		int		drawEndX = spriteScreenX + spriteWidth / 2;
+		drawStartX = drawStartX < 0 ? 0 : drawStartX;
+		drawEndX = drawEndX >= screenWidth ? screenWidth - 1 : drawEndX;
+
+		// 세로로 sprite를 그려준다.
+		for(int x = drawStartX; x < drawEndX; x++)
+		{
+			int texX = (int)((256 * (x - (-spriteWidth / 2 + spriteScreenX)) * textWidth / spriteWidth) / 256);
+
+			// sprite를 그릴지 안그릴지 결정한다.
+			// 내 시야의 밖에 있거나, 벽에 너머에 있거나를 계산한다.
+			int w = screenWidth;
+			//if (0 < transformY < (int)ptr->info.zBuffer[x] && 0 < x < w)
+			if(transformY > 0 && x > 0 && x < w && transformY < ptr->info.zBuffer[x])
+			{
+				for (int y = drawStartY; y < drawEndY; y++)
+				{
+					int d = (y - vMoveScreen) * 256 - screenHeight * 128 + spriteHeight * 128;
+					int texY = ((d * textHeight) / spriteHeight) / 256;
+					int color = ptr->info.texture[spr[spriteOrder[i]].texture][texY * textWidth + texX];
+					if ((color & 0x00FFFFFF) != 0)
+						ptr->img.data[y * screenWidth + x] = color;
+				}
+			}
+		}
+	}
+}
+
+void	calc_ray(t_ptr *ptr)
+{
+	floor_cast(ptr);
+	wall_cast(ptr);
+	sprite_cast(ptr);
 }
 
 void	draw_line(t_ptr *ptr, double x1, double y1, double x2, double y2)
@@ -432,6 +571,11 @@ void	make_texture(t_ptr *ptr)
 	load_image(ptr, 5, "img/mossy.xpm");
 	load_image(ptr, 6, "img/wood.xpm");
 	load_image(ptr, 7, "img/colorstone.xpm");
+
+	// sprite texture
+	load_image(ptr, 8, "img/barrel.xpm");
+	load_image(ptr, 9, "img/pillar.xpm");
+	load_image(ptr, 10, "img/greenlight.xpm");
 }
 
 int main(void)
@@ -458,10 +602,10 @@ int main(void)
 	ptr.info.key.key_left = 0;
 	ptr.info.key.key_sp = 0;
 
-
 	ptr.mlx = mlx_init();
 
 	make_texture(&ptr);
+
 	ptr.win = mlx_new_window(ptr.mlx, screenWidth, screenHeight, "raycaster");
 	ptr.img.img_ptr = mlx_new_image(ptr.mlx, screenWidth, screenHeight);
 	ptr.img.data = (int *)mlx_get_data_addr(ptr.img.img_ptr, &ptr.img.bpp, &ptr.img.size_l, &ptr.img.endian);
