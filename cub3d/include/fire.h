@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 18:35:25 by skim              #+#    #+#             */
-/*   Updated: 2021/01/24 17:10:24 by skim             ###   ########.fr       */
+/*   Updated: 2021/01/27 15:29:02 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #define screenWidth		(TILE_SIZE * mapWidth)
 #define screenHeight	(TILE_SIZE * mapHeight)
 
-#define	map_tile		10
+#define	map_tile		7
 #define map_size		(mapWidth * map_tile)
 
 // textured에서 사용

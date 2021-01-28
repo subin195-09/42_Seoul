@@ -6,24 +6,25 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 00:33:36 by skim              #+#    #+#              #
-#    Updated: 2021/01/24 15:45:30 by skim             ###   ########.fr        #
+#    Updated: 2021/01/27 17:14:21 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
+GNL = gnl.a
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 
-MMS_DIR = ./minilibx_mms_20200219
 MMS = libmlx.dylib
 
-OPENGNL_DIR = ./minilibx_opengl_20191021
 OPENGNL = libmlx.a
 
 LMLX = libmlx.dylib libmlx.a
 
 INC_DIR = ./include
+MLX_DIR = ./mlx
+GNL_DIR = ./GetNextLine
 
 SRCS = start.c
 
@@ -85,3 +86,8 @@ f :
 	$(CC) -I$(INC_DIR) -L./mlx -lmlx -framework OpenGL -framework AppKit floor.c
 	./a.out
 	rm -rf ./a.out
+
+map :
+	$(CC) -I$(GNL_DIR) -I$(INC_DIR) -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit 06.map_par.c $(GNL_DIR)/*.c
+	@ ./a.out
+	@ rm -rf ./a.out

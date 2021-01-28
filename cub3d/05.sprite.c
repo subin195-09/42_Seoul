@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 15:45:47 by skim              #+#    #+#             */
-/*   Updated: 2021/01/27 14:28:12 by skim             ###   ########.fr       */
+/*   Updated: 2021/01/28 13:22:18 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,12 +114,10 @@ void	floor_cast(t_ptr *ptr)
 			floorX += floorStepX;
 			floorY += floorStepY;
 
-			int texNum = 3;
 			int color = ptr->info.texture[3][textWidth * ty + tx];
-			//color = (color >> 1) & 8355711;;
+			color = (color >> 1) & 8355711;;
 			ptr->img.data[y * screenWidth + x] = color;
 
-			texNum = 3;
 			color = ptr->info.texture[6][textWidth * ty + tx];
 			//color = (color >> 1) & 8355711;;
 			ptr->img.data[(screenHeight - y - 1) * screenWidth + x] = color;
