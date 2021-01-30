@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:30:40 by skim              #+#    #+#             */
-/*   Updated: 2021/01/28 13:13:02 by skim             ###   ########.fr       */
+/*   Updated: 2021/01/30 15:48:43 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,44 @@ typedef struct	s_fcast
 	int			texNum;
 }				t_fcast;
 
-typedef struct	s_text
+typedef struct	s_wcast
 {
-	int			t_x;
-	int			t_y;
-	int			t_num;
-	int			color;
-}				t_text;
+	double		cameraX;
+	double		rayDirX;
+	double		rayDirY;
+	int			mapX;
+	int			mapY;
+	double		sideDistX;
+	double		sideDistY;
+	double		deltaDistX;
+	double		deltaDistY;
+	double		perpWallDist;
+	int			stepX;
+	int			stepY;
+	int			dirSide;
+	int			lineHeight;
+	int			drawStart;
+	int			drawEnd;
+	double		wallX;
+}				t_wcast;
 
+typedef struct	s_scast
+{
+	int			spriteOrder[numSprite];
+	double		spriteDistance[numSprite];
+	double		spriteX;
+	double		spriteY;
+	double		invDev;
+	double		transformX;
+	double		transformY;
+	int			spriteScreenX;
+	int			spriteHeight;
+	int			drawStartY;
+	int			drawEndY;
+	int			spriteWidth;
+	int			drawStartX;
+	int			drawEndX;
+}				t_scast;
 
 typedef struct	s_sprite
 {
@@ -46,6 +76,15 @@ typedef struct	s_sprite
 	double		y;
 	int			texture;
 }				t_sprite;
+
+typedef struct	s_text
+{
+	double		t_pos;
+	int			t_x;
+	int			t_y;
+	int			t_num;
+	int			color;
+}				t_text;
 
 typedef struct	s_img
 {
@@ -86,10 +125,12 @@ typedef struct	s_set
 {
 	void		*mlx;
 	void		*win;
+	int			map[screenWidth][screenHeight];
 	t_img		img;
 	t_info		info;
 	t_key		key;
-	t_sprite	sprite;
+	t_sprite	sprite[numSprite];
 }				t_set;
 
 #endif
+
