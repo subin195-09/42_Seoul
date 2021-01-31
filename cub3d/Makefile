@@ -6,18 +6,16 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 00:33:36 by skim              #+#    #+#              #
-#    Updated: 2021/01/31 17:11:43 by skim             ###   ########.fr        #
+#    Updated: 2021/01/31 18:02:41 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
-GNL = gnl.a
+GNL = libgnl.a
 LIBFT = libft.a
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
-
-MMS = libmlx.dylib
 
 OPENGNL = libmlx.a
 
@@ -36,6 +34,14 @@ all : $(NAME)
 
 $(NAME) : $(LIBFT) $(GNL)
 	$(CC) $(CFLAGS) -I $(MMS_DIR) -I $(OPENGNL_DIR) $(LMLX) $(SRCS) -o $(NAME)
+
+$(LIBFT) :
+	@make -C $(LIB_DIR)
+	@cp $(LIB_DIR)/$(LIBFT) .
+
+$(GNL) :
+	@make -C $(GNL_DIR)
+	@cp $(GNL_DIR)/$(GNL) .
 
 clean :
 	rm -rf $(NAME)
@@ -85,7 +91,7 @@ bonus : all
 	rm -rf ./a.out
 
 
-06 :
-	$(CC) -I$(GNL_DIR) -I$(INC_DIR) -I$(LIB_DIR)/ -L./lib -lmlx -L$(GNL_DIR) -lgnl -framework OpenGL -framework AppKit 06.map_par.c
+06 : $(GNL) $(LIBFT)
+	@$(CC) -I$(INC_DIR) -I$(GNL_DIR)/$(INC_DIR) -I$(LIB_DIR)/$(INC_DIR) -I$(MLX_DIR) -L$(LIB_DIR) -L$(MLX_DIR) -L$(GNL_DIR) -lgnl -lft -lmlx -framework OpenGL -framework AppKit 06.map_par.c
 	@ ./a.out
 	@ rm -rf ./a.out
