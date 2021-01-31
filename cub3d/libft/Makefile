@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/30 19:36:22 by skim              #+#    #+#              #
-#    Updated: 2020/11/13 19:03:55 by skim             ###   ########.fr        #
+#    Updated: 2021/01/31 17:15:01 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ $(NAME) : $(OBJS)
 	@$(AR) $@ $^
 
 $(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c $(OBJS_DIR)
-	@$(CC) $(DEBUG) $(CFLAGS) -I $(HEADER_DIR) -c $< -o $@
+	@$(CC) $(CFLAGS) -I $(HEADER_DIR) -c $< -o $@
 
 $(OBJS_DIR) :
 	@mkdir -p $(OBJS_DIR)
