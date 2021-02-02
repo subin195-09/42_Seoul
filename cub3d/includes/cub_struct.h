@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:30:40 by skim              #+#    #+#             */
-/*   Updated: 2021/02/02 16:09:59 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/02 17:42:04 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ typedef struct	s_minfo
 	int			s_height;
 	int			m_width;
 	int			m_height;
+	int			num_sprite;
 	char		*no_path;
 	char		*so_path;
 	char		*we_path;
@@ -140,7 +141,7 @@ typedef struct	s_set
 {
 	void		*mlx;
 	void		*win;
-	int			map[screenWidth][screenHeight];
+	int			**map;
 	t_minfo		minfo;
 	t_img		img;
 	t_info		info;

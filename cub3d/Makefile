@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 00:33:36 by skim              #+#    #+#              #
-#    Updated: 2021/02/02 15:39:30 by skim             ###   ########.fr        #
+#    Updated: 2021/02/02 17:35:03 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,11 +37,9 @@ $(NAME) : $(LIBFT) $(GNL)
 
 $(LIBFT) :
 	@make -C $(LIB_DIR)
-	@cp $(LIB_DIR)/$(LIBFT) .
 
 $(GNL) :
 	@make -C $(GNL_DIR)
-	@cp $(GNL_DIR)/$(GNL) .
 
 clean :
 	rm -rf $(NAME)
