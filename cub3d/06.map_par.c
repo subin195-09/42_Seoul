@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:17:04 by skim              #+#    #+#             */
-/*   Updated: 2021/02/02 18:13:55 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/02 22:20:44 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ int		get_color(char *line)
 			return (0);
 	}
 	b = ft_atoi(++line);
-	printf("%d, %d, %d\n", r,g,b);
 	return ((r * 256 * 256) + (g * 256) + b);
 }
 
@@ -111,7 +110,7 @@ int		get_fc(int fd, char **line,  t_set *set)
 	return (1);
 }
 
-void	change_map(t_set *set, char *temp_map)
+void	map_init(t_set *set)
 {
 	int		i;
 	int		j;
@@ -123,13 +122,18 @@ void	change_map(t_set *set, char *temp_map)
 		while (++j < set->minfo.m_width)
 			set->map[i][j] = 0;
 	}
-	i = -1;
-	while (++i < set->minfo.m_height)
-	{
-		j = -1;
-		while (temp_map[++j])
-			set->map[i][j] = temp_map[j] != ' ' ? 1 : 0;
-	}
+}
+
+void	change_map(t_set *set, char *temp_map, int i)
+{
+	int		j;
+
+	j = -1;
+	while (temp_map[++j])
+		set->map[i][j] = temp_map[j] != ' ' ? temp_map[j] - '0' : 0;
+	for(int a = 0; a < set->minfo.m_width; a++)
+		printf("%d", set->map[0][a]);
+	printf("##\n");
 }
 
 int		get_map_size(int fd, char **line, t_set *set)
@@ -152,17 +156,23 @@ int		get_map_size(int fd, char **line, t_set *set)
 		write(fd_2, *line, temp_size);
 		write(fd_2, "\n", 1);
 	}
-	i = -1;
 	temp_map = (char **)malloc(sizeof(char *) * set->minfo.m_height);
 	set->map = (int **)malloc(sizeof(int *) * set->minfo.m_height);
+	i = -1;
 	while (++i < set->minfo.m_height)
 		set->map[i] = (int *)malloc(sizeof(int) * set->minfo.m_width);
 	close(fd);
 	close(fd_2);
-	i = -1;
+	map_init(set);
 	fd_2 = open("tmp_map", O_RDONLY);
+	i = -1;
 	while ((get_next_line(fd_2, &temp_map[++i]) > 0))
 		change_map(set, temp_map[i], i);
+	close(fd_2);
+
+	for(int a = 0; a < set->minfo.m_width; a++)
+		printf("%d ", set->map[0][a]);
+	printf("\n");
 	return (1);
 }
 
@@ -195,9 +205,9 @@ int main(void)
 	printf("s_path : %s\n", set.minfo.sp_path);
 	printf("floor : %d\n", set.minfo.floor);
 	printf("ceiling : %d\n", set.minfo.ceiling);
-	for(int i = 0; i < set.minfo.m_width; i++)
+	for(int i = 0; i < set.minfo.m_height; i++)
 	{
-		for(int j = 0; j < set.minfo.m_height; j++)
+		for(int j = 0; j < set.minfo.m_width; j++)
 			printf("%d", set.map[i][j]);
 		printf("\n");
 	}
