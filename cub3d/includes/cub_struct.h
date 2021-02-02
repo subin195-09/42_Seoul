@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:30:40 by skim              #+#    #+#             */
-/*   Updated: 2021/01/31 17:43:05 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/02 16:09:59 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,6 @@ typedef struct	s_minfo
 	int			floor;
 	int			ceiling;
 }				t_minfo;
-
 
 typedef struct	s_set
 {

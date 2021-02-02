@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:17:04 by skim              #+#    #+#             */
-/*   Updated: 2021/01/31 19:15:42 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/02 16:52:56 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ int		get_color(char *line)
 	return ((r * 256 * 256) + (g * 256) + b);
 }
 
-
 int		get_fc(int fd, char **line,  t_set *set)
 {
 	get_next_line(fd, line);
@@ -112,11 +111,23 @@ int		get_fc(int fd, char **line,  t_set *set)
 	return (1);
 }
 
+int		get_map_size(int fd, char **line)
+{
+	int fd_2;
+
+	fd_2 = open("tmp_map", O_CREAT | O_RDWR, 0777);
+	get_next_line(fd, line);
+	while ()
+	get_next_line(fd, line);
+	write(fd_2, *line, ft_strlen(*line));
+	write(fd_2, "\n", 1);
+	return (1);
+}
+
 void	map_parse(t_set *set)
 {
 	char	*line;
 	int		fd = open("map.cub", O_RDONLY);
-	int		n;
 
 	if (!get_resolution(fd, &line, set))
 		printf("Error\n");

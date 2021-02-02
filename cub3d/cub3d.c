@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 13:02:23 by skim              #+#    #+#             */
-/*   Updated: 2021/01/30 15:44:27 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/02 16:00:45 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,6 @@ void	wall_side(t_set *set, t_wcast *w)
 		w->sideDistY = (w->mapY + 1.0 - set->info.posY) * w->deltaDistY;
 		w->dirSide *= -1;
 	}
-
-
 }
 
 void	wall_hit(t_set *set, t_wcast *w)
@@ -265,5 +263,5 @@ void	sprite_cast(t_set *set)
 // 2d_map
 void	draw_map(t_set *set)
 {
-	
+
 }
