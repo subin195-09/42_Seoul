@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:17:04 by skim              #+#    #+#             */
-/*   Updated: 2021/02/02 22:20:44 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/03 17:18:45 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,40 +110,26 @@ int		get_fc(int fd, char **line,  t_set *set)
 	return (1);
 }
 
-void	map_init(t_set *set)
-{
-	int		i;
-	int		j;
-
-	i = -1;
-	while (++i < set->minfo.m_height)
-	{
-		j = -1;
-		while (++j < set->minfo.m_width)
-			set->map[i][j] = 0;
-	}
-}
-
-void	change_map(t_set *set, char *temp_map, int i)
+void	change_map(t_set *set, int **map, char *temp_map)
 {
 	int		j;
 
 	j = -1;
-	while (temp_map[++j])
-		set->map[i][j] = temp_map[j] != ' ' ? temp_map[j] - '0' : 0;
-	for(int a = 0; a < set->minfo.m_width; a++)
-		printf("%d", set->map[0][a]);
-	printf("##\n");
+	while (++j < set->minfo.m_width)
+		(*map)[j] = 0;
+	j = -1;
+	while (temp_map[++j] != 0)
+	{
+		(*map)[j] = temp_map[j] == ' ' ? 0 : temp_map[j] - '0';
+		if ((*map)[j] == 2)
+			set->minfo.num_sprite++;
+	}
 }
 
-int		get_map_size(int fd, char **line, t_set *set)
+void	get_map_size(t_set *set, int fd, int fd_2, char **line)
 {
-	int		i;
-	int		fd_2;
 	int		temp_size;
-	char	**temp_map;
 
-	fd_2 = open("tmp_map", O_CREAT | O_RDWR, 0777);
 	get_next_line(fd, line);
 	set->minfo.m_height = 0;
 	set->minfo.m_width = 0;
@@ -156,23 +142,32 @@ int		get_map_size(int fd, char **line, t_set *set)
 		write(fd_2, *line, temp_size);
 		write(fd_2, "\n", 1);
 	}
-	temp_map = (char **)malloc(sizeof(char *) * set->minfo.m_height);
-	set->map = (int **)malloc(sizeof(int *) * set->minfo.m_height);
+}
+
+int		get_map(int fd, char **line, t_set *set)
+{
+	int		i;
+	int		fd_2;
+	char	*temp_map;
+
 	i = -1;
+	fd_2 = open("tmp_map", O_CREAT | O_RDWR, 0777);
+	get_map_size(set, fd, fd_2, line);
+	set->minfo.num_sprite = 0;
+	set->map = (int **)malloc(sizeof(int *) * set->minfo.m_height);
 	while (++i < set->minfo.m_height)
 		set->map[i] = (int *)malloc(sizeof(int) * set->minfo.m_width);
 	close(fd);
 	close(fd_2);
-	map_init(set);
 	fd_2 = open("tmp_map", O_RDONLY);
-	i = -1;
-	while ((get_next_line(fd_2, &temp_map[++i]) > 0))
-		change_map(set, temp_map[i], i);
+	i = 0;
+	while ((get_next_line(fd_2, &temp_map) > 0))
+	{
+		change_map(set, &(set->map[i++]), temp_map);
+		free(temp_map);
+	}
+	free(temp_map);
 	close(fd_2);
-
-	for(int a = 0; a < set->minfo.m_width; a++)
-		printf("%d ", set->map[0][a]);
-	printf("\n");
 	return (1);
 }
 
@@ -188,7 +183,7 @@ void	map_parse(t_set *set)
 	// texture로 주어지는 상황 2개 모두 고려할 것인가?
 	if (!get_fc(fd, &line, set))
 		printf("Error\n");
-	get_map_size(fd, &line, set);
+	get_map(fd, &line, set);
 }
 
 int main(void)
@@ -205,6 +200,9 @@ int main(void)
 	printf("s_path : %s\n", set.minfo.sp_path);
 	printf("floor : %d\n", set.minfo.floor);
 	printf("ceiling : %d\n", set.minfo.ceiling);
+	printf("m_height : %d\n", set.minfo.m_height);
+	printf("m_width : %d\n", set.minfo.m_width);
+	printf("num_sprite : %d\n", set.minfo.num_sprite);
 	for(int i = 0; i < set.minfo.m_height; i++)
 	{
 		for(int j = 0; j < set.minfo.m_width; j++)
