@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 13:02:23 by skim              #+#    #+#             */
-/*   Updated: 2021/02/02 16:00:45 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/07 18:46:55 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,4 +264,66 @@ void	sprite_cast(t_set *set)
 void	draw_map(t_set *set)
 {
 
+}
+
+int		event_key_press(int keycode, t_set *set)
+
+void	load_image(t_set *set, int texNum, char *path)
+{
+	t_img	img;
+
+	img.img_ptr = mlx_xpm_file_to_image(set->mlx, path, &img.width, &img.height);
+	img.data = (int *)mlx_get_data_addr(img.img_ptr, &img.bpp, &img.size_l, &img.endian);
+	for(int y = 0; y < img.height; y++)
+	{
+		for(int x = 0; x < img.width; x++)
+			set->info.texture[texNum][img.width * y + x] = img.data[img.width * y + x];
+	}
+	mlx_destroy_image(set->mlx, img.img_ptr);
+}
+
+void	make_texture(t_set *set)
+{
+	load_image(set, 0, set->minfo.ea_path);
+	load_image(set, 1, set->minfo.we_path);
+	load_image(set, 2, set->minfo.so_path);
+	load_image(set, 3, set->minfo.no_path);
+
+	// 천장, 바닥 texture
+	load_image(set, 4, "img/bluestone.xpm");
+	load_image(set, 5,"img/mossy.xpm");
+
+	// sprite texture
+	load_image(ptr, 6, "img/barrel.xpm");
+}
+
+int		main(void)
+{
+	t_set	set;
+
+	// map 파싱에 추가하기!!!
+	set.info.posX = 10.0;
+	set.info.posY = 10.0;
+	set.info.dirX = -1;
+	set.info.dirY = 0;
+
+	set.info.planeX = 0;
+	set.info.planeY = 0.66;
+	set.info.moveSpeed = 0.05;
+	set.info.rotSpeed = 0.03;
+	set.key.key_up = 0;
+	set.key.key_down = 0;
+	set.key.key_right = 0;
+	set.key.key_left = 0;
+	set.key.key_sp = 0;
+
+	set.mlx = mlx_init();
+	make_texture(&set);
+	set.win = mlx_new_window(set.mlx, set.minfo.s_width, set.minfo.s_height, "cub3d");
+	set.img.img_ptr = mlx_new_image(set.mlx, set.minfo.s_width, set.minfo.s_height);
+	set.img.data = (int *)mlx_get_data_addr(set.img.img_ptr, &set.img.bpp, &set.img.size_l, &set.img.endian);
+	mlx_hook(set.win, X_EVENT_KEY_PRESS, 0, &event_key_press, &set);
+	mlx_hook(set.win, X_EVENT_KEY_RELEASE, 0, &event_key_release, &set);
+	mlx_loop_hook(set.mlx, &main_loop, &set);
+	mlx_loop(ptr.mlx);
 }

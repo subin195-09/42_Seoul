@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:17:04 by skim              #+#    #+#             */
-/*   Updated: 2021/02/07 18:20:28 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/07 18:33:26 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,10 +259,8 @@ int		check_map(t_set *set)
 	while (++i < set->minfo.m_width)
 		ck_map[i] = (int *)malloc(sizeof(int) * (set->minfo.m_width + 2));
 	init_ck_map(set, &ck_map);
-	printf("%d\n", is_map(set, ck_map));
 	return (1);
 }
-
 
 void	map_parse(t_set *set)
 {
@@ -286,22 +284,22 @@ int main(void)
 	t_set set;
 	map_parse(&set);
 
-	// printf("s_width : %d\n", set.minfo.s_width);
-	// printf("s_height : %d\n", set.minfo.s_height);
-	// printf("no_path : %s\n", set.minfo.no_path);
-	// printf("so_path : %s\n", set.minfo.so_path);
-	// printf("we_path : %s\n", set.minfo.we_path);
-	// printf("ea_path : %s\n", set.minfo.ea_path);
-	// printf("s_path : %s\n", set.minfo.sp_path);
-	// printf("floor : %d\n", set.minfo.floor);
-	// printf("ceiling : %d\n", set.minfo.ceiling);
-	// printf("m_height : %d\n", set.minfo.m_height);
-	// printf("m_width : %d\n", set.minfo.m_width);
-	// printf("num_sprite : %d\n", set.minfo.num_sprite);
-	// for(int i = 0; i < set.minfo.m_height; i++)
-	// {
-	// 	for(int j = 0; j < set.minfo.m_width; j++)
-	// 		printf("%d", set.map[i][j]);
-	// 	printf("\n");
-	// }
+	printf("s_width : %d\n", set.minfo.s_width);
+	printf("s_height : %d\n", set.minfo.s_height);
+	printf("no_path : %s\n", set.minfo.no_path);
+	printf("so_path : %s\n", set.minfo.so_path);
+	printf("we_path : %s\n", set.minfo.we_path);
+	printf("ea_path : %s\n", set.minfo.ea_path);
+	printf("s_path : %s\n", set.minfo.sp_path);
+	printf("floor : %d\n", set.minfo.floor);
+	printf("ceiling : %d\n", set.minfo.ceiling);
+	printf("m_height : %d\n", set.minfo.m_height);
+	printf("m_width : %d\n", set.minfo.m_width);
+	printf("num_sprite : %d\n", set.minfo.num_sprite);
+	for(int i = 0; i < set.minfo.m_height; i++)
+	{
+		for(int j = 0; j < set.minfo.m_width; j++)
+			printf("%3d", set.map[i][j]);
+		printf("\n");
+	}
 }
