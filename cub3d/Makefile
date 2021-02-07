@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 00:33:36 by skim              #+#    #+#              #
-#    Updated: 2021/02/04 14:59:14 by skim             ###   ########.fr        #
+#    Updated: 2021/02/07 18:21:40 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,3 +95,4 @@ bonus : all
 	@$(CC) $(CFLAGS) -I$(INC_DIR) -I$(GNL_DIR)/$(INC_DIR) -I$(LIB_DIR)/$(INC_DIR) -I$(MLX_DIR) -L$(LIB_DIR) -L$(MLX_DIR) -L$(GNL_DIR) -lgnl -lft -lmlx -framework OpenGL -framework AppKit 06.map_par.c
 	@ ./a.out
 	@ rm -rf ./a.out
+	@ rm tmp_map

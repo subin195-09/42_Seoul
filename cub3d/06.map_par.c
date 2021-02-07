@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:17:04 by skim              #+#    #+#             */
-/*   Updated: 2021/02/04 16:22:56 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/07 18:20:28 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ void	init_ck_map(t_set *set, int ***ck_map)
 	}
 }
 
-int		is_road(int ***ck_map, int x, int y)
+int		is_road(t_set *set, int ***ck_map, int x, int y)
 {
 	int		dir_x[4];
 	int		dir_y[4];
@@ -208,6 +208,7 @@ int		is_road(int ***ck_map, int x, int y)
 	i = -1;
 	while (++i < 4)
 		dir_y[3 - i] = dir_x[i];
+	i = -1;
 	if ((*ck_map)[x][y] == 1 || (*ck_map)[x][y] == -2)
 		return (1);
 	if ((*ck_map)[x][y] == -1)
@@ -215,7 +216,7 @@ int		is_road(int ***ck_map, int x, int y)
 	(*ck_map)[x][y] = -2;
 	i = -1;
 	while (++i < 4)
-		if (!is_road(ck_map, x + dir_x[i], y + dir_y[i]))
+		if (!is_road(set, ck_map, x + dir_x[i], y + dir_y[i]))
 			return (0);
 	return (1);
 }
@@ -226,6 +227,7 @@ int		is_map(t_set *set, int **ck_map)
 	int		i;
 	int		j;
 
+	is_zero = 0;
 	i = -1;
 	while (++i < set->minfo.m_height)
 	{
@@ -235,7 +237,7 @@ int		is_map(t_set *set, int **ck_map)
 			if (ck_map[i][j] == 0)
 			{
 				is_zero = 1;
-				if (!is_road(&ck_map, j, i))
+				if (is_road(set, &ck_map, i, j) == 0)
 					return (0);
 			}
 
@@ -257,13 +259,7 @@ int		check_map(t_set *set)
 	while (++i < set->minfo.m_width)
 		ck_map[i] = (int *)malloc(sizeof(int) * (set->minfo.m_width + 2));
 	init_ck_map(set, &ck_map);
-	is_map(set, ck_map);
-	// for(i = 0; i < set->minfo.m_height + 2; i++)
-	// {
-	// 	for(int j = 0; j < set->minfo.m_width + 2; j++)
-	// 		printf("%3d", ck_map[i][j]);
-	// 	printf("\n");
-	// }
+	printf("%d\n", is_map(set, ck_map));
 	return (1);
 }
 
