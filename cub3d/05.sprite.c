@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 15:45:47 by skim              #+#    #+#             */
-/*   Updated: 2021/01/30 14:41:44 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/08 18:14:26 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,6 @@ void	wall_cast(t_ptr *ptr)
 
 		int hit = 0;
 		int side;
-
 		// 방향별로 나누어서 sideDist값을 구해준다.
 		// 왼쪽 방향일 경우 👈
 		if (rayDirX < 0)
@@ -193,7 +192,7 @@ void	wall_cast(t_ptr *ptr)
 			{
 				sideDistX += deltaDistX;
 				mapX += stepX;
-				// 세로 선과 먼저 닿았다
+				// x벽면과 먼저 닿았다
 				side = 0;
 			}
 			// 광선의 기울기가 1보다 큰 경우
@@ -201,7 +200,7 @@ void	wall_cast(t_ptr *ptr)
 			{
 				sideDistY += deltaDistY;
 				mapY += stepY;
-				// 가로 선과 먼저 닿았다
+				// y벽면과 먼저 닿았다
 				side = 1;
 			}
 			if (worldMap[mapX][mapY] > 0)
@@ -227,7 +226,7 @@ void	wall_cast(t_ptr *ptr)
 
 		// 부딪히는 벽의 위치를 저장
 		// -1을 빼는 이유를 알아둘 것! ***
-		int textNum = worldMap[mapX][mapY] - 1;
+		int textNum;
 
 		// 부딪히는 곳의 x좌표 이다.
 		// 주의 : side가 0일 경우 y좌표가 된다.
@@ -249,6 +248,10 @@ void	wall_cast(t_ptr *ptr)
 
 		// texture맵 상에서 한 픽셀이 상대적으로 얼마만큼인가
 		double step = 1.0 * textHeight / lineHeight;
+		if (side == 0)
+			textNum = rayDirX < 0 ? 1 : 0;
+		else
+			textNum = rayDirY < 0 ? 3 : 2;
 		// ?
 		double texPos = (drawStart - screenHeight / 2 + lineHeight / 2) * step;
 		for(int y = drawStart; y < drawEnd; y++)
@@ -256,8 +259,6 @@ void	wall_cast(t_ptr *ptr)
 			int texY = (int)texPos & (textHeight - 1);
 			texPos += step;
 			int color = ptr->info.texture[textNum][textHeight * texY + texX];
-			if (side == 1)
-				color = (color >> 1) & 8355711;;
 			ptr->img.data[y * screenWidth + x] = color;
 		}
 		// sprite casting시 사용
@@ -561,10 +562,10 @@ void	load_image(t_ptr *ptr, int texNum, char *path)
 
 void	make_texture(t_ptr *ptr)
 {
-	load_image(ptr, 0, "img/eagle.xpm");
-	load_image(ptr, 1, "img/redbrick.xpm");
-	load_image(ptr, 2, "img/purplestone.xpm");
-	load_image(ptr, 3, "img/greystone.xpm");
+	load_image(ptr, 0, "img/wall_e.xpm");
+	load_image(ptr, 1, "img/wall_w.xpm");
+	load_image(ptr, 2, "img/wall_s.xpm");
+	load_image(ptr, 3, "img/wall_n.xpm");
 	load_image(ptr, 4, "img/bluestone.xpm");
 	load_image(ptr, 5, "img/mossy.xpm");
 	load_image(ptr, 6, "img/wood.xpm");

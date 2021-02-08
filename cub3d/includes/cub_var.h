@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:44:12 by skim              #+#    #+#             */
-/*   Updated: 2021/02/07 18:41:20 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/07 19:09:09 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 #define text			7
 #define textWidth		64
 #define textHeight		64
-#define textFloor		3
-#define textCeil		6
+#define textFloor		4
+#define textCeil		5
 
 #define numSprite		19
 
