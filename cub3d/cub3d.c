@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 13:02:23 by skim              #+#    #+#             */
-/*   Updated: 2021/02/12 19:43:30 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/12 19:45:43 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,7 +274,7 @@ void	draw_rect(t_set *set, int x, int y)
 		j = 0;
 		while (j < map_tile)
 		{
-			set->img.data[(y + i) * set->minfo.s_width + x + j] = 0xFFFFFF;
+			set->img.data[(x + i) * set->minfo.s_width + y + j] = 0xFFFFFF;
 			j++;
 		}
 		i++;
@@ -294,7 +294,7 @@ void	draw_all_rect(t_set *set)
 		while (j < set->minfo.m_width)
 		{
 			if (set->map[i][j] > 0)
-				draw_rect(set, j, i);
+				draw_rect(set, i, j);
 			j++;
 		}
 		i++;
@@ -740,13 +740,6 @@ int		main(void)
 
 	map_parse(&set);
 	// map 파싱에 추가하기!!!
-	for(int i = 0 ; i < set.minfo.m_height; i++)
-	{
-		for(int j = 0; j < set.minfo.m_width; j++)
-			printf("%3d", set.map[i][j]);
-		printf("\n");
-	}
-
 	set.info.moveSpeed = 0.05;
 	set.info.rotSpeed = 0.03;
 	set.key.key_up = 0;
