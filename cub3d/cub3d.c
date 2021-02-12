@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 13:02:23 by skim              #+#    #+#             */
-/*   Updated: 2021/02/12 18:21:48 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/12 19:43:30 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	wall_hit(t_set *set, t_wcast *w)
 			w->mapY += w->stepY;
 			w->dirSide = 1;
 		}
-		if (set->map[w->mapX][w->mapY] > 0)
+		if (set->map[w->mapY][w->mapX] > 0)
 			return ;
 	}
 }
@@ -116,9 +116,11 @@ void	wall_text(t_set *set, t_wcast *w, int x)
 		wallX = set->info.posX + w->perpWallDist * w->rayDirX;
 	wallX -= floor(wallX);
 	t.t_x = (int)(wallX * (double)textWidth);
-	if (w->dirSide == 0 && w->rayDirX > 0)
+	// 서쪽일 경우 반전
+	if (w->dirSide == 0 && w->rayDirX < 0)
 		t.t_x = textWidth - t.t_x - 1;
-	if (w->dirSide == 1 && w->rayDirY < 0)
+	// 남쪽인 경우 반전
+	if (w->dirSide == 1 && w->rayDirY > 0)
 		t.t_x = textWidth - t.t_x - 1;
 	if (w->dirSide == 0)
 		t.t_num = w->rayDirX < 0 ? 1 : 0;
@@ -272,7 +274,6 @@ void	draw_rect(t_set *set, int x, int y)
 		j = 0;
 		while (j < map_tile)
 		{
-			//printf("%d %d %d\n", x + j, y + i, set->minfo.s_width);
 			set->img.data[(y + i) * set->minfo.s_width + x + j] = 0xFFFFFF;
 			j++;
 		}
@@ -293,7 +294,7 @@ void	draw_all_rect(t_set *set)
 		while (j < set->minfo.m_width)
 		{
 			if (set->map[i][j] > 0)
-				draw_rect(set, i, j);
+				draw_rect(set, j, i);
 			j++;
 		}
 		i++;
@@ -310,7 +311,6 @@ void	draw_map(t_set *set)
 	if (!set->key.key_sp)
 		return	;
 	draw_all_rect(set);
-	//draw_all_line(set);
 	i = set->info.posX * map_tile;
 	j = set->info.posY * map_tile;
 	a = -1;
@@ -530,7 +530,40 @@ int		get_fc(int fd, char **line,  t_set *set)
 	return (1);
 }
 
-void	change_map(t_set *set, int **map, char *temp_map)
+void	set_pos(t_set *set, char pos)
+{
+	if (pos == 'E')
+		{
+			set->info.dirX = 1;
+			set->info.dirY = 0;
+			set->info.planeX = 0;
+			set->info.planeY = 0.66;
+
+		}
+		if (pos == 'W')
+		{
+			set->info.dirX = -1;
+			set->info.dirY = 0;
+			set->info.planeX = 0;
+			set->info.planeY = 0.66;
+		}
+		if (pos == 'S')
+		{
+			set->info.dirX = 0;
+			set->info.dirY = 1;
+			set->info.planeX = 0.66;
+			set->info.planeY = 0;
+		}
+		if (pos == 'N')
+		{
+			set->info.dirX = 0;
+			set->info.dirY = -1;
+			set->info.planeX = 0.66;
+			set->info.planeY = 0;
+		}
+}
+
+void	change_map(t_set *set, int **map, char *temp_map, int i)
 {
 	int		j;
 
@@ -540,6 +573,13 @@ void	change_map(t_set *set, int **map, char *temp_map)
 	j = -1;
 	while (temp_map[++j] != 0)
 	{
+		if (temp_map[j] == 'E' || temp_map[j] == 'W' || temp_map[j] == 'S' || temp_map[j] == 'N')
+		{
+			set_pos(set, temp_map[j]);
+			set->info.posX = i;
+			set->info.posY = j;
+			temp_map[j] = '0';
+		}
 		(*map)[j] = temp_map[j] == ' ' ? -1 : temp_map[j] - '0';
 		if ((*map)[j] == 2)
 			set->minfo.num_sprite++;
@@ -583,7 +623,8 @@ int		get_map(int fd, char **line, t_set *set)
 	i = 0;
 	while ((get_next_line(fd_2, &temp_map) > 0))
 	{
-		change_map(set, &(set->map[i++]), temp_map);
+		change_map(set, &(set->map[i]), temp_map, i);
+		i++;
 		free(temp_map);
 	}
 	free(temp_map);
@@ -699,13 +740,13 @@ int		main(void)
 
 	map_parse(&set);
 	// map 파싱에 추가하기!!!
-	set.info.posX = 5.0;
-	set.info.posY = 6.0;
-	set.info.dirX = 0;
-	set.info.dirY = -1;
+	for(int i = 0 ; i < set.minfo.m_height; i++)
+	{
+		for(int j = 0; j < set.minfo.m_width; j++)
+			printf("%3d", set.map[i][j]);
+		printf("\n");
+	}
 
-	set.info.planeX = 0.66;
-	set.info.planeY = 0;
 	set.info.moveSpeed = 0.05;
 	set.info.rotSpeed = 0.03;
 	set.key.key_up = 0;
