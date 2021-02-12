@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 13:02:23 by skim              #+#    #+#             */
-/*   Updated: 2021/02/08 17:54:48 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/12 18:21:48 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ void	floor_text(t_set *set, t_fcast f, int y)
 		f.floorX += f.floorStepX;
 		f.floorY += f.floorStepY;
 		t.color = set->info.texture[textCeil][textWidth * t.t_y + t.t_x];
-		t.color = (t.color >> 1) & 8355711;
 		set->img.data[y * set->minfo.s_width + x] = t.color;
 		t.color = set->info.texture[textFloor][textWidth * t.t_y + t.t_x];
-		t.color = (t.color >> 1) & 8355711;
 		set->img.data[(set->minfo.s_height - y - 1) * set->minfo.s_width + x] = t.color;
 	}
 }
@@ -116,7 +114,7 @@ void	wall_text(t_set *set, t_wcast *w, int x)
 		wallX = set->info.posY + w->perpWallDist * w->rayDirY;
 	else
 		wallX = set->info.posX + w->perpWallDist * w->rayDirX;
-	wallX -= (int)wallX;
+	wallX -= floor(wallX);
 	t.t_x = (int)(wallX * (double)textWidth);
 	if (w->dirSide == 0 && w->rayDirX > 0)
 		t.t_x = textWidth - t.t_x - 1;
@@ -156,7 +154,7 @@ void	wall_cast(t_set *set)
 		wall_side(set, &w);
 		wall_hit(set, &w);
 		if (w.dirSide == 0)
-			w.perpWallDist = (w.mapX - set->info.posX + (1 - w.stepX) / 2) / w.rayDirY;
+			w.perpWallDist = (w.mapX - set->info.posX + (1 - w.stepX) / 2) / w.rayDirX;
 		else
 			w.perpWallDist = (w.mapY - set->info.posY + (1 - w.stepY) / 2) / w.rayDirY;
 		w.lineHeight = (int)(set->minfo.s_height / w.perpWallDist);
@@ -211,16 +209,16 @@ void	sprite_text(t_set *set, t_scast *s, int i)
 	while (++x < s->drawEndX)
 	{
 		t.t_x = (int)((256 * (x - (-s->spriteWidth / 2 + s->spriteScreenX)) * textWidth / s->spriteWidth) / 256);
-		if (s->transformY > 0 && x > 0 && x < screenWidth && s->transformY < set->info.zBuffer[x])
+		if (s->transformY > 0 && x > 0 && x < set->minfo.s_width && s->transformY < set->info.zBuffer[x])
 		{
 			y = s->drawStartY - 1;
 			while (++y < s->drawEndY)
 			{
-				d = y * 256 - screenHeight * 128 + s->spriteHeight * 128;
+				d = y * 256 - set->minfo.s_height * 128 + s->spriteHeight * 128;
 				t.t_y = ((d * textHeight) / s->spriteHeight) / 256;
 				t.color = set->info.texture[set->sprite[i].texture][t.t_y * textWidth + t.t_x];
 				if ((t.color & 0X00FFFFFF) != 0)
-					set->img.data[y * screenWidth + x] = t.color;
+					set->img.data[y * set->minfo.s_width + x] = t.color;
 			}
 		}
 	}
@@ -246,43 +244,101 @@ void	sprite_cast(t_set *set)
 		s.invDev = 1.0 / (set->info.planeX * set->info.dirY - set->info.dirX * set->info.planeY);
 		s.transformX = s.invDev * (set->info.dirY * s.spriteX - set->info.dirX * s.spriteY);
 		s.transformY = s.invDev * (-set->info.planeY * s.spriteX + set->info.planeX * s.spriteY);
-		s.spriteScreenX = (int)((screenWidth / 2) * (1 + s.transformX / s.transformY));
-		s.spriteHeight = (int)fabs(screenHeight / s.transformY);
-		s.drawStartY = (screenHeight / 2) - s.spriteHeight / 2;
-		s.drawEndY = (screenHeight / 2) + s.spriteHeight;
-		s.drawEndY = s.drawEndY >= screenHeight ? screenHeight - 1 : s.drawEndY;
-		s.spriteWidth = (int)fabs(screenHeight / s.transformY);
+		s.spriteScreenX = (int)((set->minfo.s_width / 2) * (1 + s.transformX / s.transformY));
+		s.spriteHeight = (int)fabs(set->minfo.s_height / s.transformY);
+		s.drawStartY = (set->minfo.s_height / 2) - s.spriteHeight / 2;
+		s.drawEndY = (set->minfo.s_height / 2) + s.spriteHeight;
+		s.drawEndY = s.drawEndY >= set->minfo.s_height ? set->minfo.s_height - 1 : s.drawEndY;
+		s.spriteWidth = (int)fabs(set->minfo.s_height / s.transformY);
 		s.drawStartX = s.spriteScreenX - s.spriteWidth / 2;
 		s.drawEndX = s.spriteScreenX + s.spriteWidth / 2;
 		s.drawStartX = s.drawStartX < 0 ? 0 : s.drawStartX;
-		s.drawEndX = s.drawEndX >= screenWidth ? screenWidth - 1 : s.drawEndX;
+		s.drawEndX = s.drawEndX >= set->minfo.s_width ? set->minfo.s_width - 1 : s.drawEndX;
 		sprite_text(set, &s, i);
 	}
 }
 
 // // 2d_map
-// void	draw_map(t_set *set)
-// {
+void	draw_rect(t_set *set, int x, int y)
+{
+	int i;
+	int j;
 
-// }
+	x *= map_tile;
+	y *= map_tile;
+	i = 0;
+	while (i < map_tile)
+	{
+		j = 0;
+		while (j < map_tile)
+		{
+			//printf("%d %d %d\n", x + j, y + i, set->minfo.s_width);
+			set->img.data[(y + i) * set->minfo.s_width + x + j] = 0xFFFFFF;
+			j++;
+		}
+		i++;
+	}
+}
+
+void	draw_all_rect(t_set *set)
+{
+
+	int i;
+	int j;
+
+	i = 0;
+	while (i < set->minfo.m_height)
+	{
+		j = 0;
+		while (j < set->minfo.m_width)
+		{
+			if (set->map[i][j] > 0)
+				draw_rect(set, i, j);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	draw_map(t_set *set)
+{
+	int	i;
+	int j;
+	int	a;
+	int	b;
+
+	if (!set->key.key_sp)
+		return	;
+	draw_all_rect(set);
+	//draw_all_line(set);
+	i = set->info.posX * map_tile;
+	j = set->info.posY * map_tile;
+	a = -1;
+	while (++a < 2)
+	{
+		b = -1;
+		for(int b = 0; b < 3; b++)
+			set->img.data[(j + a) * set->minfo.s_width + (i + b)] = 0xff0000;
+	}
+}
 
 void	key_event(t_set *set)
 {
 	if (set->key.key_up)
 	{
-		if (!set->map[(int)(set->info.posX + set->info.dirX * set->info.moveSpeed)][(int)(set->info.posY)])
+		if (set->map[(int)(set->info.posX + set->info.dirX * set->info.moveSpeed)][(int)(set->info.posY)] == 0)
 			set->info.posX += set->info.dirX * set->info.moveSpeed;
-		if (!set->map[(int)(set->info.posX)][(int)(set->info.posY + set->info.dirY * set->info.moveSpeed)])
+		if (set->map[(int)(set->info.posX)][(int)(set->info.posY + set->info.dirY * set->info.moveSpeed)] == 0)
 			set->info.posY += set->info.dirY * set->info.moveSpeed;
 	}
 	if (set->key.key_down)
 	{
-		if (!set->map[(int)(set->info.posX - set->info.dirX * set->info.moveSpeed)][(int)(set->info.posY)])
+		if (set->map[(int)(set->info.posX - set->info.dirX * set->info.moveSpeed)][(int)(set->info.posY)] == 0)
 			set->info.posX -= set->info.dirX * set->info.moveSpeed;
-		if (!set->map[(int)(set->info.posX)][(int)(set->info.posY - set->info.dirY * set->info.moveSpeed)])
+		if (set->map[(int)(set->info.posX)][(int)(set->info.posY - set->info.dirY * set->info.moveSpeed)] == 0)
 			set->info.posY -= set->info.dirY * set->info.moveSpeed;
 	}
-	if (set->key.key_right)
+	if (set->key.key_left)
 	{
 		double oldDirX = set->info.dirX;
 		set->info.dirX = set->info.dirX * cos(-set->info.rotSpeed) - set->info.dirY * sin(-set->info.rotSpeed);
@@ -291,7 +347,7 @@ void	key_event(t_set *set)
 		set->info.planeX = set->info.planeX * cos(-set->info.rotSpeed) - set->info.planeY * sin(-set->info.rotSpeed);
 		set->info.planeY = oldPlaneX * sin(-set->info.rotSpeed) + set->info.planeY * cos(-set->info.rotSpeed);
 	}
-	if (set->key.key_left)
+	if (set->key.key_right)
 	{
 		double oldDirX = set->info.dirX;
 		set->info.dirX = set->info.dirX * cos(set->info.rotSpeed) - set->info.dirY * sin(set->info.rotSpeed);
@@ -308,7 +364,7 @@ int		main_loop(t_set *set)
 	floor_cast(set);
 	wall_cast(set);
 	//sprite_cast(set);
-	//draw_map(set);
+	draw_map(set);
 	mlx_put_image_to_window(set->mlx, set->win, set->img.img_ptr, 0, 0);
 	return (0);
 }
@@ -368,8 +424,8 @@ void	make_texture(t_set *set)
 	load_image(set, 3, set->minfo.no_path);
 
 	// 천장, 바닥 texture
-	load_image(set, 4, "img/bluestone.xpm");
-	load_image(set, 5,"img/mossy.xpm");
+	load_image(set, 4, "img/wood.xpm");
+	load_image(set, 5, "img/wood.xpm");
 
 	// sprite texture
 	load_image(set, 6, "img/barrel.xpm");
@@ -599,7 +655,6 @@ int		is_map(t_set *set, int **ck_map)
 				if (is_road(set, &ck_map, i, j) == 0)
 					return (0);
 			}
-
 		}
 	}
 	if (!is_zero)
@@ -615,10 +670,10 @@ int		check_map(t_set *set)
 
 	ck_map = (int **)malloc(sizeof(int *) * (set->minfo.m_height + 2));
 	i = -1;
-	while (++i < set->minfo.m_width)
+	while (++i < set->minfo.m_width + 2)
 		ck_map[i] = (int *)malloc(sizeof(int) * (set->minfo.m_width + 2));
 	init_ck_map(set, &ck_map);
-	return (1);
+	return (is_map(set, ck_map));
 }
 
 void	map_parse(t_set *set)
@@ -644,13 +699,13 @@ int		main(void)
 
 	map_parse(&set);
 	// map 파싱에 추가하기!!!
-	set.info.posX = 6.0;
-	set.info.posY = 10.0;
-	set.info.dirX = -1;
-	set.info.dirY = 0;
+	set.info.posX = 5.0;
+	set.info.posY = 6.0;
+	set.info.dirX = 0;
+	set.info.dirY = -1;
 
-	set.info.planeX = 0;
-	set.info.planeY = 0.66;
+	set.info.planeX = 0.66;
+	set.info.planeY = 0;
 	set.info.moveSpeed = 0.05;
 	set.info.rotSpeed = 0.03;
 	set.key.key_up = 0;
@@ -658,6 +713,9 @@ int		main(void)
 	set.key.key_right = 0;
 	set.key.key_left = 0;
 	set.key.key_sp = 0;
+
+	if (!(set.info.zBuffer = malloc(sizeof(double) * set.minfo.s_width)))
+		return (-1);
 	set.mlx = mlx_init();
 	make_texture(&set);
 	set.win = mlx_new_window(set.mlx, set.minfo.s_width, set.minfo.s_height, "cub3d");

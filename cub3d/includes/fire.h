@@ -6,20 +6,20 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 18:35:25 by skim              #+#    #+#             */
-/*   Updated: 2021/01/27 15:29:02 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/12 17:56:53 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FIRE_H
 # define FIRE_H
 
-#define mapWidth		24
-#define mapHeight		24
+#define mapWidth		10
+#define mapHeight		10
 #define TILE_SIZE		32
-#define screenWidth		(TILE_SIZE * mapWidth)
-#define screenHeight	(TILE_SIZE * mapHeight)
+#define screenWidth		(640)
+#define screenHeight	(480)
 
-#define	map_tile		7
+#define	map_tile		5
 #define map_size		(mapWidth * map_tile)
 
 // textured에서 사용

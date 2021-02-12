@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:17:04 by skim              #+#    #+#             */
-/*   Updated: 2021/02/07 18:33:26 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/12 16:59:44 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,17 +181,24 @@ void	init_ck_map(t_set *set, int ***ck_map)
 	int	i;
 	int	j;
 
-	i = -1;
-	while (++i < set->minfo.m_height + 2)
+	i = 0;
+	while (i < (set->minfo.m_height + 2))
 	{
-		j = -1;
-		while (++j < set->minfo.m_width + 2)
+		j = 0;
+		while (j < (set->minfo.m_width + 2))
 		{
-			if (i * j == 0 || i == set->minfo.m_height + 1 || j == set->minfo.m_width + 1)
+			if (i == 0 || j == 0 || i == set->minfo.m_height + 1 || j == set->minfo.m_width + 1)
+			{
 				(*ck_map)[i][j] = -1;
+			}
 			else
+			{
+				//printf("* %d %d\n", i, j);
 				(*ck_map)[i][j] = set->map[i - 1][j - 1];
+			}
+			j++;
 		}
+		i++;
 	}
 }
 
@@ -256,10 +263,10 @@ int		check_map(t_set *set)
 
 	ck_map = (int **)malloc(sizeof(int *) * (set->minfo.m_height + 2));
 	i = -1;
-	while (++i < set->minfo.m_width)
+	while (++i < set->minfo.m_width + 2)
 		ck_map[i] = (int *)malloc(sizeof(int) * (set->minfo.m_width + 2));
 	init_ck_map(set, &ck_map);
-	return (1);
+	return (is_map(set, ck_map));
 }
 
 void	map_parse(t_set *set)

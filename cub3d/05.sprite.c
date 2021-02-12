@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 15:45:47 by skim              #+#    #+#             */
-/*   Updated: 2021/02/08 18:14:26 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/12 18:26:10 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,32 +46,18 @@ t_sprite	spr[numSprite] =
 int		spriteOrder[numSprite];
 double	spriteDistance[numSprite];
 
-int worldMap[mapWidth][mapHeight]=
+int worldMap[mapHeight][mapWidth]=
 {
-	{8,8,8,8,8,8,8,8,8,8,8,4,4,6,4,4,6,4,6,4,4,4,6,4},
-	{8,0,0,0,0,0,0,0,0,0,8,4,0,0,0,0,0,0,0,0,0,0,0,4},
-	{8,0,3,3,0,0,0,0,0,8,8,4,0,0,0,0,0,0,0,0,0,0,0,6},
-	{8,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6},
-	{8,0,3,3,0,0,0,0,0,8,8,4,0,0,0,0,0,0,0,0,0,0,0,4},
-	{8,0,0,0,0,0,0,0,0,0,8,4,0,0,0,0,0,6,6,6,0,6,4,6},
-	{8,8,8,8,0,8,8,8,8,8,8,4,4,4,4,4,4,6,0,0,0,0,0,6},
-	{7,7,7,7,0,7,7,7,7,0,8,0,8,0,8,0,8,4,0,4,0,6,0,6},
-	{7,7,0,0,0,0,0,0,7,8,0,8,0,8,0,8,8,6,0,0,0,0,0,6},
-	{7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,6,0,0,0,0,0,4},
-	{7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,6,0,6,0,6,0,6},
-	{7,7,0,0,0,0,0,0,7,8,0,8,0,8,0,8,8,6,4,6,0,6,6,6},
-	{7,7,7,7,0,7,7,7,7,8,8,4,0,6,8,4,8,3,3,3,0,3,3,3},
-	{2,2,2,2,0,2,2,2,2,4,6,4,0,0,6,0,6,3,0,0,0,0,0,3},
-	{2,2,0,0,0,0,0,2,2,4,0,0,0,0,0,0,4,3,0,0,0,0,0,3},
-	{2,0,0,0,0,0,0,0,2,4,0,0,0,0,0,0,4,3,0,0,0,0,0,3},
-	{1,0,0,0,0,0,0,0,1,4,4,4,4,4,6,0,6,3,3,0,0,0,3,3},
-	{2,0,0,0,0,0,0,0,2,2,2,1,2,2,2,6,6,0,0,5,0,5,0,5},
-	{2,2,0,0,0,0,0,2,2,2,0,0,0,2,2,0,5,0,5,0,0,0,5,5},
-	{2,0,0,0,0,0,0,0,2,0,0,0,0,0,2,5,0,5,0,5,0,5,0,5},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5},
-	{2,0,0,0,0,0,0,0,2,0,0,0,0,0,2,5,0,5,0,5,0,5,0,5},
-	{2,2,0,0,0,0,0,2,2,2,0,0,0,2,2,0,5,0,5,0,0,0,5,5},
-	{2,2,2,2,1,2,2,2,2,2,2,1,2,2,2,5,5,5,5,5,5,5,5,5}
+	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+	{1, 1, 0, 0, 0, 0 ,0 ,0 ,0, 1},
+	{1, 0, 0, 0, 0, 0 ,0 ,0 ,0, 1},
+	{1, 0, 0, 0, 0, 0 ,0 ,0 ,0, 1},
+	{1, 0, 0, 0, 0, 0 ,0 ,0 ,0, 1},
+	{1, 0, 0, 0, 0, 0 ,0 ,0 ,0, 1},
+	{1, 0, 0, 0, 0, 0 ,0 ,0 ,0, 1},
+	{1, 0, 0, 0, 0, 0 ,0 ,0 ,0, 1},
+	{1, 0, 0, 0, 0, 0 ,0 ,0 ,1, 1},
+	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 };
 
 void	floor_cast(t_ptr *ptr)
@@ -242,9 +228,9 @@ void	wall_cast(t_ptr *ptr)
 		int texX = (int)(wallX * (double)textWidth);
 		// 이 부분을 좀 더 알아볼 것
 		if (side == 0 && rayDirX > 0)
-			texX = textWidth - texX - 1;
+			texX = texX + 1;
 		if (side == 1 && rayDirY < 0)
-			texX = textWidth - texX - 1;
+			texX = texX + 1;
 
 		// texture맵 상에서 한 픽셀이 상대적으로 얼마만큼인가
 		double step = 1.0 * textHeight / lineHeight;
@@ -440,10 +426,10 @@ void	draw_all_rect(t_ptr *ptr)
 	int j;
 
 	i = 0;
-	while (i < mapWidth)
+	while (i < mapHeight)
 	{
 		j = 0;
-		while (j < mapHeight)
+		while (j < mapWidth)
 		{
 			if (worldMap[i][j] >= 1)
 				draw_rect(ptr, i, j);
@@ -458,7 +444,7 @@ void	with_map(t_ptr *ptr)
 	if (!ptr->info.key.key_sp)
 		return ;
 	draw_all_rect(ptr);
-	draw_all_line(ptr);
+	//draw_all_line(ptr);
 	int i = ptr->info.posX * map_tile;
 	int j = ptr->info.posY * map_tile;
 	for(int a = 0; a < 3; a++)
@@ -484,7 +470,7 @@ void	key_event(t_ptr *ptr)
 		if (!worldMap[(int)(ptr->info.posX)][(int)(ptr->info.posY - ptr->info.dirY * ptr->info.moveSpeed)])
 			ptr->info.posY -= ptr->info.dirY * ptr->info.moveSpeed;
 	}
-	if (ptr->info.key.key_right)
+	if (ptr->info.key.key_left)
 	{
 		double oldDirX = ptr->info.dirX;
 		ptr->info.dirX = ptr->info.dirX * cos(-ptr->info.rotSpeed) - ptr->info.dirY * sin(-ptr->info.rotSpeed);
@@ -493,7 +479,7 @@ void	key_event(t_ptr *ptr)
 		ptr->info.planeX = ptr->info.planeX * cos(-ptr->info.rotSpeed) - ptr->info.planeY * sin(-ptr->info.rotSpeed);
 		ptr->info.planeY = oldPlaneX * sin(-ptr->info.rotSpeed) + ptr->info.planeY * cos(-ptr->info.rotSpeed);
 	}
-	if (ptr->info.key.key_left)
+	if (ptr->info.key.key_right)
 	{
 		double oldDirX = ptr->info.dirX;
 		ptr->info.dirX = ptr->info.dirX * cos(ptr->info.rotSpeed) - ptr->info.dirY * sin(ptr->info.rotSpeed);
@@ -582,15 +568,15 @@ int main(void)
 	t_ptr	ptr;
 
 	// player의 초기 위치 설정
-	ptr.info.posX = 22.0;
-	ptr.info.posY = 11.5;
+	ptr.info.posX = 5.0;
+	ptr.info.posY = 6.0;
 
 	//방향벡터와 plane벡터 설정 (서로 수직이어야함)
-	ptr.info.dirX = -1;
-	ptr.info.dirY = 0;
-	ptr.info.planeX = 0;
+	ptr.info.dirX = 0;
+	ptr.info.dirY = -1;
+	ptr.info.planeX = 0.66;
 	// 슈팅게임의 최적화된 값 (0.66)
-	ptr.info.planeY = 0.66;
+	ptr.info.planeY = 0;
 
 	ptr.info.moveSpeed = 0.05;
 	ptr.info.rotSpeed = 0.03;
