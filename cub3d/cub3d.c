@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 13:02:23 by skim              #+#    #+#             */
-/*   Updated: 2021/02/12 19:45:43 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/17 17:57:41 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -516,17 +516,31 @@ int		get_fc(int fd, char **line,  t_set *set)
 	get_next_line(fd, line);
 	if (!check_str("F ", line, 2))
 		return (0);
-	if (!ft_isdigit(**line))
-		return (0);
-	if ((set->minfo.floor = get_color(*line)) < 0)
-		return (0);
+	if (ft_isdigit(**line))
+	{
+		set->minfo.floor_text = 0;
+		if ((set->minfo.floor = get_color(*line)) < 0)
+			return (0);
+	}
+	else if (**line == '.')
+	{
+		set->minfo.floor_text = 1;
+		set->minfo.fl_path = ft_strdup(*line);
+	}
 	get_next_line(fd, line);
 	if (!check_str("C ", line, 2))
 		return (0);
-	if (!ft_isdigit(**line))
-		return (0);
-	if ((set->minfo.ceiling = get_color(*line)) < 0)
-		return (0);
+	if (ft_isdigit(**line))
+	{
+		set->minfo.ceiling_text = 0;
+		if ((set->minfo.ceiling = get_color(*line)) < 0)
+			return (0);
+	}
+	else if (**line == '.')
+	{
+		set->minfo.ceiling_text = 1;
+		set->minfo.ce_path = ft_strdup(*line);
+	}
 	return (1);
 }
 

@@ -6,19 +6,14 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:44:12 by skim              #+#    #+#             */
-/*   Updated: 2021/02/12 17:03:54 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/17 17:52:12 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_VAR_H
 # define CUB_VAR_H
 
-#define mapWidth		24
-#define mapHeight		24
-#define TILE_SIZE		32
-
 #define	map_tile		7
-#define map_size		(mapWidth * map_tile)
 
 #define text			7
 #define textWidth		64

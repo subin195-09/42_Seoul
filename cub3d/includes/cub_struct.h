@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:30:40 by skim              #+#    #+#             */
-/*   Updated: 2021/02/12 17:05:12 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/17 17:53:37 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,11 +127,15 @@ typedef struct	s_minfo
 	int			m_width;
 	int			m_height;
 	int			num_sprite;
+	int			floor_text;
+	int			ceiling_text;
 	char		*no_path;
 	char		*so_path;
 	char		*we_path;
 	char		*ea_path;
 	char		*sp_path;
+	char		*fl_path;
+	char		*ce_path;
 	int			floor;
 	int			ceiling;
 }				t_minfo;
