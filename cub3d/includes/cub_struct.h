@@ -6,14 +6,14 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:30:40 by skim              #+#    #+#             */
-/*   Updated: 2021/02/17 17:53:37 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/17 22:39:46 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_STRUCT_H
 # define CUB_STRUCT_H
 
-#include "cub_var.h"
+# include "cub_var.h"
 
 typedef struct	s_fcast
 {
@@ -97,7 +97,7 @@ typedef struct	s_img
 	int			width;
 }				t_img;
 
-typedef struct  s_info
+typedef struct	s_info
 {
 	double		posX;
 	double		posY;

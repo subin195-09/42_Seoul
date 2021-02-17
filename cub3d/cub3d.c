@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 13:02:23 by skim              #+#    #+#             */
-/*   Updated: 2021/02/17 17:57:41 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/17 22:23:43 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,16 @@ void	floor_text(t_set *set, t_fcast f, int y)
 		t.t_y = (int)(textHeight * (f.floorY - (int)f.floorY)) & (textHeight - 1);
 		f.floorX += f.floorStepX;
 		f.floorY += f.floorStepY;
-		t.color = set->info.texture[textCeil][textWidth * t.t_y + t.t_x];
-		set->img.data[y * set->minfo.s_width + x] = t.color;
-		t.color = set->info.texture[textFloor][textWidth * t.t_y + t.t_x];
-		set->img.data[(set->minfo.s_height - y - 1) * set->minfo.s_width + x] = t.color;
+		if (set->minfo.ceiling_text == 1)
+		{
+			t.color = set->info.texture[textCeil][textWidth * t.t_y + t.t_x];
+			set->img.data[y * set->minfo.s_width + x] = t.color;
+		}
+		if (set->minfo.floor_text == 1)
+		{
+			t.color = set->info.texture[textFloor][textWidth * t.t_y + t.t_x];
+			set->img.data[(set->minfo.s_height - y - 1) * set->minfo.s_width + x] = t.color;
+		}
 	}
 }
 
@@ -54,6 +60,25 @@ void	floor_cast(t_set *set)
 		f.floorStepX = f.rowDistance * (f.rayDirX1 - f.rayDirX0) / set->minfo.s_width;
 		f.floorStepY = f.rowDistance * (f.rayDirY1 - f.rayDirY0) / set->minfo.s_width;
 		floor_text(set, f, y);
+	}
+}
+
+void	floor_color(t_set *set, int kind)
+{
+	int	start;
+	int	color;
+	int	i;
+	int j;
+
+	start = kind == 1 ? set->minfo.s_height / 2 : 0;
+	color = kind == 1 ? set->minfo.floor : set->minfo.ceiling;
+
+	i = -1;
+	while (++i < set->minfo.s_height / 2)
+	{
+		j = -1;
+		while (++j < set->minfo.s_width)
+			set->img.data[(start + i) * set->minfo.s_width + j] = color;
 	}
 }
 
@@ -317,7 +342,7 @@ void	draw_map(t_set *set)
 	while (++a < 2)
 	{
 		b = -1;
-		for(int b = 0; b < 3; b++)
+		while (++b < 2)
 			set->img.data[(j + a) * set->minfo.s_width + (i + b)] = 0xff0000;
 	}
 }
@@ -361,7 +386,12 @@ void	key_event(t_set *set)
 int		main_loop(t_set *set)
 {
 	key_event(set);
-	floor_cast(set);
+	if (set->minfo.ceiling_text == 0)
+		floor_color(set, 0);
+	if (set->minfo.floor_text == 0)
+		floor_color(set, 1);
+	else if (set->minfo.ceiling_text == 1 || set->minfo.floor_text == 1)
+		floor_cast(set);
 	wall_cast(set);
 	//sprite_cast(set);
 	draw_map(set);
@@ -424,8 +454,14 @@ void	make_texture(t_set *set)
 	load_image(set, 3, set->minfo.no_path);
 
 	// 천장, 바닥 texture
-	load_image(set, 4, "img/wood.xpm");
-	load_image(set, 5, "img/wood.xpm");
+	if (set->minfo.floor_text)
+		load_image(set, 4, set->minfo.fl_path);
+	else
+		load_image(set, 4, set->minfo.no_path);
+	if (set->minfo.ceiling_text)
+		load_image(set, 5, set->minfo.ce_path);
+	else
+		load_image(set, 5, set->minfo.no_path);
 
 	// sprite texture
 	load_image(set, 6, "img/barrel.xpm");

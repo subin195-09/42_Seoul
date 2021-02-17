@@ -6,14 +6,14 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 18:35:25 by skim              #+#    #+#             */
-/*   Updated: 2021/02/12 17:56:53 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/17 22:43:19 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FIRE_H
 # define FIRE_H
 
-#define mapWidth		10
+#define mapWidth		15
 #define mapHeight		10
 #define TILE_SIZE		32
 #define screenWidth		(640)
