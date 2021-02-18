@@ -5,8 +5,8 @@ WE ./img/wall_w.xpm
 EA ./img/wall_e.xpm
 
 S ./img/barrel.xpm
-F 150,150,150
-C 100,100,100
+F ./img/purplestone.xpm
+C 122,10,120
 
 111111111111111
 110000000000001

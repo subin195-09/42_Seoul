@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 13:02:23 by skim              #+#    #+#             */
-/*   Updated: 2021/02/18 16:12:51 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/18 20:24:54 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,10 @@ void	floor_text(t_set *set, t_fcast f, int y)
 		t.t_y = (int)(textHeight * (f.floorY - (int)f.floorY)) & (textHeight - 1);
 		f.floorX += f.floorStepX;
 		f.floorY += f.floorStepY;
-		if (set->minfo.ceiling_text == 1)
-		{
-			t.color = set->info.texture[CE_TEXT_NUM][textWidth * t.t_y + t.t_x];
-			set->img.data[y * set->minfo.s_width + x] = t.color;
-		}
-		if (set->minfo.floor_text == 1)
-		{
-			t.color = set->info.texture[FL_TEXT_NUM][textWidth * t.t_y + t.t_x];
-			set->img.data[(set->minfo.s_height - y - 1) * set->minfo.s_width + x] = t.color;
-		}
+		t.color = set->minfo.floor_text == 1 ? set->info.texture[FL_TEXT_NUM][textWidth * t.t_y + t.t_x] : set->minfo.floor;
+		set->img.data[y * set->minfo.s_width + x] = t.color;
+		t.color = set->minfo.ceiling_text == 1 ?set->info.texture[CE_TEXT_NUM][textWidth * t.t_y + t.t_x] : set->minfo.ceiling;
+		set->img.data[(set->minfo.s_height - y - 1) * set->minfo.s_width + x] = t.color;
 	}
 }
 
@@ -60,25 +54,6 @@ void	floor_cast(t_set *set)
 		f.floorStepX = f.rowDistance * (f.rayDirX1 - f.rayDirX0) / set->minfo.s_width;
 		f.floorStepY = f.rowDistance * (f.rayDirY1 - f.rayDirY0) / set->minfo.s_width;
 		floor_text(set, f, y);
-	}
-}
-
-void	floor_color(t_set *set, int kind)
-{
-	int	start;
-	int	color;
-	int	i;
-	int j;
-
-	start = kind == 1 ? set->minfo.s_height / 2 : 0;
-	color = kind == 1 ? set->minfo.floor : set->minfo.ceiling;
-
-	i = -1;
-	while (++i < set->minfo.s_height / 2)
-	{
-		j = -1;
-		while (++j < set->minfo.s_width)
-			set->img.data[(start + i) * set->minfo.s_width + j] = color;
 	}
 }
 
@@ -291,7 +266,7 @@ void	sprite_cast(t_set *set)
 }
 
 // // 2d_map
-void	draw_rect(t_set *set, int x, int y)
+void	draw_rect(t_set *set, int x, int y, int color)
 {
 	int i;
 	int j;
@@ -304,7 +279,7 @@ void	draw_rect(t_set *set, int x, int y)
 		j = 0;
 		while (j < map_tile)
 		{
-			set->img.data[(x + i) * set->minfo.s_width + y + j] = 0xFFFFFF;
+			set->img.data[(x + i) * set->minfo.s_width + y + j] = color;
 			j++;
 		}
 		i++;
@@ -323,8 +298,10 @@ void	draw_all_rect(t_set *set)
 		j = 0;
 		while (j < set->minfo.m_width)
 		{
-			if (set->map[i][j] > 0)
-				draw_rect(set, i, j);
+			if (set->map[i][j] == 1)
+				draw_rect(set, i, j, 0xffffff);
+			else if (set->map[i][j] == 2)
+				draw_rect(set, i, j, 0xabcdef);
 			j++;
 		}
 		i++;
@@ -391,12 +368,7 @@ void	key_event(t_set *set)
 int		main_loop(t_set *set)
 {
 	key_event(set);
-	if (set->minfo.ceiling_text == 0)
-		floor_color(set, 0);
-	if (set->minfo.floor_text == 0)
-		floor_color(set, 1);
-	else if (set->minfo.ceiling_text == 1 || set->minfo.floor_text == 1)
-		floor_cast(set);
+	floor_cast(set);
 	wall_cast(set);
 	sprite_cast(set);
 	draw_map(set);
@@ -469,118 +441,6 @@ void	make_texture(t_set *set)
 }
 
 // map parsing
-int		check_str(char *chk, char **line, int len)
-{
-	int	i;
-
-	i = -1;
-	while (++i < len)
-	{
-		if (chk[i] != **line)
-			return (0);
-		(*line)++;
-	}
-	return (1);
-}
-
-int		get_resolution(int fd, char **line, t_set *set)
-{
-	get_next_line(fd, line);
-	if (!check_str("R ", line, 2))
-		return (0);
-	if ((set->minfo.s_width = ft_atoi(*line)) < 0)
-		return (0);
-	(*line) += count_num(set->minfo.s_width);
-	if (!check_str(" ", line, 1))
-		return (0);
-	if ((set->minfo.s_height = ft_atoi(*line)) < 0)
-		return (0);
-	return (1);
-}
-
-int		get_path(int fd, char **line, t_set *set)
-{
-	get_next_line(fd, line);
-	if (!check_str("NO ", line, 3))
-		return (0);
-	set->minfo.no_path = ft_strdup(*line);
-	get_next_line(fd, line);
-	if (!check_str("SO ", line, 3))
-		return (0);
-	set->minfo.so_path = ft_strdup(*line);
-	get_next_line(fd, line);
-	if (!check_str("WE ", line, 3))
-		return (0);
-	set->minfo.we_path = ft_strdup(*line);
-	get_next_line(fd, line);
-	if (!check_str("EA ", line, 3))
-		return (0);
-	set->minfo.ea_path = ft_strdup(*line);
-	get_next_line(fd, line);
-	get_next_line(fd, line);
-	if (!check_str("S ", line, 2))
-		return (0);
-	set->minfo.sp_path = ft_strdup(*line);
-	return (1);
-}
-
-int		get_color(char *line)
-{
-	int	r;
-	int	g;
-	int	b;
-
-	r = ft_atoi(line);
-	while (*line != ',' && *line)
-	{
-		line++;
-		if (!(*line))
-			return (-1);
-	}
-	g = ft_atoi(++line);
-	while (*line != ',' && *line)
-	{
-		line++;
-		if (!(*line))
-			return (0);
-	}
-	b = ft_atoi(++line);
-	return ((r * 256 * 256) + (g * 256) + b);
-}
-
-int		get_fc(int fd, char **line,  t_set *set)
-{
-	get_next_line(fd, line);
-	if (!check_str("F ", line, 2))
-		return (0);
-	if (ft_isdigit(**line))
-	{
-		set->minfo.floor_text = 0;
-		if ((set->minfo.floor = get_color(*line)) < 0)
-			return (0);
-	}
-	else if (**line == '.')
-	{
-		set->minfo.floor_text = 1;
-		set->minfo.fl_path = ft_strdup(*line);
-	}
-	get_next_line(fd, line);
-	if (!check_str("C ", line, 2))
-		return (0);
-	if (ft_isdigit(**line))
-	{
-		set->minfo.ceiling_text = 0;
-		if ((set->minfo.ceiling = get_color(*line)) < 0)
-			return (0);
-	}
-	else if (**line == '.')
-	{
-		set->minfo.ceiling_text = 1;
-		set->minfo.ce_path = ft_strdup(*line);
-	}
-	return (1);
-}
-
 void	set_pos(t_set *set, char pos)
 {
 	if (pos == 'E')
@@ -779,6 +639,118 @@ int		check_map(t_set *set)
 	return (is_map(set, ck_map));
 }
 
+int		check_str(char *chk, char **line, int len)
+{
+	int	i;
+
+	i = -1;
+	while (++i < len)
+	{
+		if (chk[i] != **line)
+			return (0);
+		(*line)++;
+	}
+	return (1);
+}
+
+int		get_resolution(int fd, char **line, t_set *set)
+{
+	get_next_line(fd, line);
+	if (!check_str("R ", line, 2))
+		return (0);
+	if ((set->minfo.s_width = ft_atoi(*line)) < 0)
+		return (0);
+	(*line) += count_num(set->minfo.s_width);
+	if (!check_str(" ", line, 1))
+		return (0);
+	if ((set->minfo.s_height = ft_atoi(*line)) < 0)
+		return (0);
+	return (1);
+}
+
+int		get_path(int fd, char **line, t_set *set)
+{
+	get_next_line(fd, line);
+	if (!check_str("NO ", line, 3))
+		return (0);
+	set->minfo.no_path = ft_strdup(*line);
+	get_next_line(fd, line);
+	if (!check_str("SO ", line, 3))
+		return (0);
+	set->minfo.so_path = ft_strdup(*line);
+	get_next_line(fd, line);
+	if (!check_str("WE ", line, 3))
+		return (0);
+	set->minfo.we_path = ft_strdup(*line);
+	get_next_line(fd, line);
+	if (!check_str("EA ", line, 3))
+		return (0);
+	set->minfo.ea_path = ft_strdup(*line);
+	get_next_line(fd, line);
+	get_next_line(fd, line);
+	if (!check_str("S ", line, 2))
+		return (0);
+	set->minfo.sp_path = ft_strdup(*line);
+	return (1);
+}
+
+int		get_color(char *line)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = ft_atoi(line);
+	while (*line != ',' && *line)
+	{
+		line++;
+		if (!(*line))
+			return (-1);
+	}
+	g = ft_atoi(++line);
+	while (*line != ',' && *line)
+	{
+		line++;
+		if (!(*line))
+			return (0);
+	}
+	b = ft_atoi(++line);
+	return ((r * 256 * 256) + (g * 256) + b);
+}
+
+int		get_fc(int fd, char **line,  t_set *set)
+{
+	get_next_line(fd, line);
+	if (!check_str("F ", line, 2))
+		return (0);
+	if (ft_isdigit(**line))
+	{
+		set->minfo.floor_text = 0;
+		if ((set->minfo.floor = get_color(*line)) < 0)
+			return (0);
+	}
+	else if (**line == '.')
+	{
+		set->minfo.floor_text = 1;
+		set->minfo.fl_path = ft_strdup(*line);
+	}
+	get_next_line(fd, line);
+	if (!check_str("C ", line, 2))
+		return (0);
+	if (ft_isdigit(**line))
+	{
+		set->minfo.ceiling_text = 0;
+		if ((set->minfo.ceiling = get_color(*line)) < 0)
+			return (0);
+	}
+	else if (**line == '.')
+	{
+		set->minfo.ceiling_text = 1;
+		set->minfo.ce_path = ft_strdup(*line);
+	}
+	return (1);
+}
+
 void	map_parse(t_set *set)
 {
 	char	*line;
@@ -788,7 +760,6 @@ void	map_parse(t_set *set)
 		printf("Error\n");
 	if (!get_path(fd, &line, set))
 		printf("Error\n");
-	// texture로 주어지는 상황 2개 모두 고려할 것인가?
 	if (!get_fc(fd, &line, set))
 		printf("Error\n");
 	get_map(fd, &line, set);
