@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 13:02:23 by skim              #+#    #+#             */
-/*   Updated: 2021/02/18 20:24:54 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/18 22:14:45 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -765,6 +765,102 @@ void	map_parse(t_set *set)
 	get_map(fd, &line, set);
 	if (!check_map(set))
 		printf("Error\n");
+}
+
+void	map_parse(t_set *set, char *map_name)
+{
+	char	*line;
+	int		check[8];
+	int		fd = open(map_name, O_RDONLY);
+	int		count;
+
+	count = -1;
+	while (++count < 8)
+		check[count] = 0;
+	count = 0;
+	while (count <= 8 || get_next_line(fd, &line) > 0)
+	{
+		if (ft_strnstr(line, "EA ", 3))
+		{
+			if (check[EA_TEXT_NUM] == 1)
+			{
+				printf("Error\n EA 중복 입력\n");
+				exit(0);
+			}
+			check[EA_TEXT_NUM] = 1;
+			set->minfo.ea_path = ft_strdup(*line + 3);
+		}
+		if (ft_strnstr(line, "WE ", 3))
+		{
+			if (check[WE_TEXT_NUM] == 1)
+			{
+				printf("Error\n WE 중복 입력\n");
+				exit(0);
+			}
+			check[WE_TEXT_NUM] = 1;
+			set->minfo.we_path = ft_strdup(*line + 3);
+		}
+		if (ft_strnstr(line, "SO ", 3))
+		{
+			if (check[SO_TEXT_NUM] == 1)
+			{
+				printf("Error\n SO 중복 입력\n");
+				exit(0);
+			}
+			check[SO_TEXT_NUM] = 1;
+			set->minfo.so_path = ft_strdup(*line + 3);
+		}
+		if (ft_strnstr(line, "NO ", 3))
+		{
+			if (check[NO_TEXT_NUM] == 1)
+			{
+				printf("Error\n NO 중복 입력\n");
+				exit(0);
+			}
+			check[NO_TEXT_NUM] = 1;
+			set->minfo.no_path = ft_strdup(*line + 3);
+		}
+		if (ft_strnstr(line, "F ", 2))
+		{
+			if (check[FL_TEXT_NUM] == 1)
+			{
+				printf("Error\n FL 중복 입력\n");
+				exit(0);
+			}
+			check[FL_TEXT_NUM] = 1;
+			if (ft_isdigit(line[2]))
+			{
+				set->minfo.floor_text = 0;
+				if ((set->minfo.floor = get_color(line + 2)) < 0)
+					return (0);
+			}
+			else if (line[2] == '.')
+			{
+				set->minfo.floor_text = 1;
+				set->minfo.fl_path = ft_strdup(line + 2);
+			}
+		}
+		if (ft_strnstr(line, "C ", 2))
+		{
+			if (check[FL_TEXT_NUM] == 1)
+			{
+				printf("Error\n CE 중복 입력\n");
+				exit(0);
+			}
+			check[CE_TEXT_NUM] = 1;
+			if (ft_isdigit(line[2]))
+			{
+				set->minfo.ceiling_text = 0;
+				if ((set->minfo.ceiling = get_color(line + 2)) < 0)
+					return (0);
+			}
+			else if (line[2] == '.')
+			{
+				set->minfo.ceiling_text = 1;
+				set->minfo.ce_path = ft_strdup(line + 2);
+			}
+		}
+	}
 }
 
 int		main(void)

@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:44:12 by skim              #+#    #+#             */
-/*   Updated: 2021/02/18 16:01:12 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/18 20:36:01 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@
 # define FL_TEXT_NUM		4
 # define CE_TEXT_NUM		5
 # define SP_TEXT_NUM		6
+# define RE_NUM				7
 
 #endif
