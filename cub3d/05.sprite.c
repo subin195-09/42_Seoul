@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 15:45:47 by skim              #+#    #+#             */
-/*   Updated: 2021/02/17 22:48:31 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/18 16:03:37 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_sprite	spr[numSprite] =
 int		spriteOrder[numSprite];
 double	spriteDistance[numSprite];
 
-int worldMap[mapHeight][mapWidth]=
+int worldMap[10][mapWidth]=
 {
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 	{1, 1, 0, 0, 0, 0 ,0 ,0 ,0, 0, 0, 0, 0, 0, 1},
@@ -235,9 +235,9 @@ void	wall_cast(t_ptr *ptr)
 		// texture맵 상에서 한 픽셀이 상대적으로 얼마만큼인가
 		double step = 1.0 * textHeight / lineHeight;
 		if (side == 0)
-			textNum = rayDirX < 0 ? 1 : 0;
+			textNum = rayDirX < 0 ? 3 : 2;
 		else
-			textNum = rayDirY < 0 ? 3 : 2;
+			textNum = rayDirY < 0 ? 1 : 0;
 		// ?
 		double texPos = (drawStart - screenHeight / 2 + lineHeight / 2) * step;
 		for(int y = drawStart; y < drawEnd; y++)
@@ -470,7 +470,7 @@ void	key_event(t_ptr *ptr)
 		if (!worldMap[(int)(ptr->info.posX)][(int)(ptr->info.posY - ptr->info.dirY * ptr->info.moveSpeed)])
 			ptr->info.posY -= ptr->info.dirY * ptr->info.moveSpeed;
 	}
-	if (ptr->info.key.key_left)
+	if (ptr->info.key.key_right)
 	{
 		double oldDirX = ptr->info.dirX;
 		ptr->info.dirX = ptr->info.dirX * cos(-ptr->info.rotSpeed) - ptr->info.dirY * sin(-ptr->info.rotSpeed);
@@ -479,7 +479,7 @@ void	key_event(t_ptr *ptr)
 		ptr->info.planeX = ptr->info.planeX * cos(-ptr->info.rotSpeed) - ptr->info.planeY * sin(-ptr->info.rotSpeed);
 		ptr->info.planeY = oldPlaneX * sin(-ptr->info.rotSpeed) + ptr->info.planeY * cos(-ptr->info.rotSpeed);
 	}
-	if (ptr->info.key.key_right)
+	if (ptr->info.key.key_left)
 	{
 		double oldDirX = ptr->info.dirX;
 		ptr->info.dirX = ptr->info.dirX * cos(ptr->info.rotSpeed) - ptr->info.dirY * sin(ptr->info.rotSpeed);
@@ -572,11 +572,11 @@ int main(void)
 	ptr.info.posY = 6.0;
 
 	//방향벡터와 plane벡터 설정 (서로 수직이어야함)
-	ptr.info.dirX = -1;
-	ptr.info.dirY = 0;
-	ptr.info.planeX = 0;
+	ptr.info.dirX = 0;
+	ptr.info.dirY = 1;
+	ptr.info.planeX = 0.66;
 	// 슈팅게임의 최적화된 값 (0.66)
-	ptr.info.planeY = 0.66;
+	ptr.info.planeY = 0;
 
 	ptr.info.moveSpeed = 0.05;
 	ptr.info.rotSpeed = 0.03;

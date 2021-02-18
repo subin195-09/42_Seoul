@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:30:40 by skim              #+#    #+#             */
-/*   Updated: 2021/02/17 22:39:46 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/18 15:56:57 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ typedef struct	s_wcast
 
 typedef struct	s_scast
 {
-	int			spriteOrder[numSprite];
-	double		spriteDistance[numSprite];
+	int			*spriteOrder;
+	double		*spriteDistance;
 	double		spriteX;
 	double		spriteY;
 	double		invDev;
@@ -74,7 +74,6 @@ typedef struct	s_sprite
 {
 	double		x;
 	double		y;
-	int			texture;
 }				t_sprite;
 
 typedef struct	s_text
@@ -107,7 +106,7 @@ typedef struct	s_info
 	double		planeY;
 	double		moveSpeed;
 	double		rotSpeed;
-	int			texture[text][textHeight * textWidth];
+	int			texture[TEXT][textHeight * textWidth];
 	double		*zBuffer;
 }				t_info;
 
@@ -149,7 +148,7 @@ typedef struct	s_set
 	t_img		img;
 	t_info		info;
 	t_key		key;
-	t_sprite	sprite[numSprite];
+	t_sprite	*sprite;
 }				t_set;
 
 #endif
