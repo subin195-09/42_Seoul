@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:30:40 by skim              #+#    #+#             */
-/*   Updated: 2021/02/18 15:56:57 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/20 00:11:30 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,31 @@
 # define CUB_STRUCT_H
 
 # include "cub_var.h"
+
+# pragma pack(push, 1)
+
+typedef struct	s_bmp
+{
+	unsigned char	bf_type1;
+	unsigned char	bf_type2;
+	unsigned int	bf_size;
+	unsigned short	bf_reser1;
+	unsigned short	bf_reser2;
+	unsigned int	bf_off;
+	unsigned int	bi_size;
+	int				bi_width;
+	int				bi_height;
+	unsigned short	bi_planes;
+	unsigned short	bi_count;
+	unsigned int	bi_compre;
+	unsigned int	bi_img_size;
+	int				bi_x_ppm;
+	int				bi_y_ppm;
+	unsigned int	bi_c_used;
+	unsigned int	bi_c_import;
+}				t_bmp;
+
+# pragma pack(pop)
 
 typedef struct	s_fcast
 {
@@ -149,7 +174,7 @@ typedef struct	s_set
 	t_info		info;
 	t_key		key;
 	t_sprite	*sprite;
+	t_bmp		bmp;
 }				t_set;
 
 #endif
-

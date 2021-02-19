@@ -6,13 +6,46 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 13:02:23 by skim              #+#    #+#             */
-/*   Updated: 2021/02/19 23:15:24 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/20 01:11:03 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx.h"
 #include "cub_main.h"
 #include "get_next_line.h"
+
+// save bmp img
+void	draw_bmp_img(t_set *set)
+{
+	set->bmp.bf_type1 = 'B';
+	set->bmp.bf_type2 = 'M';
+	set->bmp.bf_size = (4 * (set->minfo.s_width * set->minfo.s_height)) + 54;
+	set->bmp.bf_reser1 = 0;
+	set->bmp.bf_reser2 = 0;
+	set->bmp.bf_off = 54;
+	set->bmp.bi_size = 40;
+	set->bmp.bi_width = set->minfo.s_width;
+	set->bmp.bi_height = -set->minfo.s_height;
+	set->bmp.bi_planes = 1;
+	set->bmp.bi_count = 32;
+	set->bmp.bi_compre = 0;
+	set->bmp.bi_img_size = (4 * (set->minfo.s_width * set->minfo.s_height));
+	set->bmp.bi_x_ppm = set->minfo.s_width;
+	set->bmp.bi_y_ppm = set->minfo.s_height;
+	set->bmp.bi_c_used = 0;
+	set->bmp.bi_c_import = 0;
+}
+
+void	save_bmp_img(t_set *set)
+{
+	int		fd;
+
+	fd = open("cub3d_save.bmp", O_RDWR | O_TRUNC | O_CREAT, 0666);
+	draw_bmp_img(set);
+	write(fd, &set->bmp, 54);
+	write(fd, set->img.data, set->bmp.bi_img_size);
+	close(fd);
+}
 
 // floor cast
 void	floor_text(t_set *set, t_fcast f, int y)
@@ -265,7 +298,7 @@ void	sprite_cast(t_set *set)
 	}
 }
 
-// // 2d_map
+// 2d_map
 void	draw_rect(t_set *set, int x, int y, int color)
 {
 	int i;
@@ -376,6 +409,7 @@ int		main_loop(t_set *set)
 	return (0);
 }
 
+// 기본 setting
 int		event_key_press(int keycode, t_set *set)
 {
 	if (keycode == KEY_UP)
@@ -390,6 +424,13 @@ int		event_key_press(int keycode, t_set *set)
 		set->key.key_sp = set->key.key_sp == 0 ? 1 : 0;
 	if (keycode == KEY_ESC)
 	{
+		mlx_destroy_window(set->mlx, set->win);
+		exit(0);
+	}
+	if (keycode == 11)
+	{
+		save_bmp_img(set);
+		mlx_destroy_image(set->mlx, set->img.img_ptr);
 		mlx_destroy_window(set->mlx, set->win);
 		exit(0);
 	}
@@ -782,25 +823,6 @@ int		main(void)
 	t_set	set;
 
 	map_parse(&set, "map.cub");
-
-	printf("s_width : %d\n", set.minfo.s_width);
-	printf("s_height : %d\n", set.minfo.s_height);
-	printf("no_path : %s\n", set.minfo.no_path);
-	printf("so_path : %s\n", set.minfo.so_path);
-	printf("we_path : %s\n", set.minfo.we_path);
-	printf("ea_path : %s\n", set.minfo.ea_path);
-	printf("s_path : %s\n", set.minfo.sp_path);
-	printf("floor : %d\n", set.minfo.floor);
-	printf("ceiling : %d\n", set.minfo.ceiling);
-	printf("m_height : %d\n", set.minfo.m_height);
-	printf("m_width : %d\n", set.minfo.m_width);
-	printf("num_sprite : %d\n", set.minfo.num_sprite);
-	for(int i = 0; i < set.minfo.m_height; i++)
-	{
-		for(int j = 0; j < set.minfo.m_width; j++)
-			printf("%3d", set.map[i][j]);
-		printf("\n");
-	}
 
 	// map 파싱에 추가하기!!!
 	set.info.moveSpeed = 0.05;
