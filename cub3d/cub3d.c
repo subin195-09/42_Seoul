@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 13:02:23 by skim              #+#    #+#             */
-/*   Updated: 2021/02/18 22:14:45 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/19 23:15:24 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -500,9 +500,14 @@ void	get_map_size(t_set *set, int fd, int fd_2, char **line)
 {
 	int		temp_size;
 
-	get_next_line(fd, line);
 	set->minfo.m_height = 0;
 	set->minfo.m_width = 0;
+	temp_size = ft_strlen(*line);
+	if (set->minfo.m_width < temp_size)
+		set->minfo.m_width = temp_size;
+	set->minfo.m_height++;
+	write(fd_2, *line, temp_size);
+	write(fd_2, "\n", 1);
 	while ((get_next_line(fd, line)) > 0)
 	{
 		temp_size = ft_strlen(*line);
@@ -639,61 +644,6 @@ int		check_map(t_set *set)
 	return (is_map(set, ck_map));
 }
 
-int		check_str(char *chk, char **line, int len)
-{
-	int	i;
-
-	i = -1;
-	while (++i < len)
-	{
-		if (chk[i] != **line)
-			return (0);
-		(*line)++;
-	}
-	return (1);
-}
-
-int		get_resolution(int fd, char **line, t_set *set)
-{
-	get_next_line(fd, line);
-	if (!check_str("R ", line, 2))
-		return (0);
-	if ((set->minfo.s_width = ft_atoi(*line)) < 0)
-		return (0);
-	(*line) += count_num(set->minfo.s_width);
-	if (!check_str(" ", line, 1))
-		return (0);
-	if ((set->minfo.s_height = ft_atoi(*line)) < 0)
-		return (0);
-	return (1);
-}
-
-int		get_path(int fd, char **line, t_set *set)
-{
-	get_next_line(fd, line);
-	if (!check_str("NO ", line, 3))
-		return (0);
-	set->minfo.no_path = ft_strdup(*line);
-	get_next_line(fd, line);
-	if (!check_str("SO ", line, 3))
-		return (0);
-	set->minfo.so_path = ft_strdup(*line);
-	get_next_line(fd, line);
-	if (!check_str("WE ", line, 3))
-		return (0);
-	set->minfo.we_path = ft_strdup(*line);
-	get_next_line(fd, line);
-	if (!check_str("EA ", line, 3))
-		return (0);
-	set->minfo.ea_path = ft_strdup(*line);
-	get_next_line(fd, line);
-	get_next_line(fd, line);
-	if (!check_str("S ", line, 2))
-		return (0);
-	set->minfo.sp_path = ft_strdup(*line);
-	return (1);
-}
-
 int		get_color(char *line)
 {
 	int	r;
@@ -718,156 +668,140 @@ int		get_color(char *line)
 	return ((r * 256 * 256) + (g * 256) + b);
 }
 
-int		get_fc(int fd, char **line,  t_set *set)
+int		flag_check(int start, int kind, unsigned char *flag, char *line)
 {
-	get_next_line(fd, line);
-	if (!check_str("F ", line, 2))
-		return (0);
-	if (ft_isdigit(**line))
+	if (((*flag) >> kind & 1) ==  1)
+		return (-1);
+	while (line[start] == ' ')
+		start++;
+	(*flag) |= 1 << kind;
+	return (start);
+}
+
+int		get_fc(t_set *set, int kind, char *line)
+{
+	int	temp;
+
+	if (ft_isdigit(*line))
 	{
-		set->minfo.floor_text = 0;
-		if ((set->minfo.floor = get_color(*line)) < 0)
+		(kind == FL_TEXT_NUM) ? (set->minfo.floor_text = 0) : (set->minfo.ceiling = 0);
+		(kind == FL_TEXT_NUM) ? (set->minfo.floor = get_color(line)) : (set->minfo.ceiling = get_color(line));
+		temp = (kind == FL_TEXT_NUM) ? set->minfo.floor : set->minfo.ceiling;
+		if (temp < 0)
 			return (0);
 	}
-	else if (**line == '.')
+	else if (*line == '.')
 	{
-		set->minfo.floor_text = 1;
-		set->minfo.fl_path = ft_strdup(*line);
-	}
-	get_next_line(fd, line);
-	if (!check_str("C ", line, 2))
-		return (0);
-	if (ft_isdigit(**line))
-	{
-		set->minfo.ceiling_text = 0;
-		if ((set->minfo.ceiling = get_color(*line)) < 0)
-			return (0);
-	}
-	else if (**line == '.')
-	{
-		set->minfo.ceiling_text = 1;
-		set->minfo.ce_path = ft_strdup(*line);
+		(kind == FL_TEXT_NUM) ? (set->minfo.floor_text = 1) : (set->minfo.ceiling_text = 1);
+		(kind == FL_TEXT_NUM) ? (set->minfo.fl_path = ft_strdup(line)) : (set->minfo.ce_path = ft_strdup(line));
 	}
 	return (1);
 }
 
-void	map_parse(t_set *set)
+int		error_msg(char *kind)
 {
-	char	*line;
-	int		fd = open("map.cub", O_RDONLY);
-
-	if (!get_resolution(fd, &line, set))
-		printf("Error\n");
-	if (!get_path(fd, &line, set))
-		printf("Error\n");
-	if (!get_fc(fd, &line, set))
-		printf("Error\n");
-	get_map(fd, &line, set);
-	if (!check_map(set))
-		printf("Error\n");
+	printf("Error\n %s 중복 입력\n", kind);
+	return (0);
 }
 
 void	map_parse(t_set *set, char *map_name)
 {
-	char	*line;
-	int		check[8];
-	int		fd = open(map_name, O_RDONLY);
-	int		count;
+	char			*line;
+	int				fd = open(map_name, O_RDONLY);
+	unsigned char	flag;
+	int				i;
+	int				rt;
 
-	count = -1;
-	while (++count < 8)
-		check[count] = 0;
-	count = 0;
-	while (count <= 8 || get_next_line(fd, &line) > 0)
+	flag = 0;
+	while (flag != 255 && (rt = get_next_line(fd, &line)) > 0)
 	{
 		if (ft_strnstr(line, "EA ", 3))
 		{
-			if (check[EA_TEXT_NUM] == 1)
-			{
-				printf("Error\n EA 중복 입력\n");
-				exit(0);
-			}
-			check[EA_TEXT_NUM] = 1;
-			set->minfo.ea_path = ft_strdup(*line + 3);
+			i = flag_check(3, EA_TEXT_NUM, &flag, line);
+			i < 0 ? exit(error_msg("EA")) : 0;
+			set->minfo.ea_path = ft_strdup(line + i);
 		}
 		if (ft_strnstr(line, "WE ", 3))
 		{
-			if (check[WE_TEXT_NUM] == 1)
-			{
-				printf("Error\n WE 중복 입력\n");
-				exit(0);
-			}
-			check[WE_TEXT_NUM] = 1;
-			set->minfo.we_path = ft_strdup(*line + 3);
+			i = flag_check(3, WE_TEXT_NUM, &flag, line);
+			i < 0 ? exit(error_msg("WE")) : 0;
+			set->minfo.we_path = ft_strdup(line + i);
 		}
 		if (ft_strnstr(line, "SO ", 3))
 		{
-			if (check[SO_TEXT_NUM] == 1)
-			{
-				printf("Error\n SO 중복 입력\n");
-				exit(0);
-			}
-			check[SO_TEXT_NUM] = 1;
-			set->minfo.so_path = ft_strdup(*line + 3);
+			i = flag_check(3, SO_TEXT_NUM, &flag, line);
+			i < 0 ? exit(error_msg("SO")) : 0;
+			set->minfo.so_path = ft_strdup(line + i);
 		}
 		if (ft_strnstr(line, "NO ", 3))
 		{
-			if (check[NO_TEXT_NUM] == 1)
-			{
-				printf("Error\n NO 중복 입력\n");
-				exit(0);
-			}
-			check[NO_TEXT_NUM] = 1;
-			set->minfo.no_path = ft_strdup(*line + 3);
+			i = flag_check(3, NO_TEXT_NUM, &flag, line);
+			i < 0 ? exit(error_msg("NO")) : 0;
+			set->minfo.no_path = ft_strdup(line + i);
 		}
 		if (ft_strnstr(line, "F ", 2))
 		{
-			if (check[FL_TEXT_NUM] == 1)
-			{
-				printf("Error\n FL 중복 입력\n");
-				exit(0);
-			}
-			check[FL_TEXT_NUM] = 1;
-			if (ft_isdigit(line[2]))
-			{
-				set->minfo.floor_text = 0;
-				if ((set->minfo.floor = get_color(line + 2)) < 0)
-					return (0);
-			}
-			else if (line[2] == '.')
-			{
-				set->minfo.floor_text = 1;
-				set->minfo.fl_path = ft_strdup(line + 2);
-			}
+			i = flag_check(2, FL_TEXT_NUM, &flag, line);
+			i < 0 ? exit(error_msg("FL")) : 0;
+			get_fc(set, FL_TEXT_NUM, line + i);
 		}
 		if (ft_strnstr(line, "C ", 2))
 		{
-			if (check[FL_TEXT_NUM] == 1)
-			{
-				printf("Error\n CE 중복 입력\n");
-				exit(0);
-			}
-			check[CE_TEXT_NUM] = 1;
-			if (ft_isdigit(line[2]))
-			{
-				set->minfo.ceiling_text = 0;
-				if ((set->minfo.ceiling = get_color(line + 2)) < 0)
-					return (0);
-			}
-			else if (line[2] == '.')
-			{
-				set->minfo.ceiling_text = 1;
-				set->minfo.ce_path = ft_strdup(line + 2);
-			}
+			i = flag_check(2, CE_TEXT_NUM, &flag, line);
+			i < 0 ? exit(error_msg("CE")) : 0;
+			get_fc(set, CE_TEXT_NUM, line + i);
+		}
+		if (ft_strnstr(line, "S ", 2))
+		{
+			i = flag_check(2, SP_TEXT_NUM, &flag, line);
+			i < 0 ? exit(error_msg("SP")) : 0;
+			set->minfo.sp_path = ft_strdup(line + i);
+		}
+		if (ft_strnstr(line, "R ", 2))
+		{
+			i = flag_check(2, RE_NUM, &flag, line);
+			i < 0 ? exit(error_msg("R")) : 0;
+			if ((set->minfo.s_width = ft_atoi(line + i)) < 0)
+				return ;
+			i += count_num(set->minfo.s_width);
+			if ((set->minfo.s_height = ft_atoi(line + i)) < 0)
+				return ;
 		}
 	}
+	if (rt <= 0)
+		return ;
+	while (line[0] != ' ' && !ft_isdigit(line[0]))
+		get_next_line(fd, &line);
+	get_map(fd, &line, set);
+	if (!check_map(set))
+		printf("Map Error\n");
 }
 
 int		main(void)
 {
 	t_set	set;
 
-	map_parse(&set);
+	map_parse(&set, "map.cub");
+
+	printf("s_width : %d\n", set.minfo.s_width);
+	printf("s_height : %d\n", set.minfo.s_height);
+	printf("no_path : %s\n", set.minfo.no_path);
+	printf("so_path : %s\n", set.minfo.so_path);
+	printf("we_path : %s\n", set.minfo.we_path);
+	printf("ea_path : %s\n", set.minfo.ea_path);
+	printf("s_path : %s\n", set.minfo.sp_path);
+	printf("floor : %d\n", set.minfo.floor);
+	printf("ceiling : %d\n", set.minfo.ceiling);
+	printf("m_height : %d\n", set.minfo.m_height);
+	printf("m_width : %d\n", set.minfo.m_width);
+	printf("num_sprite : %d\n", set.minfo.num_sprite);
+	for(int i = 0; i < set.minfo.m_height; i++)
+	{
+		for(int j = 0; j < set.minfo.m_width; j++)
+			printf("%3d", set.map[i][j]);
+		printf("\n");
+	}
+
 	// map 파싱에 추가하기!!!
 	set.info.moveSpeed = 0.05;
 	set.info.rotSpeed = 0.03;

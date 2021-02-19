@@ -1,12 +1,21 @@
-R 2500 1200
-NO ./img/wall_n.xpm
+R 640 480
+NO     ./img/wall_n.xpm
 SO ./img/wall_s.xpm
 WE ./img/wall_w.xpm
 EA ./img/wall_e.xpm
-
 S ./img/barrel.xpm
+
+
+
+
 F ./img/purplestone.xpm
-C 122,10,120
+C           122,10,120
+
+
+
+
+
+
 
 111111111111111
 110000000000001
