@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 20:14:53 by skim              #+#    #+#             */
-/*   Updated: 2021/02/22 20:16:58 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/22 23:34:58 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ void	draw_rect(t_set *set, int x, int y, int color)
 	int i;
 	int j;
 
-	x *= map_tile;
-	y *= map_tile;
+	x *= MAP_TILE;
+	y *= MAP_TILE;
 	i = 0;
-	while (i < map_tile)
+	while (i < MAP_TILE)
 	{
 		j = 0;
-		while (j < map_tile)
+		while (j < MAP_TILE)
 		{
 			set->img.data[(x + i) * set->minfo.s_width + y + j] = color;
 			j++;
@@ -63,8 +63,8 @@ void	draw_map(t_set *set)
 	if (!set->key.key_sp)
 		return ;
 	draw_all_rect(set);
-	i = set->info.pos_x * map_tile;
-	j = set->info.pos_y * map_tile;
+	i = set->info.pos_x * MAP_TILE;
+	j = set->info.pos_y * MAP_TILE;
 	a = -1;
 	while (++a < 2)
 	{

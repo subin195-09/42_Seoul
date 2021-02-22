@@ -6,16 +6,20 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 22:53:43 by skim              #+#    #+#             */
-/*   Updated: 2021/02/22 23:04:11 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/22 23:32:54 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub_main.h"
 
-int		error_msg(char *kind)
+int		flag_check(int start, int kind, unsigned char *flag, char *line)
 {
-	printf("Error\n %s 중복 입력\n", kind);
-	return (0);
+	if (((*flag) >> kind & 1) == 1)
+		return (-1);
+	while (line[start] == ' ')
+		start++;
+	(*flag) |= 1 << kind;
+	return (start);
 }
 
 void	map_side_check(t_set *set, char *line, int *flag, int i)
@@ -52,13 +56,13 @@ void	map_fc_check(t_set *set, char *line, int *flag, int i)
 	{
 		i = flag_check(2, FL_TEXT_NUM, &flag, line);
 		i < 0 ? exit(error_msg("FL")) : 0;
-		get_fc(set, FL_TEXT_NUM, line + i);
+		get_floor(set, line + i);
 	}
 	if (ft_strnstr(line, "C ", 2))
 	{
 		i = flag_check(2, CE_TEXT_NUM, &flag, line);
 		i < 0 ? exit(error_msg("CE")) : 0;
-		get_fc(set, CE_TEXT_NUM, line + i);
+		get_ceiling(set, line + i);
 	}
 }
 

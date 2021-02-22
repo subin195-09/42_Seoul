@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 16:54:23 by skim              #+#    #+#             */
-/*   Updated: 2021/02/22 18:20:41 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/22 23:39:14 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,17 @@ int		set_init(t_set *set)
 	&set->img.bpp, &set->img.size_l, &set->img.endian);
 }
 
+int		main_loop(t_set *set)
+{
+	key_event(set);
+	floor_cast(set);
+	wall_cast(set);
+	sprite_cast(set);
+	draw_map(set);
+	mlx_put_image_to_window(set->mlx, set->win, set->img.img_ptr, 0, 0);
+	return (0);
+}
+
 int		main(int ac, char *av[])
 {
 	t_set	set;
@@ -76,7 +87,11 @@ int		main(int ac, char *av[])
 		printf("Error\nNo map\n");
 		return (-1);
 	}
-	map_parse(&set, av[1]);
+	if (!map_parse(&set, av[1]))
+	{
+		printf("Error\n");
+		return (-1);
+	}
 	set_init(&set);
 	make_texture(&set);
 	mlx_hook(set.win, X_EVENT_KEY_PRESS, 0, &event_key_press, &set);
