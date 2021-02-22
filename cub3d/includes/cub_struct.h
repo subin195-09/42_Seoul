@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:30:40 by skim              #+#    #+#             */
-/*   Updated: 2021/02/20 00:11:30 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/22 17:45:08 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,57 +42,57 @@ typedef struct	s_bmp
 
 typedef struct	s_fcast
 {
-	double		rayDirX0;
-	double		rayDirY0;
-	double		rayDirX1;
-	double		rayDirY1;
+	double		ray_dir_x0;
+	double		ray_dir_y0;
+	double		ray_dir_x1;
+	double		ray_dir_y1;
 	int			p;
-	double		posZ;
-	double		rowDistance;
-	double		floorX;
-	double		floorY;
-	double		floorStepX;
-	double		floorStepY;
-	int			texNum;
+	double		pos_z;
+	double		row_distance;
+	double		floor_x;
+	double		floor_y;
+	double		floor_step_x;
+	double		floor_step_y;
+	int			tex_num;
 }				t_fcast;
 
 typedef struct	s_wcast
 {
-	double		cameraX;
-	double		rayDirX;
-	double		rayDirY;
-	int			mapX;
-	int			mapY;
-	double		sideDistX;
-	double		sideDistY;
-	double		deltaDistX;
-	double		deltaDistY;
-	double		perpWallDist;
-	int			stepX;
-	int			stepY;
-	int			dirSide;
-	int			lineHeight;
-	int			drawStart;
-	int			drawEnd;
-	double		wallX;
+	double		camera_x;
+	double		ray_dir_x;
+	double		ray_dir_y;
+	int			map_x;
+	int			map_y;
+	double		side_dist_x;
+	double		side_dist_y;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	double		perp_wall_dist;
+	int			step_x;
+	int			step_y;
+	int			dir_side;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
+	double		wall_x;
 }				t_wcast;
 
 typedef struct	s_scast
 {
-	int			*spriteOrder;
-	double		*spriteDistance;
-	double		spriteX;
-	double		spriteY;
-	double		invDev;
-	double		transformX;
-	double		transformY;
-	int			spriteScreenX;
-	int			spriteHeight;
-	int			drawStartY;
-	int			drawEndY;
-	int			spriteWidth;
-	int			drawStartX;
-	int			drawEndX;
+	int			*sprite_order;
+	double		*sprite_distance;
+	double		sprite_x;
+	double		sprite_y;
+	double		inv_dev;
+	double		transform_x;
+	double		transform_y;
+	int			sprite_screen_x;
+	int			sprite_height;
+	int			draw_start_y;
+	int			draw_end_y;
+	int			sprite_width;
+	int			draw_start_x;
+	int			draw_end_x;
 }				t_scast;
 
 typedef struct	s_sprite
@@ -123,16 +123,16 @@ typedef struct	s_img
 
 typedef struct	s_info
 {
-	double		posX;
-	double		posY;
-	double		dirX;
-	double		dirY;
-	double		planeX;
-	double		planeY;
-	double		moveSpeed;
-	double		rotSpeed;
+	double		pos_x;
+	double		pos_y;
+	double		dir_x;
+	double		dir_y;
+	double		plane_x;
+	double		plane_y;
+	double		move_speed;
+	double		rot_speed;
 	int			texture[TEXT][textHeight * textWidth];
-	double		*zBuffer;
+	double		*z_buffer;
 }				t_info;
 
 typedef struct	s_key

@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 13:02:23 by skim              #+#    #+#             */
-/*   Updated: 2021/02/20 01:11:03 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/22 17:46:46 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ void	floor_text(t_set *set, t_fcast f, int y)
 	x = -1;
 	while (++x < set->minfo.s_width)
 	{
-		t.t_x = (int)(textWidth * (f.floorX - (int)f.floorX)) & (textWidth - 1);
-		t.t_y = (int)(textHeight * (f.floorY - (int)f.floorY)) & (textHeight - 1);
-		f.floorX += f.floorStepX;
-		f.floorY += f.floorStepY;
+		t.t_x = (int)(textWidth * (f.floor_x - (int)f.floor_x)) & (textWidth - 1);
+		t.t_y = (int)(textHeight * (f.floor_y - (int)f.floor_y)) & (textHeight - 1);
+		f.floor_x += f.floor_step_x;
+		f.floor_y += f.floor_step_y;
 		t.color = set->minfo.floor_text == 1 ? set->info.texture[FL_TEXT_NUM][textWidth * t.t_y + t.t_x] : set->minfo.floor;
 		set->img.data[y * set->minfo.s_width + x] = t.color;
 		t.color = set->minfo.ceiling_text == 1 ?set->info.texture[CE_TEXT_NUM][textWidth * t.t_y + t.t_x] : set->minfo.ceiling;
@@ -75,17 +75,17 @@ void	floor_cast(t_set *set)
 	y = -1;
 	while (++y < set->minfo.s_height)
 	{
-		f.rayDirX0 = set->info.dirX - set->info.planeX;
-		f.rayDirY0 = set->info.dirY - set->info.planeY;
-		f.rayDirX1 = set->info.dirX + set->info.planeX;
-		f.rayDirY1 = set->info.dirY + set->info.planeY;
+		f.ray_dir_x0 = set->info.dir_x - set->info.plane_x;
+		f.ray_dir_y0 = set->info.dir_y - set->info.plane_y;
+		f.ray_dir_x1 = set->info.dir_x + set->info.plane_x;
+		f.ray_dir_y1 = set->info.dir_y + set->info.plane_y;
 		f.p = y - set->minfo.s_height / 2;
-		f.posZ = 0.5 * set->minfo.s_height;
-		f.rowDistance = f.posZ / f.p;
-		f.floorX = set->info.posX + f.rowDistance * f.rayDirX0;
-		f.floorY = set->info.posY + f.rowDistance * f.rayDirY0;
-		f.floorStepX = f.rowDistance * (f.rayDirX1 - f.rayDirX0) / set->minfo.s_width;
-		f.floorStepY = f.rowDistance * (f.rayDirY1 - f.rayDirY0) / set->minfo.s_width;
+		f.pos_z = 0.5 * set->minfo.s_height;
+		f.row_distance = f.pos_z / f.p;
+		f.floor_x = set->info.pos_x + f.row_distance * f.ray_dir_x0;
+		f.floor_y = set->info.pos_y + f.row_distance * f.ray_dir_y0;
+		f.floor_step_x = f.row_distance * (f.ray_dir_x1 - f.ray_dir_x0) / set->minfo.s_width;
+		f.floor_step_y = f.row_distance * (f.ray_dir_y1 - f.ray_dir_y0) / set->minfo.s_width;
 		floor_text(set, f, y);
 	}
 }
@@ -93,25 +93,25 @@ void	floor_cast(t_set *set)
 // wall cast
 void	wall_side(t_set *set, t_wcast *w)
 {
-	if (w->rayDirX < 0)
+	if (w->ray_dir_x < 0)
 	{
-		w->stepX = -1;
-		w->sideDistX = (set->info.posX - w->mapX) * w->deltaDistX;
+		w->step_x = -1;
+		w->side_dist_x = (set->info.pos_x - w->map_x) * w->delta_dist_x;
 	}
 	else
 	{
-		w->stepX = 1;
-		w->sideDistX = (w->mapX + 1.0 - set->info.posX) * w->deltaDistX;
+		w->step_x = 1;
+		w->side_dist_x = (w->map_x + 1.0 - set->info.pos_x) * w->delta_dist_x;
 	}
-	if (w->rayDirY < 0)
+	if (w->ray_dir_y < 0)
 	{
-		w->stepY = -1;
-		w->sideDistY = (set->info.posY - w->mapY) * w->deltaDistY;
+		w->step_y = -1;
+		w->side_dist_y = (set->info.pos_y - w->map_y) * w->delta_dist_y;
 	}
 	else
 	{
-		w->stepY = 1;
-		w->sideDistY = (w->mapY + 1.0 - set->info.posY) * w->deltaDistY;
+		w->step_y = 1;
+		w->side_dist_y = (w->map_y + 1.0 - set->info.pos_y) * w->delta_dist_y;
 	}
 }
 
@@ -119,19 +119,19 @@ void	wall_hit(t_set *set, t_wcast *w)
 {
 	while (1)
 	{
-		if (w->sideDistX < w->sideDistY)
+		if (w->side_dist_x < w->side_dist_y)
 		{
-			w->sideDistX += w->deltaDistX;
-			w->mapX += w->stepX;
-			w->dirSide = 0;
+			w->side_dist_x += w->delta_dist_x;
+			w->map_x += w->step_x;
+			w->dir_side = 0;
 		}
 		else
 		{
-			w->sideDistY += w->deltaDistY;
-			w->mapY += w->stepY;
-			w->dirSide = 1;
+			w->side_dist_y += w->delta_dist_y;
+			w->map_y += w->step_y;
+			w->dir_side = 1;
 		}
-		if (set->map[w->mapX][w->mapY] == 1)
+		if (set->map[w->map_x][w->map_y] == 1)
 			return ;
 	}
 }
@@ -143,26 +143,26 @@ void	wall_text(t_set *set, t_wcast *w, int x)
 	double	step;
 	int		y;
 
-	if (w->dirSide == 0)
-		wallX = set->info.posY + w->perpWallDist * w->rayDirY;
+	if (w->dir_side == 0)
+		wallX = set->info.pos_y + w->perp_wall_dist * w->ray_dir_y;
 	else
-		wallX = set->info.posX + w->perpWallDist * w->rayDirX;
+		wallX = set->info.pos_x + w->perp_wall_dist * w->ray_dir_x;
 	wallX -= floor(wallX);
 	t.t_x = (int)(wallX * (double)textWidth);
 	// 서쪽일 경우 반전
-	if (w->dirSide == 0 && w->rayDirX > 0)
+	if (w->dir_side == 0 && w->ray_dir_x > 0)
 		t.t_x = textWidth - t.t_x - 1;
 	// 남쪽인 경우 반전
-	if (w->dirSide == 1 && w->rayDirY < 0)
+	if (w->dir_side == 1 && w->ray_dir_y < 0)
 		t.t_x = textWidth - t.t_x - 1;
-	if (w->dirSide == 0)
-		t.t_num = w->rayDirX < 0 ? NO_TEXT_NUM : SO_TEXT_NUM;
+	if (w->dir_side == 0)
+		t.t_num = w->ray_dir_x < 0 ? NO_TEXT_NUM : SO_TEXT_NUM;
 	else
-		t.t_num = w->rayDirY < 0 ? WE_TEXT_NUM : EA_TEXT_NUM;
-	step = 1.0 * textHeight / w->lineHeight;
-	t.t_pos = (w->drawStart - set->minfo.s_height / 2 + w->lineHeight / 2) * step;
-	y = w->drawStart - 1;
-	while (++y < w->drawEnd)
+		t.t_num = w->ray_dir_y < 0 ? WE_TEXT_NUM : EA_TEXT_NUM;
+	step = 1.0 * textHeight / w->line_height;
+	t.t_pos = (w->draw_start - set->minfo.s_height / 2 + w->line_height / 2) * step;
+	y = w->draw_start - 1;
+	while (++y < w->draw_end)
 	{
 		t.t_y = (int)t.t_pos & (textHeight - 1);
 		t.t_pos += step;
@@ -179,26 +179,26 @@ void	wall_cast(t_set *set)
 	x = -1;
 	while (++x < set->minfo.s_width)
 	{
-		w.cameraX = 2 * x / (1.0 * set->minfo.s_width) - 1;
-		w.rayDirX = set->info.dirX + set->info.planeX * w.cameraX;
-		w.rayDirY = set->info.dirY + set->info.planeY * w.cameraX;
-		w.mapX = (int)set->info.posX;
-		w.mapY = (int)set->info.posY;
-		w.deltaDistX = fabs(1 / w.rayDirX);
-		w.deltaDistY = fabs(1 / w.rayDirY);
+		w.camera_x = 2 * x / (1.0 * set->minfo.s_width) - 1;
+		w.ray_dir_x = set->info.dir_x + set->info.plane_x * w.camera_x;
+		w.ray_dir_y = set->info.dir_y + set->info.plane_y * w.camera_x;
+		w.map_x = (int)set->info.pos_x;
+		w.map_y = (int)set->info.pos_y;
+		w.delta_dist_x = fabs(1 / w.ray_dir_x);
+		w.delta_dist_y = fabs(1 / w.ray_dir_y);
 		wall_side(set, &w);
 		wall_hit(set, &w);
-		if (w.dirSide == 0)
-			w.perpWallDist = (w.mapX - set->info.posX + (1 - w.stepX) / 2) / w.rayDirX;
+		if (w.dir_side == 0)
+			w.perp_wall_dist = (w.map_x - set->info.pos_x + (1 - w.step_x) / 2) / w.ray_dir_x;
 		else
-			w.perpWallDist = (w.mapY - set->info.posY + (1 - w.stepY) / 2) / w.rayDirY;
-		w.lineHeight = (int)(set->minfo.s_height / w.perpWallDist);
-		w.drawStart = set->minfo.s_height / 2 - w.lineHeight / 2;
-		w.drawStart = w.drawStart < 0 ? 0 : w.drawStart;
-		w.drawEnd = set->minfo.s_height / 2 + w.lineHeight / 2;
-		w.drawEnd = w.drawEnd >= set->minfo.s_height ? set->minfo.s_height - 1 : w.drawEnd;
+			w.perp_wall_dist = (w.map_y - set->info.pos_y + (1 - w.step_y) / 2) / w.ray_dir_y;
+		w.line_height = (int)(set->minfo.s_height / w.perp_wall_dist);
+		w.draw_start = set->minfo.s_height / 2 - w.line_height / 2;
+		w.draw_start = w.draw_start < 0 ? 0 : w.draw_start;
+		w.draw_end = set->minfo.s_height / 2 + w.line_height / 2;
+		w.draw_end = w.draw_end >= set->minfo.s_height ? set->minfo.s_height - 1 : w.draw_end;
 		wall_text(set, &w, x);
-		set->info.zBuffer[x] = w.perpWallDist;
+		set->info.z_buffer[x] = w.perp_wall_dist;
 	}
 }
 
@@ -215,19 +215,19 @@ void	sprite_sort(t_scast *s, t_set *set)
 	i = -1;
 	while (++i < set->minfo.num_sprite - 1)
 	{
-		max = s->spriteDistance[i];
+		max = s->sprite_distance[i];
 		j = i;
 		while (++j < set->minfo.num_sprite)
 		{
-			if (max <= s->spriteDistance[j])
+			if (max <= s->sprite_distance[j])
 			{
-				max = s->spriteDistance[j];
-				tmp = s->spriteOrder[i];
-				s->spriteOrder[i] = s->spriteOrder[j];
-				s->spriteOrder[j] = tmp;
-				dis_tmp = s->spriteDistance[i];
-				s->spriteDistance[i] = s->spriteDistance[j];
-				s->spriteDistance[j] = dis_tmp;
+				max = s->sprite_distance[j];
+				tmp = s->sprite_order[i];
+				s->sprite_order[i] = s->sprite_order[j];
+				s->sprite_order[j] = tmp;
+				dis_tmp = s->sprite_distance[i];
+				s->sprite_distance[i] = s->sprite_distance[j];
+				s->sprite_distance[j] = dis_tmp;
 			}
 		}
 	}
@@ -240,17 +240,17 @@ void	sprite_text(t_set *set, t_scast *s)
 	int		d;
 	t_text	t;
 
-	x = s->drawStartX - 1;
-	while (++x < s->drawEndX)
+	x = s->draw_start_x - 1;
+	while (++x < s->draw_end_x)
 	{
-		t.t_x = (int)((256 * (x - (-s->spriteWidth / 2 + s->spriteScreenX)) * textWidth / s->spriteWidth) / 256);
-		if (s->transformY > 0 && x > 0 && x < set->minfo.s_width && s->transformY < set->info.zBuffer[x])
+		t.t_x = (int)((256 * (x - (-s->sprite_width / 2 + s->sprite_screen_x)) * textWidth / s->sprite_width) / 256);
+		if (s->transform_y > 0 && x > 0 && x < set->minfo.s_width && s->transform_y < set->info.z_buffer[x])
 		{
-			y = s->drawStartY - 1;
-			while (++y < s->drawEndY)
+			y = s->draw_start_y - 1;
+			while (++y < s->draw_end_y)
 			{
-				d = y * 256 - set->minfo.s_height * 128 + s->spriteHeight * 128;
-				t.t_y = ((d * textHeight) / s->spriteHeight) / 256;
+				d = y * 256 - set->minfo.s_height * 128 + s->sprite_height * 128;
+				t.t_y = ((d * textHeight) / s->sprite_height) / 256;
 				t.color = set->info.texture[SP_TEXT_NUM][t.t_y * textWidth + t.t_x];
 				if ((t.color & 0X00FFFFFF) != 0)
 					set->img.data[y * set->minfo.s_width + x] = t.color;
@@ -265,35 +265,35 @@ void	sprite_cast(t_set *set)
 	int		i;
 
 	i = -1;
-	if (!(s.spriteOrder = (int *)malloc(sizeof(int) * set->minfo.num_sprite)))
+	if (!(s.sprite_order = (int *)malloc(sizeof(int) * set->minfo.num_sprite)))
 		return ;
-	if (!(s.spriteDistance = (double *)malloc(sizeof(double) * set->minfo.num_sprite)))
+	if (!(s.sprite_distance = (double *)malloc(sizeof(double) * set->minfo.num_sprite)))
 		return ;
 	while (++i < set->minfo.num_sprite)
 	{
-		s.spriteOrder[i] = i;
-		s.spriteDistance[i] = ((set->info.posX - set->sprite[i].x) * (set->info.posX - set->sprite[i].x)) + ((set->info.posY - set->sprite[i].y) * (set->info.posY - set->sprite[i].y));
+		s.sprite_order[i] = i;
+		s.sprite_distance[i] = ((set->info.pos_x - set->sprite[i].x) * (set->info.pos_x - set->sprite[i].x)) + ((set->info.pos_y - set->sprite[i].y) * (set->info.pos_y - set->sprite[i].y));
 	}
 	sprite_sort(&s, set);
 	i = -1;
 	while (++i < set->minfo.num_sprite)
 	{
-		s.spriteX = set->sprite[s.spriteOrder[i]].x - set->info.posX;
-		s.spriteY = set->sprite[s.spriteOrder[i]].y - set->info.posY;
-		s.invDev = 1.0 / (set->info.planeX * set->info.dirY - set->info.dirX * set->info.planeY);
-		s.transformX = s.invDev * (set->info.dirY * s.spriteX - set->info.dirX * s.spriteY);
-		s.transformY = s.invDev * (-set->info.planeY * s.spriteX + set->info.planeX * s.spriteY);
-		s.spriteScreenX = (int)((set->minfo.s_width / 2) * (1 + s.transformX / s.transformY));
-		s.spriteHeight = (int)fabs(set->minfo.s_height / s.transformY);
-		s.drawStartY = (set->minfo.s_height / 2) - s.spriteHeight / 2;
-		s.drawEndY = (set->minfo.s_height / 2) + s.spriteHeight / 2;
-		s.drawStartY = s.drawStartY < 0 ? 0 : s.drawStartY;
-		s.drawEndY = s.drawEndY >= set->minfo.s_height ? set->minfo.s_height - 1 : s.drawEndY;
-		s.spriteWidth = (int)fabs(set->minfo.s_height / s.transformY);
-		s.drawStartX = s.spriteScreenX - s.spriteWidth / 2;
-		s.drawEndX = s.spriteScreenX + s.spriteWidth / 2;
-		s.drawStartX = s.drawStartX < 0 ? 0 : s.drawStartX;
-		s.drawEndX = s.drawEndX >= set->minfo.s_width ? set->minfo.s_width - 1 : s.drawEndX;
+		s.sprite_x = set->sprite[s.sprite_order[i]].x - set->info.pos_x;
+		s.sprite_y = set->sprite[s.sprite_order[i]].y - set->info.pos_y;
+		s.inv_dev = 1.0 / (set->info.plane_x * set->info.dir_y - set->info.dir_x * set->info.plane_y);
+		s.transform_x = s.inv_dev * (set->info.dir_y * s.sprite_x - set->info.dir_x * s.sprite_y);
+		s.transform_y = s.inv_dev * (-set->info.plane_y * s.sprite_x + set->info.plane_x * s.sprite_y);
+		s.sprite_screen_x = (int)((set->minfo.s_width / 2) * (1 + s.transform_x / s.transform_y));
+		s.sprite_height = (int)fabs(set->minfo.s_height / s.transform_y);
+		s.draw_start_y = (set->minfo.s_height / 2) - s.sprite_height / 2;
+		s.draw_end_y = (set->minfo.s_height / 2) + s.sprite_height / 2;
+		s.draw_start_y = s.draw_start_y < 0 ? 0 : s.draw_start_y;
+		s.draw_end_y = s.draw_end_y >= set->minfo.s_height ? set->minfo.s_height - 1 : s.draw_end_y;
+		s.sprite_width = (int)fabs(set->minfo.s_height / s.transform_y);
+		s.draw_start_x = s.sprite_screen_x - s.sprite_width / 2;
+		s.draw_end_x = s.sprite_screen_x + s.sprite_width / 2;
+		s.draw_start_x = s.draw_start_x < 0 ? 0 : s.draw_start_x;
+		s.draw_end_x = s.draw_end_x >= set->minfo.s_width ? set->minfo.s_width - 1 : s.draw_end_x;
 		sprite_text(set, &s);
 	}
 }
@@ -351,8 +351,8 @@ void	draw_map(t_set *set)
 	if (!set->key.key_sp)
 		return	;
 	draw_all_rect(set);
-	i = set->info.posX * map_tile;
-	j = set->info.posY * map_tile;
+	i = set->info.pos_x * map_tile;
+	j = set->info.pos_y * map_tile;
 	a = -1;
 	while (++a < 2)
 	{
@@ -366,35 +366,35 @@ void	key_event(t_set *set)
 {
 	if (set->key.key_up)
 	{
-		if (set->map[(int)(set->info.posX + set->info.dirX * set->info.moveSpeed)][(int)(set->info.posY)] == 0)
-			set->info.posX += set->info.dirX * set->info.moveSpeed;
-		if (set->map[(int)(set->info.posX)][(int)(set->info.posY + set->info.dirY * set->info.moveSpeed)] == 0)
-			set->info.posY += set->info.dirY * set->info.moveSpeed;
+		if (set->map[(int)(set->info.pos_x + set->info.dir_x * set->info.move_speed)][(int)(set->info.pos_y)] == 0)
+			set->info.pos_x += set->info.dir_x * set->info.move_speed;
+		if (set->map[(int)(set->info.pos_x)][(int)(set->info.pos_y + set->info.dir_y * set->info.move_speed)] == 0)
+			set->info.pos_y += set->info.dir_y * set->info.move_speed;
 	}
 	if (set->key.key_down)
 	{
-		if (set->map[(int)(set->info.posX - set->info.dirX * set->info.moveSpeed)][(int)(set->info.posY)] == 0)
-			set->info.posX -= set->info.dirX * set->info.moveSpeed;
-		if (set->map[(int)(set->info.posX)][(int)(set->info.posY - set->info.dirY * set->info.moveSpeed)] == 0)
-			set->info.posY -= set->info.dirY * set->info.moveSpeed;
+		if (set->map[(int)(set->info.pos_x - set->info.dir_x * set->info.move_speed)][(int)(set->info.pos_y)] == 0)
+			set->info.pos_x -= set->info.dir_x * set->info.move_speed;
+		if (set->map[(int)(set->info.pos_x)][(int)(set->info.pos_y - set->info.dir_y * set->info.move_speed)] == 0)
+			set->info.pos_y -= set->info.dir_y * set->info.move_speed;
 	}
 	if (set->key.key_right)
 	{
-		double oldDirX = set->info.dirX;
-		set->info.dirX = set->info.dirX * cos(-set->info.rotSpeed) - set->info.dirY * sin(-set->info.rotSpeed);
-		set->info.dirY = oldDirX * sin(-set->info.rotSpeed) + set->info.dirY * cos(-set->info.rotSpeed);
-		double oldPlaneX = set->info.planeX;
-		set->info.planeX = set->info.planeX * cos(-set->info.rotSpeed) - set->info.planeY * sin(-set->info.rotSpeed);
-		set->info.planeY = oldPlaneX * sin(-set->info.rotSpeed) + set->info.planeY * cos(-set->info.rotSpeed);
+		double oldDirX = set->info.dir_x;
+		set->info.dir_x = set->info.dir_x * cos(-set->info.rot_speed) - set->info.dir_y * sin(-set->info.rot_speed);
+		set->info.dir_y = oldDirX * sin(-set->info.rot_speed) + set->info.dir_y * cos(-set->info.rot_speed);
+		double oldPlaneX = set->info.plane_x;
+		set->info.plane_x = set->info.plane_x * cos(-set->info.rot_speed) - set->info.plane_y * sin(-set->info.rot_speed);
+		set->info.plane_y = oldPlaneX * sin(-set->info.rot_speed) + set->info.plane_y * cos(-set->info.rot_speed);
 	}
 	if (set->key.key_left)
 	{
-		double oldDirX = set->info.dirX;
-		set->info.dirX = set->info.dirX * cos(set->info.rotSpeed) - set->info.dirY * sin(set->info.rotSpeed);
-		set->info.dirY = oldDirX * sin(set->info.rotSpeed) + set->info.dirY * cos(set->info.rotSpeed);
-		double oldPlaneX = set->info.planeX;
-		set->info.planeX = set->info.planeX * cos(set->info.rotSpeed) - set->info.planeY * sin(set->info.rotSpeed);
-		set->info.planeY = oldPlaneX * sin(set->info.rotSpeed) + set->info.planeY * cos(set->info.rotSpeed);
+		double oldDirX = set->info.dir_x;
+		set->info.dir_x = set->info.dir_x * cos(set->info.rot_speed) - set->info.dir_y * sin(set->info.rot_speed);
+		set->info.dir_y = oldDirX * sin(set->info.rot_speed) + set->info.dir_y * cos(set->info.rot_speed);
+		double oldPlaneX = set->info.plane_x;
+		set->info.plane_x = set->info.plane_x * cos(set->info.rot_speed) - set->info.plane_y * sin(set->info.rot_speed);
+		set->info.plane_y = oldPlaneX * sin(set->info.rot_speed) + set->info.plane_y * cos(set->info.rot_speed);
 	}
 }
 
@@ -486,31 +486,31 @@ void	set_pos(t_set *set, char pos)
 {
 	if (pos == 'E')
 	{
-		set->info.dirX = 0;
-		set->info.dirY = 1;
-		set->info.planeX = 0.66;
-		set->info.planeY = 0;
+		set->info.dir_x = 0;
+		set->info.dir_y = 1;
+		set->info.plane_x = 0.66;
+		set->info.plane_y = 0;
 	}
 	if (pos == 'W')
 	{
-		set->info.dirX = 0;
-		set->info.dirY = -1;
-		set->info.planeX = -0.66;
-		set->info.planeY = 0;
+		set->info.dir_x = 0;
+		set->info.dir_y = -1;
+		set->info.plane_x = -0.66;
+		set->info.plane_y = 0;
 	}
 	if (pos == 'S')
 	{
-		set->info.dirX = 1;
-		set->info.dirY = 0;
-		set->info.planeX = 0;
-		set->info.planeY = -0.66;
+		set->info.dir_x = 1;
+		set->info.dir_y = 0;
+		set->info.plane_x = 0;
+		set->info.plane_y = -0.66;
 	}
 	if (pos == 'N')
 	{
-		set->info.dirX = -1;
-		set->info.dirY = 0;
-		set->info.planeX = 0;
-		set->info.planeY = 0.66;
+		set->info.dir_x = -1;
+		set->info.dir_y = 0;
+		set->info.plane_x = 0;
+		set->info.plane_y = 0.66;
 	}
 }
 
@@ -527,8 +527,8 @@ void	change_map(t_set *set, int **map, char *temp_map, int i)
 		if (temp_map[j] == 'E' || temp_map[j] == 'W' || temp_map[j] == 'S' || temp_map[j] == 'N')
 		{
 			set_pos(set, temp_map[j]);
-			set->info.posX = i;
-			set->info.posY = j;
+			set->info.pos_x = i;
+			set->info.pos_y = j;
 			temp_map[j] = '0';
 		}
 		(*map)[j] = temp_map[j] == ' ' ? -1 : temp_map[j] - '0';
@@ -825,15 +825,15 @@ int		main(void)
 	map_parse(&set, "map.cub");
 
 	// map 파싱에 추가하기!!!
-	set.info.moveSpeed = 0.05;
-	set.info.rotSpeed = 0.03;
+	set.info.move_speed = 0.05;
+	set.info.rot_speed = 0.03;
 	set.key.key_up = 0;
 	set.key.key_down = 0;
 	set.key.key_right = 0;
 	set.key.key_left = 0;
 	set.key.key_sp = 0;
 
-	if (!(set.info.zBuffer = malloc(sizeof(double) * set.minfo.s_width)))
+	if (!(set.info.z_buffer = malloc(sizeof(double) * set.minfo.s_width)))
 		return (-1);
 	set.mlx = mlx_init();
 	make_texture(&set);
