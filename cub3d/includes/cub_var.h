@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:44:12 by skim              #+#    #+#             */
-/*   Updated: 2021/02/18 20:36:01 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/22 22:01:04 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 #define	map_tile		7
 
-#define TEXT			7
-#define textWidth		64
-#define textHeight		64
+# define TEXT			7
+# define TEXTWIDTH		64
+# define TEXTHEIGHT		64
 
 # define KEY_ESC		53
 # define KEY_UP			13

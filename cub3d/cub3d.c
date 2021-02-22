@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 13:02:23 by skim              #+#    #+#             */
-/*   Updated: 2021/02/22 17:46:46 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/22 22:08:07 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,13 @@ void	floor_text(t_set *set, t_fcast f, int y)
 	x = -1;
 	while (++x < set->minfo.s_width)
 	{
-		t.t_x = (int)(textWidth * (f.floor_x - (int)f.floor_x)) & (textWidth - 1);
-		t.t_y = (int)(textHeight * (f.floor_y - (int)f.floor_y)) & (textHeight - 1);
+		t.t_x = (int)(TEXTWIDTH * (f.floor_x - (int)f.floor_x)) & (TEXTWIDTH - 1);
+		t.t_y = (int)(TEXTHEIGHT * (f.floor_y - (int)f.floor_y)) & (TEXTHEIGHT - 1);
 		f.floor_x += f.floor_step_x;
 		f.floor_y += f.floor_step_y;
-		t.color = set->minfo.floor_text == 1 ? set->info.texture[FL_TEXT_NUM][textWidth * t.t_y + t.t_x] : set->minfo.floor;
+		t.color = set->minfo.floor_text == 1 ? set->info.texture[FL_TEXT_NUM][TEXTWIDTH * t.t_y + t.t_x] : set->minfo.floor;
 		set->img.data[y * set->minfo.s_width + x] = t.color;
-		t.color = set->minfo.ceiling_text == 1 ?set->info.texture[CE_TEXT_NUM][textWidth * t.t_y + t.t_x] : set->minfo.ceiling;
+		t.color = set->minfo.ceiling_text == 1 ?set->info.texture[CE_TEXT_NUM][TEXTWIDTH * t.t_y + t.t_x] : set->minfo.ceiling;
 		set->img.data[(set->minfo.s_height - y - 1) * set->minfo.s_width + x] = t.color;
 	}
 }
@@ -148,25 +148,30 @@ void	wall_text(t_set *set, t_wcast *w, int x)
 	else
 		wallX = set->info.pos_x + w->perp_wall_dist * w->ray_dir_x;
 	wallX -= floor(wallX);
-	t.t_x = (int)(wallX * (double)textWidth);
+	t.t_x = (int)(wallX * (double)TEXTWIDTH);
 	// 서쪽일 경우 반전
 	if (w->dir_side == 0 && w->ray_dir_x > 0)
-		t.t_x = textWidth - t.t_x - 1;
+		t.t_x = TEXTWIDTH - t.t_x - 1;
 	// 남쪽인 경우 반전
 	if (w->dir_side == 1 && w->ray_dir_y < 0)
-		t.t_x = textWidth - t.t_x - 1;
+		t.t_x = TEXTWIDTH - t.t_x - 1;
+	w->line_height = (int)(set->minfo.s_height / w->perp_wall_dist);
+	w->draw_start = set->minfo.s_height / 2 - w->line_height / 2;
+	w->draw_start = w->draw_start < 0 ? 0 : w->draw_start;
+	w->draw_end = set->minfo.s_height / 2 + w->line_height / 2;
+	w->draw_end = w->draw_end >= set->minfo.s_height ? set->minfo.s_height - 1 : w->draw_end;
 	if (w->dir_side == 0)
 		t.t_num = w->ray_dir_x < 0 ? NO_TEXT_NUM : SO_TEXT_NUM;
 	else
 		t.t_num = w->ray_dir_y < 0 ? WE_TEXT_NUM : EA_TEXT_NUM;
-	step = 1.0 * textHeight / w->line_height;
+	step = 1.0 * TEXTHEIGHT / w->line_height;
 	t.t_pos = (w->draw_start - set->minfo.s_height / 2 + w->line_height / 2) * step;
 	y = w->draw_start - 1;
 	while (++y < w->draw_end)
 	{
-		t.t_y = (int)t.t_pos & (textHeight - 1);
+		t.t_y = (int)t.t_pos & (TEXTHEIGHT - 1);
 		t.t_pos += step;
-		t.color = set->info.texture[t.t_num][textHeight * t.t_y + t.t_x];
+		t.color = set->info.texture[t.t_num][TEXTHEIGHT * t.t_y + t.t_x];
 		set->img.data[y * set->minfo.s_width + x] = t.color;
 	}
 }
@@ -192,11 +197,11 @@ void	wall_cast(t_set *set)
 			w.perp_wall_dist = (w.map_x - set->info.pos_x + (1 - w.step_x) / 2) / w.ray_dir_x;
 		else
 			w.perp_wall_dist = (w.map_y - set->info.pos_y + (1 - w.step_y) / 2) / w.ray_dir_y;
-		w.line_height = (int)(set->minfo.s_height / w.perp_wall_dist);
-		w.draw_start = set->minfo.s_height / 2 - w.line_height / 2;
-		w.draw_start = w.draw_start < 0 ? 0 : w.draw_start;
-		w.draw_end = set->minfo.s_height / 2 + w.line_height / 2;
-		w.draw_end = w.draw_end >= set->minfo.s_height ? set->minfo.s_height - 1 : w.draw_end;
+		// w.line_height = (int)(set->minfo.s_height / w.perp_wall_dist);
+		// w.draw_start = set->minfo.s_height / 2 - w.line_height / 2;
+		// w.draw_start = w.draw_start < 0 ? 0 : w.draw_start;
+		// w.draw_end = set->minfo.s_height / 2 + w.line_height / 2;
+		// w.draw_end = w.draw_end >= set->minfo.s_height ? set->minfo.s_height - 1 : w.draw_end;
 		wall_text(set, &w, x);
 		set->info.z_buffer[x] = w.perp_wall_dist;
 	}
@@ -243,15 +248,15 @@ void	sprite_text(t_set *set, t_scast *s)
 	x = s->draw_start_x - 1;
 	while (++x < s->draw_end_x)
 	{
-		t.t_x = (int)((256 * (x - (-s->sprite_width / 2 + s->sprite_screen_x)) * textWidth / s->sprite_width) / 256);
+		t.t_x = (int)((256 * (x - (-s->sprite_width / 2 + s->sprite_screen_x)) * TEXTWIDTH / s->sprite_width) / 256);
 		if (s->transform_y > 0 && x > 0 && x < set->minfo.s_width && s->transform_y < set->info.z_buffer[x])
 		{
 			y = s->draw_start_y - 1;
 			while (++y < s->draw_end_y)
 			{
-				d = y * 256 - set->minfo.s_height * 128 + s->sprite_height * 128;
-				t.t_y = ((d * textHeight) / s->sprite_height) / 256;
-				t.color = set->info.texture[SP_TEXT_NUM][t.t_y * textWidth + t.t_x];
+				d = (y * 2 - set->minfo.s_height + s->sprite_height) * 128;
+				t.t_y = ((d * TEXTHEIGHT) / s->sprite_height) / 256;
+				t.color = set->info.texture[SP_TEXT_NUM][t.t_y * TEXTWIDTH + t.t_x];
 				if ((t.color & 0X00FFFFFF) != 0)
 					set->img.data[y * set->minfo.s_width + x] = t.color;
 			}

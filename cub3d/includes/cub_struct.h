@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:30:40 by skim              #+#    #+#             */
-/*   Updated: 2021/02/22 17:45:08 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/22 22:07:29 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ typedef struct	s_info
 	double		plane_y;
 	double		move_speed;
 	double		rot_speed;
-	int			texture[TEXT][textHeight * textWidth];
+	int			texture[TEXT][TEXTHEIGHT * TEXTWIDTH];
 	double		*z_buffer;
 }				t_info;
 
