@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/22 23:46:12 by skim              #+#    #+#              #
-#    Updated: 2021/02/23 00:48:20 by skim             ###   ########.fr        #
+#    Updated: 2021/02/23 00:49:53 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,7 @@ $(MLX) :
 
 clean :
 	@rm -rf $(NAME)
+	@rm -rf tmp_map
 	@make -C $(MLX_DIR) clean
 	@make -C $(LIB_DIR) clean
 	@make -C $(GNL_DIR) clean
