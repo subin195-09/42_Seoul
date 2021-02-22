@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 16:54:23 by skim              #+#    #+#             */
-/*   Updated: 2021/02/23 00:30:37 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/23 00:51:25 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int		main(int ac, char **av)
 {
 	t_set	set;
 
-	if (ac != 2)
+	if (ac != 2 && ac != 3)
 	{
 		printf("Error\nNo map\n");
 		return (-1);
