@@ -6,7 +6,7 @@
 int main(void)
 {
 	setlocale(LC_ALL, "");
-	char	*test = "-->|%.0f|<--\n";
+	char	*test = "-->|%10-%|<--\n";
 	int		byte = 0;
 
 	printf("%s\n", test);

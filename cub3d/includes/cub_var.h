@@ -6,14 +6,14 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:44:12 by skim              #+#    #+#             */
-/*   Updated: 2021/02/22 22:01:04 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/22 23:35:22 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_VAR_H
 # define CUB_VAR_H
 
-#define	map_tile		7
+# define MAP_TILE		7
 
 # define TEXT			7
 # define TEXTWIDTH		64
