@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 16:54:23 by skim              #+#    #+#             */
-/*   Updated: 2021/02/22 17:54:46 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/22 18:20:41 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,20 @@
 void	load_image(t_set *set, int tex_num, char *path)
 {
 	t_img	img;
+	int		y;
+	int		x;
 
-	img.img_ptr = mlx_xpm_file_to_image(set->mlx, path, &img.width, &img.height);
-	img.data = (int *)mlx_get_data_addr(img.img_ptr, &img.bpp, &img.size_l, &img.endian);
-	for(int y = 0; y < img.height; y++)
+	img.img_ptr = \
+	mlx_xpm_file_to_image(set->mlx, path, &img.width, &img.height);
+	img.data = \
+	(int *)mlx_get_data_addr(img.img_ptr, &img.bpp, &img.size_l, &img.endian);
+	y = -1;
+	while (++y < img.height)
 	{
-		for(int x = 0; x < img.width; x++)
-			set->info.texture[tex_num][img.width * y + x] = img.data[img.width * y + x];
+		x = -1;
+		while (++x < img.width)
+			set->info.texture[tex_num][img.width * y + x] = \
+			img.data[img.width * y + x];
 	}
 	mlx_destroy_image(set->mlx, img.img_ptr);
 }
@@ -32,7 +39,6 @@ void	make_texture(t_set *set)
 	load_image(set, WE_TEXT_NUM, set->minfo.we_path);
 	load_image(set, SO_TEXT_NUM, set->minfo.so_path);
 	load_image(set, NO_TEXT_NUM, set->minfo.no_path);
-
 	if (set->minfo.floor_text)
 		load_image(set, FL_TEXT_NUM, set->minfo.fl_path);
 	if (set->minfo.ceiling_text)
@@ -52,9 +58,13 @@ int		set_init(t_set *set)
 	if (!(set->info.z_buffer = malloc(sizeof(double) * set->minfo.s_width)))
 		return (-1);
 	set->mlx = mlx_init();
-	set->win = mlx_new_window(set->mlx, set->minfo.s_width, set->minfo.s_height, "cub3d");
-	set->img.img_ptr = mlx_new_image(set->mlx, set->minfo.s_width, set->minfo.s_height);
-	set->img.data = (int *)mlx_get_data_addr(set->img.img_ptr, &set->img.bpp, &set->img.size_l, &set->img.endian);
+	set->win = \
+	mlx_new_window(set->mlx, set->minfo.s_width, set->minfo.s_height, "cub3d");
+	set->img.img_ptr = \
+	mlx_new_image(set->mlx, set->minfo.s_width, set->minfo.s_height);
+	set->img.data = \
+	(int *)mlx_get_data_addr(set->img.img_ptr, \
+	&set->img.bpp, &set->img.size_l, &set->img.endian);
 }
 
 int		main(int ac, char *av[])
