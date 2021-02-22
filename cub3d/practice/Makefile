@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 00:33:36 by skim              #+#    #+#              #
-#    Updated: 2021/02/07 19:03:00 by skim             ###   ########.fr        #
+#    Updated: 2021/02/23 00:01:55 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,15 @@ SRCS_DIR = ./srcs
 OBJS_DIR = ./objs
 
 SRCS = start.c
+
+SRCS = $(addprefix $(SRCS_DIR)/, \
+	ft_printf.c ft_check_format.c ft_make_result.c \
+	ft_make_result_int.c ft_make_result_int_second.c ft_make_result_int_third.c \
+	ft_make_result_char.c ft_make_result_char_encoder.c \
+	ft_make_result_base.c ft_make_result_base_second.c \
+	ft_make_result_ptr.c ft_make_result_per.c \
+	ft_make_result_float.c \
+	ft_zero_check.c)
 
 all : $(NAME)
 
@@ -98,7 +107,7 @@ bonus : all
 	@ rm tmp_map
 
 test : $(GNL) $(LIBFT)
-	@$(CC) $(CFLAGS) -I$(INC_DIR) -I$(GNL_DIR)/$(INC_DIR) -I$(LIB_DIR)/$(INC_DIR) -I$(MLX_DIR) -L$(LIB_DIR) -L$(MLX_DIR) -L$(GNL_DIR) -lgnl -lft -lmlx -framework OpenGL -framework AppKit cub3d.c
-	@ ./a.out
-	@ rm -rf ./a.out
+	@$(CC) $(CFLAGS) -I$(INC_DIR) -I$(GNL_DIR)/$(INC_DIR) -I$(LIB_DIR)/$(INC_DIR) -I$(MLX_DIR) -L$(LIB_DIR) -L$(MLX_DIR) -L$(GNL_DIR) -lgnl -lft -lmlx -framework OpenGL -framework AppKit -o cub3d cub3d.c
+	@ ./cub3d
+	@ rm -rf ./cub3d
 	@ rm tmp_map

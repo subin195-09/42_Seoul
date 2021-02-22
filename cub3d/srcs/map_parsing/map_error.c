@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_main.h                                         :+:      :+:    :+:   */
+/*   map_error.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/13 15:17:31 by skim              #+#    #+#             */
-/*   Updated: 2021/02/22 23:48:06 by skim             ###   ########.fr       */
+/*   Created: 2021/02/22 23:06:22 by skim              #+#    #+#             */
+/*   Updated: 2021/02/22 23:06:34 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB_MAIN_H
-# define CUB_MAIN_H
+#include "cub_main.h"
 
-# include "cub_struct.h"
-# include "cub_var.h"
-# include "mlx.h"
-# include "libft.h"
-# include "get_next_line.h"
-
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <string.h>
-# include <math.h>
-
-#endif
+int		error_msg(char *kind)
+{
+	printf("Error\n %s 중복 입력\n", kind);
+	return (0);
+}
