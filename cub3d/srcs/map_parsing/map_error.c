@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:06:22 by skim              #+#    #+#             */
-/*   Updated: 2021/02/22 23:06:34 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/25 22:21:20 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int		error_msg(char *kind)
 {
-	printf("Error\n %s 중복 입력\n", kind);
+	printf("Error\n%s\n", kind);
 	return (0);
 }

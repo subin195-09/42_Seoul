@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/22 23:46:12 by skim              #+#    #+#              #
-#    Updated: 2021/02/25 20:38:33 by skim             ###   ########.fr        #
+#    Updated: 2021/02/25 22:17:41 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ SRCS = $(addprefix $(SRCS_DIR)/, \
 	$(addprefix $(SRCS_EVENT_DIR)/, key_action.c key_event.c)\
 	$(addprefix $(SRCS_INIT_DIR)/, main.c make_texture.c)\
 	$(addprefix $(SRCS_MAIN_DIR)/, casting_floor.c casting_sprite.c casting_wall.c draw_map.c save_bmp_img.c)\
-	$(addprefix $(SRCS_MAP_DIR)/, map_error.c map_get_pos.c map_get_road.c map_get.c map_parsing.c map_road_check.c)\
+	$(addprefix $(SRCS_MAP_DIR)/, map_check.c map_error.c map_get_pos.c map_get_road.c map_get.c map_parsing.c map_road_check.c)\
 )
 
 all : $(NAME)
