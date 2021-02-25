@@ -6,14 +6,14 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/22 23:46:12 by skim              #+#    #+#              #
-#    Updated: 2021/02/25 22:17:41 by skim             ###   ########.fr        #
+#    Updated: 2021/02/25 22:49:07 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 GNL = libgnl.a
 LIBFT = libft.a
-MLX = libmlx.a
+MLX = libmlx.dylib
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
