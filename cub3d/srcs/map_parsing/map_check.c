@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 22:01:45 by skim              #+#    #+#             */
-/*   Updated: 2021/02/25 22:55:39 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/25 23:43:31 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ int		map_etc_check(t_set *set, char *line, unsigned char *flag, int i)
 			return (error_msg("resolution height error"));
 		set->minfo.s_height = \
 		set->minfo.s_height > max_height ? max_height : set->minfo.s_height;
-		printf("%d %d\n", set->minfo.s_width, set->minfo.s_height);
 	}
 	return (1);
 }

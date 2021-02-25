@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:18:26 by skim              #+#    #+#             */
-/*   Updated: 2021/02/22 23:27:42 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/25 23:39:35 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int		get_map(int fd, char **line, t_set *set)
 	char	*temp_map;
 
 	i = -1;
-	fd_2 = open("tmp_map", O_CREAT | O_RDWR, 0777);
+	fd_2 = open("tmp_map", O_CREAT | O_RDWR | O_TRUNC, 0777);
 	get_map_size(set, fd, fd_2, line);
 	set->minfo.num_sprite = 0;
 	set->map = (int **)malloc(sizeof(int *) * set->minfo.m_height);

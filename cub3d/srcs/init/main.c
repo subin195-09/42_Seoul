@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 16:54:23 by skim              #+#    #+#             */
-/*   Updated: 2021/02/25 22:31:21 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/25 23:52:03 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		main_loop(t_set *set)
 {
 	key_action(set);
 	floor_cast(set);
-	wall_cast(set);
+	wagitll_cast(set);
 	sprite_cast(set);
 	draw_map(set);
 	if (!set->is_bmp)
