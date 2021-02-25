@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 18:29:08 by skim              #+#    #+#             */
-/*   Updated: 2021/02/22 18:29:18 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/25 20:29:47 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,6 @@ int		event_key_press(int keycode, t_set *set)
 		set->key.key_sp = set->key.key_sp == 0 ? 1 : 0;
 	if (keycode == KEY_ESC)
 	{
-		mlx_destroy_window(set->mlx, set->win);
-		exit(0);
-	}
-	if (keycode == 11)
-	{
-		save_bmp_img(set);
-		mlx_destroy_image(set->mlx, set->img.img_ptr);
 		mlx_destroy_window(set->mlx, set->win);
 		exit(0);
 	}

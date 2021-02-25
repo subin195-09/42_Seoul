@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 16:54:23 by skim              #+#    #+#             */
-/*   Updated: 2021/02/23 00:51:25 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/25 20:35:11 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,17 @@ void	make_texture(t_set *set)
 	load_image(set, SP_TEXT_NUM, set->minfo.sp_path);
 }
 
+void	is_save(t_set *set, char *av)
+{
+	if (!ft_strncmp("--save", av, 6))
+		set->is_bmp = 1;
+	else
+	{
+		printf("Error\nwrong second argument\n");
+		exit(0);
+	}
+}
+
 int		set_init(t_set *set)
 {
 	set->info.move_speed = 0.05;
@@ -75,7 +86,15 @@ int		main_loop(t_set *set)
 	wall_cast(set);
 	sprite_cast(set);
 	draw_map(set);
-	mlx_put_image_to_window(set->mlx, set->win, set->img.img_ptr, 0, 0);
+	if (!set->is_bmp)
+		mlx_put_image_to_window(set->mlx, set->win, set->img.img_ptr, 0, 0);
+	else
+	{
+		save_bmp_img(set);
+		mlx_destroy_image(set->mlx, set->img.img_ptr);
+		mlx_destroy_window(set->mlx, set->win);
+		exit(0);
+	}
 	return (0);
 }
 
@@ -85,9 +104,13 @@ int		main(int ac, char **av)
 
 	if (ac != 2 && ac != 3)
 	{
-		printf("Error\nNo map\n");
+		printf("Error\nargument error\n");
 		return (-1);
 	}
+	if (ac == 3)
+		is_save(&set, av[2]);
+	else
+		set.is_bmp = 0;
 	if (!map_parse(&set, av[1]))
 	{
 		printf("Error\n");

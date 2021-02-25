@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:30:40 by skim              #+#    #+#             */
-/*   Updated: 2021/02/22 22:07:29 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/25 20:23:25 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ typedef struct	s_set
 	void		*mlx;
 	void		*win;
 	int			**map;
+	int			is_bmp;
 	t_minfo		minfo;
 	t_img		img;
 	t_info		info;
