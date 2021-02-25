@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 15:17:31 by skim              #+#    #+#             */
-/*   Updated: 2021/02/23 00:27:43 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/25 20:37:48 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ int		error_msg(char *kind);
 int		check_map(t_set *set);
 
 int		main(int ac, char **av);
+void	make_texture(t_set *set);
 
 #endif
