@@ -1,4 +1,4 @@
-R 600 500
+R 155225 5022230
 NO     ./img/wall_n.xpm
 SO ./img/wall_s.xpm
 WE ./img/wall_w.xpm

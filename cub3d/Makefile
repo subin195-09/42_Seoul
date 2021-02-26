@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/22 23:46:12 by skim              #+#    #+#              #
-#    Updated: 2021/02/26 18:43:46 by skim             ###   ########.fr        #
+#    Updated: 2021/02/26 18:54:49 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,13 +40,13 @@ SRCS = $(addprefix $(SRCS_DIR)/, \
 )
 
 OPENGL = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
-MMS = -L$(MLX_BETA_DIR) -lmlx -framework OpenGL -framework AppKit
+MMS = -L./ -lmlxbeta -framework OpenGL -framework AppKit
 
 all : $(NAME)
 
 $(NAME) : $(LIBFT) $(GNL) $(MLX) $(MLX_BETA)
-	@$(CC) $(CFLAGS) -I$(INC_DIR) -I$(GNL_DIR)/$(INC_DIR) -I$(LIB_DIR)/$(INC_DIR) -I$(MLX_DIR) -I$(MLX_BETA_DIR)\
-	-L./ -lgnl -lft $(OPENGL) $(MMS) -o cub3d $(SRCS)
+	@$(CC) $(CFLAGS) -I$(INC_DIR) -I$(GNL_DIR)/$(INC_DIR) -I$(LIB_DIR)/$(INC_DIR) -I$(MLX_DIR) \
+	-L./ -lgnl -L./ -lft $(OPENGL) $(MMS) -o cub3d $(SRCS)
 
 $(LIBFT) :
 	@make -C $(LIB_DIR)
@@ -62,7 +62,7 @@ $(MLX) :
 
 $(MLX_BETA) :
 	@make -C $(MLX_BETA_DIR)
-	@cp $(MLX_BETA_DIR)/libmlx.dylib $(MLX_BETA)
+	@cp $(MLX_BETA_DIR)/libmlxbeta.dylib .
 
 clean :
 	@rm -rf $(NAME)
