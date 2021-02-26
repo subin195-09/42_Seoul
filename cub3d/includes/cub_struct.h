@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:30:40 by skim              #+#    #+#             */
-/*   Updated: 2021/02/25 20:23:25 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/26 16:58:27 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,8 @@ typedef struct	s_minfo
 	int			s_height;
 	int			m_width;
 	int			m_height;
+	int			w_max;
+	int			h_max;
 	int			num_sprite;
 	int			floor_text;
 	int			ceiling_text;

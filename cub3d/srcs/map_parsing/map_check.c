@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 22:01:45 by skim              #+#    #+#             */
-/*   Updated: 2021/02/25 23:43:31 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/26 17:13:39 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,6 @@ int		map_fc_check(t_set *set, char *line, unsigned char *flag, int i)
 
 int		map_etc_check(t_set *set, char *line, unsigned char *flag, int i)
 {
-	int	max_width;
-	int	max_height;
-
-	mlx_get_screen_size(set->mlx, &max_width, &max_height);
 	if (ft_strnstr(line, "S ", 2))
 	{
 		if ((i = flag_check(2, SP_TEXT_NUM, flag, line)) < 0)
@@ -87,12 +83,9 @@ int		map_etc_check(t_set *set, char *line, unsigned char *flag, int i)
 		if ((set->minfo.s_width = ft_atoi(line + i)) < 0)
 			return (error_msg("resolution width error"));
 		i += count_num(set->minfo.s_width);
-		set->minfo.s_width = \
-		set->minfo.s_width > max_width ? max_width : set->minfo.s_width;
 		if ((set->minfo.s_height = ft_atoi(line + i + 1)) < 0)
 			return (error_msg("resolution height error"));
-		set->minfo.s_height = \
-		set->minfo.s_height > max_height ? max_height : set->minfo.s_height;
+		max_min_resolution(set);
 	}
 	return (1);
 }

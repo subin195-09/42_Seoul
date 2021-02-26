@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 13:02:23 by skim              #+#    #+#             */
-/*   Updated: 2021/02/22 23:47:43 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/26 16:22:52 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -827,8 +827,15 @@ int		main(void)
 {
 	t_set	set;
 
+	set.mlx = mlx_init();
 	map_parse(&set, "map.cub");
 
+	// int	max_width;
+	// int	max_height;
+
+	// mlx_get_screen_size(set.mlx, &max_width, &max_height);
+	// set.minfo.s_width = max_width;
+	// set.minfo.s_height = max_height;
 	// map 파싱에 추가하기!!!
 	set.info.move_speed = 0.05;
 	set.info.rot_speed = 0.03;
@@ -840,7 +847,8 @@ int		main(void)
 
 	if (!(set.info.z_buffer = malloc(sizeof(double) * set.minfo.s_width)))
 		return (-1);
-	set.mlx = mlx_init();
+	//set.mlx = mlx_init();
+	printf("%d %d\n", set.minfo.s_height, set.minfo.s_width);
 	make_texture(&set);
 	set.win = mlx_new_window(set.mlx, set.minfo.s_width, set.minfo.s_height, "cub3d");
 	set.img.img_ptr = mlx_new_image(set.mlx, set.minfo.s_width, set.minfo.s_height);

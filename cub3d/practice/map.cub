@@ -1,4 +1,4 @@
-R 640 480
+R 1500 100
 NO     ./img/wall_n.xpm
 SO ./img/wall_s.xpm
 WE ./img/wall_w.xpm

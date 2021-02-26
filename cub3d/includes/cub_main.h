@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 15:17:31 by skim              #+#    #+#             */
-/*   Updated: 2021/02/25 22:18:11 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/26 17:14:35 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	draw_map(t_set *set);
 void	save_bmp_img(t_set *set);
 
 int		map_parse(t_set *set, char *map_name);
+void	max_min_resolution(t_set *set);
 int		map_check(t_set *set, int fd, char **line);
 int		get_color(char *line);
 int		get_ceiling(t_set *set, char *line);

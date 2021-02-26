@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 00:33:36 by skim              #+#    #+#              #
-#    Updated: 2021/02/23 00:01:55 by skim             ###   ########.fr        #
+#    Updated: 2021/02/26 16:22:28 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ LIBFT = libft.a
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 
-OPENGNL = libmlx.a
+OPENGNL = libmlx.dylib
 
 LMLX = libmlx.dylib libmlx.a
 
@@ -107,7 +107,9 @@ bonus : all
 	@ rm tmp_map
 
 test : $(GNL) $(LIBFT)
-	@$(CC) $(CFLAGS) -I$(INC_DIR) -I$(GNL_DIR)/$(INC_DIR) -I$(LIB_DIR)/$(INC_DIR) -I$(MLX_DIR) -L$(LIB_DIR) -L$(MLX_DIR) -L$(GNL_DIR) -lgnl -lft -lmlx -framework OpenGL -framework AppKit -o cub3d cub3d.c
+	@$(CC) $(CFLAGS) -I$(INC_DIR) -I$(GNL_DIR)/$(INC_DIR) -I$(LIB_DIR)/$(INC_DIR) -I$(MLX_DIR) \
+	-L./ -lgnl -lft -lmlx \
+	-framework OpenGL -framework AppKit -o cub3d cub3d.c
 	@ ./cub3d
 	@ rm -rf ./cub3d
 	@ rm tmp_map
