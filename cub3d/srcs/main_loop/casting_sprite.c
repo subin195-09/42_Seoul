@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 22:03:34 by skim              #+#    #+#             */
-/*   Updated: 2021/02/23 00:47:28 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/26 21:51:18 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void	sprite_text(t_set *set, t_scast *s)
 {
 	int		x;
 	int		y;
-	int		d;
 	t_text	t;
 
 	x = s->draw_start_x - 1;
@@ -97,12 +96,13 @@ void	sprite_text(t_set *set, t_scast *s)
 			y = s->draw_start_y - 1;
 			while (++y < s->draw_end_y)
 			{
-				d = (y * 2 - set->minfo.s_height + s->sprite_height) * 128;
-				t.t_y = ((d * TEXTHEIGHT) / s->sprite_height) / 256;
+				t.t_y = ((y * 2 - set->minfo.s_height + s->sprite_height) \
+				* 128 * TEXTHEIGHT) / s->sprite_height / 256;
 				t.color = \
 				set->info.texture[SP_TEXT_NUM][t.t_y * TEXTWIDTH + t.t_x];
 				if ((t.color & 0X00FFFFFF) != 0)
-					set->img.data[y * set->minfo.s_width + x] = t.color;
+					set->img.data[(y - set->up) * set->minfo.s_width + x] = \
+					t.color;
 			}
 		}
 	}

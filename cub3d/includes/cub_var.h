@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:44:12 by skim              #+#    #+#             */
-/*   Updated: 2021/02/22 23:35:22 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/26 22:49:26 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,17 @@
 
 # define MAP_TILE		7
 
-# define TEXT			7
+# define TEXT			8
 # define TEXTWIDTH		64
 # define TEXTHEIGHT		64
 
 # define KEY_ESC		53
-# define KEY_UP			13
-# define KEY_DOWN		1
-# define KEY_LEFT		0
-# define KEY_RIGHT		2
+# define KEY_W			13
+# define KEY_S			1
+# define KEY_A			0
+# define KEY_D			2
+# define KEY_UP			126
+# define KEY_DOWN		125
 # define KEY_SP			49
 
 # define X_EVENT_KEY_EXIT		17

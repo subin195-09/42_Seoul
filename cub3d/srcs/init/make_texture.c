@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 20:37:07 by skim              #+#    #+#             */
-/*   Updated: 2021/02/25 20:37:31 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/26 22:48:50 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,5 @@ void	make_texture(t_set *set)
 	if (set->minfo.ceiling_text)
 		load_image(set, CE_TEXT_NUM, set->minfo.ce_path);
 	load_image(set, SP_TEXT_NUM, set->minfo.sp_path);
+	load_image(set, SP_TEXT_NUM2, set->minfo.)
 }

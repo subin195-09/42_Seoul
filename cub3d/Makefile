@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/22 23:46:12 by skim              #+#    #+#              #
-#    Updated: 2021/02/26 19:22:31 by skim             ###   ########.fr        #
+#    Updated: 2021/02/26 20:05:20 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,5 +83,8 @@ fclean : clean
 	@make -C $(GNL_DIR) fclean
 
 re : fclean all
+
+test : clean all
+	./cub3d map.cub
 
 bonus : all

@@ -6,7 +6,7 @@ EA ./img/wall_e.xpm
 S ./img/barrel.xpm
 
 F ./img/purplestone.xpm
-C           0,0,0
+C ./img/eagle.xpm
 
 
 

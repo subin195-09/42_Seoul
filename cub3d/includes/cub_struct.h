@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:30:40 by skim              #+#    #+#             */
-/*   Updated: 2021/02/26 20:00:29 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/26 20:18:43 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,8 @@ typedef struct	s_key
 	int			key_down;
 	int			key_right;
 	int			key_left;
+	int			key_look_up;
+	int			key_look_down;
 	int			key_sp;
 }				t_key;
 
@@ -148,8 +150,8 @@ typedef struct	s_minfo
 {
 	int			s_width;
 	int			s_height;
-	int			w_max;
-	int			h_max;
+	int			m_width;
+	int			m_height;
 	int			num_sprite;
 	int			floor_text;
 	int			ceiling_text;
@@ -170,6 +172,7 @@ typedef struct	s_set
 	void		*win;
 	int			**map;
 	int			is_bmp;
+	int			up;
 	t_minfo		minfo;
 	t_img		img;
 	t_info		info;

@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 16:54:23 by skim              #+#    #+#             */
-/*   Updated: 2021/02/26 16:09:54 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/26 20:19:37 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int		set_init(t_set *set)
 	set->key.key_right = 0;
 	set->key.key_left = 0;
 	set->key.key_sp = 0;
+	set->key.key_look_up = 0;
+	set->key.key_look_down = 0;
 	if (!(set->info.z_buffer = malloc(sizeof(double) * set->minfo.s_width)))
 		return (-1);
 	set->win = \
