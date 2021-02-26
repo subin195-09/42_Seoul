@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/22 23:46:12 by skim              #+#    #+#              #
-#    Updated: 2021/02/26 18:54:49 by skim             ###   ########.fr        #
+#    Updated: 2021/02/26 19:22:31 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = cub3d
 GNL = libgnl.a
 LIBFT = libft.a
 MLX = libmlx.a
-MLX_BETA = libm.dylib
+MLX_BETA = libmlxbeta.dylib
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
@@ -40,7 +40,7 @@ SRCS = $(addprefix $(SRCS_DIR)/, \
 )
 
 OPENGL = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
-MMS = -L./ -lmlxbeta -framework OpenGL -framework AppKit
+MMS = -L$(MLX_BETA_DIR) -lmlxbeta -framework OpenGL -framework AppKit
 
 all : $(NAME)
 
@@ -62,7 +62,7 @@ $(MLX) :
 
 $(MLX_BETA) :
 	@make -C $(MLX_BETA_DIR)
-	@cp $(MLX_BETA_DIR)/libmlxbeta.dylib .
+	@cp $(MLX_BETA_DIR)/$(MLX_BETA) .
 
 clean :
 	@rm -rf $(NAME)
