@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 22:03:34 by skim              #+#    #+#             */
-/*   Updated: 2021/02/28 17:29:44 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/28 20:32:24 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	sprite_text_init(t_set *set, t_scast *s)
 	set->minfo.s_width - 1 : s->draw_end_x;
 }
 
-void	sprite_text(t_set *set, t_scast *s)
+void	sprite_text(t_set *set, t_scast *s, int i)
 {
 	int		x;
 	int		y;
@@ -99,7 +99,7 @@ void	sprite_text(t_set *set, t_scast *s)
 				t.t_y = ((y * 2 - set->minfo.s_height + s->sprite_height) \
 				* 128 * TEXTHEIGHT) / s->sprite_height / 256;
 				t.color = \
-				set->info.texture[SP_TEXT_NUM][t.t_y * TEXTWIDTH + t.t_x];
+				set->info.texture[set->map[(int)set->sprite[s->sprite_order[i]].x][(int)set->sprite[s->sprite_order[i]].y] + 4][t.t_y * TEXTWIDTH + t.t_x];
 				if ((t.color & 0X00FFFFFF) != 0)
 					set->img.data[(y + set->up) * set->minfo.s_width + x] = \
 					t.color;
@@ -129,6 +129,6 @@ void	sprite_cast(t_set *set)
 		(int)((set->minfo.s_width / 2) * (1 + s.transform_x / s.transform_y));
 		s.sprite_height = (int)fabs(set->minfo.s_height / s.transform_y);
 		sprite_text_init(set, &s);
-		sprite_text(set, &s);
+		sprite_text(set, &s, i);
 	}
 }

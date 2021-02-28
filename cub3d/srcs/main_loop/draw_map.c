@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 20:14:53 by skim              #+#    #+#             */
-/*   Updated: 2021/02/22 23:34:58 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/28 20:28:00 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	draw_all_rect(t_set *set)
 		{
 			if (set->map[i][j] == 1)
 				draw_rect(set, i, j, 0xffffff);
-			else if (set->map[i][j] == 2)
+			else if (set->map[i][j] >= 2)
 				draw_rect(set, i, j, 0xabcdef);
 			j++;
 		}

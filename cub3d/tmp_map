@@ -1,14 +1,3 @@
-R 900	700
-NO     ./img/wall_n.xpm
-SO ./img/wall_s.xpm
-WE ./img/wall_w.xpm
-EA ./img/wall_e.xpm
-S ./img/barrel.xpm
-
-F 0,0,0
-C 200,200,255
-
-
 111111111111111
 110000000000001
 100300000000001
