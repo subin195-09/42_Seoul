@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 18:29:08 by skim              #+#    #+#             */
-/*   Updated: 2021/02/26 20:20:50 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/28 19:58:38 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int		event_key_press(int keycode, t_set *set)
 		set->key.key_look_down = 1;
 	if (keycode == KEY_ESC)
 	{
+		play_sound_effect(2);
+		system("killall find; killall afplay");
 		mlx_destroy_window(set->mlx, set->win);
 		exit(0);
 	}

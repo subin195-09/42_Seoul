@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 20:18:19 by skim              #+#    #+#             */
-/*   Updated: 2021/02/26 20:23:16 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/28 17:29:03 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ int		wall_set_tex_num(t_set *set, t_wcast *w)
 	int		rt;
 
 	w->line_height = (int)(set->minfo.s_height / w->perp_wall_dist);
-	w->draw_start = (set->minfo.s_height / 2 - set->up) - w->line_height / 2;
+	w->draw_start = (set->minfo.s_height / 2) - w->line_height / 2;
 	w->draw_start = w->draw_start < 0 ? 0 : w->draw_start;
-	w->draw_end = (set->minfo.s_height / 2 - set->up) + w->line_height / 2;
+	w->draw_end = (set->minfo.s_height / 2) + w->line_height / 2;
 	w->draw_end = w->draw_end >= set->minfo.s_height ? \
 	set->minfo.s_height - 1 : w->draw_end;
 	if (w->dir_side == 0)
@@ -91,7 +91,7 @@ void	wall_text(t_set *set, t_wcast *w, int x)
 		t.t_x = TEXTWIDTH - t.t_x - 1;
 	t.t_num = wall_set_tex_num(set, w);
 	step = 1.0 * TEXTHEIGHT / w->line_height;
-	t.t_pos = (w->draw_start - set->minfo.s_height / 2 + set->up \
+	t.t_pos = (w->draw_start - set->minfo.s_height / 2 \
 	+ w->line_height / 2) * step;
 	y = w->draw_start - 1;
 	while (++y < w->draw_end)
@@ -99,7 +99,7 @@ void	wall_text(t_set *set, t_wcast *w, int x)
 		t.t_y = (int)t.t_pos & (TEXTHEIGHT - 1);
 		t.t_pos += step;
 		t.color = set->info.texture[t.t_num][TEXTHEIGHT * t.t_y + t.t_x];
-		set->img.data[y * set->minfo.s_width + x] = t.color;
+		set->img.data[(y + set->up) * set->minfo.s_width + x] = t.color;
 	}
 }
 

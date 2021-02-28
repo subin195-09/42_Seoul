@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/22 23:46:12 by skim              #+#    #+#              #
-#    Updated: 2021/02/26 20:05:20 by skim             ###   ########.fr        #
+#    Updated: 2021/02/28 19:24:01 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,14 +30,14 @@ SRCS_EVENT_DIR = /event
 SRCS_INIT_DIR = /init
 SRCS_MAIN_DIR = /main_loop
 SRCS_MAP_DIR = /map_parsing
+SRCS_BONUS_DIR = /bonus
 
 SRCS = $(addprefix $(SRCS_DIR)/, \
 	$(addprefix $(SRCS_EVENT_DIR)/, key_action.c key_event.c)\
 	$(addprefix $(SRCS_INIT_DIR)/, main.c make_texture.c)\
 	$(addprefix $(SRCS_MAIN_DIR)/, casting_floor.c casting_sprite.c casting_wall.c draw_map.c save_bmp_img.c)\
-	$(addprefix $(SRCS_MAP_DIR)/, map_check.c map_error.c map_max_resolution.c\
-	map_get_pos.c map_get_road.c map_get.c map_parsing.c map_road_check.c)\
-)
+	$(addprefix $(SRCS_MAP_DIR)/, map_check.c map_error.c map_max_resolution.c map_get_pos.c map_get_road.c map_get.c map_parsing.c map_road_check.c)\
+	$(addprefix $(SRCS_BONUS_DIR)/, sound_bonus.c))
 
 OPENGL = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
 MMS = -L$(MLX_BETA_DIR) -lmlxbeta -framework OpenGL -framework AppKit

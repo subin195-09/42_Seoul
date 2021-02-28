@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 16:54:23 by skim              #+#    #+#             */
-/*   Updated: 2021/02/26 20:19:37 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/28 19:54:10 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ int		main(int ac, char **av)
 		return (0);
 	set_init(&set);
 	make_texture(&set);
+	play_sound_effect(1);
+	play_bgm();
 	mlx_hook(set.win, X_EVENT_KEY_PRESS, 0, &event_key_press, &set);
 	mlx_hook(set.win, X_EVENT_KEY_RELEASE, 0, &event_key_release, &set);
 	mlx_loop_hook(set.mlx, &main_loop, &set);

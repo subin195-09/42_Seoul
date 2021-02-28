@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 15:17:31 by skim              #+#    #+#             */
-/*   Updated: 2021/02/26 17:14:35 by skim             ###   ########.fr       */
+/*   Updated: 2021/02/28 19:37:35 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,8 @@ int		check_map(t_set *set);
 
 int		main(int ac, char **av);
 void	make_texture(t_set *set);
+
+void	play_bgm(void);
+void	play_sound_effect(int i);
 
 #endif
