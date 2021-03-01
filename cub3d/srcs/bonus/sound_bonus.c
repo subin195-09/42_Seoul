@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 18:52:40 by skim              #+#    #+#             */
-/*   Updated: 2021/02/28 20:13:27 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/01 13:57:18 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	play_bgm(void)
 void	play_sound_effect(int i)
 {
 	if (i == 1)
-		system("afplay -v 0.40 sounds/game_start.wav");
+		system("afplay -v 0.40 sounds/game_start.wav &");
 	if (i == 2)
 		system("afplay -v 0.40 sounds/game_end.wav");
 }
