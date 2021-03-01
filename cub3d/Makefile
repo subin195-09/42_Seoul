@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/22 23:46:12 by skim              #+#    #+#              #
-#    Updated: 2021/03/01 15:26:43 by skim             ###   ########.fr        #
+#    Updated: 2021/03/01 16:38:38 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ SRCS = $(addprefix $(SRCS_DIR)/, \
 	$(addprefix $(SRCS_INIT_DIR)/, main.c make_texture.c)\
 	$(addprefix $(SRCS_MAIN_DIR)/, casting_floor.c casting_sprite.c casting_wall.c draw_map.c save_bmp_img.c)\
 	$(addprefix $(SRCS_MAP_DIR)/, map_check.c map_error.c map_max_resolution.c map_get_pos.c map_get_road.c map_get.c map_parsing.c map_road_check.c)\
-	$(addprefix $(SRCS_BONUS_DIR)/, sound_bonus.c lifebar_bonus.c))
+	$(addprefix $(SRCS_BONUS_DIR)/, sound_bonus.c lifebar_bonus.c animated_bonus.c))
 
 OPENGL = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
 MMS = -L$(MLX_BETA_DIR) -lmlxbeta -framework OpenGL -framework AppKit

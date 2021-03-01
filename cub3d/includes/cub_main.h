@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 15:17:31 by skim              #+#    #+#             */
-/*   Updated: 2021/03/01 16:08:57 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/01 16:38:27 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ void	make_texture(t_set *set);
 void	play_bgm(void);
 void	play_sound_effect(int i);
 void	life_bar(t_set *set);
+void	animated_sprite(t_set *set);
 
 #endif

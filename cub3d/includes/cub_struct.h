@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:30:40 by skim              #+#    #+#             */
-/*   Updated: 2021/03/01 15:56:09 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/01 16:30:53 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ typedef struct	s_set
 	int			**map;
 	int			is_bmp;
 	int			up;
+	int			time_stamp;
 	t_minfo		minfo;
 	t_img		img;
 	t_info		info;
