@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 16:54:23 by skim              #+#    #+#             */
-/*   Updated: 2021/02/28 19:54:10 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/01 16:08:48 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int		set_init(t_set *set)
 	set->key.key_sp = 0;
 	set->key.key_look_up = 0;
 	set->key.key_look_down = 0;
+	set->life.life = 100;
+	ft_memset(set->life.life_bar, 1, set->life.life);
 	if (!(set->info.z_buffer = malloc(sizeof(double) * set->minfo.s_width)))
 		return (-1);
 	set->win = \
@@ -53,6 +55,7 @@ int		main_loop(t_set *set)
 	wall_cast(set);
 	sprite_cast(set);
 	draw_map(set);
+	life_bar(set);
 	if (!set->is_bmp)
 		mlx_put_image_to_window(set->mlx, set->win, set->img.img_ptr, 0, 0);
 	else
@@ -62,6 +65,8 @@ int		main_loop(t_set *set)
 		mlx_destroy_window(set->mlx, set->win);
 		exit(0);
 	}
+	if (!set->life.life)
+		cub3d_exit(set, 4);
 	return (0);
 }
 

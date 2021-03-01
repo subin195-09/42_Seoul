@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:44:12 by skim              #+#    #+#             */
-/*   Updated: 2021/02/28 20:21:10 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/01 15:31:41 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUB_VAR_H
 
 # define MAP_TILE		7
+# define LIFE_TILE		20
 
 # define TEXT			8
 # define TEXTWIDTH		64

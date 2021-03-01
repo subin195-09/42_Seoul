@@ -6,11 +6,19 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 18:29:08 by skim              #+#    #+#             */
-/*   Updated: 2021/02/28 19:58:38 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/01 16:08:38 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub_main.h"
+
+void	cub3d_exit(t_set *set, int sound)
+{
+	play_sound_effect(sound);
+	system("killall find; killall afplay");
+	mlx_destroy_window(set->mlx, set->win);
+	exit(0);
+}
 
 int		event_key_press(int keycode, t_set *set)
 {
@@ -29,12 +37,7 @@ int		event_key_press(int keycode, t_set *set)
 	if (keycode == KEY_DOWN)
 		set->key.key_look_down = 1;
 	if (keycode == KEY_ESC)
-	{
-		play_sound_effect(2);
-		system("killall find; killall afplay");
-		mlx_destroy_window(set->mlx, set->win);
-		exit(0);
-	}
+		cub3d_exit(set, 2);
 	return (0);
 }
 

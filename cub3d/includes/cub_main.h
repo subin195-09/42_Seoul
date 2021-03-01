@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 15:17:31 by skim              #+#    #+#             */
-/*   Updated: 2021/02/28 19:37:35 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/01 16:08:57 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 int		event_key_press(int keycode, t_set *set);
 int		event_key_release(int keycode, t_set *set);
 void	key_action(t_set *set);
+void	cub3d_exit(t_set *set, int sound);
 
 void	floor_cast(t_set *set);
 void	wall_cast(t_set *set);
@@ -53,5 +54,6 @@ void	make_texture(t_set *set);
 
 void	play_bgm(void);
 void	play_sound_effect(int i);
+void	life_bar(t_set *set);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 18:29:02 by skim              #+#    #+#             */
-/*   Updated: 2021/02/28 19:54:45 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/01 16:05:57 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,51 @@
 
 void	key_up(t_set *set)
 {
+	int		flag;
+
+	flag = -1;
 	if (set->map\
 	[(int)(set->info.pos_x + set->info.dir_x * set->info.move_speed)]\
 	[(int)(set->info.pos_y)] == 0)
 		set->info.pos_x += \
 		set->info.dir_x * set->info.move_speed;
+	else
+		flag++;
 	if (set->map[(int)(set->info.pos_x)]\
 	[(int)(set->info.pos_y + set->info.dir_y * set->info.move_speed)] == 0)
 		set->info.pos_y += set->info.dir_y * set->info.move_speed;
+	else
+		flag++;
+	if (flag >= 0)
+	{
+		set->life.life = set->life.life == 0 ? 0 : set->life.life - 1;
+		play_sound_effect(3);
+	}
 }
 
 void	key_down(t_set *set)
 {
+
+	int		flag;
+
+	flag = -1;
 	if (set->map\
 	[(int)(set->info.pos_x - set->info.dir_x * set->info.move_speed)]\
 	[(int)(set->info.pos_y)] == 0)
 		set->info.pos_x -= \
 		set->info.dir_x * set->info.move_speed;
+	else
+		flag++;
 	if (set->map[(int)(set->info.pos_x)]\
 	[(int)(set->info.pos_y - set->info.dir_y * set->info.move_speed)] == 0)
 		set->info.pos_y -= set->info.dir_y * set->info.move_speed;
+	else
+		flag++;
+	if (flag >= 0)
+	{
+		set->life.life = set->life.life == 0 ? 0 : set->life.life - 1;
+		play_sound_effect(3);
+	}
 }
 
 void	key_right(t_set *set)

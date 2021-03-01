@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:30:40 by skim              #+#    #+#             */
-/*   Updated: 2021/02/26 20:18:43 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/01 15:56:09 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,13 @@ typedef struct	s_bmp
 }				t_bmp;
 
 # pragma pack(pop)
+
+typedef struct s_life
+{
+	int			life;
+	int			life_bar[100];
+}				t_life;
+
 
 typedef struct	s_fcast
 {
@@ -179,6 +186,7 @@ typedef struct	s_set
 	t_key		key;
 	t_sprite	*sprite;
 	t_bmp		bmp;
+	t_life		life;
 }				t_set;
 
 #endif
