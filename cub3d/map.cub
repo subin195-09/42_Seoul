@@ -1,12 +1,12 @@
 R 900	700
-NO     ./img/wall_n.xpm
-SO ./img/wall_s.xpm
-WE ./img/wall_w.xpm
-EA ./img/wall_e.xpm
-S ./img/barrel.xpm
+NO ./img/pack_n.xpm
+SO ./img/pack_s.xpm
+WE ./img/pack_w.xpm
+EA ./img/pack_e.xpm
+S ./img/pack_sp.xpm
 
-F 0,0,0
-C 200,200,255
+F ./img/pack_n.xpm
+C ./img/pack_e.xpm
 
 
 111111111111111

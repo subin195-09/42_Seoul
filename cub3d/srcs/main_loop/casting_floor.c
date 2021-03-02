@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 21:55:54 by skim              #+#    #+#             */
-/*   Updated: 2021/02/28 18:04:24 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/02 15:24:36 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	floor_text(t_set *set, t_fcast f, int y)
 		set->img.data[(y + set->up) * set->minfo.s_width + x] = t.color;
 		t.color = set->minfo.ceiling_text == 1 ? set->info.texture[CE_TEXT_NUM]\
 		[TEXTWIDTH * t.t_y + t.t_x] : set->minfo.ceiling;
-		set->img.data[(set->minfo.s_height - (y + set->up) - 1) * \
+		set->img.data[(set->minfo.s_height - y - 1) * \
 		set->minfo.s_width + x] = t.color;
 	}
 }
@@ -48,8 +48,8 @@ void	floor_cast(t_set *set)
 		f.ray_dir_y0 = set->info.dir_y - set->info.plane_y;
 		f.ray_dir_x1 = set->info.dir_x + set->info.plane_x;
 		f.ray_dir_y1 = set->info.dir_y + set->info.plane_y;
-		f.p = y - set->minfo.s_height / 2;
-		f.pos_z = 0.5 * set->minfo.s_height;
+		f.p = y - set->minfo.s_height / 2 + set->up;
+		f.pos_z = 0.5 * set->minfo.s_height + set->up;
 		f.row_distance = f.pos_z / f.p;
 		f.floor_x = set->info.pos_x + f.row_distance * f.ray_dir_x0;
 		f.floor_y = set->info.pos_y + f.row_distance * f.ray_dir_y0;
