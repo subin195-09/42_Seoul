@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:44:12 by skim              #+#    #+#             */
-/*   Updated: 2021/03/01 15:31:41 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/02 16:50:15 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define KEY_S			1
 # define KEY_A			0
 # define KEY_D			2
+# define KEY_J			38
 # define KEY_UP			126
 # define KEY_DOWN		125
 # define KEY_SP			49

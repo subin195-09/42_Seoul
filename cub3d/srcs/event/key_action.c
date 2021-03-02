@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 18:29:02 by skim              #+#    #+#             */
-/*   Updated: 2021/03/01 16:05:57 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/02 17:30:59 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	key_action(t_set *set)
 	if (set->key.key_left)
 		key_left(set);
 	if (set->key.key_look_up)
-		set->up -= 3;
+		set->up -= 2;
 	if (set->key.key_look_down)
-		set->up += 3;
+		set->up += 2;
 }

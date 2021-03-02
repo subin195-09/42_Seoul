@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 16:54:23 by skim              #+#    #+#             */
-/*   Updated: 2021/03/01 16:40:08 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/02 17:35:27 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int		set_init(t_set *set)
 	set->key.key_look_down = 0;
 	set->life.life = 100;
 	set->time_stamp = 0;
+	set->jump = 0;
 	ft_memset(set->life.life_bar, 1, set->life.life);
 	if (!(set->info.z_buffer = malloc(sizeof(double) * set->minfo.s_width)))
 		return (-1);
