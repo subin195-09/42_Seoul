@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 18:29:02 by skim              #+#    #+#             */
-/*   Updated: 2021/03/02 23:48:10 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/03 00:23:49 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ void	key_left(t_set *set)
 
 void	key_right(t_set *set)
 {
-	double old_dir_x;
-	double old_dir_y;
+	double	old_dir_x;
+	double	old_dir_y;
 	int		flag;
 
 	flag = -1;
