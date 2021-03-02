@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 20:18:19 by skim              #+#    #+#             */
-/*   Updated: 2021/03/02 17:35:52 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/02 23:29:42 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	wall_text(t_set *set, t_wcast *w, int x)
 	double	wall_x;
 	double	step;
 	int		y;
+	int		re_y;
 
 	wall_x = w->dir_side == 0 ? set->info.pos_y + w->perp_wall_dist * \
 	w->ray_dir_y : set->info.pos_x + w->perp_wall_dist * w->ray_dir_x;
@@ -99,7 +100,9 @@ void	wall_text(t_set *set, t_wcast *w, int x)
 		t.t_y = (int)t.t_pos & (TEXTHEIGHT - 1);
 		t.t_pos += step;
 		t.color = set->info.texture[t.t_num][TEXTHEIGHT * t.t_y + t.t_x];
-		set->img.data[(y + set->jump + (set->up * 2)) * set->minfo.s_width + x] = t.color;
+		re_y = y + set->jump + (set->up * 2);
+		re_y = make_re_y(set, re_y);
+		set->img.data[re_y * set->minfo.s_width + x] = t.color;
 	}
 }
 

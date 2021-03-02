@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 16:54:23 by skim              #+#    #+#             */
-/*   Updated: 2021/03/02 17:35:27 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/02 23:15:57 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int		set_init(t_set *set)
 	set->key.key_sp = 0;
 	set->key.key_look_up = 0;
 	set->key.key_look_down = 0;
+	set->key.key_look_right = 0;
+	set->key.key_look_left = 0;
 	set->life.life = 100;
 	set->time_stamp = 0;
 	set->jump = 0;
@@ -59,6 +61,8 @@ int		main_loop(t_set *set)
 	draw_map(set);
 	life_bar(set);
 	animated_sprite(set);
+	if (set->jump > 0 && set->jump < 15)
+		set->jump += 3;
 	if (!set->is_bmp)
 		mlx_put_image_to_window(set->mlx, set->win, set->img.img_ptr, 0, 0);
 	else

@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:05:02 by skim              #+#    #+#             */
-/*   Updated: 2021/02/23 00:20:15 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/02 23:44:30 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		get_ceiling(t_set *set, char *line)
 		if (temp < 0)
 			return (0);
 	}
-	else if (*line == '.')
+	else
 	{
 		set->minfo.ceiling_text = 1;
 		set->minfo.ce_path = ft_strdup(line);
@@ -68,7 +68,7 @@ int		get_floor(t_set *set, char *line)
 		if (temp < 0)
 			return (0);
 	}
-	else if (*line == '.')
+	else
 	{
 		set->minfo.floor_text = 1;
 		set->minfo.fl_path = ft_strdup(line);

@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 15:17:31 by skim              #+#    #+#             */
-/*   Updated: 2021/03/01 16:38:27 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/02 23:23:15 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,19 @@
 # include <stdio.h>
 # include <string.h>
 # include <math.h>
+# define _USE_MATH_DEFINES
 
 int		event_key_press(int keycode, t_set *set);
 int		event_key_release(int keycode, t_set *set);
 void	key_action(t_set *set);
+void	key_look_right(t_set *set);
+void	key_look_left(t_set *set);
 void	cub3d_exit(t_set *set, int sound);
 
 void	floor_cast(t_set *set);
 void	wall_cast(t_set *set);
 void	sprite_cast(t_set *set);
+int		make_re_y(t_set *set, int y);
 
 void	draw_map(t_set *set);
 

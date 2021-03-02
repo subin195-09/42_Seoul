@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:44:12 by skim              #+#    #+#             */
-/*   Updated: 2021/03/02 16:50:15 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/02 22:53:00 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # define KEY_J			38
 # define KEY_UP			126
 # define KEY_DOWN		125
+# define KEY_LEFT		123
+# define KEY_RIGHT		124
 # define KEY_SP			49
 
 # define X_EVENT_KEY_EXIT		17

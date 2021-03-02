@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:28:12 by skim              #+#    #+#             */
-/*   Updated: 2021/03/01 14:32:57 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/02 21:38:45 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	sprite_count(t_set *set, int *a, int i, int j)
 {
-	set->sprite[*a].x = i - 1;
-	set->sprite[*a].y = j - 1;
+	set->sprite[*a].x = i - 1 + 0.5;
+	set->sprite[*a].y = j - 1 + 0.5;
 	(*a)++;
 }
 

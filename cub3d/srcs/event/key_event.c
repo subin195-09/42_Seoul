@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 18:29:08 by skim              #+#    #+#             */
-/*   Updated: 2021/03/02 17:40:20 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/02 22:54:29 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,14 @@ int		event_key_press(int keycode, t_set *set)
 		set->key.key_look_up = 1;
 	if (keycode == KEY_DOWN)
 		set->key.key_look_down = 1;
+	if (keycode == KEY_LEFT)
+		set->key.key_look_left = 1;
+	if (keycode == KEY_RIGHT)
+		set->key.key_look_right = 1;
 	if (keycode == KEY_ESC)
 		cub3d_exit(set, 2);
 	if (keycode == KEY_J)
-		set->jump += 15;
+		set->jump = 1;
 	return (0);
 }
 
@@ -57,6 +61,10 @@ int		event_key_release(int keycode, t_set *set)
 		set->key.key_look_up = 0;
 	if (keycode == KEY_DOWN)
 		set->key.key_look_down = 0;
+	if (keycode == KEY_LEFT)
+		set->key.key_look_left = 0;
+	if (keycode == KEY_RIGHT)
+		set->key.key_look_right = 0;
 	if (keycode == KEY_J)
 		set->jump = 0;
 	return (0);

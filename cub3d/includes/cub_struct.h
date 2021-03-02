@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:30:40 by skim              #+#    #+#             */
-/*   Updated: 2021/03/02 17:35:06 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/02 22:54:00 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,8 @@ typedef struct	s_key
 	int			key_left;
 	int			key_look_up;
 	int			key_look_down;
+	int			key_look_left;
+	int			key_look_right;
 	int			key_sp;
 }				t_key;
 

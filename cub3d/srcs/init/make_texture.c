@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 20:37:07 by skim              #+#    #+#             */
-/*   Updated: 2021/03/01 17:32:20 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/02 23:43:33 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	load_image(t_set *set, int tex_num, char *path)
 
 	img.img_ptr = \
 	mlx_xpm_file_to_image(set->mlx, path, &img.width, &img.height);
+	if (!img.img_ptr)
+		error_msg("wrong file");
 	img.data = \
 	(int *)mlx_get_data_addr(img.img_ptr, &img.bpp, &img.size_l, &img.endian);
 	y = -1;
