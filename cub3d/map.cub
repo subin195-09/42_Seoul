@@ -1,8 +1,8 @@
 R 900	700
-NO ./img/pack_n.xpm
-SO ./img/pack_s.xpm
-WE ./img/pack_w.xpm
-EA ./img/pack_e.xpm
+NO ./img/wall_n.xpm
+SO ./img/wall_s.xpm
+WE ./img/wall_w.xpm
+EA ./img/wall_e.xpm
 S ./img/pack_sp.xpm
 
 F 150,120,100
