@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 22:03:34 by skim              #+#    #+#             */
-/*   Updated: 2021/03/03 00:11:12 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/03 19:30:29 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,11 @@ void	sprite_text(t_set *set, t_scast *s, int i)
 				t.color = \
 				set->info.texture[set->map[(int)set->sprite[s->sprite_order[i]].x][(int)set->sprite[s->sprite_order[i]].y] + 4][t.t_y * TEXTWIDTH + t.t_x];
 				if ((t.color & 0X00FFFFFF) != 0)
+				{
+					t.color = make_darker(t.color, s->sprite_distance[i]);
 					set->img.data[re_y * set->minfo.s_width + \
 					(x + set->time_stamp)] = t.color;
+				}
 			}
 		}
 	}

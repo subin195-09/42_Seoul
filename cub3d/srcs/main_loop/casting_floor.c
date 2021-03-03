@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 21:55:54 by skim              #+#    #+#             */
-/*   Updated: 2021/03/02 23:29:05 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/03 19:17:04 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	floor_text(t_set *set, t_fcast f, int y, int re_y)
 			t.color = set->minfo.floor_text == 1 ? set->info.texture\
 			[FL_TEXT_NUM][TEXTWIDTH * t.t_y + t.t_x] : set->minfo.floor;
 		}
+		t.color = make_darker(t.color, set->minfo.s_height / 5 - abs(re_y - y));
 		set->img.data[(y + set->jump) * set->minfo.s_width + x] = t.color;
 	}
 }
