@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 22:03:34 by skim              #+#    #+#             */
-/*   Updated: 2021/03/03 19:30:29 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/03 23:25:24 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ void	sprite_text_init(t_set *set, t_scast *s)
 
 void	sprite_text(t_set *set, t_scast *s, int i)
 {
-	int		x;
 	int		y;
+	int		x;
 	int		re_y;
 	t_text	t;
 
@@ -102,7 +102,9 @@ void	sprite_text(t_set *set, t_scast *s, int i)
 				re_y = y + set->up * 2 + set->jump;
 				re_y = make_re_y(set, re_y);
 				t.color = \
-				set->info.texture[set->map[(int)set->sprite[s->sprite_order[i]].x][(int)set->sprite[s->sprite_order[i]].y] + 4][t.t_y * TEXTWIDTH + t.t_x];
+				set->info.texture[set->map[(int)set->sprite\
+				[s->sprite_order[i]].x][(int)set->sprite[s->sprite_order[i]].y]\
+				+ 4][t.t_y * TEXTWIDTH + t.t_x];
 				if ((t.color & 0X00FFFFFF) != 0)
 				{
 					t.color = make_darker(t.color, s->sprite_distance[i]);

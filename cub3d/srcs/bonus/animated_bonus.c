@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 16:22:22 by skim              #+#    #+#             */
-/*   Updated: 2021/03/01 16:39:52 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/03 23:11:38 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@ void	animated_sprite(t_set *set)
 	int		now_i;
 
 	time(&now);
-	now_i = now;
-	if (now_i % 2)
-		set->time_stamp = 2;
-	else
-		set->time_stamp = 0;
+	now_i = clock();
+	set->time_stamp = (now_i % 10) * 0.5;
 }

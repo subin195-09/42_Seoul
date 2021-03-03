@@ -6,11 +6,11 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/22 23:46:12 by skim              #+#    #+#              #
-#    Updated: 2021/03/03 22:34:31 by skim             ###   ########.fr        #
+#    Updated: 2021/03/03 22:58:25 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cub3d
+NAME = cub3D
 GNL = libgnl.a
 LIBFT = libft.a
 MLX = libmlx.a
@@ -46,7 +46,7 @@ all : $(NAME)
 
 $(NAME) : $(LIBFT) $(GNL) $(MLX) $(MLX_BETA)
 	@$(CC) $(CFLAGS) -I$(INC_DIR) -I$(GNL_DIR)/$(INC_DIR) -I$(LIB_DIR)/$(INC_DIR) -I$(MLX_DIR) \
-	-L./ -lgnl -L./ -lft $(OPENGL) $(MMS) -o cub3d $(SRCS)
+	-L./ -lgnl -L./ -lft $(OPENGL) $(MMS) -o $(NAME) $(SRCS)
 
 $(LIBFT) :
 	@make -C $(LIB_DIR)
@@ -85,6 +85,6 @@ fclean : clean
 re : fclean all
 
 test : clean all
-	./cub3d map.cub
+	./cub3D map.cub
 
 bonus : all

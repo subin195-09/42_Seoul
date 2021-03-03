@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 20:18:19 by skim              #+#    #+#             */
-/*   Updated: 2021/03/03 22:03:27 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/03 22:40:45 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	wall_hit(t_set *set, t_wcast *w)
 			w->dir_side = 1;
 		}
 		if (set->map[w->map_x][w->map_y] == 1 || \
-		(w->map_x == set->s_door.h_x && w->map_y == set->s_door.h_y && set->s_door.h_text != 32))
+		(w->map_x == set->s_door.h_x && w->map_y == \
+		set->s_door.h_y && set->s_door.h_text != 32))
 		{
 			if (w->map_x == set->s_door.h_x && w->map_y == set->s_door.h_y)
 				set->s_door.is_hidden = 1;

@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 16:54:23 by skim              #+#    #+#             */
-/*   Updated: 2021/03/03 22:35:19 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/03 22:39:06 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@ void	is_save(t_set *set, char *av)
 	}
 }
 
-int		set_init(t_set *set)
+void	set_init_key(t_set *set)
 {
-	set->info.move_speed = 0.05;
-	set->info.rot_speed = 0.03;
 	set->key.key_up = 0;
 	set->key.key_down = 0;
 	set->key.key_right = 0;
@@ -37,6 +35,13 @@ int		set_init(t_set *set)
 	set->key.key_look_right = 0;
 	set->key.key_look_left = 0;
 	set->key.key_q = 0;
+}
+
+int		set_init(t_set *set)
+{
+	set->info.move_speed = 0.05;
+	set->info.rot_speed = 0.03;
+	set_init_key(set);
 	set->life.life = 100;
 	set->time_stamp = 0;
 	set->jump = 0;
