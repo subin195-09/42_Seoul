@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 20:37:07 by skim              #+#    #+#             */
-/*   Updated: 2021/03/03 19:19:08 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/03 21:31:13 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,5 @@ void	make_texture(t_set *set)
 		load_image(set, CE_TEXT_NUM, set->minfo.ce_path);
 	load_image(set, SP_TEXT_NUM, set->minfo.sp_path);
 	load_image(set, ITEM_TEXT_NUM, "img/pack_sp2.xpm");
+	load_image(set, SEC_TEXT_NUM, "img/eagle.xpm");
 }

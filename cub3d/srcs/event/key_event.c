@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 18:29:08 by skim              #+#    #+#             */
-/*   Updated: 2021/03/02 22:54:29 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/03 21:14:16 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int		event_key_press(int keycode, t_set *set)
 		cub3d_exit(set, 2);
 	if (keycode == KEY_J)
 		set->jump = 1;
+	if (keycode == KEY_Q)
+		set->key.key_q = set->key.key_q == 0 ? 1 : 0;
 	return (0);
 }
 

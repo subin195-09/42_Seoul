@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 15:17:31 by skim              #+#    #+#             */
-/*   Updated: 2021/03/03 19:02:14 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/03 22:34:50 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ void	play_sound_effect(int i);
 void	life_bar(t_set *set);
 void	animated_sprite(t_set *set);
 int		make_darker(int color, int size);
+void	make_secret_door(t_set *set);
 
 #endif

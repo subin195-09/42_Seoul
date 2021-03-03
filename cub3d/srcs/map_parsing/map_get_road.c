@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:18:26 by skim              #+#    #+#             */
-/*   Updated: 2021/02/28 20:27:32 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/03 21:20:27 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,13 @@ void	change_map(t_set *set, int **map, char *temp_map, int i)
 			temp_map[j] = '0';
 		}
 		(*map)[j] = temp_map[j] == ' ' ? -1 : temp_map[j] - '0';
-		if ((*map)[j] >= 2)
+		if ((*map)[j] == 2 || (*map)[j] == 3)
 			set->minfo.num_sprite++;
+		if ((*map)[j] == 9)
+		{
+			set->s_door.h_x = i;
+			set->s_door.h_y = j;
+		}
 	}
 }
 

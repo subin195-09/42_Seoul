@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:28:12 by skim              #+#    #+#             */
-/*   Updated: 2021/03/02 21:38:45 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/03 22:27:08 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	init_ck_map(t_set *set, int ***ck_map)
 			else
 			{
 				(*ck_map)[i][j] = set->map[i - 1][j - 1];
-				if (set->map[i - 1][j - 1] >= 2)
+				if (set->map[i - 1][j - 1] == 2 || set->map[i - 1][j - 1] == 3)
 					sprite_count(set, &a, i, j);
 			}
 		}

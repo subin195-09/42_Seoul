@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 20:18:19 by skim              #+#    #+#             */
-/*   Updated: 2021/03/03 19:11:44 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/03 22:03:27 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,13 @@ void	wall_hit(t_set *set, t_wcast *w)
 			w->map_y += w->step_y;
 			w->dir_side = 1;
 		}
-		if (set->map[w->map_x][w->map_y] == 1)
+		if (set->map[w->map_x][w->map_y] == 1 || \
+		(w->map_x == set->s_door.h_x && w->map_y == set->s_door.h_y && set->s_door.h_text != 32))
+		{
+			if (w->map_x == set->s_door.h_x && w->map_y == set->s_door.h_y)
+				set->s_door.is_hidden = 1;
 			return ;
+		}
 	}
 }
 
@@ -67,7 +72,9 @@ int		wall_set_tex_num(t_set *set, t_wcast *w)
 	w->draw_end = (set->minfo.s_height / 2) + w->line_height / 2;
 	w->draw_end = w->draw_end >= set->minfo.s_height ? \
 	set->minfo.s_height - 1 : w->draw_end;
-	if (w->dir_side == 0)
+	if (w->map_x == set->s_door.h_x && w->map_y == set->s_door.h_y)
+		rt = SEC_TEXT_NUM;
+	else if (w->dir_side == 0)
 		rt = w->ray_dir_x < 0 ? NO_TEXT_NUM : SO_TEXT_NUM;
 	else
 		rt = w->ray_dir_y < 0 ? WE_TEXT_NUM : EA_TEXT_NUM;
@@ -99,6 +106,15 @@ void	wall_text(t_set *set, t_wcast *w, int x)
 	{
 		t.t_y = (int)t.t_pos & (TEXTHEIGHT - 1);
 		t.t_pos += step;
+		if (t.t_num == SEC_TEXT_NUM)
+		{
+			t.t_y -= set->s_door.h_text * 4;
+			t.t_y = make_re_y(set, t.t_y);
+			if (set->s_door.h_text == 32)
+				set->map[set->s_door.h_x][set->s_door.h_y] = 0;
+			t.color = set->info.texture[t.t_num][TEXTHEIGHT * t.t_y + t.t_x];
+		}
+		else
 		t.color = set->info.texture[t.t_num][TEXTHEIGHT * t.t_y + t.t_x];
 		t.color = make_darker(t.color, set->minfo.s_height / 2 - w->line_height * 2);
 		re_y = y + set->jump + (set->up * 2);

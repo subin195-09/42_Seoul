@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:44:12 by skim              #+#    #+#             */
-/*   Updated: 2021/03/02 22:53:00 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/03 21:30:08 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define MAP_TILE		7
 # define LIFE_TILE		20
 
-# define TEXT			8
+# define TEXT			9
 # define TEXTWIDTH		64
 # define TEXTHEIGHT		64
 
@@ -26,6 +26,7 @@
 # define KEY_A			0
 # define KEY_D			2
 # define KEY_J			38
+# define KEY_Q			12
 # define KEY_UP			126
 # define KEY_DOWN		125
 # define KEY_LEFT		123
@@ -45,5 +46,6 @@
 # define SP_TEXT_NUM		6
 # define RE_NUM				7
 # define ITEM_TEXT_NUM		7
+# define SEC_TEXT_NUM		8
 
 #endif

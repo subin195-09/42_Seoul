@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 16:54:23 by skim              #+#    #+#             */
-/*   Updated: 2021/03/02 23:15:57 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/03 22:35:19 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,12 @@ int		set_init(t_set *set)
 	set->key.key_look_down = 0;
 	set->key.key_look_right = 0;
 	set->key.key_look_left = 0;
+	set->key.key_q = 0;
 	set->life.life = 100;
 	set->time_stamp = 0;
 	set->jump = 0;
+	set->s_door.is_hidden = 0;
+	set->s_door.h_text = 0;
 	ft_memset(set->life.life_bar, 1, set->life.life);
 	if (!(set->info.z_buffer = malloc(sizeof(double) * set->minfo.s_width)))
 		return (-1);
@@ -61,6 +64,7 @@ int		main_loop(t_set *set)
 	draw_map(set);
 	life_bar(set);
 	animated_sprite(set);
+	make_secret_door(set);
 	if (set->jump > 0 && set->jump < 15)
 		set->jump += 3;
 	if (!set->is_bmp)
