@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 18:29:08 by skim              #+#    #+#             */
-/*   Updated: 2021/03/04 16:58:56 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/05 01:08:15 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ int		event_key_press(int keycode, t_set *set)
 	if (keycode == KEY_J)
 		set->jump = 1;
 	if (keycode == KEY_Q)
+	{
 		set->key.key_q = set->key.key_q == 0 ? 1 : 0;
+		play_sound_effect(5);
+	}
 	return (0);
 }
 
