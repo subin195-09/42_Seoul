@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 22:01:45 by skim              #+#    #+#             */
-/*   Updated: 2021/02/26 17:13:39 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/04 15:45:27 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,15 @@ int		map_fc_check(t_set *set, char *line, unsigned char *flag, int i)
 	{
 		if ((i = flag_check(2, FL_TEXT_NUM, flag, line)) < 0)
 			return (error_msg("floor overlap"));
-		get_floor(set, line + i);
+		if (!get_floor(set, line + i))
+			return (0);
 	}
 	if (ft_strnstr(line, "C ", 2))
 	{
 		if ((i = flag_check(2, CE_TEXT_NUM, flag, line)) < 0)
 			return (error_msg("ceiling overlap"));
-		get_ceiling(set, line + i);
+		if (!get_ceiling(set, line + i))
+			return (0);
 	}
 	return (1);
 }

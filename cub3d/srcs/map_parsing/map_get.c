@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:05:02 by skim              #+#    #+#             */
-/*   Updated: 2021/03/02 23:44:30 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/04 15:43:44 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,17 @@ int		get_color(char *line)
 	{
 		line++;
 		if (!(*line))
-			return (-1);
+			return (error_msg("wrong color") - 1);
 	}
 	g = ft_atoi(++line);
 	while (*line != ',' && *line)
 	{
 		line++;
 		if (!(*line))
-			return (0);
+			return (error_msg("wrong color") - 1);
 	}
+	if (!(*line))
+		return (error_msg("wrong color") - 1);
 	b = ft_atoi(++line);
 	return ((r * 256 * 256) + (g * 256) + b);
 }

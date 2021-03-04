@@ -5,7 +5,7 @@ WE ./img/wall_w.xpm
 EA ./img/wall_e.xpm
 S ./img/barrel.xpm
 
-C 100
+C ./img/colorstone.xpm
 F ./img/colorstone.xpm
 
 111111111111111111111111111111111111111111111
