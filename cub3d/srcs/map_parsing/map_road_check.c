@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:28:12 by skim              #+#    #+#             */
-/*   Updated: 2021/03/03 22:27:08 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/04 18:19:15 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,17 @@ int		check_map(t_set *set)
 {
 	int		**ck_map;
 	int		i;
+	int		rt;
 
 	ck_map = (int **)malloc(sizeof(int *) * (set->minfo.m_height + 2));
 	i = -1;
 	while (++i < set->minfo.m_height + 2)
 		ck_map[i] = (int *)malloc(sizeof(int) * (set->minfo.m_width + 2));
 	init_ck_map(set, &ck_map);
-	return (is_map(set, ck_map));
+	rt = is_map(set, ck_map);
+	i = -1;
+	while (++i < set->minfo.m_height + 2)
+		free(ck_map[i]);
+	free(ck_map);
+	return (rt);
 }

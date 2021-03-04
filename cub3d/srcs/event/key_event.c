@@ -6,19 +6,11 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 18:29:08 by skim              #+#    #+#             */
-/*   Updated: 2021/03/03 21:14:16 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/04 16:58:56 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub_main.h"
-
-void	cub3d_exit(t_set *set, int sound)
-{
-	play_sound_effect(sound);
-	system("killall find; killall afplay");
-	mlx_destroy_window(set->mlx, set->win);
-	exit(0);
-}
 
 int		event_key_press(int keycode, t_set *set)
 {

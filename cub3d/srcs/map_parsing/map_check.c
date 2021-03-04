@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 22:01:45 by skim              #+#    #+#             */
-/*   Updated: 2021/03/04 15:45:27 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/04 18:04:36 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,12 @@ int		map_check(t_set *set, int fd, char **line)
 	{
 		if (!map_side_check(set, *line, &flag, i))
 			return (0);
-		if (!map_fc_check(set, *line, &flag, i))
+		else if (!map_fc_check(set, *line, &flag, i))
 			return (0);
-		if (!map_etc_check(set, *line, &flag, i))
+		else if (!map_etc_check(set, *line, &flag, i))
 			return (0);
+		if (*line)
+			free(*line);
 	}
 	if (rt <= 0)
 		return (0);

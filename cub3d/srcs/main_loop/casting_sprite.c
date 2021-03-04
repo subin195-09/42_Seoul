@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 22:03:34 by skim              #+#    #+#             */
-/*   Updated: 2021/03/03 23:25:24 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/04 18:05:57 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,4 +139,8 @@ void	sprite_cast(t_set *set)
 		sprite_text_init(set, &s);
 		sprite_text(set, &s, i);
 	}
+	if (s.sprite_order)
+		free(s.sprite_order);
+	if (s.sprite_distance)
+		free(s.sprite_distance);
 }

@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 22:53:43 by skim              #+#    #+#             */
-/*   Updated: 2021/02/25 22:50:06 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/04 18:32:55 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,11 @@ int		map_parse(t_set *set, char *map_name)
 	if (!map_check(set, fd, &line))
 		return (0);
 	while (line[0] != ' ' && !ft_isdigit(line[0]))
+	{
 		get_next_line(fd, &line);
+		if (line[0] != ' ' && !ft_isdigit(line[0]))
+			free(line);
+	}
 	get_map(fd, &line, set);
 	if (!check_map(set))
 		return (error_msg("wrong map"));

@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:18:26 by skim              #+#    #+#             */
-/*   Updated: 2021/03/03 21:20:27 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/04 18:32:14 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	get_map_size(t_set *set, int fd, int fd_2, char **line)
 	set->minfo.m_height++;
 	write(fd_2, *line, temp_size);
 	write(fd_2, "\n", 1);
+	free(*line);
 	while ((get_next_line(fd, line)) > 0)
 	{
 		temp_size = ft_strlen(*line);
@@ -61,6 +62,7 @@ void	get_map_size(t_set *set, int fd, int fd_2, char **line)
 		set->minfo.m_height++;
 		write(fd_2, *line, temp_size);
 		write(fd_2, "\n", 1);
+		free(*line);
 	}
 }
 

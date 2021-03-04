@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 16:54:23 by skim              #+#    #+#             */
-/*   Updated: 2021/03/04 16:52:43 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/04 17:28:36 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,43 +21,6 @@ void	is_save(t_set *set, char *av)
 		printf("Error\nwrong second argument\n");
 		exit(0);
 	}
-}
-
-void	set_init_key(t_set *set)
-{
-	set->key.key_up = 0;
-	set->key.key_down = 0;
-	set->key.key_right = 0;
-	set->key.key_left = 0;
-	set->key.key_sp = 0;
-	set->key.key_look_up = 0;
-	set->key.key_look_down = 0;
-	set->key.key_look_right = 0;
-	set->key.key_look_left = 0;
-	set->key.key_q = 0;
-}
-
-int		set_init(t_set *set)
-{
-	set->info.move_speed = 0.05;
-	set->info.rot_speed = 0.03;
-	set_init_key(set);
-	set->life.life = 100;
-	set->time_stamp = 0;
-	set->jump = 0;
-	set->s_door.is_hidden = 0;
-	set->s_door.h_text = 0;
-	ft_memset(set->life.life_bar, 1, set->life.life);
-	if (!(set->info.z_buffer = malloc(sizeof(double) * set->minfo.s_width)))
-		return (-1);
-	set->win = \
-	mlx_new_window(set->mlx, set->minfo.s_width, set->minfo.s_height, "cub3d");
-	set->img.img_ptr = \
-	mlx_new_image(set->mlx, set->minfo.s_width, set->minfo.s_height);
-	set->img.data = \
-	(int *)mlx_get_data_addr(set->img.img_ptr, \
-	&set->img.bpp, &set->img.size_l, &set->img.endian);
-	return (1);
 }
 
 int		main_loop(t_set *set)
@@ -77,9 +40,7 @@ int		main_loop(t_set *set)
 	else
 	{
 		save_bmp_img(set);
-		mlx_destroy_image(set->mlx, set->img.img_ptr);
-		mlx_destroy_window(set->mlx, set->win);
-		exit(0);
+		cub3d_exit(set, 1);
 	}
 	if (!set->life.life)
 		cub3d_exit(set, 4);
@@ -102,7 +63,8 @@ int		main(int ac, char **av)
 		set.is_bmp = 0;
 	if (!map_parse(&set, av[1]))
 		return (0);
-	set_init(&set);
+	if (!set_init(&set))
+		return (cub3d_exit(&set, 2));
 	make_texture(&set);
 	play_sound_effect(1);
 	play_bgm();
