@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 20:18:19 by skim              #+#    #+#             */
-/*   Updated: 2021/03/04 16:39:08 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/04 22:36:36 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,9 @@ void	wall_text(t_set *set, t_wcast *w, int x)
 			t.color = set->info.texture[t.t_num][TEXTHEIGHT * t.t_y + t.t_x];
 		}
 		else
-		t.color = set->info.texture[t.t_num][TEXTHEIGHT * t.t_y + t.t_x];
-		t.color = make_darker(t.color, set->minfo.s_height / 2 - w->line_height * 2);
+			t.color = set->info.texture[t.t_num][TEXTHEIGHT * t.t_y + t.t_x];
+		t.color = make_darker(t.color, set->minfo.s_height \
+		/ 2 - w->line_height * 2);
 		re_y = y + set->jump + (set->up * 2);
 		re_y = make_re_y(set, re_y);
 		set->img.data[re_y * set->minfo.s_width + x] = t.color;
