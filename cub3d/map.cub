@@ -1,12 +1,12 @@
 R 900	700
-NO ./img/wall_n.xpm
-SO ./img/wall_s.xpm
-WE ./img/wall_w.xpm
-EA ./img/wall_e.xpm
-S ./img/barrel.xpm
+NO ./img/purple_e.xpm
+SO ./img/purple_e.xpm
+WE ./img/purple_e.xpm
+EA ./img/purple_e.xpm
+S ./img/purple_s.xpm
 
-C ./img/colorstone.xpm
-F ./img/colorstone.xpm
+C ./img/purple_ceiling.xpm
+F ./img/purple_f.xpm
 
 111111111111111111111111111111111111111111111
 110000000000000000000000000000000000001000001

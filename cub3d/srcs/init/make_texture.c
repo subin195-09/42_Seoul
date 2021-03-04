@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 20:37:07 by skim              #+#    #+#             */
-/*   Updated: 2021/03/03 23:06:17 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/04 21:54:34 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ void	make_texture(t_set *set)
 	if (set->minfo.ceiling_text)
 		load_image(set, CE_TEXT_NUM, set->minfo.ce_path);
 	load_image(set, SP_TEXT_NUM, set->minfo.sp_path);
-	load_image(set, ITEM_TEXT_NUM, "img/pillar.xpm");
-	load_image(set, SEC_TEXT_NUM, "img/eagle.xpm");
+	load_image(set, ITEM_TEXT_NUM, "img/purple_s_2.xpm");
+	load_image(set, SEC_TEXT_NUM, "./img/purple_sec.xpm");
 }
