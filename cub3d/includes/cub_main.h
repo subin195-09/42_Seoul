@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 15:17:31 by skim              #+#    #+#             */
-/*   Updated: 2021/03/03 22:34:50 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/04 16:54:13 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int		event_key_release(int keycode, t_set *set);
 void	key_action(t_set *set);
 void	key_look_right(t_set *set);
 void	key_look_left(t_set *set);
+int		event_exit(t_set *set);
 void	cub3d_exit(t_set *set, int sound);
 
 void	floor_cast(t_set *set);

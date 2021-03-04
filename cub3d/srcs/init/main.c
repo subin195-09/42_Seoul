@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 16:54:23 by skim              #+#    #+#             */
-/*   Updated: 2021/03/04 15:46:38 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/04 16:52:43 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int		main(int ac, char **av)
 	play_bgm();
 	mlx_hook(set.win, X_EVENT_KEY_PRESS, 0, &event_key_press, &set);
 	mlx_hook(set.win, X_EVENT_KEY_RELEASE, 0, &event_key_release, &set);
+	mlx_hook(set.win, X_EVENT_KEY_EXIT, 0, &event_exit, &set);
 	mlx_loop_hook(set.mlx, &main_loop, &set);
 	mlx_loop(set.mlx);
 }
