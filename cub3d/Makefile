@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/22 23:46:12 by skim              #+#    #+#              #
-#    Updated: 2021/03/04 20:19:10 by skim             ###   ########.fr        #
+#    Updated: 2021/03/05 17:21:09 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRCS_BONUS_DIR = /bonus
 SRCS = $(addprefix $(SRCS_DIR)/, \
 	$(addprefix $(SRCS_EVENT_DIR)/, key_action.c key_event.c key_action_look.c key_exit.c)\
 	$(addprefix $(SRCS_INIT_DIR)/, main.c make_texture.c set_init.c)\
-	$(addprefix $(SRCS_MAIN_DIR)/, casting_floor.c casting_sprite.c casting_wall.c draw_map.c save_bmp_img.c resize_y.c)\
+	$(addprefix $(SRCS_MAIN_DIR)/, casting_floor.c casting_sprite.c casting_sprite_2.c casting_wall.c casting_wall_2.c draw_map.c save_bmp_img.c resize_y.c)\
 	$(addprefix $(SRCS_MAP_DIR)/, map_check.c map_error.c map_max_resolution.c map_get_pos.c map_get_road.c map_get.c map_parsing.c map_road_check.c)\
 	$(addprefix $(SRCS_BONUS_DIR)/, sound_bonus.c lifebar_bonus.c animated_bonus.c darker_bonus.c secret_bonus.c))
 

@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 16:54:23 by skim              #+#    #+#             */
-/*   Updated: 2021/03/04 17:28:36 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/05 17:27:47 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		main(int ac, char **av)
 	else
 		set.is_bmp = 0;
 	if (!map_parse(&set, av[1]))
-		return (0);
+		return (cub3d_exit(&set, 2));
 	if (!set_init(&set))
 		return (cub3d_exit(&set, 2));
 	make_texture(&set);

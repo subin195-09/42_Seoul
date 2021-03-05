@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 15:17:31 by skim              #+#    #+#             */
-/*   Updated: 2021/03/04 17:17:36 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/05 17:21:31 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int		cub3d_exit(t_set *set, int sound);
 
 void	floor_cast(t_set *set);
 void	wall_cast(t_set *set);
+void	wall_text(t_set *set, t_wcast *w, int x);
+void	sprite_text(t_set *set, t_scast *s, int i);
 void	sprite_cast(t_set *set);
 int		make_re_y(t_set *set, int y);
 
