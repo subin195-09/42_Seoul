@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/22 23:46:12 by skim              #+#    #+#              #
-#    Updated: 2021/03/05 17:21:09 by skim             ###   ########.fr        #
+#    Updated: 2021/03/05 17:54:29 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ LIBFT = libft.a
 MLX = libmlx.a
 MLX_BETA = libmlxbeta.dylib
 
-CC = gcc -g
+CC = gcc
+
 CFLAGS = -Wall -Werror -Wextra
 
 INC_DIR = includes
@@ -85,6 +86,6 @@ fclean : clean
 re : fclean all
 
 test : clean all
-	./cub3D map.cub
+	./cub3D map.cub --save
 
 bonus : all

@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 16:54:23 by skim              #+#    #+#             */
-/*   Updated: 2021/03/05 17:27:47 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/05 17:59:27 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	is_save(t_set *set, char *av)
 	else
 	{
 		printf("Error\nwrong second argument\n");
-		exit(0);
+		cub3d_exit(set, 2);
 	}
 }
 
@@ -66,8 +66,11 @@ int		main(int ac, char **av)
 	if (!set_init(&set))
 		return (cub3d_exit(&set, 2));
 	make_texture(&set);
-	play_sound_effect(1);
-	play_bgm();
+	if (!set.is_bmp)
+	{
+		play_sound_effect(1);
+		play_bgm();
+	}
 	mlx_hook(set.win, X_EVENT_KEY_PRESS, 0, &event_key_press, &set);
 	mlx_hook(set.win, X_EVENT_KEY_RELEASE, 0, &event_key_release, &set);
 	mlx_hook(set.win, X_EVENT_KEY_EXIT, 0, &event_exit, &set);

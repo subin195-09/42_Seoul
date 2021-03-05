@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 20:37:07 by skim              #+#    #+#             */
-/*   Updated: 2021/03/04 21:54:34 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/05 17:41:20 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	load_image(t_set *set, int tex_num, char *path)
 	if (!img.img_ptr)
 	{
 		error_msg("wrong file");
-		exit(0);
+		cub3d_exit(set, 2);
 	}
 	img.data = \
 	(int *)mlx_get_data_addr(img.img_ptr, &img.bpp, &img.size_l, &img.endian);

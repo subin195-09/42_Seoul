@@ -6,13 +6,13 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 18:29:08 by skim              #+#    #+#             */
-/*   Updated: 2021/03/05 17:36:03 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/05 17:42:00 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub_main.h"
 
-int		event_key_press_second(int keycode, t_set *set)
+void	event_key_press_second(int keycode, t_set *set)
 {
 	if (keycode == KEY_W)
 		set->key.key_up = 1;
