@@ -6,13 +6,13 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 18:29:08 by skim              #+#    #+#             */
-/*   Updated: 2021/03/05 01:08:15 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/05 17:36:03 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub_main.h"
 
-int		event_key_press(int keycode, t_set *set)
+int		event_key_press_second(int keycode, t_set *set)
 {
 	if (keycode == KEY_W)
 		set->key.key_up = 1;
@@ -22,8 +22,6 @@ int		event_key_press(int keycode, t_set *set)
 		set->key.key_right = 1;
 	if (keycode == KEY_A)
 		set->key.key_left = 1;
-	if (keycode == KEY_SP)
-		set->key.key_sp = set->key.key_sp == 0 ? 1 : 0;
 	if (keycode == KEY_UP)
 		set->key.key_look_up = 1;
 	if (keycode == KEY_DOWN)
@@ -32,6 +30,13 @@ int		event_key_press(int keycode, t_set *set)
 		set->key.key_look_left = 1;
 	if (keycode == KEY_RIGHT)
 		set->key.key_look_right = 1;
+}
+
+int		event_key_press(int keycode, t_set *set)
+{
+	event_key_press_second(keycode, set);
+	if (keycode == KEY_SP)
+		set->key.key_sp = set->key.key_sp == 0 ? 1 : 0;
 	if (keycode == KEY_ESC)
 		cub3d_exit(set, 2);
 	if (keycode == KEY_J)
