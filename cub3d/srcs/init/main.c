@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 16:54:23 by skim              #+#    #+#             */
-/*   Updated: 2021/03/05 18:06:28 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/05 19:25:58 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,37 @@ int		main_loop(t_set *set)
 	return (0);
 }
 
+void	mlx_add_event(t_set *set)
+{
+	mlx_hook(set->win, X_EVENT_KEY_PRESS, 0, &event_key_press, set);
+	mlx_hook(set->win, X_EVENT_KEY_RELEASE, 0, &event_key_release, set);
+	mlx_hook(set->win, X_EVENT_KEY_EXIT, 0, &event_exit, set);
+	mlx_loop_hook(set->mlx, &main_loop, set);
+}
+
+void	set_start(t_set *set)
+{
+	set->map = 0;
+	set->sprite = 0;
+	set->minfo.no_path = 0;
+	set->minfo.so_path = 0;
+	set->minfo.we_path = 0;
+	set->minfo.ea_path = 0;
+	set->minfo.sp_path = 0;
+	set->minfo.fl_path = 0;
+	set->minfo.ce_path = 0;
+	set->info.z_buffer = 0;
+}
+
 int		main(int ac, char **av)
 {
 	t_set	set;
 
+	ft_memset(&set, 0, sizeof(t_set));
 	if (ac != 2 && ac != 3)
 	{
 		printf("Error\nargument error\n");
-		return (-1);
+		cub3d_exit(&set, 0);
 	}
 	set.mlx = mlx_init();
 	if (ac == 3)
@@ -66,15 +89,11 @@ int		main(int ac, char **av)
 	if (!set_init(&set))
 		return (cub3d_exit(&set, 2));
 	make_texture(&set);
-	printf("%d\n", set.is_bmp);
 	if (set.is_bmp != 1)
 	{
 		play_sound_effect(1);
 		play_bgm();
 	}
-	mlx_hook(set.win, X_EVENT_KEY_PRESS, 0, &event_key_press, &set);
-	mlx_hook(set.win, X_EVENT_KEY_RELEASE, 0, &event_key_release, &set);
-	mlx_hook(set.win, X_EVENT_KEY_EXIT, 0, &event_exit, &set);
-	mlx_loop_hook(set.mlx, &main_loop, &set);
+	mlx_add_event(&set);
 	mlx_loop(set.mlx);
 }

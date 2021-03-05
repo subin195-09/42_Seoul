@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:52:56 by skim              #+#    #+#             */
-/*   Updated: 2021/03/05 18:05:15 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/05 19:08:54 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,14 @@ void	free_set(t_set *set)
 
 int		cub3d_exit(t_set *set, int sound)
 {
-	play_sound_effect(sound);
-	system("killall find; killall afplay");
-	free_set(set);
-	mlx_destroy_window(set->mlx, set->win);
-	mlx_destroy_image(set->mlx, set->img.img_ptr);
+	if (sound != 0)
+	{
+		play_sound_effect(sound);
+		system("killall find; killall afplay");
+		//free_set(set);
+		mlx_destroy_window(set->mlx, set->win);
+		mlx_destroy_image(set->mlx, set->img.img_ptr);
+	}
 	system("leaks cub3D");
 	exit(0);
 }

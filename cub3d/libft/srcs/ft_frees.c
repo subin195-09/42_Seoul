@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:53:49 by skim              #+#    #+#             */
-/*   Updated: 2020/11/06 14:56:25 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/05 18:17:58 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	ft_frees(int size, ...)
 	i = 0;
 	while (i < size)
 	{
-		free(va_arg(var, void*));
+		if (va_arg(var, void*))
+			free(va_arg(var, void*));
 		i++;
 	}
 }
