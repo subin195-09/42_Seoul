@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 18:52:40 by skim              #+#    #+#             */
-/*   Updated: 2021/03/05 01:14:43 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/05 18:04:52 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	play_sound_effect(int i)
 	if (i == 1)
 		system("afplay -v 0.40 sounds/purple_start.wav");
 	if (i == 2)
-		system("afplay -v 0.40 sounds/purple_end.wav");
+		system("afplay -v 0.40 sounds/purple_end.wav &");
 	if (i == 3)
 		system("afplay -v 0.40 sounds/collision.wav &");
 	if (i == 4)

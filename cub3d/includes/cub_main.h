@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 15:17:31 by skim              #+#    #+#             */
-/*   Updated: 2021/03/05 17:59:56 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/05 18:06:40 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	make_texture(t_set *set);
 int		set_init(t_set *set);
 
 void	play_bgm(void);
-// void	play_sound_effect(int i);
+void	play_sound_effect(int i);
 void	life_bar(t_set *set);
 void	animated_sprite(t_set *set);
 int		make_darker(int color, int size);

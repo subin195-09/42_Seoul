@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 16:54:23 by skim              #+#    #+#             */
-/*   Updated: 2021/03/05 17:59:27 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/05 18:06:28 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ int		main_loop(t_set *set)
 	make_secret_door(set);
 	if (set->jump > 0 && set->jump < 15)
 		set->jump += 3;
-	if (!set->is_bmp)
+	if (set->is_bmp != 1)
 		mlx_put_image_to_window(set->mlx, set->win, set->img.img_ptr, 0, 0);
 	else
 	{
 		save_bmp_img(set);
-		cub3d_exit(set, 1);
+		cub3d_exit(set, 2);
 	}
 	if (!set->life.life)
 		cub3d_exit(set, 4);
@@ -66,7 +66,8 @@ int		main(int ac, char **av)
 	if (!set_init(&set))
 		return (cub3d_exit(&set, 2));
 	make_texture(&set);
-	if (!set.is_bmp)
+	printf("%d\n", set.is_bmp);
+	if (set.is_bmp != 1)
 	{
 		play_sound_effect(1);
 		play_bgm();
