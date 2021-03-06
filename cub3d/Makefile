@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/22 23:46:12 by skim              #+#    #+#              #
-#    Updated: 2021/03/05 19:49:00 by skim             ###   ########.fr        #
+#    Updated: 2021/03/06 14:31:23 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,6 +86,6 @@ fclean : clean
 re : fclean all
 
 test : clean all
-	./cub3D map.cub
+	./cub3D map.cub --save
 
 bonus : all
