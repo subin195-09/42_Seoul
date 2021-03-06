@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 15:17:31 by skim              #+#    #+#             */
-/*   Updated: 2021/03/05 18:06:40 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/06 17:15:26 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		get_color(char *line);
 int		get_ceiling(t_set *set, char *line);
 int		get_floor(t_set *set, char *line);
 int		get_map(int fd, char **line, t_set *set);
-void	set_pos(t_set *set, char pos);
+void	set_pos(t_set *set, char pos, int i, int j);
 int		error_msg(char *kind);
 int		check_map(t_set *set);
 
