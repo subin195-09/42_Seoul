@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:52:56 by skim              #+#    #+#             */
-/*   Updated: 2021/03/05 19:55:35 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/06 14:51:47 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ int		cub3d_exit(t_set *set, int sound)
 		play_sound_effect(sound);
 		system("killall find; killall afplay");
 		//free_set(set);
-		mlx_destroy_window(set->mlx, set->win);
+		if (set->win)
+			mlx_destroy_window(set->mlx, set->win);
+		if (set->img.img_ptr)
 		mlx_destroy_image(set->mlx, set->img.img_ptr);
 	}
 	system("leaks cub3D");
