@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 16:54:23 by skim              #+#    #+#             */
-/*   Updated: 2021/03/05 19:25:58 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/05 19:28:43 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,5 @@ int		main(int ac, char **av)
 	}
 	mlx_add_event(&set);
 	mlx_loop(set.mlx);
+	return (0);
 }

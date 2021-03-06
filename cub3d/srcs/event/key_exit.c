@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:52:56 by skim              #+#    #+#             */
-/*   Updated: 2021/03/05 19:08:54 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/05 19:55:35 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void	free_set(t_set *set)
 {
-	int		i;
+	// int		i;
 
-	i = -1;
-	while (++i < set->minfo.m_height)
-		ft_frees(1, set->map[i]);
-	ft_frees(2, set->map, set->sprite);
-	ft_frees(2, set->minfo.no_path, set->minfo.so_path);
-	ft_frees(2, set->minfo.we_path, set->minfo.ea_path);
-	ft_frees(3, set->minfo.sp_path, set->minfo.fl_path, set->minfo.ce_path);
+	// i = -1;
+	// while (++i < set->minfo.m_height)
+	// 	ft_frees(1, set->map[i]);
+	// ft_frees(2, set->map, set->sprite);
+	// ft_frees(2, set->minfo.no_path, set->minfo.so_path);
+	// ft_frees(2, set->minfo.we_path, set->minfo.ea_path);
+	// ft_frees(3, set->minfo.sp_path, set->minfo.fl_path, set->minfo.ce_path);
 	ft_frees(1, set->info.z_buffer);
 }
 

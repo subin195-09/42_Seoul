@@ -5,8 +5,17 @@ WE ./img/purple_e.xpm
 EA ./img/purple_e.xpm
 S ./img/purple_s.xpm
 
+
+
+
+
+
 C ./img/purple_ceiling.xpm
 F ./img/purple_f.xpm
+
+
+
+
 
 111111111111111111111111111111111111111111111
 110000000000000000000000000000000000001000001
