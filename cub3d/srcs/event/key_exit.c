@@ -6,25 +6,11 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 16:52:56 by skim              #+#    #+#             */
-/*   Updated: 2021/03/06 14:51:47 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/06 16:41:06 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub_main.h"
-
-void	free_set(t_set *set)
-{
-	// int		i;
-
-	// i = -1;
-	// while (++i < set->minfo.m_height)
-	// 	ft_frees(1, set->map[i]);
-	// ft_frees(2, set->map, set->sprite);
-	// ft_frees(2, set->minfo.no_path, set->minfo.so_path);
-	// ft_frees(2, set->minfo.we_path, set->minfo.ea_path);
-	// ft_frees(3, set->minfo.sp_path, set->minfo.fl_path, set->minfo.ce_path);
-	ft_frees(1, set->info.z_buffer);
-}
 
 int		cub3d_exit(t_set *set, int sound)
 {
@@ -32,11 +18,10 @@ int		cub3d_exit(t_set *set, int sound)
 	{
 		play_sound_effect(sound);
 		system("killall find; killall afplay");
-		//free_set(set);
 		if (set->win)
 			mlx_destroy_window(set->mlx, set->win);
 		if (set->img.img_ptr)
-		mlx_destroy_image(set->mlx, set->img.img_ptr);
+			mlx_destroy_image(set->mlx, set->img.img_ptr);
 	}
 	system("leaks cub3D");
 	exit(0);

@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 16:54:23 by skim              #+#    #+#             */
-/*   Updated: 2021/03/05 19:28:43 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/06 16:32:18 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,7 @@ int		main(int ac, char **av)
 
 	ft_memset(&set, 0, sizeof(t_set));
 	if (ac != 2 && ac != 3)
-	{
-		printf("Error\nargument error\n");
-		cub3d_exit(&set, 0);
-	}
+		cub3d_exit(&set, error_msg("argument error\n"));
 	set.mlx = mlx_init();
 	if (ac == 3)
 		is_save(&set, av[2]);
