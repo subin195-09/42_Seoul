@@ -1,0 +1,19 @@
+{
+    "tasks": [
+        {
+            "type": "shell",
+            // 제일 중요한 부분, 해당 부분의 라벨명에 따라 launch.json 과 연결됨
+            "label": "make cub3d",
+            // make명령어를 사용하여 디버깅할 프로그램을 만드므로, make로 잡아둠
+            "command": "/usr/bin/make",
+            // make 뒤에 붙는 요소를 각 문자열로 전달하면 됨 (그냥 make만 치면 프로그램이 만들어질 시에는 비워두어도 됨)
+            "args": [
+            ],
+            "options": {
+                // 현재 작업중인 위치. 이 작업위치에 따라서 상대경로 위치가 잡히게 된다.
+                "cwd": "${workspaceFolder}"
+            }
+        }
+    ],
+    "version": "2.0.0"
+}
