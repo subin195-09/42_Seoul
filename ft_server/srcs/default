@@ -1,0 +1,22 @@
+server {
+	listen 80;
+	listen [::]:80;
+}
+
+server {
+	listen 443 ssl;
+	listen [::]:442 ssl;
+
+	ssl on;
+	ssl_certificate /etc/ssl/certs/localhost.dev.crt;
+	ssl_certificate_key /etc/ssl/private/localhost.dev.key;
+
+	root /var/www/html;
+
+	index index.html index.htm index.nginx-debian.html;
+
+	server_name ft_server;
+	location / {
+		try_files $uri $uri/ =404;
+	}
+}
