@@ -37,6 +37,16 @@ RUN			service mysql start; \
 			GRANT ALL PRIVILEGES ON ${WP_NAME}.* TO '${WP_USER}'@'localhost' WITH GRANT OPTION; \
 			FLUSH PRIVILEGES;"
 
+# wordpress
+RUN			wget https://wordpress.org/latest.tar.gz; \
+			tar -xvf latest.tar.gz; \
+			mv wordpress/ var/www/html/; \
+			chown -R www-data:www-data /var/www/html/wordpress; \
+			cp var/www/html/wordpress/wp-config-sample.php var/www/html/wordpress/wp-config.php; \
+			sed -i "s/database_name_here/${WP_NAME}/g" /var/www/html/wordpress/wp-config.php; \
+			sed -i "s/username_here/${WP_USER}/g" /var/www/html/wordpress/wp-config.php; \
+			sed -i "s/password_here/${WP_PWD}/g" /var/www/html/wordpress/wp-config.php
+
 # 컨테이너가 해당 포트를 사용할 예정임을 알려줌
 # run -p 옵션 뒤에 이 포트번호가 적힘
 EXPOSE		80 443

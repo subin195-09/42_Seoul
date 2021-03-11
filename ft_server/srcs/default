@@ -15,7 +15,7 @@ server {
 
 	root /var/www/html;
 
-	autoindex off;
+	autoindex on;
 
 	index index.html index.htm index.nginx-debian.html index.php;
 
