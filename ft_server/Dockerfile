@@ -13,21 +13,16 @@ RUN			apt-get install -y nginx openssl php-fpm mariadb-server php-mysql vim wget
 
 COPY		./srcs/* ./
 
+# nginx 설정파일 옮기기
+RUN			cp /default	etc/nginx/sites-available/default;
+
 # openssl
 RUN			openssl req -newkey rsa:4096 -days 365 -nodes -x509 \
 			-subj "/C=KR/ST=Seoul/L=Seoul/O=42Seoul/OU=skim/CN=localhost" \
 			-keyout localhost.dev.key -out localhost.dev.crt; \
 			mv localhost.dev.crt etc/ssl/certs/; \
 			mv localhost.dev.key etc/ssl/private/; \
-			chmod 600 etc/ssl/certs/localhost.dev.crt etc/ssl/private/localhost.dev.key; \
-			cp /default	etc/nginx/sites-available/default
-
-# phpmyadmin
-RUN			wget https://files.phpmyadmin.net/phpMyAdmin/5.0.2/phpMyAdmin-5.0.2-all-languages.tar.gz; \
-			tar -xvf phpMyAdmin-5.0.2-all-languages.tar.gz; \
-			mv phpMyAdmin-5.0.2-all-languages phpmyadmin; \
-			mv phpmyadmin /var/www/html/ ;\
-			cp -rp var/www/html/phpmyadmin/config.sample.inc.php var/www/html/phpmyadmin/config.inc.php
+			chmod 600 etc/ssl/certs/localhost.dev.crt etc/ssl/private/localhost.dev.key
 
 # mySQL
 RUN			service mysql start; \
@@ -36,6 +31,13 @@ RUN			service mysql start; \
 			CREATE USER '${WP_USER}'@'localhost' IDENTIFIED BY '${WP_PWD}'; \
 			GRANT ALL PRIVILEGES ON ${WP_NAME}.* TO '${WP_USER}'@'localhost' WITH GRANT OPTION; \
 			FLUSH PRIVILEGES;"
+
+# phpmyadmin
+RUN			wget https://files.phpmyadmin.net/phpMyAdmin/5.0.2/phpMyAdmin-5.0.2-all-languages.tar.gz; \
+			tar -xvf phpMyAdmin-5.0.2-all-languages.tar.gz; \
+			mv phpMyAdmin-5.0.2-all-languages phpmyadmin; \
+			mv phpmyadmin /var/www/html/ ;\
+			cp -rp var/www/html/phpmyadmin/config.sample.inc.php var/www/html/phpmyadmin/config.inc.php
 
 # wordpress
 RUN			wget https://wordpress.org/latest.tar.gz; \
