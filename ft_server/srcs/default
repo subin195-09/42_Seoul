@@ -15,12 +15,11 @@ server {
 
 	root /var/www/html;
 
-	autoindex on;
-
-	index index.html index.htm index.nginx-debian.html index.php;
+	index index.html index.htm index.php;
 
 	server_name ft_server;
 	location / {
+		autoindex on;
 		try_files $uri $uri/ =404;
 	}
 
