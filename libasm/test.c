@@ -6,16 +6,18 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 12:25:23 by skim              #+#    #+#             */
-/*   Updated: 2021/03/21 12:54:44 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/21 15:38:27 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 
-void	hello(int fd, char *buf, int size);
+char	*ft_strcpy(char *d, char *s);
 
 int main(void)
 {
-	hello(1, "hello", 5);
+	char d[10];
+	printf("%s\n", ft_strcpy(d, "hello"));
+	printf("%s\n", d);
 	return (0);
 }

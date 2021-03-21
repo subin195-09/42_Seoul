@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/03/21 11:57:59 by skim              #+#    #+#              #
-#    Updated: 2021/03/21 12:40:32 by skim             ###   ########.fr        #
+#    Created: 2021/03/21 14:55:04 by skim              #+#    #+#              #
+#    Updated: 2021/03/21 15:26:16 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,6 @@ fclean : clean
 re : fclean all
 
 test :
-	$(ASMC) $(ASMCFLAGS) asm.s
-	gcc test.c asm.o
+	$(ASMC) $(ASMCFLAGS) ft_strcpy.s
+	gcc test.c ft_strcpy.o
 	./a.out
