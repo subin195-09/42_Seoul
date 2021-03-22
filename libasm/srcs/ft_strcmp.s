@@ -10,23 +10,20 @@ compare:
 	mov	dl, byte [rdi + rcx]
 	mov	al, byte [rsi + rcx]
 	cmp dl, 0
-	jz	dl_null
+	jz	cmp_null
+	jz	is_equl
 	cmp al, 0
-	jz	al_null
+	jz	cmp_null
 	cmp	dl, al
 	ja	is_above
 	jb	is_below
-	je	compare
+	jz	compare
 
-dl_null:
-	cmp al, 0
+cmp_null:
+	cmp	dl, al
+	ja	is_above
+	jb	is_below
 	jz	is_equl
-	jmp	is_below
-
-al_null:
-	cmp dl, 0
-	jz	is_equl
-	jmp	is_above
 
 is_equl:
 	mov rax, 0

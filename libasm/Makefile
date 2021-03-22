@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/21 14:55:04 by skim              #+#    #+#              #
-#    Updated: 2021/03/22 17:27:16 by skim             ###   ########.fr        #
+#    Updated: 2021/03/22 18:04:54 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ OBJS_BONUS_DIR = ./objs_bonus
 SRCS_DIR = ./srcs
 
 SRCS = $(addprefix $(SRCS_DIR)/,\
-	ft_strlen.s ft_strcpy.s ft_strcmp.s)
+	ft_strlen.s ft_strcpy.s ft_strcmp.s \
+	ft_write.s)
 
 SRCS_BONUS = $(addprefix $(SRCS_DIR)/, \
 	ft_atoi_base.s \
