@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/21 14:55:04 by skim              #+#    #+#              #
-#    Updated: 2021/03/21 15:26:16 by skim             ###   ########.fr        #
+#    Updated: 2021/03/22 17:27:16 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,7 @@ OBJS_BONUS_DIR = ./objs_bonus
 SRCS_DIR = ./srcs
 
 SRCS = $(addprefix $(SRCS_DIR)/,\
-	ft_strlen.s ft_strcpy.s ft_strcmp.s \
-	ft_write.s ft_read.s ft_strdup.s)
+	ft_strlen.s ft_strcpy.s ft_strcmp.s)
 
 SRCS_BONUS = $(addprefix $(SRCS_DIR)/, \
 	ft_atoi_base.s \
@@ -33,19 +32,19 @@ SRCS_BONUS = $(addprefix $(SRCS_DIR)/, \
 	ft_list_sort.s \
 	ft_list_remove_if)
 
-OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
+OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.s=.o)))
 OBJS_BONUS = $(addprefix $(OBJS_BONUS_DIR)/, $(notdir $(SRCS_BONUS:.c=.o)))
 
 all : $(NAME)
 
-$(NAME) : $(OBJS)
+$(NAME) : $(OBJS_DIR) $(OBJS)
 	@$(AR) $(NAME) $(OBJS)
 
 bonus : $(OBJS) $(OBJS_BONUS)
 	@$(AR) $(NAME) $(OBJS) $(OBJS_BONUS)
 
-$(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c $(OBJS_DIR)
-	@$(ASMC) $(ASMCFLAGS) $(SRCS)
+$(OBJS_DIR)/%.o : $(SRCS_DIR)/%.s
+	@$(ASMC) $(ASMCFLAGS) $< -o $@
 
 $(OBJS_DIR) :
 	@mkdir -p $(OBJS_DIR)
@@ -65,7 +64,7 @@ fclean : clean
 
 re : fclean all
 
-test :
-	$(ASMC) $(ASMCFLAGS) ft_strcpy.s
-	gcc test.c ft_strcpy.o
-	./a.out
+test : $(NAME)
+	@gcc test.c -L./ -lasm
+	@./a.out
+	@rm a.out
