@@ -6,17 +6,19 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 12:25:23 by skim              #+#    #+#             */
-/*   Updated: 2021/03/22 18:17:42 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/22 23:51:47 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <string.h>
+#include <fcntl.h>
 
 int		ft_strlen(char *d);
 char	*ft_strcpy(char *d, char *s);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_write(int fd, char *buf, int size);
+int		ft_read(int fd, char *buf, int size);
 
 int main(void)
 {
@@ -35,5 +37,10 @@ int main(void)
 	printf("1, 11 : %d\n", strcmp("1", "11"));
 
 	printf("\nwrite return : %d\n", ft_write(1, "hello", -9));
+
+	int fd = open("test.txt", O_RDONLY);
+	char buf[10];
+	printf("\nread return : %d\n", ft_read(fd, buf, 3));
+	printf("read buf : %s\n", buf);
 	return (0);
 }
