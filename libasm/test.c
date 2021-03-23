@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 12:25:23 by skim              #+#    #+#             */
-/*   Updated: 2021/03/22 23:51:47 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/23 10:52:27 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char	*ft_strcpy(char *d, char *s);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_write(int fd, char *buf, int size);
 int		ft_read(int fd, char *buf, int size);
+char	*ft_strdup(char *s);
 
 int main(void)
 {
@@ -42,5 +43,8 @@ int main(void)
 	char buf[10];
 	printf("\nread return : %d\n", ft_read(fd, buf, 3));
 	printf("read buf : %s\n", buf);
+
+	char *mal = ft_strdup("42seoul\n");
+	printf("%s", mal);
 	return (0);
 }
