@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 12:25:23 by skim              #+#    #+#             */
-/*   Updated: 2021/03/23 12:30:34 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/23 12:35:39 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ int main(void)
 	printf("ft_strlen : %lu\n", ft_strlen(""));
 	printf("ft_strlen : %lu\n", ft_strlen("01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789"));
 
-	// printf("\n\n*ft_strcpy test\n");
-	// char d[10];
-	// printf("ft_strcpy : %s\n", ft_strcpy(d, ""));
-	// printf("%s\n", d);
-	// printf("ft_strcpy : %s\n", ft_strcpy(d, "01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789"));
-	// printf("%s\n", d);
+	printf("\n\n*ft_strcpy test\n");
+	char d[200];
+	printf("ft_strcpy : %s\n", ft_strcpy(d, ""));
+	printf("%s\n", d);
+	printf("ft_strcpy : %s\n", ft_strcpy(d, "01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789"));
+	printf("%s\n", d);
 
 	printf("\n\n*ft_strcmp test\n");
 	printf(" , : %d\n", ft_strcmp("", ""));
