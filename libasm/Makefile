@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/21 14:55:04 by skim              #+#    #+#              #
-#    Updated: 2021/03/23 10:51:10 by skim             ###   ########.fr        #
+#    Updated: 2021/03/23 22:14:49 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,28 +21,25 @@ RM = rm -f
 OBJS_DIR = ./objs
 OBJS_BONUS_DIR = ./objs_bonus
 SRCS_DIR = ./srcs
+SRCS_BONUS_DIR = ./srcs_bonus
 
 SRCS = $(addprefix $(SRCS_DIR)/,\
 	ft_strlen.s ft_strcpy.s ft_strcmp.s \
 	ft_write.s ft_read.s ft_strdup.s)
 
-SRCS_BONUS = $(addprefix $(SRCS_DIR)/, \
-	ft_atoi_base.s \
-	ft_list_push_front.s \
-	ft_list_size.s \
-	ft_list_sort.s \
-	ft_list_remove_if)
+SRCS_BONUS = $(addprefix $(SRCS_BONUS_DIR)/, \
+	ft_list_push_front.s)
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.s=.o)))
-OBJS_BONUS = $(addprefix $(OBJS_BONUS_DIR)/, $(notdir $(SRCS_BONUS:.c=.o)))
+OBJS_BONUS = $(addprefix $(OBJS_BONUS_DIR)/, $(notdir $(SRCS_BONUS:.s=.o)))
 
 all : $(NAME)
 
 $(NAME) : $(OBJS_DIR) $(OBJS)
 	@$(AR) $(NAME) $(OBJS)
 
-bonus : $(OBJS) $(OBJS_BONUS)
-	@$(AR) $(NAME) $(OBJS) $(OBJS_BONUS)
+bonus : $(NAME) $(OBJS_BONUS_DIR) $(OBJS_BONUS)
+	@$(AR) $(NAME) $(OBJS_BONUS)
 
 $(OBJS_DIR)/%.o : $(SRCS_DIR)/%.s
 	@$(ASMC) $(ASMCFLAGS) $< -o $@
@@ -50,11 +47,11 @@ $(OBJS_DIR)/%.o : $(SRCS_DIR)/%.s
 $(OBJS_DIR) :
 	@mkdir -p $(OBJS_DIR)
 
-$(OBJS_BONUS_DIR)/%.o : $(SRCS_DIR)/%.c $(OBJS_BONUS_DIR)
-	@$(ASMC) $(ASMCFLAGS) $(SRCS_BONUS)
+$(OBJS_BONUS_DIR)/%.o : $(SRCS_BONUS_DIR)/%.s
+	@$(ASMC) $(ASMCFLAGS) $< -o $@
 
-$(OBJS_BONUS) :
-	@mkdir -p $(OBJS_BONUS)
+$(OBJS_BONUS_DIR) :
+	@mkdir -p $(OBJS_BONUS_DIR)
 
 clean :
 	@$(RM) -rd $(OBJS_DIR)
@@ -67,5 +64,10 @@ re : fclean all
 
 test : $(NAME)
 	@gcc test.c -L./ -lasm
+	@./a.out
+	@rm a.out
+
+t_bonus : $(NAME)
+	@gcc test_bonus.c -L./ -lasm
 	@./a.out
 	@rm a.out

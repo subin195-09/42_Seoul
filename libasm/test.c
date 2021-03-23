@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 12:25:23 by skim              #+#    #+#             */
-/*   Updated: 2021/03/23 12:35:39 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/23 20:56:29 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ int main(void)
 	printf("11, 11 : %d\n", strcmp("11", "11"));
 	printf("1, 11 : %d\n", ft_strcmp("1", "11"));
 	printf("1, 11 : %d\n", strcmp("1", "11"));
-	printf("11, 1 : %d\n", ft_strcmp("1", "11"));
-	printf("11, 1 : %d\n", strcmp("1", "11"));
+	printf("11, 1 : %d\n", ft_strcmp("11", "1"));
+	printf("11, 1 : %d\n", strcmp("11", "1"));
 
 	printf("\n\n*ft_write test\n");
 	int fd = open("test.txt", O_WRONLY);
