@@ -8,7 +8,6 @@ section	.text
 ; rdi:src
 _ft_strdup:
 	call	_ft_strlen	;rdi에 길이를 알고싶은 string을 넣어야함
-	inc		rax
 	push	rdi
 	mov		rdi, rax
 	call	_malloc	;rdi에 할당하고 싶은 만큼의 사이즈를 넣어줘야함

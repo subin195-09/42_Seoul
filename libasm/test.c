@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 12:25:23 by skim              #+#    #+#             */
-/*   Updated: 2021/03/23 10:52:27 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/23 10:59:11 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 #include <string.h>
 #include <fcntl.h>
 
-int		ft_strlen(char *d);
+size_t	ft_strlen(char *d);
 char	*ft_strcpy(char *d, char *s);
 int		ft_strcmp(char *s1, char *s2);
-int		ft_write(int fd, char *buf, int size);
-int		ft_read(int fd, char *buf, int size);
+ssize_t	ft_write(int fd, char *buf, int size);
+ssize_t	ft_read(int fd, char *buf, int size);
 char	*ft_strdup(char *s);
 
 int main(void)
