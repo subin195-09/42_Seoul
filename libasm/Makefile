@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/21 14:55:04 by skim              #+#    #+#              #
-#    Updated: 2021/03/24 15:38:11 by skim             ###   ########.fr        #
+#    Updated: 2021/03/24 17:05:46 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,7 @@ fclean : clean
 re : fclean all
 
 test : $(NAME)
-	@gcc test.c -L./ -lasm
+	@gcc -Wall -Werror -Wextra test.c -L./ -lasm
 	@./a.out
 	@rm a.out
 
