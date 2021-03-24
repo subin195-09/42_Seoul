@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/21 14:55:04 by skim              #+#    #+#              #
-#    Updated: 2021/03/24 17:06:41 by skim             ###   ########.fr        #
+#    Updated: 2021/03/24 17:20:15 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,8 @@ NAME = libasm.a
 
 ASMC = nasm
 ASMCFLAGS = -f macho64
+CC = gcc
+CFLAGS = -Wall -Werror -Wextra
 
 AR = ar rc
 RM = rm -f
@@ -22,6 +24,7 @@ OBJS_DIR = ./objs
 OBJS_BONUS_DIR = ./objs_bonus
 SRCS_DIR = ./srcs
 SRCS_BONUS_DIR = ./srcs_bonus
+TEST_DIR = ./test
 
 SRCS = $(addprefix $(SRCS_DIR)/,\
 	ft_strlen.s ft_strcpy.s ft_strcmp.s \
@@ -63,11 +66,11 @@ fclean : clean
 re : fclean all
 
 test : $(NAME)
-	@gcc -Wall -Werror -Wextra test.c -L./ -lasm
+	@$(CC) $(CFLAGS) $(TEST_DIR)/test.c -L./ -lasm
 	@./a.out
 	@rm a.out
 
 t_bonus : $(NAME)
-	@gcc -Wall -Werror -Wextra test_bonus.c -L./ -lasm
+	@$(CC) $(CFLAGS) $(TEST_DIR)/test_bonus.c -L./ -lasm
 	@./a.out
 	@rm a.out
