@@ -1,7 +1,6 @@
 section	.text
 	global	_ft_list_push_front
 	extern	_malloc
-	extern	___error
 
 ; rdi:**list , rsi:*data
 ; sizeof(t_list) = 16
@@ -22,9 +21,4 @@ _ft_list_push_front:
 	ret
 
 error:
-	push	rax
-	call	___error
-	pop		rdx
-	mov		[rax], rdx
-	mov		rax, -1
 	ret

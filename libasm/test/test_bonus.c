@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 21:20:48 by skim              #+#    #+#             */
-/*   Updated: 2021/03/24 17:24:52 by skim             ###   ########.fr       */
+/*   Updated: 2021/03/24 17:36:11 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,7 @@ int	main(void)
 		temp = temp->next;
 	}
 	printf("\nlist size : %d\n", ft_list_size(head));
+	printf("%lu\n", sizeof(t_list));
+	printf("%lu\n", sizeof(head->data));
+	printf("%lu\n", sizeof(head->next));
 }

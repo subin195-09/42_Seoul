@@ -3,7 +3,6 @@ section	.text
 	extern	_ft_strlen
 	extern	_ft_strcpy
 	extern	_malloc
-	extern	___error
 
 ; rdi:src
 _ft_strdup:
@@ -20,9 +19,4 @@ _ft_strdup:
 	ret
 
 error:
-	push	rax
-	call	___error
-	pop		rdx
-	mov		[rax], rdx
-	mov		rax, -1
 	ret
