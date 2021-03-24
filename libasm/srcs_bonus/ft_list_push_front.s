@@ -19,6 +19,7 @@ _ft_list_push_front:
 	mov		rcx, [rdi]
 	mov		[rax + 8], rcx ;뒤의 8자리에 t_list의 원래 첫번째 였던 주소를 저장
 	mov		[rdi], rax ;리스트의 헤드 변경
+	ret
 
 error:
 	push	rax

@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/21 14:55:04 by skim              #+#    #+#              #
-#    Updated: 2021/03/23 22:14:49 by skim             ###   ########.fr        #
+#    Updated: 2021/03/24 15:38:11 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRCS = $(addprefix $(SRCS_DIR)/,\
 	ft_write.s ft_read.s ft_strdup.s)
 
 SRCS_BONUS = $(addprefix $(SRCS_BONUS_DIR)/, \
-	ft_list_push_front.s)
+	ft_list_push_front.s ft_list_size.s)
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.s=.o)))
 OBJS_BONUS = $(addprefix $(OBJS_BONUS_DIR)/, $(notdir $(SRCS_BONUS:.s=.o)))
