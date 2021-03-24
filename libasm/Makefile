@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/21 14:55:04 by skim              #+#    #+#              #
-#    Updated: 2021/03/24 17:05:46 by skim             ###   ########.fr        #
+#    Updated: 2021/03/24 17:06:41 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,6 +68,6 @@ test : $(NAME)
 	@rm a.out
 
 t_bonus : $(NAME)
-	@gcc test_bonus.c -L./ -lasm
+	@gcc -Wall -Werror -Wextra test_bonus.c -L./ -lasm
 	@./a.out
 	@rm a.out
