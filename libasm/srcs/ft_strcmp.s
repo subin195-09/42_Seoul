@@ -11,7 +11,6 @@ compare:
 	mov	al, byte [rsi + rcx]
 	cmp dl, 0
 	jz	cmp_null
-	jz	is_equl
 	cmp al, 0
 	jz	cmp_null
 	cmp	dl, al
