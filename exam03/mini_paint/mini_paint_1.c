@@ -1,25 +1,27 @@
-#include <stdio.h>
 #include <unistd.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 #include <math.h>
 
 typedef struct	s_cir
 {
-	int		b_width;
-	int		b_height;
-	char	b_char;
-	
-	char	type;
-	float	center_x;
-	float	center_y;
-	float	radius;
-	char	circle_c;
+	int			b_width;
+	int			b_height;
+	char		b_char;
+
+	char		type;
+	float		x;
+	float		y;
+	float		ra;
+	char		r_char;
 }				t_cir;
 
 int		ft_putstr(char *s)
 {
-	int	i = 0;
+	int i;
+
+	i = 0;
 	while (s[i])
 	{
 		write(1, &s[i], 1);
@@ -28,19 +30,14 @@ int		ft_putstr(char *s)
 	return (1);
 }
 
-void	draw_circle(t_cir c, char **image, int x, int y, float distance)
-{
-	if (distance <= c.radius)
-		(*image)[y * c.b_width + x] = c.circle_c;
-}
 
 int		main(int ac, char *av[])
 {
 	FILE	*file;
 	int		read;
-	char	*image;
 	int		x;
 	int		y;
+	char	*image;
 	t_cir	c;
 
 	if (ac != 2)
@@ -50,15 +47,15 @@ int		main(int ac, char *av[])
 	read = fscanf(file, "%d %d %c\n", &c.b_width, &c.b_height, &c.b_char);
 	if (read != 3)
 		return (ft_putstr("Error: Operation file corrupted\n"));
-	if (!(c.b_width > 0 && c.b_width <= 300 && c.b_height > 0 && c.b_height <= 300))
+	if (!((c.b_width > 0 && c.b_width <= 300) && (c.b_height > 0 && c.b_height <= 300)))
 		return (ft_putstr("Error: Operation file corrupted\n"));
 
 	image = (char *)malloc(sizeof(char) * (c.b_width * c.b_height));
 	memset(image, c.b_char, c.b_width * c.b_height);
-	read = fscanf(file, "%c %f %f %f %c\n", &c.type, &c.center_x, &c.center_y, &c.radius, &c.circle_c);
+	read = fscanf(file, "%c %f %f %f %c\n", &c.type, &c.x, &c.y, &c.ra, &c.r_char);
 	while (read == 5)
 	{
-		if (!((c.type == 'c' || c.type == 'C') && (c.radius > 0)))
+		if (!((c.type == 'c' || c.type == 'C') && c.ra > 0))
 		{
 			free(image);
 			return (ft_putstr("Error: Operation file corrupted\n"));
@@ -69,19 +66,22 @@ int		main(int ac, char *av[])
 			x = 0;
 			while (x < c.b_width)
 			{
-				float distance = sqrtf(powf((float)x - c.center_x, 2.) + powf((float)y - c.center_y, 2.));
-				if (c.type == 'C')
-					draw_circle(c, &image, x, y, distance);
-				else if (c.type == 'c')
+				float distance = sqrtf(powf(x - c.x, 2.) + powf(y - c.y, 2.));
+				if (distance <= c.ra)
 				{
-					if (c.radius - distance < 1.0000000)
-						draw_circle(c, &image, x, y, distance);
+					if (c.type == 'c')
+					{
+						if (c.ra - distance < 1.0000000)
+							image[y * c.b_width + x] = c.r_char;
+					}
+					else if (c.type == 'C')
+						image[y * c.b_width + x] = c.r_char;
 				}
 				x++;
 			}
 			y++;
 		}
-		read = fscanf(file, "%c %f %f %f %c\n", &c.type, &c.center_x, &c.center_y, &c.radius, &c.circle_c);
+		read = fscanf(file, "%c %f %f %f %c\n", &c.type, &c.x, &c.y, &c.ra, &c.r_char);
 	}
 	if (read != -1)
 	{
@@ -96,6 +96,5 @@ int		main(int ac, char *av[])
 		y++;
 	}
 	free(image);
-	fclose(file);
 	return (0);
 }
