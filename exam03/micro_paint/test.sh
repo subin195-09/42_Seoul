@@ -1,5 +1,5 @@
-gcc micro.c -o nooriginal -Wall -Wextra -Werror
-gcc micro_paint.c -o original -Wall -Wextra -Werror
+gcc micro_paint.c -o nooriginal -Wall -Wextra -Werror
+gcc micro.c -o original -Wall -Wextra -Werror
 echo ""
 echo "TEST - <ex_1>"
 echo "NO original"
