@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/05 21:44:53 by skim              #+#    #+#              #
-#    Updated: 2021/04/05 22:28:10 by skim             ###   ########.fr        #
+#    Updated: 2021/04/05 23:10:20 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,17 @@ $(LIBFT) :
 $(GNL) :
 	@make -C $(GNL_DIR)
 	@cp $(GNL_DIR)/$(GNL) .
+
+clean :
+	@rm -rf $(NAME)
+	@make -C $(LIB_DIR) clean
+	@make -C $(GNL_DIR) clean
+
+fclean : clean
+	@rm -rf $(GNL)
+	@rm -rf $(LIBFT)
+	@make -C $(LIB_DIR) fclean
+	@make -C $(GNL_DIR) fclean
 
 test : $(LIBFT) $(GNL)
 	@$(CC) -I$(INC_DIR) -I$(GNL_DIR)/$(INC_DIR) -I$(LIB_DIR)/$(INC_DIR) -I$(MLX_DIR) \
