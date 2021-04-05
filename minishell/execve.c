@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <limits.h>
 
 extern char **environ;
 
