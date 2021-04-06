@@ -3,7 +3,8 @@
 #include <unistd.h>
 #include <string.h>
 
-typedef struct	s_rect{
+typedef struct	s_rect
+{
 	int		b_width;
 	int		b_height;
 	char	b_char;
@@ -25,20 +26,20 @@ int		ft_putstr(char *s)
 
 void	draw_rect(t_rect r, int x, int y, char **img)
 {
-	if ((float)x >= r.x && (float)x <= (r.x + r.width) &&\
-			(float)y >= r.y && (float)y <= (r.y + r.height))
+	if ((float)x >= r.x && (float)x <= r.x + r.width &&\
+			(float)y >= r.y && (float)y <= r.y + r.height)
 		(*img)[y * r.b_width + x] = r.rect;
 }
 
-int main(int ac, char *av[])
+int		main(int ac, char *av[])
 {
-	char	*img;
 	t_rect	r;
 	int		x;
 	int		y;
-	float	f_one = 1.0000000;
-	FILE	*file;
+	char	*img;
+	float	f_one = 1.00000000;
 	int		read;
+	FILE	*file;
 
 	if (ac != 2)
 		return (ft_putstr("Error: argument\n"));
@@ -49,14 +50,12 @@ int main(int ac, char *av[])
 		return (ft_putstr("Error: Operation file corrupted\n"));
 	if (!(r.b_width > 0 && r.b_width <= 300 && r.b_height > 0 && r.b_height <= 300))
 		return (ft_putstr("Error: Operation file corrupted\n"));
-
-	if (!(img = (char *)malloc(sizeof(char) * (r.b_width * r.b_height))))
-		return (ft_putstr("Error: Operation file corrupted\n"));
+	img = malloc(sizeof(char) * (r.b_width * r.b_height));
 	memset(img, r.b_char, r.b_width * r.b_height);
 	read = fscanf(file, "%c %f %f %f %f %c\n", &r.type, &r.x, &r.y, &r.width, &r.height, &r.rect);
 	while (read == 6)
 	{
-		if (!((r.type == 'r' || r.type == 'R') && (r.width > 0 && r.height > 0)))
+		if (!((r.type == 'r' || r.type == 'R') && r.width > 0 && r.height > 0))
 		{
 			free(img);
 			return (ft_putstr("Error: Operation file corrupted\n"));
@@ -71,8 +70,8 @@ int main(int ac, char *av[])
 					draw_rect(r, x, y, &img);
 				else if (r.type == 'r')
 				{
-					if ((float)x - r.x < f_one || r.x + r.width - (float)x < f_one ||
-							(float)y - r.y < f_one || r.y + r.height - (float)y < f_one)
+					if ((float)x < r.x + f_one || (float)x > r.x + r.width - f_one ||
+							(float)y < r.y + f_one || (float)y > r.y + r.height - f_one)
 						draw_rect(r, x, y, &img);
 				}
 				x++;

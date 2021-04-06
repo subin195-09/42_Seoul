@@ -10,8 +10,8 @@ typedef struct	s_cir
 	int		b_height;
 	char	b_char;
 	char	type;
-	float	center_x;
-	float	center_y;
+	float	cen_x;
+	float	cen_y;
 	float	rad;
 	char	cir;
 }				t_cir;
@@ -26,58 +26,56 @@ int		ft_putstr(char *s)
 
 int		main(int ac, char *av[])
 {
-	t_cir	c;
-	char	*img;
+	t_cir	r;
 	int		x;
 	int		y;
-	float	distance;
-	float	f_one = 1.0000000;
-	FILE	*file;
+	char	*img;
+	float	f_one = 1.0000000;;
 	int		read;
+	FILE	*file;
 
 	if (ac != 2)
 		return (ft_putstr("Error: argument\n"));
 	if (!(file = fopen(av[1], "r")))
 		return (ft_putstr("Error: Operation file corrupted\n"));
-	read = fscanf(file, "%d %d %c\n", &c.b_width, &c.b_height, &c.b_char);
+	read = fscanf(file, "%d %d %c\n", &r.b_width, &r.b_height, &r.b_char);
 	if (read != 3)
 		return (ft_putstr("Error: Operation file corrupted\n"));
-	if (!(c.b_width > 0 && c.b_width <= 300 && c.b_height > 0 && c.b_height <= 300))
+	if (!(r.b_width > 0 && r.b_width <= 300 && r.b_height > 0 && r.b_height <= 300))
 		return (ft_putstr("Error: Operation file corrupted\n"));
-	if (!(img = (char *)malloc(sizeof(char) * (c.b_width * c.b_height))))
-		return (ft_putstr("Error: Operation file corrupted\n"));
-	memset(img, c.b_char, c.b_width * c.b_height);
-	read = fscanf(file, "%c %f %f %f %c\n", &c.type, &c.center_x, &c.center_y, &c.rad, &c.cir);
+	
+	img = (char *)malloc(sizeof(char) * (r.b_width * r.b_height));
+	memset(img, r.b_char, r.b_width * r.b_height);
+	read = fscanf(file, "%c %f %f %f %c\n", &r.type, &r.cen_x, &r.cen_y, &r.rad, &r.cir);
 	while (read == 5)
 	{
-		if (!((c.type == 'c' || c.type == 'C') && c.rad > 0))
+		if (!((r.type == 'c' || r.type == 'C') && r.rad > 0))
 		{
 			free(img);
 			return (ft_putstr("Error: Operation file corrupted\n"));
 		}
 		y = 0;
-		while (y < c.b_height)
+		while (y < r.b_height)
 		{
 			x = 0;
-			while (x < c.b_width)
+			while (x < r.b_width)
 			{
-				distance = sqrtf(powf(c.center_x - (float)x, 2.) + powf(c.center_y - (float)y, 2.));
-				if (c.type == 'C')
+				float distance = sqrtf(powf(r.cen_x - (float)x, 2.) + powf(r.cen_y - (float)y, 2.));
+				if (r.type == 'C')
 				{
-					if (distance <= c.rad)
-						img[y * c.b_width + x] = c.cir;
+					if (distance <= r.rad)
+						img[y * r.b_width + x] = r.cir;
 				}
-				else if (c.type == 'c')
+				else if (r.type == 'c')
 				{
-					if (c.rad - distance < f_one)
-						if (distance <= c.rad)
-							img[y * c.b_width + x] = c.cir;
+					if (distance >= r.rad - f_one && distance <= r.rad)
+						img[y * r.b_width + x] = r.cir;
 				}
 				x++;
 			}
 			y++;
 		}
-		read = fscanf(file, "%c %f %f %f %c\n", &c.type, &c.center_x, &c.center_y, &c.rad, &c.cir);
+		read = fscanf(file, "%c %f %f %f %c\n", &r.type, &r.cen_x, &r.cen_y, &r.rad, &r.cir);
 	}
 	if (read != -1)
 	{
@@ -85,9 +83,9 @@ int		main(int ac, char *av[])
 		return (ft_putstr("Error: Operation file corrupted\n"));
 	}
 	y = 0;
-	while (y < c.b_height)
+	while (y < r.b_height)
 	{
-		write(1, img + y * c.b_width, c.b_width);
+		write(1, img + y * r.b_width, r.b_width);
 		write(1, "\n", 1);
 		y++;
 	}
