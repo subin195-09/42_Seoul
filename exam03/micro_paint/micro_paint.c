@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include <unistd.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <string.h>
 
 typedef struct	s_rect
@@ -8,42 +8,38 @@ typedef struct	s_rect
 	int		b_width;
 	int		b_height;
 	char	b_char;
-
 	char	type;
 	float	x;
 	float	y;
-	float	r_width;
-	float	r_height;
-	char	r_char;
+	float	width;
+	float	height;
+	char	rect;
 }				t_rect;
 
 int		ft_putstr(char *s)
 {
 	int i = 0;
 	while (s[i])
-	{
-		write(1, &s[i], 1);
-		i++;
-	}
+		write(1, &s[i++], 1);
 	return (1);
 }
 
-void	draw_rect(t_rect r, char **img, int x, int y)
+void	draw_rect(t_rect r, int x, int y, char **img)
 {
-	if ((float)x >= r.x && (float)x <= r.x + r.r_width &&\
-		(float)y >= r.y && (float)y <= r.y + r.r_height)
-			(*img)[y * r.b_width + x] = r.r_char;
+	if ((float)x >= r.x && (float)x <= r.x + r.width &&\
+			(float)y >= r.y && (float)y <= r.y + r.height)
+		(*img)[y * r.b_width + x] = r.rect;
 }
 
-int 	main(int ac, char *av[])
+int		main(int ac, char *av[])
 {
+	t_rect	r;
 	int		x;
 	int		y;
-	char	*image;
-	FILE	*file;
+	char	*img;
+	float	f_one = 1.00000000;
 	int		read;
-	float	f_one = 1.0000000;
-	t_rect	r;
+	FILE	*file;
 
 	if (ac != 2)
 		return (ft_putstr("Error: argument\n"));
@@ -54,15 +50,14 @@ int 	main(int ac, char *av[])
 		return (ft_putstr("Error: Operation file corrupted\n"));
 	if (!(r.b_width > 0 && r.b_width <= 300 && r.b_height > 0 && r.b_height <= 300))
 		return (ft_putstr("Error: Operation file corrupted\n"));
-
-	image = (char *)malloc(sizeof(char) * (r.b_width * r.b_height));
-	memset(image, r.b_char, r.b_width * r.b_height);
-	read = fscanf(file, "%c %f %f %f %f %c\n", &r.type, &r.x, &r.y, &r.r_width, &r.r_height, &r.r_char);
+	img = malloc(sizeof(char) * (r.b_width * r.b_height));
+	memset(img, r.b_char, r.b_width * r.b_height);
+	read = fscanf(file, "%c %f %f %f %f %c\n", &r.type, &r.x, &r.y, &r.width, &r.height, &r.rect);
 	while (read == 6)
 	{
-		if (!((r.type == 'r' || r.type == 'R') && r.r_width > 0 && r.r_height > 0))
+		if (!((r.type == 'r' || r.type == 'R') && r.width > 0 && r.height > 0))
 		{
-			free(image);
+			free(img);
 			return (ft_putstr("Error: Operation file corrupted\n"));
 		}
 		y = 0;
@@ -72,32 +67,32 @@ int 	main(int ac, char *av[])
 			while (x < r.b_width)
 			{
 				if (r.type == 'R')
-					draw_rect(r, &image, x, y);
+					draw_rect(r, x, y, &img);
 				else if (r.type == 'r')
 				{
-					if (((float)x - r.x < f_one || (r.x + r.r_width) - (float)x < f_one) ||
-							((float)y - r.y < f_one || (r.y + r.r_height) - (float)y < f_one))
-						draw_rect(r, &image, x, y);
+					if ((float)x < r.x + f_one || (float)x > r.x + r.width - f_one ||
+							(float)y < r.y + f_one || (float)y > r.y + r.height - f_one)
+						draw_rect(r, x, y, &img);
 				}
 				x++;
 			}
 			y++;
 		}
-		read = fscanf(file, "%c %f %f %f %f %c\n", &r.type, &r.x, &r.y, &r.r_width, &r.r_height, &r.r_char);
+		read = fscanf(file, "%c %f %f %f %f %c\n", &r.type, &r.x, &r.y, &r.width, &r.height, &r.rect);
 	}
 	if (read != -1)
 	{
-		free(image);
+		free(img);
 		return (ft_putstr("Error: Operation file corrupted\n"));
 	}
 	y = 0;
 	while (y < r.b_height)
 	{
-		write(1, image + y * r.b_width, r.b_width);
+		write(1, img + y * r.b_width, r.b_width);
 		write(1, "\n", 1);
 		y++;
 	}
-	free(image);
+	free(img);
 	fclose(file);
 	return (0);
 }
