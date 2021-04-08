@@ -18,11 +18,17 @@ int		cmd_exit(char **args, char **en, char *name)
 	return (0);
 }
 
+int		cmd_echo(char **args, char **en, char *name)
+{
+
+}
+
 char	*blt_str(int i)
 {
 	char	*blt_str[BLT_NUM + 1];
 
 	blt_str[0] = "exit";
+	blt_str[1] = "echo"
 	blt_str[BLT_NUM] = NULL;
 	return (blt_str[i]);
 }
@@ -32,6 +38,7 @@ int		(*blt_func(int i))(char **args, char **en, char *name)
 	int		(*blt_func[BLT_NUM])(char **args, char **en, char *name);
 
 	blt_func[0] = &cmd_exit;
+	blt_func[1] = &cmd_echo;
 	return (blt_func[i]);
 }
 
