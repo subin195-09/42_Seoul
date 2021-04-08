@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/05 21:44:53 by skim              #+#    #+#              #
-#    Updated: 2021/04/05 23:10:20 by skim             ###   ########.fr        #
+#    Updated: 2021/04/08 18:10:46 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,9 @@ LIB_DIR = ./libft
 SRCS_DIR = ./srcs
 
 SRCS = $(addprefix $(SRCS_DIR)/,)
+
+TEST_SRCS = $(wildcard test*_*.c)
+
 
 all : $(NAME)
 
@@ -52,6 +55,6 @@ fclean : clean
 
 test : $(LIBFT) $(GNL)
 	@$(CC) -I$(INC_DIR) -I$(GNL_DIR)/$(INC_DIR) -I$(LIB_DIR)/$(INC_DIR) -I$(MLX_DIR) \
-	-L./ -lgnl -L./ -lft test.c
+	-L./ -lgnl -L./ -lft $(TEST_SRCS)
 	@./a.out
 	@rm a.out

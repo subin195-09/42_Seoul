@@ -8,4 +8,6 @@
 
 #define BLT_NUM 1
 
+int		start_shell(char **en, char *av);
+
 #endif

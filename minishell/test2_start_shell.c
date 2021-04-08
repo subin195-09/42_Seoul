@@ -1,38 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test1_main.c                                       :+:      :+:    :+:   */
+/*   test2_start_shell.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/08 17:42:55 by skim              #+#    #+#             */
-/*   Updated: 2021/04/08 18:11:00 by skim             ###   ########.fr       */
+/*   Created: 2021/04/08 17:48:47 by skim              #+#    #+#             */
+/*   Updated: 2021/04/08 18:14:47 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
 
-void	init_env(char ***env, char *en[])
+char	*read_line(void)
 {
-	int		i;
-	int		j;
+	char	*line;
 
-	i = 0;
-	while (en[i])
-		i++;
-	if (!(*env = (char **)malloc(sizeof(char *) * (i + 1))))
-		return ;
-	(*env)[i] = 0;
-	j = -1;
-	while (++j < i)
-		(*env)[j] = ft_strdup(en[j]);
+	line = 0;
+	get_next_line(0, &line);
+	return (line);
 }
 
-int		main(int ac, char *av[], char *en[])
+int		start_shell(char **en, char *av)
 {
-	char	**env;
-	char	rt;
+	int		status;
+	char	*line;
+	char	**coms;
 
-	init_env(&env, en);
-	rt = start_shell(env, av[0]);
+	status = 1;
+	while (status)
+	{
+		write(1, "minishell test> ", ft_strlen("minishell test> "));
+		line = read_line();
+		coms = make_tok(line, ';');
+	}
+	return (0);
 }
