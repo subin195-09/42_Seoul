@@ -6,7 +6,7 @@
 #    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/05 21:44:53 by skim              #+#    #+#              #
-#    Updated: 2021/04/08 18:10:46 by skim             ###   ########.fr        #
+#    Updated: 2021/04/10 17:51:57 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ fclean : clean
 	@make -C $(GNL_DIR) fclean
 
 test : $(LIBFT) $(GNL)
-	@$(CC) -I$(INC_DIR) -I$(GNL_DIR)/$(INC_DIR) -I$(LIB_DIR)/$(INC_DIR) -I$(MLX_DIR) \
+	@$(CC) -I$(INC_DIR) -I$(GNL_DIR)/$(INC_DIR) -I$(LIB_DIR)/$(INC_DIR) \
 	-L./ -lgnl -L./ -lft $(TEST_SRCS)
 	@./a.out
 	@rm a.out
