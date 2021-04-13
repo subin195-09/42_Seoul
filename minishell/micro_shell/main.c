@@ -6,11 +6,36 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 14:41:17 by skim              #+#    #+#             */
-/*   Updated: 2021/04/13 16:53:25 by skim             ###   ########.fr       */
+/*   Updated: 2021/04/13 16:57:24 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "microshell.h"
+
+// cmd 리스트에 av 인자 추가하기
+int		add_arg(t_list *cmd, char *av)
+{
+	char	**tmp;
+	int		i;
+
+	i = 0;
+	tmp = NULL;
+	if (!(tmp = (char **)malloc(sizeof(*tmp) * (cmd->len + 2))))
+		return (exit_fatal());
+	i = 0;
+	while (i < cmd->len)
+	{
+		tmp[i] = cmd->args[i];
+		i++;
+	}
+	if (cmd->len > 0)
+		free(cmd->args);
+	cmd->args = tmp;
+	cmd->args[i++] = strdup(av);
+	cmd->args[i] = 0;
+	cmd->len++;
+	return (EXIT_SUCCESS);
+}
 
 int		parse_arg(t_list **cmds, char *av)
 {
