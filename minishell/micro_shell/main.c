@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 14:41:17 by skim              #+#    #+#             */
-/*   Updated: 2021/04/13 16:57:24 by skim             ###   ########.fr       */
+/*   Updated: 2021/04/13 19:37:48 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int		add_arg(t_list *cmd, char *av)
 	tmp = NULL;
 	if (!(tmp = (char **)malloc(sizeof(*tmp) * (cmd->len + 2))))
 		return (exit_fatal());
-	i = 0;
 	while (i < cmd->len)
 	{
 		tmp[i] = cmd->args[i];
@@ -45,6 +44,7 @@ int		parse_arg(t_list **cmds, char *av)
 		is_break = 1;
 	else
 		is_break = 0;
+
 	// ; 이고 list가 빈 상태일때
 	if (is_break && !*cmds)
 		return (EXIT_SUCCESS);
