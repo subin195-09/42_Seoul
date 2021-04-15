@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 19:40:27 by skim              #+#    #+#             */
-/*   Updated: 2021/04/10 17:21:34 by skim             ###   ########.fr       */
+/*   Updated: 2021/04/11 17:42:47 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 # define TEST_H
 
 # include <stdio.h>
-# include <libft.h>
+# include "libft/includes/libft.h"
 # include <string.h>
-# include <get_next_line.h>
+# include <unistd.h>
 
 # define BLT_NUM 2
 
@@ -26,5 +26,6 @@ int		run(char **run_com, char **en, char *av);
 
 int		cmd_exit(char **run_com, char **en, char *name);
 int		cmd_env(char **run_com, char **en, char *av);
+char	*find_env(char *key, char **en);
 
 #endif

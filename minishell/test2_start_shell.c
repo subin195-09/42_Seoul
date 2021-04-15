@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 17:48:47 by skim              #+#    #+#             */
-/*   Updated: 2021/04/08 20:48:05 by skim             ###   ########.fr       */
+/*   Updated: 2021/04/15 17:08:52 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int		run_cmd(char **coms, char **en, char *av)
 	while (coms[++i])
 	{
 		run_com = make_tok(coms[i], " ");
+		// pipe_run, redirect_run, run 3가지로 구분
 		rt = run(run_com, en, av);
 		free(coms[i]);
 		j = -1;
