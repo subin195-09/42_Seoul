@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 18:19:42 by skim              #+#    #+#             */
-/*   Updated: 2021/04/16 12:10:35 by skim             ###   ########.fr       */
+/*   Updated: 2021/04/16 13:21:56 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,16 @@ void	find_cmd(char **run_com, char **en, char *av)
 
 // 각 실행단위의 명령어를 |,>,>> 단위로 구분 후 type을 지정해준다.
 void	get_type(t_list *cmd)
-{
-	// |, >, >> 로 나뉘어진 명령어 들이 sibling으로 연결되어 있고
-	// 그 중 첫번째 명령어가 cmd의 child로 연결되면 된다.
-
-	// redirect인 경우 > 이후의 file open 후 얻은 descriptor를 fd[SIDE_IN]에 지정시켜준다.
+{// redirect인 경우 > 이후의 file open 후 얻은 descriptor를 fd[SIDE_IN]에 지정시켜준다.
 	char	**pipe_cmds;
 	char	**temp_arg;
+	int		i;
 
 	pipe_cmds = make_tok(cmd->arg[0], "|");
+	i = -1;
+	while (pipe_cmds[++i])
+		free(pipe_cmds[i]);
+	free(pipe_cmds);
 	// 파이프 단위로 나뉜 것들을 일단 sibling 으로 연결
 	list_push(cmd, pipe_cmds);
 	while (cmd)
@@ -99,6 +100,10 @@ void	get_type(t_list *cmd)
 		temp_arg = make_tok(cmd->arg[0], " ");
 		// 다이렉트 부분을 치환시켜서 open 시켜준 후 fd[SIDE_IN]과 연결
 		find_direct(&temp_arg, cmd);
+		i = -1;
+		while (temp_arg[++i])
+			free(temp_arg[i]);
+		free(temp_arg[i]);
 		cmd = cmd->sibing;
 	}
 }
@@ -143,6 +148,8 @@ int		prev_pipe_run(t_list cmd, char **en, char *av)
 	normal_run(cmd, en, av);
 	// close 작업해주기
 	close(cmd->prev->pipes[SIDE_OUT]);
+	close(cmd->pipes[SIDE_IN]);
+	close(cmd->pipes[SIDE_OUT]);
 }
 
 // 실행 단위로 분리된 t_list
@@ -156,7 +163,7 @@ int		run(t_list cmd, char **en, char *av)
 	{
 		if (cmd->type == TYPE_PIPE)
 			rt = pipe_run(cmd, en, av);
-		else if (cmd->prev && cmd->prev-type == TYPE_PIPE)
+		else if (cmd->prev && cmd->prev->type == TYPE_PIPE)
 			rt = prev_pipe_run(cmd, en, av);
 		else
 			rt = normal_run(cmd, en, av);
