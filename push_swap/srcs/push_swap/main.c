@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 21:40:18 by skim              #+#    #+#             */
-/*   Updated: 2021/05/16 17:59:06 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/16 20:41:58 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,29 @@
 void	init_info(t_info *info)
 {
 	info->count = 0;
-	info->size = 0;
+	info->size_a = 0;
+	info->size_b = 0;
 }
 
 int		main(int ac, char *av[])
 {
-	t_stack *stk;
+	t_stack *stk_a;
+	t_stack	*stk_b;
 	t_info	info;
 	
 	if (ac < 2)
 		return (0);
+	stk_a = 0;
+	stk_b = 0;
 	init_info(&info);
-	stk = stack_make(av, &info);
-	while (stk)
+	stk_a = stack_make(av, &info);
+	while (stk_a)
 	{
-		printf("%d\n", stk->value);
-		stk = stk->next;
+		printf("%d\n", stk_a->value);
+		stk_a = stk_a->next;
 	}
-	printf("size : %d, min : %d, max : %d\n", info.size, info.min, info.max);
-	// stack_sort(&stk);
-	stack_free(&stk);
+	printf("size : %d, min : %d, max : %d\n", info.size_a, info.min, info.max);
+	// stack_sort(&stk_a, &stk_b, &info);
+	stack_free(&stk_a);
 	return (0);
 }

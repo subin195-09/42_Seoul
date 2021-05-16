@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 21:27:33 by skim              #+#    #+#             */
-/*   Updated: 2021/05/16 17:36:19 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/16 19:59:11 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ typedef struct	s_stack
 typedef struct	s_info
 {
 	int			count;
-	int			size;
+	int			size_a;
+	int			size_b;
 	int			max;
 	int			min;
 }				t_info;

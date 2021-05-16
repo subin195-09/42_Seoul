@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 21:50:03 by skim              #+#    #+#             */
-/*   Updated: 2021/05/16 18:14:22 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/16 20:48:24 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		add_stack(t_stack **stk, char *av, t_info *info)
 		if ((int)num < info->min)
 			info->min = (int)num;	
 		free(av_split[i]);
-		info->size++;
+		info->size_a++;
 	}
 	free(av_split);
 	return (1);
