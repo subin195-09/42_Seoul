@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/15 21:26:43 by skim              #+#    #+#             */
-/*   Updated: 2021/05/16 17:17:49 by skim             ###   ########.fr       */
+/*   Created: 2021/05/16 17:08:01 by skim              #+#    #+#             */
+/*   Updated: 2021/05/16 17:19:33 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "libft.h"
 
-# include "main.h"
-# include <stdio.h>
+long long	ft_atol(const char *str)
+{
+	int			i;
+	long long	num;
+	long long	sign;
 
-t_stack	*stack_make(char *av[], t_info *info);
-
-t_stack	*new_stack(t_stack *pre, int value);
-void	rewind_stack(t_stack **stk);
-void	stack_free(t_stack **stk);
-
-#endif
+	i = 0;
+	num = 0;
+	sign = 1;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
+		i++;
+	if (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+			sign *= -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+		num = num * 10 + str[i++] - '0';
+	return (sign * num);
+}

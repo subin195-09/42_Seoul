@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_frees.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/30 18:10:06 by skim              #+#    #+#             */
-/*   Updated: 2020/10/10 05:35:30 by skim             ###   ########.fr       */
+/*   Created: 2020/11/06 14:53:49 by skim              #+#    #+#             */
+/*   Updated: 2021/03/05 18:17:58 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+void	ft_frees(int size, ...)
 {
-	t_list	*head;
-	t_list	*temp_curr;
+	va_list var;
+	int		i;
 
-	if (!lst && !f)
-		return (0);
-	head = 0;
-	while (lst)
+	va_start(var, size);
+	i = 0;
+	while (i < size)
 	{
-		if (!(temp_curr = ft_lstnew(f(lst->content))))
-		{
-			ft_lstclear(&head, del);
-			return (0);
-		}
-		ft_lstadd_back(&head, temp_curr);
-		lst = lst->next;
+		if (va_arg(var, void*))
+			free(va_arg(var, void*));
+		i++;
 	}
-	return (head);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 21:27:33 by skim              #+#    #+#             */
-/*   Updated: 2021/05/15 21:33:50 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/16 17:36:19 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 # define MAIN_H
 
 # include "libft.h"
+# include <unistd.h>
+# include <stdlib.h>
 
-# define FT_INT_MAX 2147483647
-# define FT_INT_MIN -2147483648
+# define STDERR 2
+# define INT_MAX 2147483647
+# define INT_MIN -2147483648
 
 typedef struct	s_stack
 {
@@ -24,5 +27,13 @@ typedef struct	s_stack
 	struct s_stack	*next;
 	int				value;
 }				t_stack;
+
+typedef struct	s_info
+{
+	int			count;
+	int			size;
+	int			max;
+	int			min;
+}				t_info;
 
 #endif
