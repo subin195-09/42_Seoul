@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 18:14:10 by skim              #+#    #+#             */
-/*   Updated: 2021/05/16 21:19:29 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/17 01:29:11 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@ int		check_dup_flag(t_stack *stk, t_info *info)
 	check = ft_calloc(size, sizeof(int));
 	if (!check)
 		return (0);
-	printf("size : %zu\n", size);
 	while (stk)
 	{
-		printf("%d, %zu\n", stk->value, (size_t)((long)(stk->value) - (long)info->min));
 		if (check[(size_t)((long)(stk->value) - (long)info->min)])
 			return (0);
 		else
@@ -68,12 +66,12 @@ int		check_dup_rot(t_stack *stk)
 int		check_dup(t_stack *stk, t_info *info)
 {
 	int	rt;
-	
+
 	if (info->size_a > 1000)
 		rt = check_dup_flag(stk, info);
 	else
 		rt = check_dup_rot(stk);
-	return (rt);	
+	return (rt);
 }
 
 int		free_matrix(char ***matrix)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 17:05:43 by skim              #+#    #+#             */
-/*   Updated: 2021/05/16 23:32:55 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/17 01:29:40 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_stack	*new_stack_tail(t_stack *pre, int value)
 	return (stk);
 }
 
-t_stack *new_stack_head(t_stack *next, int value)
+t_stack	*new_stack_head(t_stack *next, int value)
 {
 	t_stack	*stk;
 
@@ -40,8 +40,8 @@ t_stack *new_stack_head(t_stack *next, int value)
 
 void	delete_stack(t_stack **stk)
 {
-	t_stack *tmp;
-	
+	t_stack	*tmp;
+
 	tmp = 0;
 	if ((*stk)->prev)
 	{
