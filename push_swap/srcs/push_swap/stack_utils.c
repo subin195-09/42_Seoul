@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 17:05:43 by skim              #+#    #+#             */
-/*   Updated: 2021/05/16 22:42:46 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/16 23:32:55 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,17 @@ void	rewind_stack(t_stack **stk)
 	{
 		if ((*stk)->prev)
 			*stk = (*stk)->prev;
+		else
+			break ;
+	}
+}
+
+void	rewind_stack_tail(t_stack **stk)
+{
+	while (*stk)
+	{
+		if ((*stk)->next)
+			*stk = (*stk)->next;
 		else
 			break ;
 	}

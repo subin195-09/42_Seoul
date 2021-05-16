@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 21:40:18 by skim              #+#    #+#             */
-/*   Updated: 2021/05/16 22:50:49 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/17 01:21:28 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int		main(int ac, char *av[])
 	stk_b = 0;
 	init_info(&info);
 	stk_a = stack_make(av, &info);
-	printf("size : %d, min : %d, max : %d\n", info.size_a, info.min, info.max);
+	rewind_stack_tail(&stk_a);
+	//printf("size : %d, min : %d, max : %d\n", info.size_a, info.min, info.max);
 	stack_sort(&stk_a, &stk_b, &info);
 	stack_free(&stk_a);
 	return (0);

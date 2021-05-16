@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 21:50:03 by skim              #+#    #+#             */
-/*   Updated: 2021/05/16 22:42:34 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/16 23:30:55 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ int		add_stack(t_stack **stk, char *av, t_info *info)
 		{
 			info->max = (int)num;
 			info->min = (int)num;
-			(*stk) = new_stack_tail(0, (int)num);
+			(*stk) = new_stack_head(0, (int)num);
 		}
 		else
 		{
-			(*stk)->next = new_stack_tail(*stk, (int)num);
-			*stk = (*stk)->next;
+			(*stk)->prev = new_stack_head(*stk, (int)num);
+			*stk = (*stk)->prev;
 		}
 		if ((int)num > info->max)
 			info->max = (int)num;

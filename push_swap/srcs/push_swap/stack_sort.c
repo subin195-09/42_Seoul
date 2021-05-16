@@ -6,13 +6,13 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 22:43:38 by skim              #+#    #+#             */
-/*   Updated: 2021/05/16 23:11:38 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/17 01:21:14 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void    print_stak(t_stack *a, t_stack *b)
+void    print_stack(t_stack *a, t_stack *b)
 {
     rewind_stack(&a);
     rewind_stack(&b);
@@ -38,60 +38,103 @@ void    print_stak(t_stack *a, t_stack *b)
     printf("\n");
 }
 
-void    stack_sort(t_stack **a, t_stack **b, t_info *info)
+void    test_do(t_stack **a, t_stack **b, t_info *info)
 {
     printf("origin\n");
-    print_stak(*a, *b);
+    print_stack(*a, *b);
 
     printf("\npb\n");
     do_pb(a, b, info);
-    print_stak(*a, *b);
+    print_stack(*a, *b);
 
     printf("\npb\n");
     do_pb(a, b, info);
-    print_stak(*a, *b);
+    print_stack(*a, *b);
 
     printf("\npa\n");
     do_pa(a, b, info);
-    print_stak(*a, *b);
+    print_stack(*a, *b);
 
     printf("\nsa\n");
     do_sa(a, b, info);
-    print_stak(*a, *b);
+    print_stack(*a, *b);
 
     printf("\npb\n");
     do_pb(a, b, info);
-    print_stak(*a, *b);
+    print_stack(*a, *b);
 
     printf("\nsb\n");
     do_sb(a, b, info);
-    print_stak(*a, *b);
+    print_stack(*a, *b);
 
     printf("\nss\n");
     do_ss(a, b, info);
-    print_stak(*a, *b);
+    print_stack(*a, *b);
 
     printf("\nra\n");
     do_ra(a, b, info);
-    print_stak(*a, *b);
+    print_stack(*a, *b);
 
     printf("\nrb\n");
     do_rb(a, b, info);
-    print_stak(*a, *b);
+    print_stack(*a, *b);
 
     printf("\nrr\n");
     do_rr(a, b, info);
-    print_stak(*a, *b);
+    print_stack(*a, *b);
 
     printf("\nrra\n");
     do_rra(a, b, info);
-    print_stak(*a, *b);
+    print_stack(*a, *b);
 
     printf("\nrrb\n");
     do_rrb(a, b, info);
-    print_stak(*a, *b);
+    print_stack(*a, *b);
     
     printf("\nrrr\n");
     do_rrr(a, b, info);
-    print_stak(*a, *b);
+    print_stack(*a, *b);
+}
+
+int     find_min(t_stack *a)
+{
+    int min;
+
+    min = a->value;
+    while (a)
+    {
+        if (a->value < min)
+            min = a->value;
+        if (a->prev)
+            a = a->prev;
+        else
+            break ;
+    }
+    return (min);
+}
+
+void    stack_sort(t_stack **a, t_stack **b, t_info *info)
+{
+    int     next_min;
+
+    //print_stack(*a, *b);
+    next_min = info->min;
+    while (*a)
+    {
+        if ((*a)->value == next_min)
+        {
+            printf("pb\n");
+            do_pb(a, b, info);
+            if (info->size_a > 0)
+                next_min = find_min(*a);
+        }
+        else
+        {
+            printf("ra\n");
+            do_ra(a, b, info);
+        }
+    }
+    while (info->size_b > 0)
+        do_pa(a, b, info);
+    //print_stack(*a, *b);
 }
