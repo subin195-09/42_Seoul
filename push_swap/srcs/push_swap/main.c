@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 21:40:18 by skim              #+#    #+#             */
-/*   Updated: 2021/05/16 16:48:49 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/16 17:59:06 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,7 @@ int		main(int ac, char *av[])
 		printf("%d\n", stk->value);
 		stk = stk->next;
 	}
-	printf("size : %d\n", info.size);
-	// if (check_stack(stk) < 0)
-	// {
-	// 	stack_free(&stk);
-	// 	return (0);
-	// }
+	printf("size : %d, min : %d, max : %d\n", info.size, info.min, info.max);
 	// stack_sort(&stk);
 	stack_free(&stk);
 	return (0);

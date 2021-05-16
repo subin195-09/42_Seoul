@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 17:05:43 by skim              #+#    #+#             */
-/*   Updated: 2021/05/16 17:56:28 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/16 18:13:43 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	stack_free(t_stack **stk)
 void	exit_free(t_stack **stk)
 {
 	write(STDERR, "Error\n", 6);
-	rewind_stack(&stk);
-	stack_free(&stk);
+	rewind_stack(stk);
+	stack_free(stk);
+	//system("leaks a.out");
 	exit(0);
 }

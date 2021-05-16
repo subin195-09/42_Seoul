@@ -15,7 +15,8 @@ PUSH_DIR = push_swap
 CHECKER_DIR = checker
 INC_DIR = ./includes
 
-SRCS_PUSH = $(addprefix $(SRCS_DIR)/$(PUSH_DIR)/, main.c stack_make.c stack_utils.c)
+SRCS_PUSH = $(addprefix $(SRCS_DIR)/$(PUSH_DIR)/, \
+	main.c stack_check.c stack_make.c stack_utils.c)
 SRCS_CHECKER = $(addprefix $(SRCS_DIR)/$(CHECKER_DIR)/, )
 
 all : $(NAME)
