@@ -1,38 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   do_rb.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/15 21:40:18 by skim              #+#    #+#             */
-/*   Updated: 2021/05/16 22:50:49 by skim             ###   ########.fr       */
+/*   Created: 2021/05/16 22:12:51 by skim              #+#    #+#             */
+/*   Updated: 2021/05/16 23:17:57 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	init_info(t_info *info)
+void    do_rb(t_stack **a, t_stack **b, t_info *info)
 {
-	info->count = 0;
-	info->size_a = 0;
-	info->size_b = 0;
-}
+    int     tmp_value;
+    t_stack *b_head;
 
-int		main(int ac, char *av[])
-{
-	t_stack *stk_a;
-	t_stack	*stk_b;
-	t_info	info;
-	
-	if (ac < 2)
-		return (0);
-	stk_a = 0;
-	stk_b = 0;
-	init_info(&info);
-	stk_a = stack_make(av, &info);
-	printf("size : %d, min : %d, max : %d\n", info.size_a, info.min, info.max);
-	stack_sort(&stk_a, &stk_b, &info);
-	stack_free(&stk_a);
-	return (0);
+    if (info->size_b < 2)
+        return ;
+    tmp_value = (*b)->value;
+    b_head = is_head(*b);
+    b_head->prev = new_stack_head(b_head, tmp_value);
+    delete_stack(b);
+    (void)a;
+    (void)info;
 }

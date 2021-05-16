@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 21:26:43 by skim              #+#    #+#             */
-/*   Updated: 2021/05/16 18:15:53 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/16 22:48:19 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,12 @@ int		check_int(char *av_split, long long *num);
 int		free_matrix(char ***matrix);
 int		check_dup(t_stack *stk, t_info *info);
 
-t_stack	*new_stack(t_stack *pre, int value);
+void    stack_sort(t_stack **a, t_stack **b, t_info *info);
+
+t_stack	*new_stack_tail(t_stack *pre, int value);
+t_stack *new_stack_head(t_stack *next, int value);
+void	delete_stack(t_stack **stk);
+t_stack	*is_head(t_stack *stk);
 void	rewind_stack(t_stack **stk);
 void	stack_free(t_stack **stk);
 void	exit_free(t_stack **stk);

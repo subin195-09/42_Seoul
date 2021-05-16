@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 21:27:33 by skim              #+#    #+#             */
-/*   Updated: 2021/05/16 19:59:11 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/16 22:49:36 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,21 @@ typedef struct	s_info
 	int			max;
 	int			min;
 }				t_info;
+
+void    do_sa(t_stack **a, t_stack **b, t_info *info);
+void    do_sb(t_stack **a, t_stack **b, t_info *info);
+void    do_ss(t_stack **a, t_stack **b, t_info *info);
+
+void    do_pa(t_stack **a, t_stack **b, t_info *info);
+void    do_pb(t_stack **a, t_stack **b, t_info *info);
+
+void    do_ra(t_stack **a, t_stack **b, t_info *info);
+void    do_rb(t_stack **a, t_stack **b, t_info *info);
+void    do_rr(t_stack **a, t_stack **b, t_info *info);
+
+void    do_rra(t_stack **a, t_stack **b, t_info *info);
+void    do_rrb(t_stack **a, t_stack **b, t_info *info);
+void    do_rrr(t_stack **a, t_stack **b, t_info *info);
+
 
 #endif

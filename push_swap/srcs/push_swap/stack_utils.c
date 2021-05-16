@@ -6,13 +6,13 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 17:05:43 by skim              #+#    #+#             */
-/*   Updated: 2021/05/16 18:13:43 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/16 22:42:46 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_stack	*new_stack(t_stack *pre, int value)
+t_stack	*new_stack_tail(t_stack *pre, int value)
 {
 	t_stack	*stk;
 
@@ -25,6 +25,33 @@ t_stack	*new_stack(t_stack *pre, int value)
 	return (stk);
 }
 
+t_stack *new_stack_head(t_stack *next, int value)
+{
+	t_stack	*stk;
+
+	stk = (t_stack *)malloc(sizeof(t_stack) * 1);
+	if (!stk)
+		return (0);
+	stk->prev = 0;
+	stk->next = next;
+	stk->value = value;
+	return (stk);
+}
+
+void	delete_stack(t_stack **stk)
+{
+	t_stack *tmp;
+	
+	tmp = 0;
+	if ((*stk)->prev)
+	{
+		tmp = (*stk)->prev;
+		tmp->next = 0;
+	}
+	free(*stk);
+	*stk = tmp;
+}
+
 void	rewind_stack(t_stack **stk)
 {
 	while (*stk)
@@ -32,8 +59,20 @@ void	rewind_stack(t_stack **stk)
 		if ((*stk)->prev)
 			*stk = (*stk)->prev;
 		else
-			break;
+			break ;
 	}
+}
+
+t_stack	*is_head(t_stack *stk)
+{
+	while (stk)
+	{
+		if (stk->prev)
+			stk = stk->prev;
+		else
+			break ;
+	}
+	return (stk);
 }
 
 void	stack_free(t_stack **stk)
@@ -56,6 +95,5 @@ void	exit_free(t_stack **stk)
 	write(STDERR, "Error\n", 6);
 	rewind_stack(stk);
 	stack_free(stk);
-	//system("leaks a.out");
 	exit(0);
 }
