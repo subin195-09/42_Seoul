@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack_sort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 22:43:38 by skim              #+#    #+#             */
-/*   Updated: 2021/05/17 17:38:36 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/17 20:57:59 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,18 +176,58 @@ int     find_max(t_stack *a)
 void    push_b(t_stack **a, t_stack **b, t_info *info)
 {
     int b_min;
+    int b_max;
 
     if (*b)
     {
         b_min = find_min(*b);
-        while ((*b)->value != b_min)
+        b_max = find_max(*b);
+        printf("a_value : %d\n", (*a)->value);
+        printf("min : %d, max : %d\n", b_min, b_max);
+        if ((*a)->value < b_min)
         {
+            while ((*b)->value != b_min)
+            {
+                printf("rb\n");
+                do_rb(a, b, info);
+            }
+            printf("pb\n");
+            do_pb(a, b, info);
+        }
+        else if ((*a)->value > b_max)
+        {
+            while ((*b)->value != b_min)
+            {
+                printf("rb\n");
+                do_rb(a, b, info);
+            }
+            printf("pb\n");
+            do_pb(a, b, info);
             printf("rb\n");
             do_rb(a, b, info);
         }
+        else
+        {
+            while ((*b)->value < (*a)->value)
+            {
+                printf("rb\n");
+                do_rb(a, b, info);
+            }
+            printf("pb\n");
+            do_pb(a, b, info);
+            while ((*b)->value != b_min)
+            {
+                printf("rb\n");
+                do_rb(a, b, info);
+            }
+        }
     }
-    printf("pb\n");
-    do_pb(a, b, info);
+    else
+    {
+        printf("pb\n");
+        do_pb(a, b, info);
+    }
+
     print_stack(*a, *b);
 }
 
@@ -226,8 +266,6 @@ void    stack_sort(t_stack **a, t_stack **b, t_info *info)
             }
         }
     }
-    printf("rb\n");
-    do_rb(a, b, info);
     while (info->size_b > 0)
     {
         printf("pa\n");
