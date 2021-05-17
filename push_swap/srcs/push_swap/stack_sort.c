@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 22:43:38 by skim              #+#    #+#             */
-/*   Updated: 2021/05/17 01:21:14 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/17 17:19:01 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int     find_min(t_stack *a)
     return (min);
 }
 
-void    stack_sort(t_stack **a, t_stack **b, t_info *info)
+void    worst_sort(t_stack **a, t_stack **b, t_info *info)
 {
     int     next_min;
 
@@ -135,6 +135,101 @@ void    stack_sort(t_stack **a, t_stack **b, t_info *info)
         }
     }
     while (info->size_b > 0)
+    {
+        printf("pa\n");
         do_pa(a, b, info);
+    }
     //print_stack(*a, *b);
+}
+
+int     find_break(t_stack *a, int min, int max)
+{
+    int count;
+
+    count = 0;
+    while (a)
+    {
+        if (a->value >= min && a->value <= max)
+            count++;
+        a = a->prev;
+    }
+    return (count);
+}
+
+int     find_max(t_stack *a)
+{
+    int max;
+
+    max = a->value;
+    while (a)
+    {
+        if (a->value > max)
+            max = a->value;
+        if (a->prev)
+            a = a->prev;
+        else
+            break ;
+    }
+    return (max);
+}
+
+void    push_b(t_stack **a, t_stack **b, t_info *info)
+{
+    int b_max;
+
+    if (*b)
+    {
+        b_max = find_max(*b);
+        while ((*b)->value != b_max)
+        {
+            printf("rb\n");
+            do_rb(a, b, info);
+        }
+    }
+    printf("pb\n");
+    do_pb(a, b, info);
+    printf("rb\n");
+    do_rb(a, b, info);
+}
+
+void    stack_sort(t_stack **a, t_stack **b, t_info *info)
+{
+    int chunk_size;
+    int chunk_ran;
+    int *chunk;
+    int i;
+
+    if (info->size_a < 100)
+        chunk_size = 3;
+    if (info->size_a >= 100)
+        chunk_size = info->size_a / 20;
+    chunk_ran = (info->max - info->min) / chunk_size;
+    chunk = (int *)malloc(sizeof(int) * chunk_size);
+    if (!chunk)
+        return ;
+    i = chunk_size + 1;
+    while (--i >= 0)
+    {
+        int min = info->min + i * chunk_ran;
+        int max = i + 1 == chunk_size ? info->max : info->min + (i + 1) * chunk_ran;
+        int brk = find_break(*a, min, max);
+        while (*a && brk > 0)
+        {
+            if ((*a)->value >= min && (*a)->value <= max)
+            {
+                push_b(a, b, info);
+                brk--;
+            }
+            else
+            {
+                printf("ra\n");
+                do_ra(a, b, info);
+            }
+        }
+    }
+    while (info->size_b > 0)
+    {
+        printf("pa\n");
+        do_pa(a, b, info);
+    }
 }
