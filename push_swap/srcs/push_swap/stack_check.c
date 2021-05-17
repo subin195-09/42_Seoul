@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 18:14:10 by skim              #+#    #+#             */
-/*   Updated: 2021/05/17 01:29:11 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/17 17:35:14 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int		check_dup_flag(t_stack *stk, t_info *info)
 			return (0);
 		else
 			check[(size_t)((long)(stk->value) - (long)info->min)] = 1;
-		if (stk->prev)
-			stk = stk->prev;
+		if (stk->next)
+			stk = stk->next;
 		else
 			break ;
 	}
@@ -43,19 +43,19 @@ int		check_dup_rot(t_stack *stk)
 
 	while (stk)
 	{
-		if (stk->prev)
+		if (stk->next)
 		{
-			anc = stk->prev;
+			anc = stk->next;
 			while (anc)
 			{
 				if (anc->value == stk->value)
 					return (0);
-				if (anc->prev)
-					anc = anc->prev;
+				if (anc->next)
+					anc = anc->next;
 				else
 					break ;
 			}
-			stk = stk->prev;
+			stk = stk->next;
 		}
 		else
 			break ;

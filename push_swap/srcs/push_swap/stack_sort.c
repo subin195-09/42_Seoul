@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 22:43:38 by skim              #+#    #+#             */
-/*   Updated: 2021/05/17 17:19:01 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/17 17:38:36 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,12 +175,12 @@ int     find_max(t_stack *a)
 
 void    push_b(t_stack **a, t_stack **b, t_info *info)
 {
-    int b_max;
+    int b_min;
 
     if (*b)
     {
-        b_max = find_max(*b);
-        while ((*b)->value != b_max)
+        b_min = find_min(*b);
+        while ((*b)->value != b_min)
         {
             printf("rb\n");
             do_rb(a, b, info);
@@ -188,8 +188,7 @@ void    push_b(t_stack **a, t_stack **b, t_info *info)
     }
     printf("pb\n");
     do_pb(a, b, info);
-    printf("rb\n");
-    do_rb(a, b, info);
+    print_stack(*a, *b);
 }
 
 void    stack_sort(t_stack **a, t_stack **b, t_info *info)
@@ -207,8 +206,8 @@ void    stack_sort(t_stack **a, t_stack **b, t_info *info)
     chunk = (int *)malloc(sizeof(int) * chunk_size);
     if (!chunk)
         return ;
-    i = chunk_size + 1;
-    while (--i >= 0)
+    i = -1;
+    while (++i < chunk_size)
     {
         int min = info->min + i * chunk_ran;
         int max = i + 1 == chunk_size ? info->max : info->min + (i + 1) * chunk_ran;
@@ -227,9 +226,12 @@ void    stack_sort(t_stack **a, t_stack **b, t_info *info)
             }
         }
     }
+    printf("rb\n");
+    do_rb(a, b, info);
     while (info->size_b > 0)
     {
         printf("pa\n");
         do_pa(a, b, info);
     }
+    print_stack(*a, *b);
 }
