@@ -55,4 +55,8 @@ fclean : clean
 re : fclean all
 
 push : $(LIB_DIR)/$(LIBFT)
-	@$(CC) $(CFLAGS) -I$(INC_DIR) -I$(LIB_DIR)/$(INC_DIR) -L ./$(LIB_DIR) -lft $(SRCS_PUSH) $(SRCS_DO)
+	@$(CC) $(CFLAGS) -I$(INC_DIR) -I$(LIB_DIR)/$(INC_DIR) -L ./$(LIB_DIR) -lft $(SRCS_PUSH) $(SRCS_DO) -o push_swap
+	cp push_swap ./push_swap_visualizer
+	cd ./push_swap_visualizer
+
+# python3 pyviz.py `ruby -e "puts (-20..20).to_a.shuffle.join(' ')"`

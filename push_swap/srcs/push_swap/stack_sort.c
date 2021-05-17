@@ -90,7 +90,7 @@ void    test_do(t_stack **a, t_stack **b, t_info *info)
     printf("\nrrb\n");
     do_rrb(a, b, info);
     print_stack(*a, *b);
-    
+
     printf("\nrrr\n");
     do_rrr(a, b, info);
     print_stack(*a, *b);
