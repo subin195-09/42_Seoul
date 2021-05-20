@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 02:24:32 by skim              #+#    #+#             */
-/*   Updated: 2021/05/21 03:17:39 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/21 03:45:40 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,45 +32,55 @@ int		check_r_a(t_stack *stk, int len, int pivot)
 	return (1);
 }
 
+int		init_call_a(t_stack *a, t_info *info, int call[7], int len)
+{
+	if (len == 1 || check_asc(a))
+		return (0);
+	ft_memset(call, 0, sizeof(int) * 7);
+	call[C_LEN] = len;
+	call[C_PI] = get_pivot(a, len);
+	if (len == info->size_a)
+		call[C_FL] = 1;
+	call[C_I] = -1;
+	return (1);
+}
+
+void	div_a_to_b(t_stack **a, t_stack **b, t_info *info, int call[7])
+{
+	if ((*a)->value >= call[C_PI])
+	{
+		if (check_r_a(*a, call[C_LEN] - call[C_I], call[C_PI]) == 0)
+		{
+			exec_ins(a, b, info, DO_RA);
+			call[C_RR]++;
+		}
+		call[C_R]++;
+	}
+	else
+	{
+		exec_ins(a, b, info, DO_PB);
+		call[C_P]++;
+	}
+}
+
 void	a_to_b(t_stack **a, t_stack **b, t_info *info, int len)
 {
-	int	pivot;
-	int	call[3];
-	int	flag;
-	int	i;
+	int	call[7];
 
-	if (len == 1 || check_asc(*a))
+	if (init_call_a(*a, info, call, len) == 0)
 		return ;
-	pivot = get_pivot(*a, len);
-	ft_memset(call, 0, sizeof(call));
-	flag = 0;
-	if (len == info->size_a)
-		flag = 1;
-	i = -1;
-	while (++i < len)
+	while (++call[C_I] < call[C_LEN])
 	{
-		if (len == 2 && (*a)->value >= pivot && (*a)->prev->value < pivot)
+		if (call[C_LEN] == 2 && (*a)->value >= call[C_PI] \
+		&& (*a)->prev->value < call[C_PI])
 		{
 			exec_ins(a, b, info, DO_SA);
 			call[C_R]++;
-			i++;
+			call[C_I]++;
 		}
-		if ((*a)->value >= pivot)
-		{
-			if (check_r_a(*a, len - i, pivot) == 0)
-			{
-				exec_ins(a, b, info, DO_RA);
-				call[C_RR]++;
-			}
-			call[C_R]++;
-		}
-		else
-		{
-			exec_ins(a, b, info, DO_PB);
-			call[C_P]++;
-		}
+		div_a_to_b(a, b, info, call);
 	}
-	while (flag != 1 && --call[C_RR] >= 0)
+	while (call[C_FL] != 1 && --call[C_RR] >= 0)
 		exec_ins(a, b, info, DO_RRA);
 	a_to_b(a, b, info, call[C_R]);
 	b_to_a(a, b, info, call[C_P]);
