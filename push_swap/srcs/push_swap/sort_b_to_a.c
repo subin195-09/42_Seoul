@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 02:25:23 by skim              #+#    #+#             */
-/*   Updated: 2021/05/21 02:47:32 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/21 03:18:25 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,52 +36,42 @@ void	b_to_a(t_stack **a, t_stack **b, t_info *info, int len)
 {
 	int	pivot;
 	int	i;
-	int	call_rb;
-	int	call_rrb;
-	int	call_pa;
-	int	check;
+	int	call[3];
 	int	flag;
 
-	// printf("b_to_a : %d\n", len);
 	if (len == 0)
 		return ;
 	pivot = get_pivot(*b, len);
-	i = -1;
-	call_rb = 0;
-	call_rrb = 0;
-	call_pa = 0;
+	ft_memset(call, 0, sizeof(call));
 	flag = 0;
 	if (len == info->size_b)
 		flag = 1;
+	i = -1;
 	while (++i < len)
 	{
-		// print_stack(*a, *b);
-		// sleep(1);
-		check = check_r_b(*b, len - i, pivot);
 		if (len - i == 2 && (*b)->value < pivot && (*b)->prev->value >= pivot)
 		{
 			exec_ins(a, b, info, DO_SB);
-			call_rb++;
+			call[C_R]++;
 			i++;
 		}
 		if ((*b)->value < pivot)
 		{
-			if (check == 0)
+			if (check_r_b(*b, len - i, pivot) == 0)
 			{
 				exec_ins(a, b, info, DO_RB);
-				call_rrb++;
+				call[C_RR]++;
 			}
-			call_rb++;
+			call[C_R]++;
 		}
 		else
 		{
 			exec_ins(a, b, info, DO_PA);
-			call_pa++;
+			call[C_P]++;
 		}
 	}
-	i = -1;
-	while (flag != 1 && ++i < call_rrb)
+	while (flag != 1 && --call[C_RR] >= 0)
 		exec_ins(a, b, info, DO_RRB);
-	a_to_b(a, b, info, call_pa);
-	b_to_a(a, b, info, call_rb);
+	a_to_b(a, b, info, call[C_P]);
+	b_to_a(a, b, info, call[C_R]);
 }

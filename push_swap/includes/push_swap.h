@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 21:26:43 by skim              #+#    #+#             */
-/*   Updated: 2021/05/21 02:48:09 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/21 03:12:46 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,7 @@ int		check_asc(t_stack *stk);
 int		get_pivot(t_stack *stk, int len);
 int		find_max(t_stack *a, int len);
 int		find_min(t_stack *a, int len);
+
+void	print_stack(t_stack *a, t_stack *b);
 
 #endif
