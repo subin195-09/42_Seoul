@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 21:27:33 by skim              #+#    #+#             */
-/*   Updated: 2021/05/20 22:03:33 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/21 02:10:00 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@
 # include <stdlib.h>
 
 # define STDERR 2
+
+# define DO_RA	0
+# define DO_RB	1
+# define DO_RR	2
+# define DO_RRA	3
+# define DO_RRB	4
+# define DO_RRR	5
+# define DO_SA	6
+# define DO_SB	7
+# define DO_SS	8
+# define DO_PA	9
+# define DO_PB	10
 
 typedef struct	s_stack
 {
@@ -35,20 +47,20 @@ typedef struct	s_info
 	int			min;
 }				t_info;
 
-void    do_sa(t_stack **a, t_stack **b, t_info *info);
-void    do_sb(t_stack **a, t_stack **b, t_info *info);
-void    do_ss(t_stack **a, t_stack **b, t_info *info);
+void	do_sa(t_stack **a, t_stack **b, t_info *info);
+void	do_sb(t_stack **a, t_stack **b, t_info *info);
+void	do_ss(t_stack **a, t_stack **b, t_info *info);
 
-void    do_pa(t_stack **a, t_stack **b, t_info *info);
-void    do_pb(t_stack **a, t_stack **b, t_info *info);
+void	do_pa(t_stack **a, t_stack **b, t_info *info);
+void	do_pb(t_stack **a, t_stack **b, t_info *info);
 
-void    do_ra(t_stack **a, t_stack **b, t_info *info);
-void    do_rb(t_stack **a, t_stack **b, t_info *info);
-void    do_rr(t_stack **a, t_stack **b, t_info *info);
+void	do_ra(t_stack **a, t_stack **b, t_info *info);
+void	do_rb(t_stack **a, t_stack **b, t_info *info);
+void	do_rr(t_stack **a, t_stack **b, t_info *info);
 
-void    do_rra(t_stack **a, t_stack **b, t_info *info);
-void    do_rrb(t_stack **a, t_stack **b, t_info *info);
-void    do_rrr(t_stack **a, t_stack **b, t_info *info);
+void	do_rra(t_stack **a, t_stack **b, t_info *info);
+void	do_rrb(t_stack **a, t_stack **b, t_info *info);
+void	do_rrr(t_stack **a, t_stack **b, t_info *info);
 
 int		check_int(char *av_split, long long *num);
 int		free_matrix(char ***matrix);
@@ -56,7 +68,7 @@ int		check_dup(t_stack *stk, t_info *info);
 t_stack	*stack_make(char *av[], t_info *info);
 
 t_stack	*new_stack_tail(t_stack *pre, int value);
-t_stack *new_stack_head(t_stack *next, int value);
+t_stack	*new_stack_head(t_stack *next, int value);
 void	delete_stack(t_stack **stk);
 t_stack	*is_head(t_stack *stk);
 void	rewind_stack(t_stack **stk);

@@ -6,14 +6,14 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 22:12:58 by skim              #+#    #+#             */
-/*   Updated: 2021/05/20 21:51:23 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/21 02:03:50 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void    do_rr(t_stack **a, t_stack **b, t_info *info)
+void	do_rr(t_stack **a, t_stack **b, t_info *info)
 {
-    do_ra(a, b, info);
-    do_rb(a, b, info);
+	do_ra(a, b, info);
+	do_rb(a, b, info);
 }

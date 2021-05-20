@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 18:14:30 by skim              #+#    #+#             */
-/*   Updated: 2021/05/20 22:00:23 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/21 01:08:18 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,6 @@ long long					ft_atol(const char *str);
 
 char						*ft_strndup(const char *src, int n);
 int							get_next_line(int fd, char **line);
+int							ft_strcmp(const char *s1, const char *s2);
 
 #endif
