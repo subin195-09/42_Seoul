@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 21:40:18 by skim              #+#    #+#             */
-/*   Updated: 2021/05/17 01:21:28 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/20 19:59:28 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		main(int ac, char *av[])
 	t_stack *stk_a;
 	t_stack	*stk_b;
 	t_info	info;
-	
+
 	if (ac < 2)
 		return (0);
 	stk_a = 0;
@@ -32,7 +32,6 @@ int		main(int ac, char *av[])
 	init_info(&info);
 	stk_a = stack_make(av, &info);
 	rewind_stack_tail(&stk_a);
-	//printf("size : %d, min : %d, max : %d\n", info.size_a, info.min, info.max);
 	stack_sort(&stk_a, &stk_b, &info);
 	stack_free(&stk_a);
 	return (0);
