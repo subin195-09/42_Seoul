@@ -6,11 +6,11 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 17:05:43 by skim              #+#    #+#             */
-/*   Updated: 2021/05/17 01:29:40 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/20 21:50:52 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "main.h"
 
 t_stack	*new_stack_tail(t_stack *pre, int value)
 {

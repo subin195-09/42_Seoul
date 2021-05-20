@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/12 18:57:10 by skim              #+#    #+#             */
-/*   Updated: 2021/03/05 19:18:30 by skim             ###   ########.fr       */
+/*   Created: 2021/05/20 21:57:49 by skim              #+#    #+#             */
+/*   Updated: 2021/05/20 21:57:58 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
 char	*ft_restore(char **store, int *ret)
 {

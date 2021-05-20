@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 21:27:33 by skim              #+#    #+#             */
-/*   Updated: 2021/05/16 22:49:36 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/20 22:03:33 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 # include <stdlib.h>
 
 # define STDERR 2
-# define INT_MAX 2147483647
-# define INT_MIN -2147483648
 
 typedef struct	s_stack
 {
@@ -52,5 +50,18 @@ void    do_rra(t_stack **a, t_stack **b, t_info *info);
 void    do_rrb(t_stack **a, t_stack **b, t_info *info);
 void    do_rrr(t_stack **a, t_stack **b, t_info *info);
 
+int		check_int(char *av_split, long long *num);
+int		free_matrix(char ***matrix);
+int		check_dup(t_stack *stk, t_info *info);
+t_stack	*stack_make(char *av[], t_info *info);
+
+t_stack	*new_stack_tail(t_stack *pre, int value);
+t_stack *new_stack_head(t_stack *next, int value);
+void	delete_stack(t_stack **stk);
+t_stack	*is_head(t_stack *stk);
+void	rewind_stack(t_stack **stk);
+void	rewind_stack_tail(t_stack **stk);
+void	stack_free(t_stack **stk);
+void	exit_free(t_stack **stk);
 
 #endif

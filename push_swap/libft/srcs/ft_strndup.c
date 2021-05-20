@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/15 21:26:43 by skim              #+#    #+#             */
-/*   Updated: 2021/05/20 21:45:22 by skim             ###   ########.fr       */
+/*   Created: 2021/05/20 21:58:13 by skim              #+#    #+#             */
+/*   Updated: 2021/05/20 21:58:18 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "libft.h"
 
-# include "main.h"
-# include <stdio.h>
+char	*ft_strndup(const char *src, int n)
+{
+	int		i;
+	char	*dest;
 
-void    stack_sort(t_stack **a, t_stack **b, t_info *info);
-
-#endif
+	i = 0;
+	if (!(dest = malloc(n + 1)))
+		return (0);
+	while (i < n)
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}

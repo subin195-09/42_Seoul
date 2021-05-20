@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   do_pb.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 22:12:36 by skim              #+#    #+#             */
-/*   Updated: 2021/05/16 23:05:16 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/20 21:51:12 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "main.h"
 
 void    do_pb(t_stack **a, t_stack **b, t_info *info)
 {

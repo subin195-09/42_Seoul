@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   stack_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 18:14:10 by skim              #+#    #+#             */
-/*   Updated: 2021/05/17 17:35:14 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/20 21:52:11 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "main.h"
 
 int		check_dup_flag(t_stack *stk, t_info *info)
 {

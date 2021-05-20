@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 18:14:30 by skim              #+#    #+#             */
-/*   Updated: 2021/05/16 18:08:18 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/20 22:00:23 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdarg.h>
+# include <fcntl.h>
+# include <limits.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 5000
+# endif
 
 typedef unsigned long long	t_ull;
 
@@ -96,5 +102,8 @@ t_ull						ft_pow(unsigned long long num, int exp);
 
 void						ft_frees(int size, ...);
 long long					ft_atol(const char *str);
+
+char						*ft_strndup(const char *src, int n);
+int							get_next_line(int fd, char **line);
 
 #endif

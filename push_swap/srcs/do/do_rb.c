@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   do_rb.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 22:12:51 by skim              #+#    #+#             */
-/*   Updated: 2021/05/16 23:17:57 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/20 21:51:19 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "main.h"
 
 void    do_rb(t_stack **a, t_stack **b, t_info *info)
 {

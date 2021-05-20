@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   stack_make.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 21:50:03 by skim              #+#    #+#             */
-/*   Updated: 2021/05/16 23:30:55 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/20 21:53:10 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "main.h"
+
 int		add_stack(t_stack **stk, char *av, t_info *info)
 {
 	char		**av_split;
@@ -37,7 +38,7 @@ int		add_stack(t_stack **stk, char *av, t_info *info)
 		if ((int)num > info->max)
 			info->max = (int)num;
 		if ((int)num < info->min)
-			info->min = (int)num;	
+			info->min = (int)num;
 		free(av_split[i]);
 		info->size_a++;
 	}

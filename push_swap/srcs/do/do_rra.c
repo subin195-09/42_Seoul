@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   do_rra.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 22:13:04 by skim              #+#    #+#             */
-/*   Updated: 2021/05/16 23:21:48 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/20 21:51:26 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "main.h"
 
 void    do_rra(t_stack **a, t_stack **b, t_info *info)
 {
@@ -18,7 +18,7 @@ void    do_rra(t_stack **a, t_stack **b, t_info *info)
     t_stack *a_head;
 
     if (info->size_a < 2)
-        return ;    
+        return ;
     a_head = is_head(*a);
     tmp_value = a_head->value;
     a_head->next->prev = 0;

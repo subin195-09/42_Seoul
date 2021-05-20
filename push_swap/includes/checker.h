@@ -6,14 +6,14 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 21:38:53 by skim              #+#    #+#             */
-/*   Updated: 2021/05/15 21:39:30 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/20 22:01:31 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CHECKER_H
 # define CHECKER_H
 
-# include "get_next_line.h"
 # include "main.h"
+# include <stdio.h>
 
 #endif

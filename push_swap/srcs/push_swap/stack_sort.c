@@ -6,11 +6,12 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 22:43:38 by skim              #+#    #+#             */
-/*   Updated: 2021/05/20 21:19:39 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/20 22:10:04 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
 void	a_to_b(t_stack **a, t_stack **b, t_info *info, int len);
 void	b_to_a(t_stack **a, t_stack **b, t_info *info, int len);
 
@@ -372,11 +373,11 @@ void	less_sort(t_stack **a, t_stack **b, t_info *info)
 
 void    stack_sort(t_stack **a, t_stack **b, t_info *info)
 {
-	print_stack(*a, *b);
+	// print_stack(*a, *b);
 	if (info->size_a < 20)
 		less_sort(a, b, info);
 	else
 		a_to_b(a, b, info, info->size_a);
-	print_stack(*a, *b);
-	printf("count : %d\n", info->count);
+	// print_stack(*a, *b);
+	// printf("count : %d\n", info->count);
 }

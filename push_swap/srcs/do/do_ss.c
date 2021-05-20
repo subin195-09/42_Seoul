@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   do_ss.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 22:05:36 by skim              #+#    #+#             */
-/*   Updated: 2021/05/16 22:15:23 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/20 21:51:44 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "main.h"
 
 void    do_ss(t_stack **a, t_stack **b, t_info *info)
 {
