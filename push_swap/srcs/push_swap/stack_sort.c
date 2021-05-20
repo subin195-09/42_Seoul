@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 22:43:38 by skim              #+#    #+#             */
-/*   Updated: 2021/05/20 19:58:22 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/20 21:19:39 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int		get_pivot(t_stack *stk, int len)
 	min = find_min(stk, len);
 	max = find_max(stk, len);
 	if (max - min == 1)
-		return (min);
+		return (max);
 	return ((max + min) / 2);
 }
 
@@ -99,7 +99,7 @@ int		check_r_a(t_stack *stk, int len, int pivot)
 	count = 0;
 	while (++i < len)
 	{
-		if (stk->value > pivot)
+		if (stk->value < pivot)
 			return (0);
 		count++;
 		if (stk->prev)
@@ -119,7 +119,7 @@ int		check_r_b(t_stack *stk, int len, int pivot)
 	count = 0;
 	while (++i < len)
 	{
-		if (stk->value <= pivot)
+		if (stk->value >= pivot)
 			return (0);
 		if (stk->prev)
 			stk = stk->prev;
@@ -134,7 +134,7 @@ int		check_asc(t_stack *stk)
 {
 	while (stk->prev)
 	{
-		if (stk->value < stk->prev->value)
+		if (stk->value > stk->prev->value)
 			return (0);
 		stk = stk->prev;
 	}
@@ -166,7 +166,9 @@ void	a_to_b(t_stack **a, t_stack **b, t_info *info, int len)
 		flag = 1;
 	while (++i < len)
 	{
-		if (len - i == 2 && (*a)->value <= pivot && (*a)->prev->value > pivot)
+		// print_stack(*a, *b);
+		// sleep(1);
+		if (len - i == 2 && (*a)->value >= pivot && (*a)->prev->value < pivot)
 		{
 			printf("sa\n");
 			do_sa(a, b, info);
@@ -175,7 +177,7 @@ void	a_to_b(t_stack **a, t_stack **b, t_info *info, int len)
 			i++;
 		}
 		check = check_r_a(*a, len - i, pivot);
-		if ((*a)->value <= pivot)
+		if ((*a)->value >= pivot)
 		{
 			if (check == 0)
 			{
@@ -228,8 +230,10 @@ void	b_to_a(t_stack **a, t_stack **b, t_info *info, int len)
 		flag = 1;
 	while (++i < len)
 	{
+		// print_stack(*a, *b);
+		// sleep(1);
 		check = check_r_b(*b, len - i, pivot);
-		if (len - i == 2 && (*b)->value > pivot && (*b)->prev->value <= pivot)
+		if (len - i == 2 && (*b)->value < pivot && (*b)->prev->value >= pivot)
 		{
 			printf("sb\n");
 			do_sb(a, b, info);
@@ -237,7 +241,7 @@ void	b_to_a(t_stack **a, t_stack **b, t_info *info, int len)
 			call_rb++;
 			i++;
 		}
-		if ((*b)->value > pivot)
+		if ((*b)->value < pivot)
 		{
 			if (check == 0)
 			{
@@ -321,6 +325,8 @@ void	less_sort(t_stack **a, t_stack **b, t_info *info)
 	int		pos;
 	t_stack	*anc;
 
+	if (check_asc(*a))
+		return ;
 	while (info->size_a != 3)
 	{
 		max = find_max(*a, info->size_a);
@@ -366,7 +372,7 @@ void	less_sort(t_stack **a, t_stack **b, t_info *info)
 
 void    stack_sort(t_stack **a, t_stack **b, t_info *info)
 {
-	// print_stack(*a, *b);
+	print_stack(*a, *b);
 	if (info->size_a < 20)
 		less_sort(a, b, info);
 	else
