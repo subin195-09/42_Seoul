@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_instruction.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 01:48:57 by skim              #+#    #+#             */
-/*   Updated: 2021/05/21 17:49:23 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/21 20:26:46 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	(*ins_fun(int i))(t_stack **a, t_stack **b, t_info *info)
 	return (ins_fun[i]);
 }
 
-int	check_asc(t_stack *stk)
+int		check_asc(t_stack *stk)
 {
 	while (stk && stk->prev)
 	{
@@ -60,7 +60,7 @@ int	check_asc(t_stack *stk)
 	return (1);
 }
 
-int	find_ins(t_stack **a, t_stack **b, t_info *info, char **line)
+int		find_ins(t_stack **a, t_stack **b, t_info *info, char **line)
 {
 	int	i;
 

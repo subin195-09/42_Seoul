@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 20:46:27 by skim              #+#    #+#             */
-/*   Updated: 2021/05/21 17:54:41 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/21 20:25:54 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_info(t_info *info)
 	info->size_b = 0;
 }
 
-int	main(int ac, char *av[])
+int		main(int ac, char *av[])
 {
 	t_stack	*stk_a;
 	t_stack	*stk_b;
