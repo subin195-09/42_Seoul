@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 01:48:57 by skim              #+#    #+#             */
-/*   Updated: 2021/05/21 16:26:09 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/21 17:49:23 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	(*ins_fun(int i))(t_stack **a, t_stack **b, t_info *info)
 
 int	check_asc(t_stack *stk)
 {
-	while (stk->prev)
+	while (stk && stk->prev)
 	{
 		if (stk->value > stk->prev->value)
 			return (0);

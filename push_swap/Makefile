@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/05/21 16:53:40 by skim              #+#    #+#              #
+#    Updated: 2021/05/21 16:53:41 by skim             ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 CHECKER = checker
 PUSH_SWAP = push_swap
 NAME = $(CHECKER) $(PUSH_SWAP)
@@ -15,7 +27,7 @@ DO_DIR = do
 INC_DIR = ./includes
 
 SRCS_COMMON = $(addprefix $(SRCS_DIR)/, \
-	stack_check.c stack_make.c stack_utils.c)
+	stack_check.c stack_make.c stack_utils.c stack_utils_2.c)
 
 SRCS_PUSH = $(SRCS_COMMON) \
 	$(addprefix $(SRCS_DIR)/$(PUSH_DIR)/, \
@@ -66,5 +78,3 @@ check : $(LIB_DIR)/$(LIBFT)
 	@$(CC) $(CFLAGS) -I$(INC_DIR) \
 	-I$(LIB_DIR)/$(INC_DIR) -L ./$(LIB_DIR) -lft \
 	$(SRCS_CHECKER) $(SRCS_DO) -o checker
-
-# python3 pyviz.py `ruby -e "puts (-20..20).to_a.shuffle.join(' ')"`

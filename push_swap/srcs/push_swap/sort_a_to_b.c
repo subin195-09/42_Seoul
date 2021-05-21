@@ -6,11 +6,12 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 02:24:32 by skim              #+#    #+#             */
-/*   Updated: 2021/05/21 03:45:40 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/21 17:45:17 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h>
 
 int		check_r_a(t_stack *stk, int len, int pivot)
 {
@@ -45,6 +46,68 @@ int		init_call_a(t_stack *a, t_info *info, int call[7], int len)
 	return (1);
 }
 
+int		len_is_ra_or_rra(t_stack *a, int pivot)
+{
+	int	pos_ra;
+	int	pos_rra;
+
+	pos_ra = 0;
+	pos_rra = 0;
+	while (a->value >= pivot)
+	{
+		pos_ra++;
+		a = a->prev;
+	}
+	a = is_head(a);
+	while (a->value >= pivot)
+	{
+		pos_rra++;
+		a = a->next;
+	}
+	// printf("pivot : %d, ra: %d, rra: %d\n", pivot, pos_ra, pos_rra);
+	// sleep(1);
+	if (pos_ra <= pos_rra)
+		return (DO_RA);
+	else
+		return (DO_RRA);
+}
+
+int		no_more_pb(t_stack *a, int pivot)
+{
+	while (a)
+	{
+		if (a->value < pivot)
+			return (0);
+		a = a->prev;
+	}
+	return (1);
+}
+
+void	len_is_size_a(t_stack **a, t_stack **b, t_info *info, int call[7])
+{
+	int	is_ra_or_rra;
+
+	is_ra_or_rra = len_is_ra_or_rra(*a, call[C_PI]);
+	while (++call[C_I] < call[C_LEN])
+	{
+		// print_stack(*a, *b);
+		if ((*a)->value >= call[C_PI])
+		{
+			if (no_more_pb(*a, call[C_PI]) == 0)
+			{
+				exec_ins(a, b, info, is_ra_or_rra);
+				call[C_RR]++;
+			}
+			call[C_R]++;
+		}
+		else
+		{
+			exec_ins(a, b, info, DO_PB);
+			call[C_P]++;
+		}
+	}
+}
+
 void	div_a_to_b(t_stack **a, t_stack **b, t_info *info, int call[7])
 {
 	if ((*a)->value >= call[C_PI])
@@ -69,7 +132,9 @@ void	a_to_b(t_stack **a, t_stack **b, t_info *info, int len)
 
 	if (init_call_a(*a, info, call, len) == 0)
 		return ;
-	while (++call[C_I] < call[C_LEN])
+	if (call[C_FL] == 1)
+		len_is_size_a(a, b, info, call);
+	while (call[C_FL] != 1 && ++call[C_I] < call[C_LEN])
 	{
 		if (call[C_LEN] == 2 && (*a)->value >= call[C_PI] \
 		&& (*a)->prev->value < call[C_PI])
