@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 22:43:38 by skim              #+#    #+#             */
-/*   Updated: 2021/05/21 02:59:23 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/21 16:09:36 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	print_stack(t_stack *a, t_stack *b)
 
 int		find_min(t_stack *a, int len)
 {
-	int min;
+	int	min;
 	int	i;
 
 	min = a->value;
@@ -60,7 +60,7 @@ int		find_min(t_stack *a, int len)
 
 int		find_max(t_stack *a, int len)
 {
-	int max;
+	int	max;
 	int	i;
 
 	max = a->value;

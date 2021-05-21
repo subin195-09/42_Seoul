@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 17:05:43 by skim              #+#    #+#             */
-/*   Updated: 2021/05/20 21:50:52 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/21 16:31:40 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ void	stack_free(t_stack **stk)
 
 	while (*stk)
 	{
-		if ((*stk)->next)
-			tmp_stk = (*stk)->next;
+		if ((*stk)->prev)
+			tmp_stk = (*stk)->prev;
 		else
 			tmp_stk = 0;
 		free(*stk);
