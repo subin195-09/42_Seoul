@@ -3,41 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   sort_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 22:43:38 by skim              #+#    #+#             */
-/*   Updated: 2021/05/21 16:09:36 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/21 22:07:09 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h> ///// 지워야함
-
-void	print_stack(t_stack *a, t_stack *b)
-{
-	rewind_stack(&a);
-	rewind_stack(&b);
-	printf("a : ");
-	while (a)
-	{
-		printf("(%d) ", a->value);
-		if (a->next)
-			a = a->next;
-		else
-			break ;
-	}
-	printf("\n");
-	printf("b : ");
-	while (b)
-	{
-		printf("(%d) ", b->value);
-		if (b->next)
-			b = b->next;
-		else
-			break ;
-	}
-	printf("\n");
-}
 
 int		find_min(t_stack *a, int len)
 {

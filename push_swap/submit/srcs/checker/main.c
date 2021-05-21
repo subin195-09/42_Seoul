@@ -3,41 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 20:46:27 by skim              #+#    #+#             */
-/*   Updated: 2021/05/21 21:02:48 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/21 22:07:14 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
-#include <stdio.h> ///// 지워야함
-
-void	print_stack(t_stack *a, t_stack *b)
-{
-	rewind_stack(&a);
-	rewind_stack(&b);
-	printf("a : ");
-	while (a)
-	{
-		printf("(%d) ", a->value);
-		if (a->next)
-			a = a->next;
-		else
-			break ;
-	}
-	printf("\n");
-	printf("b : ");
-	while (b)
-	{
-		printf("(%d) ", b->value);
-		if (b->next)
-			b = b->next;
-		else
-			break ;
-	}
-	printf("\n");
-}
 
 void	init_info(t_info *info)
 {
