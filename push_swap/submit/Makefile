@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+         #
+#    By: skim <skim@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/21 16:53:40 by skim              #+#    #+#              #
-#    Updated: 2021/05/21 20:43:57 by skim             ###   ########.fr        #
+#    Updated: 2021/05/22 19:50:12 by skim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,15 +66,3 @@ fclean : clean
 	@make -C $(LIB_DIR) fclean
 
 re : fclean all
-
-push : $(LIB_DIR)/$(LIBFT)
-	@$(CC) $(CFLAGS) -I$(INC_DIR) \
-	-I$(LIB_DIR)/$(INC_DIR) -L ./$(LIB_DIR) -lft \
-	$(SRCS_PUSH) $(SRCS_DO) -o push_swap
-	cp push_swap ./push_swap_visualizer
-	cd ./push_swap_visualizer
-
-check : $(LIB_DIR)/$(LIBFT)
-	@$(CC) $(CFLAGS) -I$(INC_DIR) \
-	-I$(LIB_DIR)/$(INC_DIR) -L ./$(LIB_DIR) -lft \
-	$(SRCS_CHECKER) $(SRCS_DO) -o checker
