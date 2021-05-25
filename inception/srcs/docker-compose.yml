@@ -3,7 +3,7 @@ version: "3.8"
 services:
   # mariadb:
   #   build: ./requirements/mariadb
-  #   image: mariadb:latest
+  #   image: mariadb
   #   container_name: mariadb
   #   restart: always
   #   volumes:
@@ -26,7 +26,6 @@ services:
     image: nginx
     container_name: nginx
     ports:
-      - 80:80
       - 443:443
     env_file: .env
     restart: always
