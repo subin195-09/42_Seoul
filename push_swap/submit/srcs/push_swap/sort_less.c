@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 02:06:07 by skim              #+#    #+#             */
-/*   Updated: 2021/05/21 16:17:39 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/25 15:15:08 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	less_sort(t_stack **a, t_stack **b, t_info *info)
 
 	if (check_asc(*a))
 		return ;
-	while (info->size_a != 3)
+	while (info->size_a > 3)
 	{
 		min = find_min(*a, info->size_a);
 		pos = ra_or_rra(*a, info, min);

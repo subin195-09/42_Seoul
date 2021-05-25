@@ -6,11 +6,12 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 02:25:23 by skim              #+#    #+#             */
-/*   Updated: 2021/05/21 03:46:22 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/25 15:12:30 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h>
 
 int		check_r_b(t_stack *stk, int len, int pivot)
 {

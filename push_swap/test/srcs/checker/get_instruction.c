@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 01:48:57 by skim              #+#    #+#             */
-/*   Updated: 2021/05/21 21:00:27 by skim             ###   ########.fr       */
+/*   Updated: 2021/05/21 21:16:56 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ int	get_instruction(t_stack **a, t_stack **b, t_info *info)
 {
 	char	*line;
 
-	if (info->size_b == 0 && check_asc(*a))
-		return (write(1, "OK\n", 3));
 	while (get_next_line(0, &line) > 0)
 	{
 		if (find_ins(a, b, info, &line) > 0)
