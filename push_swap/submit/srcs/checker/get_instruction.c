@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   get_instruction.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 01:48:57 by skim              #+#    #+#             */
 /*   Updated: 2021/05/21 21:17:30 by skim             ###   ########.fr       */
@@ -81,7 +81,7 @@ int		find_ins(t_stack **a, t_stack **b, t_info *info, char **line)
 	return (0);
 }
 
-int	get_instruction(t_stack **a, t_stack **b, t_info *info)
+int		get_instruction(t_stack **a, t_stack **b, t_info *info)
 {
 	char	*line;
 

@@ -1,0 +1,6 @@
+version: "3"
+services:
+  echo:
+    image: docker/getting-started
+    ports:
+      - 9000:8080

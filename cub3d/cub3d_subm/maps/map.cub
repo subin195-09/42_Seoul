@@ -1,6 +1,6 @@
 R 900	700
 NO ./img/purple_e.xpm
-SO ./img/purple_e.xpm
+SO             ./img/purple_e.xpm
 WE ./img/purple_e.xpm
 EA ./img/purple_e.xpm
 S ./img/purple_s.xpm
