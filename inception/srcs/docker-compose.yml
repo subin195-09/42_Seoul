@@ -2,8 +2,8 @@ version: '3'
 
 services:
   mariadb:
-    build: ./requirements/mariadb
-    image: mariadb
+    # build: ./requirements/mariadb
+    image: mariadb:10.5
     container_name: mariadb
     restart: always
     volumes:
@@ -15,21 +15,23 @@ services:
       MYSQL_PASSWORD: skim1234
 
   wordpress:
-    # build: ./requirements/wordpress
-    image: wordpress:php7.4-fpm
+    build: ./requirements/wordpress
+    # image: wordpress:php7.3-fpm-alpine
+    volumes:
+      - wordpress:/var/www/html
     container_name: wordpress
     restart: always
-    volumes:
-      - ./requirements/tools:/var/www/html
     depends_on:
       - mariadb
-    links:
-      - mariadb
+    ports:
+      - "9000:9000"
     environment:
+      MYSQL_ROOT_PASSWORD: skim1234
       WORDPRESS_DB_HOST: mariadb:3306
       WORDPRESS_DB_NAME: wordpress
       WORDPRESS_DB_USER: skim
       WORDPRESS_DB_PASSWORD: skim1234
+      WORDPRESS_TABLE_PREFIX: wp_
 
   nginx:
     build: ./requirements/nginx
@@ -38,8 +40,9 @@ services:
     restart: always
     volumes:
       - ./requirements/nginx/conf:/etc/nginx/sites-available
-      - ./requirements/tools:/var/www/html
-    links:
-      - wordpress
+      - wordpress:/var/www/html
     ports:
       - 443:443
+
+volumes:
+  wordpress:

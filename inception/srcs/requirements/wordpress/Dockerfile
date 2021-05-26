@@ -1,18 +1,26 @@
 FROM	debian:buster
 
-
 LABEL	maintainer="skim@student.42seoul.kr"
 
 RUN		apt-get update -y; \
-		apt-get	upgrade -y; \
-		apt-get install -y php-fpm wget
+	apt-get	upgrade -y; \
+	apt-get install -y php-fpm
 
-RUN		wget https://wordpress.org/latest.tar.gz;
+COPY	tools	/
 
-RUN		tar -xvf latest.tar.gz;
+RUN		mkdir -p /var/www/html
+RUN		tar -xvf wordpress-5.7.2.tar.gz; \
+	cp -r wordpress/* /var/www/html/
+# RUN		wget https://wordpress.org/wordpress-5.7.2.tar.gz; \
+# 		tar -xvf wordpress-5.7.2.tar.gz
 
-RUN		service php7.3-fpm start
-			
-EXPOSE	9000
+# RUN		mv /wordpress/wp-config-sample.php /wordpress/wp-config.php; \
+# 		sed -i "s/database_name_here/wordpress/g" /wordpress/wp-config.php; \
+# 		sed -i "s/username_here/skim/g" /wordpress/wp-config.php; \
+# 		sed -i "s/password_here/skim1234/g" /wordpress/wp-config.php
 
-CMD sleep infinity 
+# RUN		mv wordpress/* var/local/;
+
+EXPOSE		9000
+
+CMD 	["sleep", "infinity"]
