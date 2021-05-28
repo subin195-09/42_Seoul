@@ -18,10 +18,12 @@ services:
     build: ./requirements/wordpress
     # image: wordpress:php7.3-fpm-alpine
     volumes:
-      - wordpress:/var/www/html
+      - wp_index:/var/www/html
     container_name: wordpress
     restart: always
     depends_on:
+      - mariadb
+    links:
       - mariadb
     ports:
       - "9000:9000"
@@ -39,10 +41,13 @@ services:
     container_name: nginx
     restart: always
     volumes:
-      - ./requirements/nginx/conf:/etc/nginx/sites-available
-      - wordpress:/var/www/html
+      - wp_index:/var/www/html
+    depends_on:
+      - wordpress
+    links:
+      - wordpress
     ports:
       - 443:443
 
 volumes:
-  wordpress:
+  wp_index:

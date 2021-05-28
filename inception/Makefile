@@ -9,6 +9,9 @@ up:
 up_d:
 	$(RUN_COM) up -d
 
+build:
+	$(RUN_COM) build
+
 restart:
 	$(RUN_COM) restart
 

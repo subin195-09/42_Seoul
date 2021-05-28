@@ -1,6 +1,6 @@
 server {
-	listen 443;
-	listen [::]:443;
+	listen 443 ssl;
+	listen [::]:443 ssl;
 
 	server_name skim.42.fr www.skim.42.fr;
 
