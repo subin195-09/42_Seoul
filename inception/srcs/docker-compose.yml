@@ -42,8 +42,8 @@ services:
     links:
       - wordpress
     ports:
-      - 443:443
+      - 8080:80
 
 volumes:
   wp_index:
-  
+

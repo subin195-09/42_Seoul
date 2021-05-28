@@ -32,6 +32,6 @@ services:
       - ./nginx:/etc/nginx/conf.d
       - ./data/html:/var/www/html
     ports:
-      - 8080:80
+      - 443:443
     links:
       - wordpress
