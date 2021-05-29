@@ -32,6 +32,9 @@ services:
       WORDPRESS_DB_USER: skim
       WORDPRESS_DB_PASSWORD: skim1234
       WORDPRESS_TABLE_PREFIX: wp_
+    networks:
+      - default
+      - our_net
 
   nginx:
     build: ./requirements/nginx
@@ -43,7 +46,12 @@ services:
       - wordpress
     ports:
       - 443:443
+    networks:
+      - default
+      - our_net
 
 volumes:
   wp_index:
-
+networks:
+  our_net:
+    driver: bridge

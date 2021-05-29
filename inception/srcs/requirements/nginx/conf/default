@@ -24,6 +24,22 @@ server {
 		include fastcgi_params;
 		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
 		fastcgi_param SCRIPT_NAME $fastcgi_script_name;
+		
+		proxy_buffer_size               128k;
+    	proxy_buffers                   4 256k;
+    	proxy_busy_buffers_size         256k;
+
+		fastcgi_buffering               on;
+        fastcgi_buffer_size             16k;
+        fastcgi_buffers                 16 16k;
+
+		fastcgi_connect_timeout         600s;
+        fastcgi_send_timeout            600s;
+        fastcgi_read_timeout            600s;
+
+		sendfile                        on;
+        tcp_nopush                      off;
+        keepalive_requests              0;
 	}
 
 	location ~ \.ht$ {

@@ -4,7 +4,7 @@ LABEL	maintainer="skim@student.42seoul.kr"
 
 RUN		apt-get update -y; \
 		apt-get	upgrade -y; \
-		apt-get install -y php-fpm
+		apt-get install -y php-fpm php
 
 COPY	tools	/
 
