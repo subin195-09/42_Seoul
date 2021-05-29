@@ -11,7 +11,7 @@ COPY	tools	/
 RUN		mkdir -p /var/www/html
 
 RUN		tar -xvf wordpress-5.7.2.tar.gz; \
-:		cp -r /wordpress/* /var/www/html/
+		cp -r /wordpress/* /var/www/html/
 
 # RUN		mv /wordpress/wp-config-sample.php /wordpress/wp-config.php; \
 # 		sed -i "s/database_name_here/wordpress/g" /wordpress/wp-config.php; \

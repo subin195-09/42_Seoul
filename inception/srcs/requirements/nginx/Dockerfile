@@ -15,6 +15,6 @@ RUN		openssl req -newkey rsa:4096 -days 365 -nodes -x509 \
 		mv localhost.dev.key etc/ssl/private/; \
 		chmod 600 etc/ssl/certs/localhost.dev.crt etc/ssl/private/localhost.dev.key
 
-EXPOSE	80
+EXPOSE	443
 
 CMD 	["nginx", "-g", "daemon off;"]
