@@ -11,9 +11,9 @@ void    *count(void *arg)
     pthread_mutex_lock(&m);
     for (int i = 0; i < 10; i++)
     {
-        printf("%s cnt : %d\n\n", (char *)arg, cnt);
+        printf("%s cnt : %d\n", (char *)arg, cnt);
         cnt++;
-        usleep(1);
+        usleep(1000 * 100);
     }
     pthread_mutex_unlock(&m);
     return (0);

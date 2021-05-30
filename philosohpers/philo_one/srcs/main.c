@@ -52,9 +52,9 @@ void    get_info(s_info *info, int ac, char *av[])
     info->time_to_eat = ft_atoi(av[3]);
     info->time_to_sleep = ft_atoi(av[4]);
     if (ac == 5)
-        info->time_must_eat = 1;
+        info->num_must_eat = 1;
     else
-        info->time_must_eat = ft_atoi(av[5]);
+        info->num_must_eat = ft_atoi(av[5]);
 }
 
 int     check_info(s_info *info)
@@ -67,7 +67,7 @@ int     check_info(s_info *info)
         return (ft_putendl_fd("Error : time to Eat", 2));
     else if (info->time_to_sleep < 60)
         return (ft_putendl_fd("Error : time to Sleep", 2));
-    else if (info->time_must_eat < 0)
+    else if (info->num_must_eat < 0)
         return (ft_putendl_fd("Error : time must Die", 2));
     return (1);
 }

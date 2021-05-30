@@ -10,7 +10,7 @@ typedef struct  t_info{
     int     time_to_die;
     int     time_to_eat;
     int     time_to_sleep;
-    int     time_must_eat;
+    int     num_must_eat;
 }               s_info;
 
 #endif
