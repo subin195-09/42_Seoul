@@ -9,7 +9,7 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 
 SRCS = $(addprefix $(SRCS_DIR)/, \
-	main.c)
+	main.c philo_main.c utils.c)
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
 
@@ -25,7 +25,7 @@ $(OBJS_DIR) :
 	@mkdir -p $(OBJS_DIR)
 
 clean :
-	@rm $(NAME)
+	@rm -rf $(NAME)
 	
 fclean : clean
 	@rm -rf $(OBJS_DIR)
