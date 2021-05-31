@@ -1,0 +1,80 @@
+philosopher(1) picks up the fork(1).
+philosopher(2) picks up the fork(2).
+philosopher(3) picks up the fork(3).
+philosopher(4) picks up the fork(3).
+philosopher(3) starts eating 
+philosopher(0) picks up the fork(0).
+philosopher(3) finishes eating 
+philosopher(3) put down the fork(4).
+philosopher(3) put down the fork(3).
+philosopher(3) is sleeping(3).
+philosopher(3) picks up the fork(2).
+philosopher(2) starts eating 
+philosopher(3) is thinking(3).
+philosopher(2) finishes eating 
+philosopher(2) put down the fork(3).
+philosopher(2) put down the fork(2).
+philosopher(2) is sleeping(2).
+philosopher(3) picks up the fork(3).
+philosopher(4) picks up the fork(3).
+philosopher(3) starts eating 
+philosopher(2) picks up the fork(1).
+philosopher(1) starts eating 
+philosopher(2) is thinking(2).
+philosopher(3) finishes eating 
+philosopher(3) put down the fork(4).
+philosopher(3) put down the fork(3).
+philosopher(3) is sleeping(3).
+philosopher(1) finishes eating 
+philosopher(1) put down the fork(2).
+philosopher(1) put down the fork(1).
+philosopher(1) is sleeping(1).
+philosopher(2) picks up the fork(2).
+philosopher(3) picks up the fork(2).
+philosopher(2) starts eating 
+philosopher(1) picks up the fork(0).
+philosopher(0) starts eating 
+philosopher(3) is thinking(3).
+philosopher(1) is thinking(1).
+philosopher(2) finishes eating 
+philosopher(2) put down the fork(3).
+philosopher(2) put down the fork(2).
+philosopher(2) is sleeping(2).
+philosopher(0) finishes eating 
+philosopher(0) put down the fork(1).
+philosopher(0) put down the fork(0).
+philosopher(0) is sleeping(0).
+philosopher(1) picks up the fork(1).
+philosopher(2) picks up the fork(1).
+philosopher(1) starts eating 
+philosopher(5) picks up the fork(4).
+philosopher(4) picks up the fork(4).
+philosopher(4) starts eating 
+philosopher(2) is thinking(2).
+philosopher(0) is thinking(0).
+philosopher(4) finishes eating 
+philosopher(1) finishes eating 
+philosopher(0) picks up the fork(0).
+philosopher(1) put down the fork(2).
+philosopher(1) put down the fork(1).
+philosopher(1) is sleeping(1).
+philosopher(4) put down the fork(0).
+philosopher(4) put down the fork(4).
+philosopher(4) is sleeping(4).
+philosopher(1) picks up the fork(0).
+philosopher(0) starts eating 
+philosopher(1) is thinking(1).
+philosopher(0) finishes eating 
+philosopher(0) put down the fork(1).
+philosopher(0) put down the fork(0).
+philosopher(0) is sleeping(0).
+philosopher(4) is thinking(4).
+philosopher(5) picks up the fork(4).
+philosopher(4) picks up the fork(4).
+philosopher(4) starts eating 
+philosopher(0) is thinking(0).
+philosopher(4) finishes eating 
+philosopher(4) put down the fork(0).
+philosopher(4) put down the fork(4).
+philosopher(4) is sleeping(4).
+philosopher(4) is thinking(4).

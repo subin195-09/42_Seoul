@@ -1,49 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/31 21:53:21 by skim              #+#    #+#             */
+/*   Updated: 2021/05/31 21:54:45 by skim             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo_one.h"
-
-int		ft_atoi(const char *str)
-{
-	int			i;
-	long long	num;
-	int			sign;
-
-	i = 0;
-	num = 0;
-	sign = 1;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
-		i++;
-	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i] == '-')
-			sign *= -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-		num = num * 10 + str[i++] - '0';
-	return ((int)(sign * num));
-}
-
-size_t	ft_strlen(const char *str)
-{
-	size_t i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-int     ft_putendl_fd(char *s, int fd)
-{
-	if (!s)
-		return (-1);
-	write(fd, s, ft_strlen(s));
-	write(fd, "\n", 1);
-    if (fd == 2)
-        return (-1);
-    else
-        return (1);
-}
-
 
 void    get_info(s_info *info, int ac, char *av[])
 {
@@ -82,5 +49,6 @@ int     main(int ac, char *av[])
     get_info(&info, ac, av);
     if (check_info(&info) < 0)
         return (-1);
+    philo_main(&info);
     return (0);
 }
