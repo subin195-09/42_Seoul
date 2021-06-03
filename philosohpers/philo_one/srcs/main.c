@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 21:53:21 by skim              #+#    #+#             */
-/*   Updated: 2021/06/03 21:01:38 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/03 21:49:06 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ int		init_philo(t_info *info)
 	return (0);
 }
 
-int     check_info(t_info *info)
+int		check_info(t_info *info)
 {
 	if (info->num_of_philo < 2)
-	   return (ft_putendl_fd("Error : num of Philoshper", 2));
+		return (ft_putendl_fd("Error : num of Philoshper", 2));
 	else if (info->time_to_die < 60)
 		return (ft_putendl_fd("Error : time to Die", 2));
 	else if (info->time_to_eat < 20)
@@ -53,7 +53,7 @@ int     check_info(t_info *info)
 	return (1);
 }
 
-void    get_info(t_info *info, int ac, char *av[])
+void	get_info(t_info *info, int ac, char *av[])
 {
 	info->num_of_philo = ft_atoi(av[1]);
 	info->time_to_die = ft_atoi(av[2]);
@@ -65,9 +65,9 @@ void    get_info(t_info *info, int ac, char *av[])
 		info->num_must_eat = ft_atoi(av[5]);
 }
 
-int     main(int ac, char *av[])
+int		main(int ac, char *av[])
 {
-	t_info  info;
+	t_info	info;
 
 	memset(&info, 0, sizeof(t_info));
 	if (ac != 5 && ac != 6)

@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 21:53:23 by skim              #+#    #+#             */
-/*   Updated: 2021/05/31 21:53:35 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/03 21:52:57 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		ft_atoi(const char *str)
 
 size_t	ft_strlen(const char *str)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (str[i])
@@ -44,14 +44,14 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-int     ft_putendl_fd(char *s, int fd)
+int		ft_putendl_fd(char *s, int fd)
 {
 	if (!s)
 		return (-1);
 	write(fd, s, ft_strlen(s));
 	write(fd, "\n", 1);
-    if (fd == 2)
-        return (-1);
-    else
-        return (1);
+	if (fd == 2)
+		return (-1);
+	else
+		return (1);
 }
