@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 21:53:21 by skim              #+#    #+#             */
-/*   Updated: 2021/06/01 06:41:35 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/03 21:01:38 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ int     check_info(t_info *info)
 		return (ft_putendl_fd("Error : time to Eat", 2));
 	else if (info->time_to_sleep < 60)
 		return (ft_putendl_fd("Error : time to Sleep", 2));
-	else if (info->num_must_eat < 0)
-		return (ft_putendl_fd("Error : time must Die", 2));
 	return (1);
 }
 
@@ -62,7 +60,7 @@ void    get_info(t_info *info, int ac, char *av[])
 	info->time_to_eat = ft_atoi(av[3]);
 	info->time_to_sleep = ft_atoi(av[4]);
 	if (ac == 5)
-		info->num_must_eat = 1;
+		info->num_must_eat = -1;
 	else
 		info->num_must_eat = ft_atoi(av[5]);
 }

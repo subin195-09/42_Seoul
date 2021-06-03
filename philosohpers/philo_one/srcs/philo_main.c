@@ -6,16 +6,29 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 21:53:55 by skim              #+#    #+#             */
-/*   Updated: 2021/06/01 06:52:22 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/03 21:03:19 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
 
+long	get_time(void)
+{
+	struct timeval	time;
+	long			rt;
+
+	gettimeofday(&time, NULL);
+	rt = time.tv_sec * 1000 + time.tv_usec / 1000;
+	return (rt);
+}
+
 void    mutext_print(t_philo *ph, char *s, int ph_num)
 {
+	long	diff_time;
+	
 	pthread_mutex_lock(&ph->info->text);
-	printf("%d : %s", ph_num, s);
+	diff_time = get_time() - ph->info->start_time;
+	printf("%ldms\tPhilosopher(%d) : %s", diff_time, ph_num, s);
 	pthread_mutex_unlock(&ph->info->text);
 }
 
@@ -52,9 +65,9 @@ void    sleeping(t_philo *ph)
 
 int     check_eat_count(t_philo *ph)
 {
-	if (ph->count_eat == ph->info->num_must_eat)
+	if (ph->info->num_must_eat > 0 && ph->count_eat == ph->info->num_must_eat)
 		ph->info->done_eat++;
-	if (ph->info->done_eat == ph->info->num_of_philo)
+	if (ph->info->num_must_eat > 0 && ph->info->done_eat == ph->info->num_of_philo)
 	{
 		mutext_print(ph, "done eat all\n", ph->p_num);
 		ph->info->stop = 1;
@@ -63,19 +76,24 @@ int     check_eat_count(t_philo *ph)
 	return (1);
 }
 
-void    *ph_start(void  *arg)
+void    *ph_routine(void  *arg)
 {
 	t_philo *philo;
 	int     i;
 
 	philo = (t_philo *)arg;
 	i = -1;
-	while (++i < philo->info->num_must_eat)
+	philo->ph_time = get_time();
+	while (!philo->info->stop)
 	{
 		pick_up_fork(philo);
+		if (philo->info->stop)
+			break ;
 		eat(philo);
+		if (philo->info->stop)
+			break ;
 		return_fork(philo);
-		if (check_eat_count(philo) < 0)
+		if (check_eat_count(philo) < 0 || philo->info->stop)
 			break ;
 		sleeping(philo);
 		mutext_print(philo, "thinking\n", philo->p_num);
@@ -91,7 +109,16 @@ void    *check_die(void *arg)
 	t_philo *philo;
 
 	philo = (t_philo *)arg;
-	usleep(1000 * 1000);
+	pthread_mutex_lock(&philo->p_mu_eat);
+	if (!philo->info->stop)
+	{
+		if (get_time() - philo->ph_time > philo->info->time_to_die)
+		{
+			mutext_print(philo, "died\n", philo->p_num);
+			philo->info->stop = 1;
+		}
+	}
+	pthread_mutex_unlock(&philo->p_mu_eat);
 	return (0);
 }
 
@@ -101,9 +128,10 @@ int     philo_main(t_info *info)
 	int         i;
 
 	i = -1;
+	info->start_time = get_time();
 	while (++i < info->num_of_philo)
 	{
-		if (pthread_create(&thread, NULL, ph_start, (void *)&(info->ph[i])))
+		if (pthread_create(&thread, NULL, ph_routine, (void *)&(info->ph[i])))
 			return (ft_putendl_fd("Error : ph_start", 2));
 		pthread_detach(thread);
 		if (pthread_create(&(info->ph[i].p_th), NULL, check_die, (void *)&(info->ph[i])))
