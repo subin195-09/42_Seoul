@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_one.h                                        :+:      :+:    :+:   */
+/*   philo_two.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/31 22:59:46 by skim              #+#    #+#             */
-/*   Updated: 2021/06/05 21:51:52 by skim             ###   ########.fr       */
+/*   Created: 2021/06/05 21:38:41 by skim              #+#    #+#             */
+/*   Updated: 2021/06/05 21:51:45 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_ONE_H
-# define PHILO_ONE_H
+#ifndef PHILO_TWO_H
+# define PHILO_TWO_H
 
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
 # include <pthread.h>
+# include <semaphore.h>
 # include <sys/time.h>
 
 typedef struct		s_philo{
