@@ -6,11 +6,11 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 21:53:21 by skim              #+#    #+#             */
-/*   Updated: 2021/06/03 21:49:06 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/08 17:44:10 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_one.h"
+#include "philo_two.h"
 
 int		init_philo(t_info *info)
 {
@@ -20,21 +20,15 @@ int		init_philo(t_info *info)
 	info->stop = 0;
 	info->done_eat = 0;
 	info->ph = malloc(sizeof(t_info) * info->num_of_philo);
-	info->fork = malloc(sizeof(pthread_mutex_t) * info->num_of_philo);
-	if (!info->ph || !info->fork)
+	if (!info->ph)
 		return (-1);
-	if (pthread_mutex_init(&(info->text), NULL))
-		return (-1);
+	info->text = sem_open("text", O_CREAT, 644, 1);
+	info->fork = sem_open("fork", O_CREAT, 644, info->num_of_philo);
 	while (++i < info->num_of_philo)
 	{
-		if (pthread_mutex_init(&(info->ph[i].p_mu_eat), NULL))
-			return (-1);
-		if (pthread_mutex_init(&(info->fork[i]), NULL))
-			return (-1);
+		info->ph[i].p_se_eat = sem_open(ft_itoa(i + 1), O_CREAT, 644, 1);
 		info->ph[i].count_eat = 0;
 		info->ph[i].p_num = i;
-		info->ph[i].l_fork = i;
-		info->ph[i].r_fork = (i + 1) % info->num_of_philo;
 		info->ph[i].info = info;
 	}
 	return (0);

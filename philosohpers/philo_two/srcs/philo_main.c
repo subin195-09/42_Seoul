@@ -6,11 +6,11 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 21:53:55 by skim              #+#    #+#             */
-/*   Updated: 2021/06/03 21:48:20 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/08 17:46:57 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_one.h"
+#include "philo_two.h"
 
 int		check_eat_count(t_philo *ph)
 {
@@ -20,7 +20,7 @@ int		check_eat_count(t_philo *ph)
 	ph->info->done_eat == ph->info->num_of_philo)
 	{
 		ph->info->stop = 1;
-		mutext_print(ph, "\e[91mdone\n", ph->p_num, 1);
+		sema_print(ph, "\e[91mdone\n", ph->p_num, 1);
 		return (-1);
 	}
 	return (1);
@@ -33,16 +33,16 @@ void	*check_die(void *arg)
 	philo = (t_philo *)arg;
 	while (!philo->info->stop)
 	{
-		pthread_mutex_lock(&philo->p_mu_eat);
+		sem_wait(philo->p_se_eat);
 		if (!philo->info->stop && get_time() - \
 		philo->ph_time > philo->info->time_to_die)
 		{
 			philo->info->stop = 1;
-			mutext_print(philo, "\e[91mdied\n", philo->p_num, 1);
-			pthread_mutex_unlock(&philo->p_mu_eat);
+			sema_print(philo, "\e[91mdied\n", philo->p_num, 1);
+			sem_post(philo->p_se_eat);
 			return (0);
 		}
-		pthread_mutex_unlock(&philo->p_mu_eat);
+		sem_post(philo->p_se_eat);
 		usleep(100); // 이건 왜...???
 	}
 	return (0);
@@ -69,11 +69,11 @@ void	*ph_routine(void *arg)
 		if (check_eat_count(philo) < 0 || philo->info->stop)
 			break ;
 		sleeping(philo);
-		mutext_print(philo, "thinking\n", philo->p_num, 0);
+		sema_print(philo, "thinking\n", philo->p_num, 0);
 	}
-	pthread_mutex_unlock(&philo->info->fork[philo->p_num]);
-	pthread_mutex_unlock(&philo->info->fork[(philo->p_num + 1) % \
-	philo->info->num_of_philo]);
+	sem_post(philo->info->fork);
+	sem_post(philo->info->fork);
+	sem_post(philo->p_se_eat);
 	return (0);
 }
 
@@ -98,9 +98,5 @@ int		philo_main(t_info *info)
 	i = -1;
 	while (++i < info->num_of_philo)
 		pthread_join(info->ph[i].p_th, NULL);
-	i = -1;
-	//pthread_mutex_unlock(&info->text);
-	while (++i < info->num_of_philo)
-		pthread_mutex_destroy(&(info->ph[i].p_mu_eat));
 	return (0);
 }

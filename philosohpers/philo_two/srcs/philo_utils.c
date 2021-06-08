@@ -6,11 +6,11 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 21:41:45 by skim              #+#    #+#             */
-/*   Updated: 2021/06/03 21:45:08 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/08 17:46:28 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_one.h"
+#include "philo_two.h"
 
 long	get_time(void)
 {
@@ -22,14 +22,14 @@ long	get_time(void)
 	return (rt);
 }
 
-void	mutext_print(t_philo *ph, char *s, int ph_num, int died)
+void	sema_print(t_philo *ph, char *s, int ph_num, int died)
 {
 	long	diff_time;
 
-	pthread_mutex_lock(&ph->info->text);
+	sem_wait(ph->info->text);
 	diff_time = get_time() - ph->info->start_time;
 	printf("%ldms\tPhilosopher(%d) : %s", diff_time, ph_num + 1, s);
 	if (died == 1)
 		return ;
-	pthread_mutex_unlock(&ph->info->text);
+	sem_post(ph->info->text);
 }

@@ -8,7 +8,7 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 
 SRCS = $(addprefix $(SRCS_DIR)/, \
-	main.c utils.c \
+	main.c utils.c utils_2.c\
 	philo_main.c philo_status.c philo_utils.c)
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))

@@ -6,11 +6,11 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 21:53:23 by skim              #+#    #+#             */
-/*   Updated: 2021/06/03 21:52:57 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/08 17:44:34 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_one.h"
+#include "philo_two.h"
 
 int		ft_atoi(const char *str)
 {

@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/05 21:38:41 by skim              #+#    #+#             */
-/*   Updated: 2021/06/05 21:51:45 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/08 17:45:53 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,10 @@
 
 typedef struct		s_philo{
 	pthread_t		p_th;
-	pthread_mutex_t	p_mu_eat;
+	sem_t			*p_se_eat;
 	struct s_info	*info;
 	int				p_num;
 	int				count_eat;
-	int				l_fork;
-	int				r_fork;
 	long			ph_time;
 }					t_philo;
 
@@ -42,8 +40,8 @@ typedef struct		s_info{
 	int				done_eat;
 	long			start_time;
 	struct s_philo	*ph;
-	pthread_mutex_t	*fork;
-	pthread_mutex_t	text;
+	sem_t			*fork;
+	sem_t			*text;
 }					t_info;
 
 int					philo_main(t_info *info);
@@ -53,10 +51,10 @@ void				return_fork(t_philo *ph);
 void				sleeping(t_philo *ph);
 
 long				get_time(void);
-void				mutext_print(t_philo *ph, char *s, int ph_num, int died);
-
+void				sema_print(t_philo *ph, char *s, int ph_num, int died);
 int					ft_putendl_fd(char *s, int fd);
 size_t				ft_strlen(const char *str);
 int					ft_atoi(const char *str);
+char				*ft_itoa(int n);
 
 #endif
