@@ -6,15 +6,36 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 21:53:21 by skim              #+#    #+#             */
-/*   Updated: 2021/06/08 17:44:10 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/08 21:40:59 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_two.h"
 
+void	finish(t_info *info)
+{
+	char	*tmp_name;
+	int		i;
+	
+	free(info->ph);
+	// sem_close(info->text);
+	// sem_unlink("text"); // 무한이 도는 이유는...?
+	sem_close(info->fork);
+	sem_unlink("fork");
+	i = -1;
+	while (++i < info->num_of_philo)
+	{
+		tmp_name = ft_itoa(i + 1);
+		sem_close(info->ph[i].p_se_eat);
+		sem_unlink(tmp_name);
+		free(tmp_name);
+	}
+}
+
 int		init_philo(t_info *info)
 {
-	int	i;
+	char	*tmp_name;
+	int		i;
 
 	i = -1;
 	info->stop = 0;
@@ -22,14 +43,19 @@ int		init_philo(t_info *info)
 	info->ph = malloc(sizeof(t_info) * info->num_of_philo);
 	if (!info->ph)
 		return (-1);
-	info->text = sem_open("text", O_CREAT, 644, 1);
-	info->fork = sem_open("fork", O_CREAT, 644, info->num_of_philo);
+	sem_unlink("text");
+	sem_unlink("fork");
+	info->text = sem_open("text", O_CREAT, 0644, 1);
+	info->fork = sem_open("fork", O_CREAT, 0644, info->num_of_philo);
 	while (++i < info->num_of_philo)
 	{
-		info->ph[i].p_se_eat = sem_open(ft_itoa(i + 1), O_CREAT, 644, 1);
+		tmp_name = ft_itoa(i + 1);
+		sem_unlink(tmp_name);
+		info->ph[i].p_se_eat = sem_open(tmp_name, O_CREAT, 0644, 1);
 		info->ph[i].count_eat = 0;
 		info->ph[i].p_num = i;
 		info->ph[i].info = info;
+		free(tmp_name);
 	}
 	return (0);
 }
@@ -72,6 +98,6 @@ int		main(int ac, char *av[])
 	if (init_philo(&info) < 0)
 		return (ft_putendl_fd("Error : init_philo", 2));
 	philo_main(&info);
-	free(info.ph);
+	finish(&info);
 	return (0);
 }
