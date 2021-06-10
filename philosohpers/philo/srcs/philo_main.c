@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 21:53:55 by skim              #+#    #+#             */
-/*   Updated: 2021/06/08 21:01:56 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/10 20:17:19 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int		philo_main(t_info *info)
 		if (pthread_create(&(info->ph[i].p_th), NULL, \
 		check_die, (void *)&(info->ph[i])))
 			return (ft_putendl_fd("Error : ph_start", 2));
-		usleep(1000); // usleep 이 필요한 이유가 뭐어지ㅣㅣ....????
+		usleep(1000); // thread를 생성하는데 시간이 걸리기 때문에
 	}
 	i = -1;
 	while (++i < info->num_of_philo)
