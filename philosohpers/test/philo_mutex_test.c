@@ -37,6 +37,8 @@ void* Philosopher(void *arg) {
     count = -1;
     while (++count < MUST_EAT)
     {
+        // pickup_forks(philosopher_number, philosopher_number);
+        // pickup_forks(philosopher_number+1, philosopher_number);
         if (philosopher_number != 4)
         {
             // pickup left fork
@@ -63,7 +65,7 @@ void* Philosopher(void *arg) {
 
         printf("philosopher(%d) starts eating \n", philosopher_number);
         // time_to_eat
-        usleep(1000 * 1000);
+        // usleep(1000 * 1000);
         printf("philosopher(%d) finishes eating \n", philosopher_number);
     
         // putdown right fork
@@ -76,7 +78,7 @@ void* Philosopher(void *arg) {
 
         // add : time_to_sleepp
         printf("philosopher(%d) is sleeping(%d).\n", philosopher_number, philosopher_number);
-        usleep(1000 * 1000);
+        // usleep(1000 * 1000);
 
         // add : thinking
         printf("philosopher(%d) is thinking(%d).\n", philosopher_number, philosopher_number);
