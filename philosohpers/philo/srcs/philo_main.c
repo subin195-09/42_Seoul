@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 21:53:55 by skim              #+#    #+#             */
-/*   Updated: 2021/06/10 20:17:19 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/14 14:53:15 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	*check_die(void *arg)
 			return (0);
 		}
 		pthread_mutex_unlock(&philo->p_mu_eat);
-		usleep(100); // 이건 왜...???
+		// usleep(100); // 이건 왜...???
 	}
 	return (0);
 }
@@ -89,7 +89,6 @@ int		philo_main(t_info *info)
 		info->ph[i].ph_time = get_time();
 		if (pthread_create(&thread, NULL, ph_routine, (void *)&(info->ph[i])))
 			return (ft_putendl_fd("Error : ph_start", 2));
-		pthread_detach(thread);
 		if (pthread_create(&(info->ph[i].p_th), NULL, \
 		check_die, (void *)&(info->ph[i])))
 			return (ft_putendl_fd("Error : ph_start", 2));

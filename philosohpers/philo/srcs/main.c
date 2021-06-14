@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 21:53:21 by skim              #+#    #+#             */
-/*   Updated: 2021/06/08 21:01:53 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/14 14:43:04 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ int		init_philo(t_info *info)
 
 int		check_info(t_info *info)
 {
-	if (info->num_of_philo < 2)
+	if (info->num_of_philo < 0 || info->num_of_philo >= 200)
 		return (ft_putendl_fd("Error : num of Philoshper", 2));
 	else if (info->time_to_die < 60)
 		return (ft_putendl_fd("Error : time to Die", 2));
-	else if (info->time_to_eat < 20)
+	else if (info->time_to_eat < 60)
 		return (ft_putendl_fd("Error : time to Eat", 2));
 	else if (info->time_to_sleep < 60)
 		return (ft_putendl_fd("Error : time to Sleep", 2));
