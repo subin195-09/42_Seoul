@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:35:11 by skim              #+#    #+#             */
-/*   Updated: 2021/06/15 21:02:15 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/15 21:24:46 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ typedef	struct			s_main
 	struct s_philo		*philo;
 	pthread_mutex_t		*fork;
 	pthread_mutex_t		text;
-	int					*fork_flag;
 	int					stop;
 	int					done_philo;
 	long				start_time;
