@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/03 21:41:45 by skim              #+#    #+#             */
-/*   Updated: 2021/06/08 21:02:00 by skim             ###   ########.fr       */
+/*   Created: 2021/06/15 21:08:13 by skim              #+#    #+#             */
+/*   Updated: 2021/06/15 21:12:57 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ long	get_time(void)
 	return (rt);
 }
 
-void	mutext_print(t_philo *ph, char *s, int ph_num, int died)
+void	philo_print(t_philo *philo, char *s)
 {
-	long	diff_time;
+	long	diff;
 
-	pthread_mutex_lock(&ph->info->text);
-	diff_time = get_time() - ph->info->start_time;
-	printf("%ldms\tPhilosopher(%d) : %s", diff_time, ph_num + 1, s);
-	if (died == 1)
+	pthread_mutex_lock(&philo->main->text);
+	diff = get_time() - philo->main->start_time;
+	printf("%ldms\t Philosopher(%d) : %s\n", diff, philo->philo_num + 1, s);
+	if (philo->main->stop)
 		return ;
-	pthread_mutex_unlock(&ph->info->text);
+	pthread_mutex_unlock(&philo->main->text);
 }
