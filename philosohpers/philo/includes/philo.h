@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:35:11 by skim              #+#    #+#             */
-/*   Updated: 2021/06/15 21:24:46 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/17 17:05:49 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 typedef struct			s_philo
 {
 	pthread_t			philo_thr;
-	pthread_mutex_t		eat_mutex;
 	struct s_main		*main;
 	int					philo_num;
 	int					count_eat;
@@ -55,5 +54,17 @@ typedef	struct			s_main
 int						ft_putendl_fd(char *s, int fd);
 size_t					ft_strlen(const char *str);
 int						ft_atoi(const char *str);
+
+int						philo(t_main *main);
+
+void					eat(t_philo *philo);
+void					get_fork(t_philo *philo);
+void					return_fork(t_philo *philo);
+void					sleeping(t_philo *philo);
+
+long					get_time(void);
+void					philo_print(t_philo *philo, char *s);
+
+void					exit_thread(t_main *main);
 
 #endif

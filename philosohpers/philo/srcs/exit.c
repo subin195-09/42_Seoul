@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 20:09:13 by skim              #+#    #+#             */
-/*   Updated: 2021/06/15 20:10:26 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/17 16:47:16 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 
 void	exit_thread(t_main *main)
 {
-	free(main->philo);
+	int	i;
 	
+	usleep(1000);
+	i = -1;
+	pthread_mutex_destroy(&main->text);
+	while (++i < main->arg_info.nun_of_philo)
+		pthread_mutex_destroy(&main->fork[i]);
+	free(main->philo);
+	free(main->fork);
 }

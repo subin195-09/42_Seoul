@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:39:17 by skim              #+#    #+#             */
-/*   Updated: 2021/06/15 21:25:03 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/17 16:47:27 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		init_philo(t_main *main)
 
 	main->philo = malloc(sizeof(t_philo) * main->arg_info.num_of_philo);
 	main->fork = malloc(sizeof(pthread_mutex_t) * main->arg_info.num_of_philo);
-	if (!main->philo || !main->fork || !main->fork_flag)
+	if (!main->philo || !main->fork)
 		return (-1);
 	if (pthread_mutex_init(&(main->text), NULL))
 		return (-1);
@@ -27,8 +27,6 @@ int		init_philo(t_main *main)
 	i = -1;
 	while (++i < main->arg_info.num_of_philo)
 	{
-		if (pthread_mutex_init(&(main->philo[i].eat_mutex), NULL))
-			return (-1);
 		if (pthread_mutex_init(&(main->fork[i]), NULL))
 			return (-1);
 		main->philo[i].main = main;
@@ -77,7 +75,7 @@ int		main(int ac, char *av[])
 		return (-1);
 	if (init_philo(&main) < 0)
 		return (ft_putendl_fd("Error : init_philo", 2));
-	// philo_main(&main);
-	// exit_thread(&main);
+	philo(&main);
+	exit_thread(&main);
 	return (0);
 }
