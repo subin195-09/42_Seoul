@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 20:09:13 by skim              #+#    #+#             */
-/*   Updated: 2021/06/17 16:47:16 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/17 20:32:04 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	exit_thread(t_main *main)
 	usleep(1000);
 	i = -1;
 	pthread_mutex_destroy(&main->text);
-	while (++i < main->arg_info.nun_of_philo)
+	while (++i < main->arg_info.num_of_philo)
 		pthread_mutex_destroy(&main->fork[i]);
 	free(main->philo);
 	free(main->fork);
