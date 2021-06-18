@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 20:58:06 by skim              #+#    #+#             */
-/*   Updated: 2021/06/18 15:40:03 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/18 16:17:51 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	get_fork(t_philo *philo)
 {
-	//if (philo->philo_num != (philo->main->arg_info.num_of_philo - 1))
+	// if (philo->philo_num != (philo->main->arg_info.num_of_philo - 1))
 	if (philo->philo_num % 2)
 	{
 		pthread_mutex_lock(&philo->main->fork[philo->l_fork]);
@@ -41,7 +41,7 @@ void	eat(t_philo *philo)
 
 void	return_fork(t_philo *philo)
 {
-	//if (philo->philo_num != philo->main->arg_info.num_of_philo - 1)
+	// if (philo->philo_num != philo->main->arg_info.num_of_philo - 1)
 	if (philo->philo_num % 2)
 	{
 		pthread_mutex_unlock(&philo->main->fork[philo->l_fork]);

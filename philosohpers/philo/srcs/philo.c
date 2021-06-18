@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 18:52:08 by skim              #+#    #+#             */
-/*   Updated: 2021/06/18 15:50:04 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/18 16:21:36 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	if (philo->philo_num  % 2)
+		usleep(1000 * philo->main->arg_info.time_to_sleep);
 	while (!philo->main->stop)
 	{
 		get_fork(philo);
@@ -83,7 +85,7 @@ int		philo(t_main *main)
 		if (pthread_create(&(main->philo[i].philo_thr), \
 		0, monitor, (void *)&(main->philo[i])))
 			return (ft_putendl_fd("Error : monitor", 2));
-		// usleep(100);
+		usleep(100);
 	}
 	i = -1;
 	while (++i < main->arg_info.num_of_philo)
