@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 18:52:08 by skim              #+#    #+#             */
-/*   Updated: 2021/06/18 16:21:36 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/18 16:24:32 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	*monitor(void *arg)
 			philo->main->stop = 1;
 			philo_print(philo, "\e[91mdied");
 		}
-		usleep(100);
+		// usleep(100);
 	}
 	return (0);
 }
