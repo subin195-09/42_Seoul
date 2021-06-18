@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:39:17 by skim              #+#    #+#             */
-/*   Updated: 2021/06/17 16:47:27 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/18 16:11:18 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int		main(int ac, char *av[])
 	if (init_philo(&main) < 0)
 		return (ft_putendl_fd("Error : init_philo", 2));
 	philo(&main);
+	for(int i = 0; i < main.arg_info.num_of_philo; i++)
+		printf("%d philo : %d\n", i+1, main.philo[i].count_eat);
 	exit_thread(&main);
 	return (0);
 }

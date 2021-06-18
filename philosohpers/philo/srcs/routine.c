@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 20:58:06 by skim              #+#    #+#             */
-/*   Updated: 2021/06/17 22:26:03 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/18 15:40:03 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	get_fork(t_philo *philo)
 {
-	if (philo->philo_num != (philo->main->arg_info.num_of_philo - 1))
+	//if (philo->philo_num != (philo->main->arg_info.num_of_philo - 1))
+	if (philo->philo_num % 2)
 	{
 		pthread_mutex_lock(&philo->main->fork[philo->l_fork]);
 		philo_print(philo, "pick_up fork");
@@ -32,19 +33,16 @@ void	get_fork(t_philo *philo)
 
 void	eat(t_philo *philo)
 {
-	int	i;
-
-	i = -1;
 	philo->philo_time = get_time();
 	philo_print(philo, "eating");
-	while (!philo->main->stop && ++i < philo->main->arg_info.time_to_eat)
-		usleep(1000);
+	usleep(1000 * philo->main->arg_info.time_to_eat);
 	philo->count_eat++;
 }
 
 void	return_fork(t_philo *philo)
 {
-	if (philo->philo_num != philo->main->arg_info.num_of_philo - 1)\
+	//if (philo->philo_num != philo->main->arg_info.num_of_philo - 1)
+	if (philo->philo_num % 2)
 	{
 		pthread_mutex_unlock(&philo->main->fork[philo->l_fork]);
 		philo_print(philo, "return fork");
@@ -66,6 +64,7 @@ void	sleeping(t_philo *philo)
 
 	i = -1;
 	philo_print(philo, "sleeping");
-	while (!philo->main->stop && ++i < philo->main->arg_info.time_to_sleep)
-		usleep(1000);	
+	usleep(1000 * philo->main->arg_info.time_to_sleep);
+	// while (!philo->main->stop && ++i < philo->main->arg_info.time_to_sleep)
+	// 	usleep(1000);	
 }
