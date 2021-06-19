@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 20:58:06 by skim              #+#    #+#             */
-/*   Updated: 2021/06/18 16:28:58 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/19 20:25:36 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,64 +15,36 @@
 void	get_fork(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->main->fork[philo->l_fork]);
-		philo_print(philo, "pick_up fork");
-		pthread_mutex_lock(&philo->main->fork[philo->r_fork]);
-		philo_print(philo, "pick_up fork");
-	// if (philo->philo_num != (philo->main->arg_info.num_of_philo - 1))
-	// if (philo->philo_num % 2)
-	// {
-	// 	pthread_mutex_lock(&philo->main->fork[philo->l_fork]);
-	// 	philo_print(philo, "pick_up fork");
-	// 	pthread_mutex_lock(&philo->main->fork[philo->r_fork]);
-	// 	philo_print(philo, "pick_up fork");
-	// }
-	// else
-	// {
-	// 	pthread_mutex_lock(&philo->main->fork[philo->r_fork]);
-	// 	philo_print(philo, "pick_up fork");
-	// 	pthread_mutex_lock(&philo->main->fork[philo->l_fork]);
-	// 	philo_print(philo, "pick_up fork");
-	// }
+	philo_print(philo, "pick_up fork", 0);
+	pthread_mutex_lock(&philo->main->fork[philo->r_fork]);
+	philo_print(philo, "pick_up fork", 0);
 }
 
 void	eat(t_philo *philo)
 {
+	pthread_mutex_lock(&(philo->mutex_eat));
+	philo_print(philo, "eating", 0);
 	philo->philo_time = get_time();
-	philo_print(philo, "eating");
-	usleep(1000 * philo->main->arg_info.time_to_eat);
+	while (!philo->main->stop && \
+	get_time() - philo->philo_time <= philo->main->arg_info.time_to_eat)
+		usleep(1000);
 	philo->count_eat++;
+	pthread_mutex_unlock(&(philo->mutex_eat));
 }
 
 void	return_fork(t_philo *philo)
 {
 	pthread_mutex_unlock(&philo->main->fork[philo->l_fork]);
-	philo_print(philo, "return fork");
 	pthread_mutex_unlock(&philo->main->fork[philo->r_fork]);
-	philo_print(philo, "return fork");
-	// if (philo->philo_num != philo->main->arg_info.num_of_philo - 1)
-	// if (philo->philo_num % 2)
-	// {
-	// 	pthread_mutex_unlock(&philo->main->fork[philo->l_fork]);
-	// 	philo_print(philo, "return fork");
-	// 	pthread_mutex_unlock(&philo->main->fork[philo->r_fork]);
-	// 	philo_print(philo, "return fork");
-	// }
-	// else
-	// {
-	// 	pthread_mutex_unlock(&philo->main->fork[philo->r_fork]);
-	// 	philo_print(philo, "return fork");
-	// 	pthread_mutex_unlock(&philo->main->fork[philo->l_fork]);
-	// 	philo_print(philo, "return fork");
-	// }
 }
 
 void	sleeping(t_philo *philo)
 {
-	int	i;
+	int	time;
 
-	i = -1;
-	philo_print(philo, "sleeping");
-	usleep(1000 * philo->main->arg_info.time_to_sleep);
-	// while (!philo->main->stop && ++i < philo->main->arg_info.time_to_sleep)
-	// 	usleep(1000);	
+	philo_print(philo, "sleeping", 0);
+	time = get_time();
+	while (!philo->main->stop && \
+	get_time() - time <= philo->main->arg_info.time_to_sleep)
+		usleep(1000);
 }
