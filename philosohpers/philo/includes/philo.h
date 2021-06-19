@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:35:11 by skim              #+#    #+#             */
-/*   Updated: 2021/06/19 20:00:43 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/19 21:12:23 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct			s_philo
 	int					count_eat;
 	int					l_fork;
 	int					r_fork;
-	long				philo_time;
+	int					philo_time;
 }				 		t_philo;
 
 typedef struct			s_arginfo
@@ -49,7 +49,7 @@ typedef	struct			s_main
 	pthread_mutex_t		text;
 	int					stop;
 	int					done_philo;
-	long				start_time;
+	int					start_time;
 }						t_main;
 
 int						ft_putendl_fd(char *s, int fd);
