@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 21:53:21 by skim              #+#    #+#             */
-/*   Updated: 2021/06/20 22:22:41 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/21 01:12:07 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,22 @@ int		init_philo(t_main *main)
 		return (-1);
 	sem_unlink("text");
 	sem_unlink("fork");
+	sem_unlink("stop");
+	sem_unlink("done");
 	main->text = sem_open("text", O_CREAT, 0644, 1);
-	main->fork = sem_open("fork", O_CREAT, 0644, main->num_of_philo);
+	main->fork = sem_open("fork", O_CREAT, 0644, main->arg_info.num_of_philo);
+	main->sem_stop = sem_open("stop", O_CREAT, 0644, 0);
+	main->done = sem_open("done", O_CREAT, 0644, 1);
 	main->stop = 0;
 	main->done_philo = 0;
 	i = -1;
 	while (++i < main->arg_info.num_of_philo)
 	{
+		main->philo[i].tmp_name = 
+		sem_unlink()
+		main->philo[i].sem_eat 
 		main->philo[i].main = main;
-		main->philo[i].philo_dead = 0;
+		main->philo[i].philo_died = 0;
 		main->philo[i].philo_num = i;
 		main->philo[i].count_eat = 0;
 	}
@@ -74,7 +81,7 @@ int		main(int ac, char *av[])
 		return (-1);
 	if (init_philo(&main) < 0)
 		return (ft_putendl_fd("Error : init_philo", 2));
-	// philo(&main);
-	// exit_process(&main);
+	philo_bonus(&main);
+	exit_process(&main);
 	return (0);
 }

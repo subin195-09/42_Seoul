@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 17:01:58 by skim              #+#    #+#             */
-/*   Updated: 2021/06/20 22:19:56 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/21 01:13:29 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,19 @@
 # include <pthread.h>
 # include <semaphore.h>
 # include <sys/time.h>
+# include <signal.h>
 
-typedef struct		s_philo{
-	pid_t			pid;
-	struct s_main	*main;
-	int				philo_dead;
-	int				philo_num;
-	int				count_eat;
-	int				philo_time;
-}					t_philo;
+typedef struct			s_philo
+{
+	pid_t				pid;
+	struct s_main		*main;
+	sem_t				*sem_eat;
+	char				*tmp_name;
+	int					philo_died;
+	int					philo_num;
+	int					count_eat;
+	int					philo_time;
+}						t_philo;
 
 typedef struct			s_arginfo
 {
@@ -45,7 +49,7 @@ typedef	struct			s_main
 	struct s_philo		*philo;
 	sem_t				*fork;
 	sem_t				*text;
-	sem_t				*died;
+	sem_t				*sem_stop;
 	sem_t				*done;
 	int					stop;
 	int					done_philo;
@@ -56,5 +60,19 @@ int						ft_putendl_fd(char *s, int fd);
 size_t					ft_strlen(const char *str);
 int						ft_atoi(const char *str);
 void					ft_putnbr_fd(int n, int fd);
+char					*ft_strjoin(char *s1, char *s2);
+
+int						philo_bonus(t_main *main);
+void					exit_process(t_main *main);
+
+void					get_fork(t_philo *philo);
+void					eat(t_philo *philo);
+void					return_fork(t_philo *philo);
+void					sleeping(t_philo *philo);
+
+int						get_time(void);
+void					philo_print(t_philo *philo, char *s, int type);
+void					philo_print_done(t_main *main);
+char					*make_sem_name(t_philo *philo);
 
 #endif
