@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 21:53:21 by skim              #+#    #+#             */
-/*   Updated: 2021/06/19 21:18:58 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/20 22:22:41 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,10 @@ int		init_philo(t_main *main)
 	i = -1;
 	while (++i < main->arg_info.num_of_philo)
 	{
-		tmp_name = ft_itoa(i + 1);
-		sem_unlink(tmp_name);
-		main->ph[i].p_se_eat = sem_open(tmp_name, O_CREAT, 0644, 1);
 		main->philo[i].main = main;
+		main->philo[i].philo_dead = 0;
 		main->philo[i].philo_num = i;
 		main->philo[i].count_eat = 0;
-		free(tmp_name);
 	}
 	return (0);
 }

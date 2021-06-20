@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_utils.c                                      :+:      :+:    :+:   */
+/*   philo_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 21:41:45 by skim              #+#    #+#             */
-/*   Updated: 2021/06/10 17:02:17 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/20 22:25:35 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,20 @@ long	get_time(void)
 	return (rt);
 }
 
-void	sema_print(t_philo *ph, char *s, int ph_num, int died)
+void	sem_print(t_philo *philo, char *s, int type)
 {
 	long	diff_time;
 
-	sem_wait(ph->info->text);
-	diff_time = get_time() - ph->info->start_time;
-	printf("%ldms\tPhilosopher(%d) : %s", diff_time, ph_num + 1, s);
-	if (died == 1)
+	sem_wait(philo->main->text);
+	if (philo->philo_dead)
+	{
+		sem_post(philo->main->text);
 		return ;
-	sem_post(ph->info->text);
+	}
+	diff_time = get_time() - philo->main->start_time;
+	printf("%dms\tPhilosopher(%d) : %s\n", \
+	diff_time, philo->philo_num + 1, s);
+	if (type)
+		philo->philo_dead = 1;
+	sem_post(philo->main->text);
 }

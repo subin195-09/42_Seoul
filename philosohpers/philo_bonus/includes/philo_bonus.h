@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 17:01:58 by skim              #+#    #+#             */
-/*   Updated: 2021/06/19 21:13:07 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/20 22:19:56 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 # include <sys/time.h>
 
 typedef struct		s_philo{
-	pthread_t		p_th;
-	sem_t			*p_se_eat;
+	pid_t			pid;
 	struct s_main	*main;
+	int				philo_dead;
 	int				philo_num;
 	int				count_eat;
 	int				philo_time;
