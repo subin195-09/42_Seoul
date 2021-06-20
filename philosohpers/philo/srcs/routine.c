@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 20:58:06 by skim              #+#    #+#             */
-/*   Updated: 2021/06/19 20:25:36 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/20 23:00:04 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ void	eat(t_philo *philo)
 	pthread_mutex_lock(&(philo->mutex_eat));
 	philo_print(philo, "eating", 0);
 	philo->philo_time = get_time();
+	pthread_mutex_unlock(&(philo->mutex_eat));
 	while (!philo->main->stop && \
 	get_time() - philo->philo_time <= philo->main->arg_info.time_to_eat)
 		usleep(1000);
 	philo->count_eat++;
-	pthread_mutex_unlock(&(philo->mutex_eat));
 }
 
 void	return_fork(t_philo *philo)
