@@ -6,17 +6,32 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 21:53:21 by skim              #+#    #+#             */
-/*   Updated: 2021/06/21 01:12:07 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/21 19:33:27 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
+void	init_each_philo(t_main *main)
+{
+	int	i;
+
+	i = -1;
+	while (++i < main->arg_info.num_of_philo)
+	{
+		main->philo[i].tmp_name = make_sem_name(&main->philo[i]);
+		sem_unlink(main->philo[i].tmp_name);
+		main->philo[i].sem_eat = \
+		sem_open(main->philo[i].tmp_name, O_CREAT, 0644, 1);
+		main->philo[i].main = main;
+		main->philo[i].philo_died = 0;
+		main->philo[i].philo_num = i;
+		main->philo[i].count_eat = 0;
+	}
+}
+
 int		init_philo(t_main *main)
 {
-	char	*tmp_name;
-	int		i;
-
 	main->philo = malloc(sizeof(t_philo) * main->arg_info.num_of_philo);
 	if (!main->philo)
 		return (-1);
@@ -30,17 +45,7 @@ int		init_philo(t_main *main)
 	main->done = sem_open("done", O_CREAT, 0644, 1);
 	main->stop = 0;
 	main->done_philo = 0;
-	i = -1;
-	while (++i < main->arg_info.num_of_philo)
-	{
-		main->philo[i].tmp_name = 
-		sem_unlink()
-		main->philo[i].sem_eat 
-		main->philo[i].main = main;
-		main->philo[i].philo_died = 0;
-		main->philo[i].philo_num = i;
-		main->philo[i].count_eat = 0;
-	}
+	init_each_philo(main);
 	return (0);
 }
 

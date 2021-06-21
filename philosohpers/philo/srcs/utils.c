@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 18:46:13 by skim              #+#    #+#             */
-/*   Updated: 2021/06/19 20:00:29 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/21 19:26:35 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int		ft_putendl_fd(char *s, int fd)
 		return (1);
 }
 
-void		write_num(long long temp, int fd)
+void	write_num(long long temp, int fd)
 {
 	char	temp_write;
 
@@ -70,7 +70,7 @@ void		write_num(long long temp, int fd)
 	}
 }
 
-void		ft_putnbr_fd(int n, int fd)
+void	ft_putnbr_fd(int n, int fd)
 {
 	long long	temp;
 

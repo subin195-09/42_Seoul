@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 17:33:28 by skim              #+#    #+#             */
-/*   Updated: 2021/06/21 01:10:17 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/21 19:30:48 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_strdup(const char *src)
 	return (dest);
 }
 
-static int	count_num(int n)
+int		count_num(int n)
 {
 	int count;
 
@@ -44,7 +44,7 @@ static int	count_num(int n)
 	return (count);
 }
 
-char		*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	char		*result;
 	long long	temp;
@@ -68,6 +68,20 @@ char		*ft_itoa(int n)
 		temp /= 10;
 	}
 	return (result);
+}
+
+void	*ft_memcpy(void *dest, const void *src, size_t size)
+{
+	unsigned char	*d;
+	unsigned char	*s;
+
+	if (!dest && !src)
+		return (0);
+	d = (unsigned char *)dest;
+	s = (unsigned char *)src;
+	while (size--)
+		*d++ = *s++;
+	return (dest);
 }
 
 char	*ft_strjoin(char *s1, char *s2)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:39:17 by skim              #+#    #+#             */
-/*   Updated: 2021/06/19 19:16:10 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/21 15:59:48 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,6 @@ int		main(int ac, char *av[])
 	if (init_philo(&main) < 0)
 		return (ft_putendl_fd("Error : init_philo", 2));
 	philo(&main);
-	// 나중에 꼭 지울 것 //
-	for(int i = 0; i < main.arg_info.num_of_philo; i++)
-		printf("%d philo : %d\n", i+1, main.philo[i].count_eat);
-	// 나중에 꼭 지울 것 //
 	exit_thread(&main);
 	return (0);
 }

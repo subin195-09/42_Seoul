@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 21:41:45 by skim              #+#    #+#             */
-/*   Updated: 2021/06/21 01:09:49 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/21 19:28:41 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,5 @@ char	*make_sem_name(t_philo *philo)
 	char	*name;
 
 	name = ft_strdup("philo");
-	return (ft_strjoin(name, ft_itoa(philo->philo_num));	
+	return (ft_strjoin(name, ft_itoa(philo->philo_num)));
 }

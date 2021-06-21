@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:35:11 by skim              #+#    #+#             */
-/*   Updated: 2021/06/19 21:12:23 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/21 19:26:10 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct			s_philo
 	int					l_fork;
 	int					r_fork;
 	int					philo_time;
-}				 		t_philo;
+}						t_philo;
 
 typedef struct			s_arginfo
 {

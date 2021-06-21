@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skim <skim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 18:52:08 by skim              #+#    #+#             */
-/*   Updated: 2021/06/19 20:25:53 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/21 19:27:17 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	if (!(philo->philo_num  % 2))
+	if (!(philo->philo_num % 2))
 		usleep(1000 * philo->main->arg_info.time_to_sleep);
 	while (!philo->main->stop)
 	{
 		if (philo->main->stop)
-			break;
+			break ;
 		get_fork(philo);
 		eat(philo);
 		return_fork(philo);
@@ -64,7 +64,7 @@ void	*routine(void *arg)
 			break ;
 		sleeping(philo);
 		if (philo->main->stop)
-			break;
+			break ;
 		philo_print(philo, "thinking", 0);
 	}
 	return (0);

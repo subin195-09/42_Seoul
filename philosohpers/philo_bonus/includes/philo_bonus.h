@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 17:01:58 by skim              #+#    #+#             */
-/*   Updated: 2021/06/21 01:13:29 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/21 19:46:49 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 typedef struct			s_philo
 {
 	pid_t				pid;
-	struct s_main		*main;
 	sem_t				*sem_eat;
+	struct s_main		*main;
 	char				*tmp_name;
 	int					philo_died;
 	int					philo_num;
@@ -59,11 +59,13 @@ typedef	struct			s_main
 int						ft_putendl_fd(char *s, int fd);
 size_t					ft_strlen(const char *str);
 int						ft_atoi(const char *str);
-void					ft_putnbr_fd(int n, int fd);
+char					*ft_itoa(int n);
 char					*ft_strjoin(char *s1, char *s2);
+char					*ft_strdup(const char *src);
 
 int						philo_bonus(t_main *main);
 void					exit_process(t_main *main);
+int						done_check(t_main *main);
 
 void					get_fork(t_philo *philo);
 void					eat(t_philo *philo);
