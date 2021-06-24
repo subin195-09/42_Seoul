@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 19:41:32 by skim              #+#    #+#             */
-/*   Updated: 2021/06/21 19:47:46 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/24 14:15:52 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	*is_done(void *arg)
 
 int		done_check(t_main *main)
 {
-	pthread_t   done_th;
-	
+	pthread_t	done_th;
+
 	if (pthread_create(&done_th, 0, is_done, (void *)main))
 		return (-1);
 	pthread_detach(done_th);

@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/20 21:04:48 by skim              #+#    #+#             */
-/*   Updated: 2021/06/21 19:47:01 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/24 14:16:37 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,13 @@ int		routine(void *arg)
 
 int		philo_bonus(t_main *main)
 {
-	int         i;
-	int			status;
+	int	i;
+	int	status;
 
 	main->start_time = get_time();
 	if (main->arg_info.num_must_eat > 0)
-	{
 		if (done_check(main) < 0)
 			return (ft_putendl_fd("Error : thread", 2));
-	}
 	i = -1;
 	while (++i < main->arg_info.num_of_philo)
 	{
