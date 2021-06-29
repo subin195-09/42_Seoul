@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 18:52:08 by skim              #+#    #+#             */
-/*   Updated: 2021/06/21 19:27:17 by skim             ###   ########.fr       */
+/*   Updated: 2021/06/24 14:34:13 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	if (!(philo->philo_num % 2))
-		usleep(1000 * philo->main->arg_info.time_to_sleep);
+		usleep(1000 * philo->main->arg_info.time_to_eat);
 	while (!philo->main->stop)
 	{
 		if (philo->main->stop)

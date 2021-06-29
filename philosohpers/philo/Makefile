@@ -2,7 +2,6 @@ NAME = philo
 
 SRCS_DIR = ./srcs
 INC_DIR = ./includes
-OBJS_DIR = ./objs
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
@@ -19,6 +18,5 @@ clean :
 	@rm -rf $(NAME)
 
 fclean : clean
-	@rm -rf $(OBJS_DIR)
 
 re : fclean all
