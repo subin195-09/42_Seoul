@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 15:50:15 by skim              #+#    #+#             */
-/*   Updated: 2021/07/01 17:59:53 by skim             ###   ########.fr       */
+/*   Updated: 2021/07/01 18:44:22 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 # define PHONEBOOK
 
 #include <cstring>
+#include <cctype>
 #include <iostream>
 #include <iomanip>
+#include <sstream>
 
 class   Phonebook {
 	private:
