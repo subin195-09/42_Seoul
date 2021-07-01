@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 16:01:42 by skim              #+#    #+#             */
-/*   Updated: 2021/07/01 18:43:24 by skim             ###   ########.fr       */
+/*   Updated: 2021/07/01 18:58:20 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,25 @@ void	setString(std::string info)
 		std::cout << "|" << std::setw(10) << std::right << info;
 }
 
-int		checkIndex(std::string index, int size)
+int		getIndex(int size)
 {
 	int	i;
 	
-	for (i = 0; index[i]; i++)
+	std::cout << "Enter index to get full page : ";
+	std::cin >> i;
+	if (std::cin.fail() || i < 1 || i >= size + 1)
 	{
-		if (!isdigit(index[i]))
-			return (0);
+		std::cout << "Wrong Index" << std::endl;
+		std::cin.clear();
+		std::cin.ignore(256, '\n'); 
+		return getIndex(size);
 	}
-	std::stringstream(index) >> i;
-	if (i < 1 || i >= size + 1)
-		return (0);
-	return (1);
+	else
+		return i;
 }
 
 void    searchInfo(Phonebook pb[8], int size)
 {
-	std::string	index;
 	int			i;
 	
 	std::cout << "|----------|----------|----------|----------|" << std::endl;
@@ -51,12 +52,11 @@ void    searchInfo(Phonebook pb[8], int size)
 		pb[i].showShortInfo(i);
 		std::cout << "|----------|----------|----------|----------|" << std::endl;
 	}
-	std::cout << "Enter index to get full page : ";
-	std::cin >> index;
-	if (!checkIndex(index, size))
-		std::cout << "Wrong Index" << std::endl;
-	else
+	if (size > 0)
+	{
+		i = getIndex(size);
 		pb[i - 1].showInfo();
+	}
 }
 
 int     main(void)
