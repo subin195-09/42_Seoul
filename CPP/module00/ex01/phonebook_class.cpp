@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   class_function.c                                   :+:      :+:    :+:   */
+/*   phonebook_class.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 17:57:51 by skim              #+#    #+#             */
-/*   Updated: 2021/07/01 17:58:28 by skim             ###   ########.fr       */
+/*   Updated: 2021/07/01 21:09:18 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,37 @@
 void    Phonebook::getInfo()
 {
 	std::cout << "firstName : ";
-	std::cin >> firstName;
+	getline(std::cin, firstName);
+	
 	std::cout << "lastName : ";
-	std::cin >> lastName;
+	getline(std::cin, lastName);
+	
 	std::cout << "nickName : ";
-	std::cin >> nickName;
+	getline(std::cin, nickName);
+	
 	std::cout << "login : ";
-	std::cin >> login;
+	getline(std::cin, login);
+	
 	std::cout << "postalAddress : ";
-	std::cin >> postalAddress;
+	getline(std::cin, postalAddress);
+	
 	std::cout << "emailAddress : ";
-	std::cin >> emailAddress;
+	getline(std::cin, emailAddress);
+	
 	std::cout << "phoneNumber : ";
-	std::cin >> phoneNumber;
+	getline(std::cin, phoneNumber);
+	
 	std::cout << "birthdayDate : ";
-	std::cin >> birthdayDate;
+	getline(std::cin, birthdayDate);
+	
 	std::cout << "favoriteMeal : ";
-	std::cin >> favoriteMeal;
+	getline(std::cin, favoriteMeal);
+	
 	std::cout << "underwearColor : ";
-	std::cin >> underwearColor;
+	getline(std::cin, underwearColor);
+	
 	std::cout << "darkestSecret : ";
-	std::cin >> darkestSecret;
+	getline(std::cin, darkestSecret);
 }
 
 void    Phonebook::showInfo()

@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 16:01:42 by skim              #+#    #+#             */
-/*   Updated: 2021/07/01 18:58:20 by skim             ###   ########.fr       */
+/*   Updated: 2021/07/01 21:32:18 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void    searchInfo(Phonebook pb[8], int size)
 	{
 		i = getIndex(size);
 		pb[i - 1].showInfo();
+		std::cin.ignore();
 	}
 }
 
@@ -64,12 +65,14 @@ int     main(void)
 	Phonebook	pb[8];
 	std::string	com;
 	int         i;
+	int			j;
 	
 	i = 0;
+	j = 0;
 	while (1)
 	{
 		std::cout << "Enter a command : ";
-		std::cin >> com;
+		getline(std::cin, com);
 		if (com == "ADD")
 		{
 			if (i == 8)
