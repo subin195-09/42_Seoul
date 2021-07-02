@@ -6,12 +6,12 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 15:50:15 by skim              #+#    #+#             */
-/*   Updated: 2021/07/01 18:44:22 by skim             ###   ########.fr       */
+/*   Updated: 2021/07/02 15:35:50 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK
-# define PHONEBOOK
+#ifndef PHONEBOOK_H
+# define PHONEBOOK_H
 
 #include <cstring>
 #include <cctype>
