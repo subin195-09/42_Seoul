@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/04 17:35:31 by skim              #+#    #+#             */
-/*   Updated: 2021/07/04 18:34:30 by skim             ###   ########.fr       */
+/*   Updated: 2021/07/04 19:39:11 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 std::string	randomName()
 {
 	std::string	name;
-	int		i;
 
 	name += (char)(rand() % 26 + 'A');
 	name += (char)(rand() % 10 + '0');
@@ -26,7 +25,6 @@ std::string	randomName()
 Zombie	*randomChump()
 {
 	Zombie *zombie = ZombieEvent::newZombie(randomName());
-	ZombieEvent::setZombieType(zombie);
 	zombie->announce();
 	return (zombie);
 }
@@ -34,14 +32,14 @@ Zombie	*randomChump()
 int		main(void)
 {
 	srand((unsigned int)time(NULL));
-	Zombie s_zombie = Zombie("stack_zombie");
-	s_zombie.type = "stack_type";
+	Zombie s_zombie = Zombie("stack_zombie", "stack_type");
 	s_zombie.announce();
 
-	Zombie *h_zombie[10];
+	Zombie *h_zombie;
 	for(int i = 0; i < 10; i++)
-		h_zombie[i] = randomChump();
-	for (int i = 0; i < 10; i++)
-		delete h_zombie[i];
+	{
+		h_zombie = randomChump();
+		delete h_zombie;
+	}
 	return (0);
 }

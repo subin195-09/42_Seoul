@@ -6,7 +6,7 @@
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/04 17:11:40 by skim              #+#    #+#             */
-/*   Updated: 2021/07/04 18:19:37 by skim             ###   ########.fr       */
+/*   Updated: 2021/07/04 19:38:49 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 
 class	ZombieEvent{
 	public:
-		static Zombie	*newZombie(std::string name);
-		static void	setZombieType(Zombie *zombie);
+		static Zombie		*newZombie(std::string name);
+		static std::string	setZombieType(void);
 };
 
 #endif

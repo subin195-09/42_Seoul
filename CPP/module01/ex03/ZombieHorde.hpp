@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Zombie.cpp                                         :+:      :+:    :+:   */
+/*   ZombieHorde.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/04 17:03:07 by skim              #+#    #+#             */
-/*   Updated: 2021/07/04 19:38:23 by skim             ###   ########.fr       */
+/*   Created: 2021/07/04 19:32:09 by skim              #+#    #+#             */
+/*   Updated: 2021/07/04 19:56:56 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef ZOMBIEHORDE_H
+#define ZOMBIEHORDE_H
+
 #include "Zombie.hpp"
 
-Zombie::Zombie(std::string _name, std::string _type)
-{
-    name = _name;
-    type = _type;
-}
+class	ZombieHorde{
+	private:
+		Zombie	**horde;
+		int		size;
+	public:
+		ZombieHorde(int _size);
+		~ZombieHorde();
+};
 
-void    Zombie::announce(void)
-{
-    std::cout << "<" + name + " (" + type + ")> Braiiiiiinnss..." << std::endl;
-}
-
-Zombie::~Zombie()
-{
-    std::cout << "<" + name + " (" + type + ")> die!!!" << std::endl;
-}
+#endif

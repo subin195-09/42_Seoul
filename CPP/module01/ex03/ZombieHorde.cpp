@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ZombieEvent.cpp                                    :+:      :+:    :+:   */
+/*   ZombieHorde.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skim <skim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/04 17:19:40 by skim              #+#    #+#             */
-/*   Updated: 2021/07/04 19:38:45 by skim             ###   ########.fr       */
+/*   Created: 2021/07/04 19:50:10 by skim              #+#    #+#             */
+/*   Updated: 2021/07/04 20:02:54 by skim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ZombieEvent.hpp"
+#include "ZombieHorde.hpp"
 
-std::string	ZombieEvent::setZombieType(void)
+std::string	randomType(void)
 {
 	std::string	type[10];
 
@@ -29,9 +29,29 @@ std::string	ZombieEvent::setZombieType(void)
 	return (type[rand() % 10]);
 }
 
-Zombie		*ZombieEvent::newZombie(std::string name)
+std::string	randomName(void)
 {
-	Zombie	*zombie = new Zombie(name, setZombieType());
+	std::string	name;
+
+	name += (char)(rand() % 26 + 'A');
+	name += (char)(rand() % 10 + '0');
 	
-	return (zombie);
+	return (name);
+}
+
+ZombieHorde::ZombieHorde(int _size)
+{
+	size = _size;
+	for(int i = 0; i < size; i++)
+	{
+		horde[i] = new Zombie(randomName(), randomType());
+		std::cout << i;
+		horde[i]->announce();
+	}
+}
+
+ZombieHorde::~ZombieHorde()
+{
+	for(int i = 0; i < size; i++)
+		delete horde[i];
 }
