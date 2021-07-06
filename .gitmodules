@@ -1,4 +1,33 @@
 [submodule "42_CPP"]
 	path = 42_CPP
 	url = https://github.com/subin195-09/42_CPP.git
-
+[submodule "42_inception"]
+	path = 42_inception
+	url = https://github.com/subin195-09/42_inception.git
+[submodule "42_philosohpers"]
+	path = 42_philosohpers
+	url = https://github.com/subin195-09/42_philosohpers.git
+[submodule "42_ft_server"]
+	path = 42_ft_server
+	url = https://github.com/subin195-09/42_ft_server.git
+[submodule "42_GNL"]
+	path = 42_GNL
+	url = https://github.com/subin195-09/42_GNL.git
+[submodule "42_push_swap"]
+	path = 42_push_swap
+	url = https://github.com/subin195-09/42_push_swap.git
+[submodule "42_library"]
+	path = 42_library
+	url = https://github.com/subin195-09/42_library.git
+[submodule "42_cud3D"]
+	path = 42_cud3D
+	url = https://github.com/subin195-09/42_cud3D.git
+[submodule "42_minishell"]
+	path = 42_minishell
+	url = https://github.com/subin195-09/42_minishell.git
+[submodule "42_ft_printf"]
+	path = 42_ft_printf
+	url = https://github.com/subin195-09/42_ft_printf.git
+[submodule "42_Exam"]
+	path = 42_Exam
+	url = https://github.com/subin195-09/42_Exam.git
